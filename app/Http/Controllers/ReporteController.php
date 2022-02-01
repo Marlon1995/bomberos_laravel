@@ -1,0 +1,496 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Especies;
+use App\Exports\CierreCajaExport;
+use App\System;
+use App\User;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Maatwebsite\Excel\Excel;
+
+class ReporteController extends Controller
+{
+    function __construct()
+    {
+        $this->middleware(['authUser','roles:3,5,7,8']);
+    }
+
+    public function index(){
+         $data = System::all();
+         return view( 'report', compact('data') );
+
+    }
+
+    public function reporte1(){
+        $reporte = DB::table('otros_pagos')
+            ->join('client', 'client.id', 'otros_pagos.client_id')
+            ->join('tipos_pago', function ($join) {
+                $join->on('tipos_pago.id', 'otros_pagos.tipoPago')
+                    ->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+            })
+            ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
+            ->select(   'ruc',
+                'razonSocial',
+                'formaspago.nombre as formaspago',
+                'tipos_pago.nombre as tipos_pago',
+                'valor',
+               'otros_pagos.year_now',
+               'otros_pagos.numPermisoFuncionamiento',
+               'otros_pagos.numTransaccion',
+               'valor','otros_pagos.recargo',
+                'otros_pagos.created_at')
+            ->whereNotIn('tipos_pago.id', [2])
+            ->where('otros_pagos.estado','=', 8)
+            ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
+            ->orderBy('otros_pagos.created_at', 'desc')
+            ->get();
+
+        $cobros= DB::table('otros_cobros')
+            ->leftJoin('formaspago','formaspago.id','otros_cobros.formaPago_id')
+            ->select('ruc',
+                'razonSocial',
+                'direccion',
+                'telefono',
+                
+                'formaspago.nombre as tipos_pago',
+                'valor',
+                'otros_cobros.id' ,
+                'year_now',
+                'porcenjatetasa',
+                'representanteLegal',
+                'descripcion',
+                'otros_cobros.created_at')
+           ->where('otros_cobros.created_at','like', date("Y-m-d").'%' )
+            ->where('otros_cobros.estado','=',8)
+
+            ->get();
+
+
+
+        $especie = Especies::where('estado','=','1')
+            ->where('created_at','like', date("Y-m-d").'%' )
+            ->get();
+
+        $doc = "";
+        $pdf = PDF::loadView('report/reporte1' , [
+                                                    "reporte" => $reporte,
+                                                    "cobros"  => $cobros,
+                                                    "especie" => $especie
+                                                ])->setPaper('A4');
+        return $pdf->stream($doc . '.pdf');
+        
+    }
+    public function cierreCajaExcel(){
+
+        $file = "CIERRE DE CAJA DIARIO".now()->toDateTimeString();
+        return \Maatwebsite\Excel\Facades\Excel::download( new CierreCajaExport() , $file.'.xlsx');
+        //return Excel::download(new CierreCajaExport,'demo.xlsx');
+    }
+
+    public function reporte2(){
+          $reporte = DB::table('otros_pagos')
+            ->join('client', 'client.id', 'otros_pagos.client_id')
+            ->join('tipos_pago', function ($join) {
+                $join->on('tipos_pago.id', 'otros_pagos.tipoPago')
+                    ->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+            })
+            ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
+            ->select(   'ruc',
+                'razonSocial',
+                'formaspago.nombre as formaspago',
+                'tipos_pago.nombre as tipos_pago',
+                'valor',
+                'otros_pagos.created_at')
+            ->whereNotIn('tipos_pago.id', [2])
+            ->where('otros_pagos.estado','=', 8)
+            ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
+            ->where('otros_pagos.created_at','<=', date("Y-m-d H:i:s") )
+            ->orderBy('otros_pagos.created_at', 'desc')
+            ->get();
+
+        $doc = "";
+        $pdf = PDF::loadView('report/reporte2' , ["reporte" => $reporte]);
+         return $pdf->stream($doc . '.pdf');
+
+
+    }
+    public function reporte3(){
+
+
+        $doc = "titulo reporte";
+        $pdf = PDF::loadView('report/reporte3');
+        return $pdf->stream($doc . '.pdf');
+
+
+    }
+    public function reporte4(){
+        $reporte = DB::table('client', 'cli')
+            ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
+            ->join('categorias', 'cli.categoria_id', 'categorias.id')
+            ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
+            ->select('cli.id'
+                , 'cli.ruc'
+                , 'cli.razonSocial'
+                , 'cli.representanteLegal'
+                , 'parroquias.descripcion as parroquia'
+                , 'cli.telefono'
+                , 'cli.barrio'
+                , 'cli.referencia'
+            )
+            ->whereIn('cli.estado', [4])
+            ->orderBy('parroquias.descripcion', 'ASC')
+            ->get();
+        $doc = "";
+        $pdf = PDF::loadView('report/reporte4' , ["reporte" => $reporte]);
+        return $pdf->stream($doc . '.pdf');
+
+
+    }
+
+
+
+    public function reporte5(){
+        $reporte = DB::table('client', 'cli')
+            ->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')
+            ->select('cli.id'
+                , 'cli.ruc'
+                , 'cli.razonSocial'
+                , 'cli.representanteLegal'
+                , 'otros_pagos.year_now as anio'
+                ,'otros_pagos.valor'
+                ,'otros_pagos.numPermisoFuncionamiento'
+                ,'otros_pagos.created_at'
+            )
+            ->where('otros_pagos.numPermisoFuncionamiento', '<>', null)
+            ->where('cli.estado', '=', 8)
+            //->where('otros_pagos.estado', '=', 8)
+            //->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
+            ->orderBy('otros_pagos.created_at', 'desc')
+            ->orderBy('otros_pagos.year_now', 'desc')
+            ->get();
+
+
+        $doc = "";
+        $pdf = PDF::loadView('report/reporte5' , ["reporte" => $reporte])->setPaper('A4', 'landscape');
+        return $pdf->stream($doc . '.pdf');
+
+    }
+
+    public function reporteParroquias(){
+        $reporte = DB::table('client', 'cli')
+            ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
+            ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
+            ->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')
+
+            ->select('cli.id'
+                , 'cli.ruc'
+                , 'cli.razonSocial'
+                , 'cli.representanteLegal'
+                , 'parroquias.descripcion  as parroquia'
+                , 'cli.barrio'
+                , 'cli.telefono'
+                , 'cli.referencia'
+                , 'denominaciones.descripcion as denominacion'
+                 , 'otros_pagos.year_now as anio'
+                ,'otros_pagos.valor'
+                ,'otros_pagos.created_at'
+            )
+            ->where('otros_pagos.numPermisoFuncionamiento', '<>', null)
+            ->where('cli.estado', '=', 8)
+            ->where('otros_pagos.estado', '<>', 1)
+            ->orderBy('parroquias.descripcion', 'desc')
+            ->orderBy('otros_pagos.year_now', 'desc')
+            ->get();
+
+
+
+
+        $doc = "";
+        $pdf = PDF::loadView('report/reporteParroquias' , ["reporte" => $reporte])->setPaper('A4', 'landscape');;
+        return $pdf->stream($doc . '.pdf');
+
+    }
+
+
+    public function reporte6(){
+        $data = System::all();
+        return view('report/reporte6'  ,compact('data') );
+
+    }
+    public function reporte7(){
+        $data = System::all();
+        return view('report'  ,compact('data') );
+
+    }
+
+    public function reportePorFechas( Request $request ){
+
+        $fechas = $request->input('reservation');
+        $fecha1 = substr($fechas, 0, -13);
+        $fecha2 = substr($fechas, 13);
+
+        $fecha1_c = date('Y-m-d', strtotime($fecha1));
+        $fecha2_c = date('Y-m-d', strtotime($fecha2));
+
+        $rangos = array(
+            "r1" => $fecha1_c,
+            "r2" => $fecha2_c
+        );
+
+         $reporte = DB::table('otros_pagos')
+            ->join('client', 'client.id', 'otros_pagos.client_id')
+            ->join('tipos_pago', function ($join) {
+                $join->on('tipos_pago.id', 'otros_pagos.tipoPago')
+                    ->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+            })
+            ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
+            ->select(   'ruc',
+                'razonSocial',
+                'formaspago.nombre as formaspago',
+                'tipos_pago.nombre as tipos_pago',
+                'valor',
+                'otros_pagos.created_at')
+            ->whereNotIn('tipos_pago.id', [2])
+            ->where('otros_pagos.estado','=', 8)
+            ->where('otros_pagos.created_at','>=', $fecha1_c.'%' )
+            ->where('otros_pagos.created_at','<=', $fecha2_c.'%' )
+            ->orderBy('otros_pagos.created_at', 'desc')
+            ->get();
+        $doc = "";
+        $pdf = PDF::loadView('report/reportepofechas' , ["reporte" => $reporte,
+                                                        'rangos' => $rangos]);
+        return $pdf->stream($doc . '.pdf');
+
+    }
+
+
+
+
+    public function reporteContadorDiario( $tipe , $date){
+
+        $array = [ "tipe" => $tipe,   "date" => date("Y-m-d", strtotime($date) ) ];
+
+
+        if( $array['tipe'] == 'ccdiarios' ) {
+            $doc = "";
+            $reporte = DB::table('otros_pagos')
+                ->join('client', 'client.id', 'otros_pagos.client_id')
+                ->join('tipos_pago', function ( $join ) {
+                $join->on('tipos_pago.id', 'otros_pagos.tipoPago')->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+            })
+                ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
+                ->select('ruc', 'razonSocial', 'otros_pagos.numPermisoFuncionamiento','otros_pagos.numTransaccion','year_now','formaspago.nombre as formaspago', 'tipos_pago.nombre as tipos_pago', 'valor','otros_pagos.recargo', 'otros_pagos.created_at','otros_pagos.year_now','otros_pagos.numPermisoFuncionamiento','otros_pagos.numTransaccion')
+                ->whereNotIn('tipos_pago.id', [ 2 ])
+                ->where('otros_pagos.estado', '=', 8)
+                ->where('otros_pagos.created_at', 'like', $array['date'] . '%')
+                ->orderBy('otros_pagos.created_at', 'desc')->get();
+            $cobros= DB::table('otros_cobros')
+                ->leftJoin('formaspago','formaspago.id','otros_cobros.formaPago_id')
+                ->select('ruc',
+                    'razonSocial',
+                    'direccion',
+                    'telefono',
+                       'year_now' ,
+
+                    'formaspago.nombre as tipos_pago',
+                    'valor',
+                    'otros_cobros.id' ,
+                    'year_now',
+                    'porcenjatetasa',
+                    'representanteLegal',
+                    'descripcion',
+                    'otros_cobros.created_at')
+                ->where('otros_cobros.created_at', 'like', $array['date'] . '%')
+                ->where('otros_cobros.estado','=',8)
+                ->get();
+
+            $especie = Especies::where('estado','=','1')
+                ->where('created_at','like', $array['date'] .'%' )
+                ->get();
+
+
+            $pdf = PDF::loadView('report/reporte1', [ "reporte" => $reporte ,"cobros"  => $cobros ,'especie' => $especie])->setPaper('A4');
+          
+            return $pdf->stream($doc . '.pdf');
+        }elseif ( $array['tipe'] == 'remitidos' ) {
+
+            $reporte = DB::table('client', 'cli')
+                ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
+                ->join('categorias', 'cli.categoria_id', 'categorias.id')
+                ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
+                ->select('cli.id'
+                    , 'cli.ruc'
+                    , 'cli.razonSocial'
+                    , 'cli.representanteLegal'
+                    , 'parroquias.descripcion as parroquia'
+                    , 'cli.telefono'
+                    , 'cli.barrio'
+                    , 'cli.referencia'
+                    , 'cli.created_at'
+                )
+                ->whereIn('cli.estado', [4])
+                ->orderBy('parroquias.descripcion', 'ASC')
+                ->where('cli.created_at', 'like', $array['date'] . '%')
+                ->get();
+            $doc = "";
+            $pdf = PDF::loadView('report/reporte4' , ["reporte" => $reporte]);
+            return $pdf->stream($doc . '.pdf');
+
+            
+        }elseif( $array['tipe'] == 'permisos' ) {
+            $reporte = DB::table('client', 'cli')
+                ->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')
+                ->select('cli.id'
+                    , 'cli.ruc'
+                    , 'cli.razonSocial'
+                    , 'cli.representanteLegal'
+                    , 'otros_pagos.year_now as anio'
+                    ,'otros_pagos.valor'
+                    ,'otros_pagos.numPermisoFuncionamiento'
+                    ,'otros_pagos.created_at'
+                )
+                ->where('otros_pagos.numPermisoFuncionamiento', '<>', null)
+                ->where('cli.estado', '=', 8)
+                 ->where('otros_pagos.created_at','like', $array['date'].'%' )
+                ->orderBy('otros_pagos.created_at', 'desc')
+                ->orderBy('otros_pagos.year_now', 'desc')
+                ->get();
+
+            $doc = "";
+            $pdf = PDF::loadView('report/reporte5' , ["reporte" => $reporte])->setPaper('A4', 'landscape');
+            return $pdf->stream($doc . '.pdf');
+        }elseif( $array['tipe'] == 'parroquias' ) {
+            $reporte = DB::table('client', 'cli')->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')->join('parroquias', 'cli.parroquia_id', 'parroquias.id')->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')->select('cli.id', 'cli.ruc', 'cli.razonSocial', 'cli.representanteLegal', 'parroquias.descripcion  as parroquia', 'cli.barrio', 'cli.telefono', 'cli.referencia', 'denominaciones.descripcion as denominacion', 'otros_pagos.year_now as anio', 'otros_pagos.valor', 'otros_pagos.created_at')->where('otros_pagos.numPermisoFuncionamiento', '<>', null)->where('cli.estado', '=', 8)->where('otros_pagos.estado', '<>', 1)->where('otros_pagos.created_at', 'like', $array['date'] . '%')->orderBy('parroquias.descripcion', 'desc')->get();
+
+            $doc = "";
+            $pdf = PDF::loadView('report/reporteParroquias' , ["reporte" => $reporte]);
+            return $pdf->stream($doc . '.pdf');
+        }
+
+
+
+    }
+
+    public function reporteContadorSemanal( $tipe , $fechaInicial , $fechaFinal) {
+
+        $array = [ "tipe" => $tipe,  "fechaInicial"  => date("Y-m-d", strtotime($fechaInicial) ),    "fechaFinal"    => date("Y-m-d", strtotime($fechaFinal) )       ];
+
+
+
+        if( $array['tipe'] == 'ccdiarios' ) {
+            $doc = "";
+            $reporte = DB::table('otros_pagos')
+                ->join('client', 'client.id', 'otros_pagos.client_id')
+                ->join('tipos_pago', function ( $join ) {
+                    $join->on('tipos_pago.id', 'otros_pagos.tipoPago')->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+                })
+                ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
+                ->select('ruc', 'razonSocial', 'otros_pagos.numPermisoFuncionamiento','otros_pagos.numTransaccion','year_now', 'formaspago.nombre as formaspago', 'tipos_pago.nombre as tipos_pago', 'valor','otros_pagos.recargo', 'otros_pagos.created_at')
+                ->whereNotIn('tipos_pago.id', [ 2 ])
+                ->where('otros_pagos.estado', '=', 8)
+                ->where('otros_pagos.created_at','>=', $array['fechaInicial'].'%' )
+                ->where('otros_pagos.created_at','<=', $array['fechaFinal'].'%' )
+
+                ->orderBy('otros_pagos.created_at', 'desc')->get();
+            $cobros= DB::table('otros_cobros')
+                ->leftJoin('formaspago','formaspago.id','otros_cobros.formaPago_id')
+                ->select('ruc',
+                    'razonSocial',
+                    'direccion',
+                    'telefono',
+
+                    'formaspago.nombre as tipos_pago',
+                    'valor',
+                    'otros_cobros.id' ,
+                    'year_now',
+                    'porcenjatetasa',
+                    'representanteLegal',
+                    'descripcion',
+                    'otros_cobros.created_at')
+                ->where('otros_cobros.created_at','>=', $array['fechaInicial'].'%' )
+                ->where('otros_cobros.created_at','<=', $array['fechaFinal'].'%' )
+                ->where('otros_cobros.estado','=',8)
+                ->get();
+
+            $especie = Especies::where('estado','=','1')
+                ->where('created_at','like', $array['fechaInicial'] .'%' )
+                ->where('created_at','like', $array['fechaFinal'] .'%' )
+                ->get();
+
+
+
+            $pdf = PDF::loadView('report/reporte1', [ "reporte" => $reporte ,"cobros"  => $cobros , 'especie' => $especie])->setPaper('A4');
+            return $pdf->stream($doc . '.pdf');
+        }elseif ( $array['tipe'] == 'remitidos' ) {
+
+            $reporte = DB::table('client', 'cli')
+                ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
+                ->join('categorias', 'cli.categoria_id', 'categorias.id')
+                ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
+                ->select('cli.id'
+                    , 'cli.ruc'
+                    , 'cli.razonSocial'
+                    , 'cli.representanteLegal'
+                    , 'parroquias.descripcion as parroquia'
+                    , 'cli.telefono'
+                    , 'cli.barrio'
+                    , 'cli.referencia'
+                    , 'cli.created_at'
+                )
+                ->whereIn('cli.estado', [4])
+                ->orderBy('parroquias.descripcion', 'ASC')
+                ->where('cli.created_at','>=', $array['fechaInicial'].'%' )
+                ->where('cli.created_at','<=', $array['fechaFinal'].'%' )
+
+                ->get();
+
+            $doc = "";
+            $pdf = PDF::loadView('report/reporte4' , ["reporte" => $reporte]);
+            return $pdf->stream($doc . '.pdf');
+        }elseif( $array['tipe'] == 'permisos' ) {
+            $reporte = DB::table('client', 'cli')
+                ->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')
+                ->select('cli.id'
+                    , 'cli.ruc'
+                    , 'cli.razonSocial'
+                    , 'cli.representanteLegal'
+                    , 'otros_pagos.year_now as anio'
+                    ,'otros_pagos.valor'
+                    ,'otros_pagos.numPermisoFuncionamiento'
+                    ,'otros_pagos.created_at'
+                )
+                ->where('otros_pagos.numPermisoFuncionamiento', '<>', null)
+                ->where('cli.estado', '=', 8)
+                ->where('otros_pagos.created_at','>=', $array['fechaInicial'].'%' )
+                ->where('otros_pagos.created_at','<=', $array['fechaFinal'].'%' )
+                ->orderBy('otros_pagos.created_at', 'desc')
+                ->orderBy('otros_pagos.year_now', 'desc')
+                ->get();
+
+            $doc = "";
+            $pdf = PDF::loadView('report/reporte5' , ["reporte" => $reporte])->setPaper('A4', 'landscape');
+            return $pdf->stream($doc . '.pdf');
+        }elseif( $array['tipe'] == 'parroquias' ) {
+            $reporte = DB::table('client', 'cli')->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')->join('parroquias', 'cli.parroquia_id', 'parroquias.id')->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')->select('cli.id', 'cli.ruc', 'cli.razonSocial', 'cli.representanteLegal', 'parroquias.descripcion  as parroquia', 'cli.barrio', 'cli.telefono', 'cli.referencia', 'denominaciones.descripcion as denominacion', 'otros_pagos.year_now as anio', 'otros_pagos.valor', 'otros_pagos.created_at')->where('otros_pagos.numPermisoFuncionamiento', '<>', null)->where('cli.estado', '=', 8)
+                ->where('otros_pagos.estado', '<>', 1)
+                ->where('otros_pagos.created_at', '>=', $array['fechaInicial'] . '%')
+                ->where('otros_pagos.created_at', '<=', $array['fechaFinal'] . '%')
+
+                ->orderBy('parroquias.descripcion', 'desc')->get();
+
+            $doc = "";
+            $pdf = PDF::loadView('report/reporteParroquias' , ["reporte" => $reporte])->setPaper('A4', 'landscape');
+            return $pdf->stream($doc . '.pdf');
+        }
+
+
+
+
+    }
+
+    }

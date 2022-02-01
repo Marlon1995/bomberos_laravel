@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'/>
+		<title>Simple Autosize for textareas</title>
+		<style>
+			textarea {
+				padding: 10px;
+				vertical-align: top;
+				width: 200px;
+			}
+			textarea:focus {
+				outline-style: solid;
+				outline-width: 2px;
+			}
+		</style>
+
+<link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	</head>
+	<body>
+		<h3>max-height 300px</h3>
+		<textarea style='max-height: 300px'>The coconut palm (also, cocoanut), Cocos nucifera, is a member of the family Arecaceae (palm family). It is the only accepted species in the genus Cocos.[2] The term coconut can refer to the entire coconut palm, the seed, or the fruit, which, botanically, is a drupe, not a nut. The spelling cocoanut is an archaic form of the word.[3] The term is derived from 16th-century Portuguese and Spanish coco, meaning "head" or "skull",[4] from the three small holes on the coconut shell that resemble human facial features.</textarea>
+
+		<h3>no max-height</h3>
+		<textarea>The coconut palm (also, cocoanut), Cocos nucifera, is a member of the family Arecaceae (palm family). It is the only accepted species in the genus Cocos.[2] The term coconut can refer to the entire coconut palm, the seed, or the fruit, which, botanically, is a drupe, not a nut. The spelling cocoanut is an archaic form of the word.[3] The term is derived from 16th-century Portuguese and Spanish coco, meaning "head" or "skull",[4] from the three small holes on the coconut shell that resemble human facial features.</textarea>
+	</body>
+	<script src='../dist/autosize.js'></script>
+	<script>
+		autosize(document.querySelectorAll('textarea'));
+	</script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<!-- Jquery -->
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<!-- Datepicker Files -->
+<link rel="stylesheet" href="{{asset('datePicker/css/bootstrap-datepicker3.css')}}">
+<link rel="stylesheet" href="{{asset('datePicker/css/bootstrap-standalone.css')}}">
+<script src="{{asset('datePicker/js/bootstrap-datepicker.js')}}"></script>
+<!-- Languaje -->
+<script src="{{asset('datePicker/locales/bootstrap-datepicker.es.min.js')}}"></script>
+
+</html>
