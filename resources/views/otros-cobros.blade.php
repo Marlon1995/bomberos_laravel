@@ -57,6 +57,7 @@
                                                         <th class="column-title saldo__pagos">TEL&Eacute;FONO</th>
                                                         <th class="column-title saldo__pagos">VALOR</th>
                                                         <th class="column-title saldo__pagos">FECHA</th>
+                                                        <th class="column-title saldo__pagos">AÑO</th>
                                                         <th class="column-title accion__pagos" align="center"></th>
                                                     </tr>
                                                     </thead>
@@ -77,6 +78,9 @@
                                                                 </label>
                                                             </td>
                                                             <td><label class="saldo__tbpagos">{{$item->created_at}}</label></td>
+                                                            <td>
+                                                                <label class="ruc__tbpagos">{{ $item->year_now }}</label>
+                                                            </td>
                                                             <td>
                                                                 <a class="btn btn-info" href="bill-DiferentPayments/{{ $item->id }}" target="_blank" > IMPRIMIR </a>
                                                             </td>
@@ -197,8 +201,13 @@
                                                                             <label class="col-form-label col-md-4 col-sm-4 label-align" for="anioPago">Año Pago</label>
                                                                             <div class="col-md-9 col-sm-9">
                                                                                 <select class="form-control" name="anioPago">
-                                                                                    <option value="2019">2019</option>
-                                                                                    <option value="2020" selected>2020</option>
+                                                                                    <option value="0" selected></option>
+                                                                                <?php
+                                                                                $fecha = date("Y");
+                                                                                for ($i=2019; $i <=$fecha ; $i++) { 
+                                                                                echo '<option value="'.$i.'">'.$i.'</option>';
+                                                                                }
+                                                                            ?>
                                                                                 </select>
                                                                             </div>
                                                                         </div>

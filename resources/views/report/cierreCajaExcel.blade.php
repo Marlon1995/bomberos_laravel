@@ -86,7 +86,7 @@ th {
                 @endphp
 
                 
-                @forelse( $arrayDATA as  $item )
+                @forelse( $reporte as  $item )
 
                 <tr>
                     <td colspan="1" class="body">{{$i++}}</td>

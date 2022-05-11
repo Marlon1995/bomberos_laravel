@@ -1,7 +1,8 @@
 <?php
 
 use App\Especies;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'ControllerProfile@index');
 
@@ -62,6 +63,8 @@ Route::get('dashboard', 'DataController@dashboard');;
 Route::get('report', 'ReporteController@index');
 Route::get('reporte1', 'ReporteController@reporte1'); //ciere de caja diario
 Route::get('cierre-caja-excel', 'ReporteController@cierreCajaExcel'); //ciere de caja diario
+Route::get('noemitidos', 'ReporteController@noemitidos');
+
 Route::get('reporte2', 'ReporteController@reporte2');
 Route::get('reporte3', 'ReporteController@reporte3');
 Route::get('reporte4', 'ReporteController@reporte4');
@@ -70,6 +73,8 @@ Route::get('reporteParroquias', 'ReporteController@reporteParroquias'); // permi
 Route::get('reportePorFechas', 'ReporteController@reportePorFechas'); // permisos
 Route::get('report-date', 'ReporteController@reporte6'); // permisos
 
+Route::get('/report/pdf', 'ClientsController@pdfcliente');
+Route::get('export/', 'ClientsController@export');
 
 Route::get('reporte-general', 'ReporteController@reporte7');
 Route::get('reporteContadorDiario/{tipo}/{fecha}', 'ReporteController@reporteContadorDiario'); //ciere de caja diario
@@ -103,7 +108,6 @@ Route::get('cajas', function (){
 
         //return $cobros;
      $cero = 0;
-     $arrayDATA[] = null;
     foreach( $reporte as $item ){
         $arrayDATA[] = [
         'fechaYHora'         => $item->created_at,

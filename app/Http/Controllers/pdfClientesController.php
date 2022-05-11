@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Requerimientos;
 use App\System;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +11,8 @@ class pdfClientesController extends Controller
     public function index(){
         return redirect('/');
     }
-    public function show($id) {
 
+    public function show($id) {
         $data = System::all();
         $requerimientos = DB::table('requerimientos')
             ->join('det_requerimientos','requerimientos.id','det_requerimientos.requerimiento_id')
@@ -50,10 +49,10 @@ class pdfClientesController extends Controller
             ->select(   'fotos_local.path' )
             ->where('client.id',$id)
             ->get();
-        $inspector = DB::table('users')->select(   'nombre','apellido' )->where('id',$client[0]->inspector_id) ->get();
+        $inspector = DB::table('users')->select('nombre','apellido' )->where('id',$client[0]->inspector_id) ->get();
 
-         //return view('formulario-cliente-pdf', compact('data','client','requerimientos','fotosLocal','inspector'));
-        $doc = "Formulario de Inspección";
+
+       $doc = "Formulario de Inspección";
         $pdf = PDF::loadView('formulario-cliente-pdf' ,[
                                                                 'data' => $data ,
                                                                 'client' => $client,
@@ -61,6 +60,8 @@ class pdfClientesController extends Controller
                                                                 'fotosLocal' => $fotosLocal,
                                                                 'inspector' => $inspector
                                                              ]);
-        return $pdf->stream($doc.'.pdf');
+        return $pdf->stream($doc, compact('data','client','requerimientos','fotosLocal','inspector'));
+       // return view('formulario-cliente-pdf', );
+        
     }
 }

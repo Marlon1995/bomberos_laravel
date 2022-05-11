@@ -19,7 +19,7 @@ class OtrosPagosController extends Controller
 
 
         $impuestos = DB::table('otros_cobros')
-             ->select('id', 'razonSocial', 'representanteLegal', 'ruc','telefono','created_at','valor','porcenjatetasa')
+             ->select('id', 'razonSocial', 'representanteLegal', 'ruc','telefono','created_at','valor','porcenjatetasa','year_now')
             ->where('estado','=',8)
             ->orderBy('created_at', 'desc')
 

@@ -63,6 +63,7 @@
                                         <th class="column-title">Dirección</th>
                                         <th class="column-title">Teléfono</th>
                                         <th class="column-title">Especie</th>
+                                        <th class="column-title">Descripcion</th>
                                         <th class="column-title">Valor</th>
                                         <th class="column-title"></th>
                                         <th class="column-title">EXONERACIONES</th>
@@ -80,6 +81,7 @@
                                             <td>{{ ($item->direccion) }}</td>
                                             <td>{{ ($item->telefono) }}</td>
                                             <td>{{ ($item->especie) }}</td>
+                                            <td>{{ ($item->descripcion) }}</td>
                                             <td>{{ ($item->cantidad*$item->valor) }}</td>
                                             <td>
                                                 <div class="btn-group">
@@ -209,6 +211,12 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="item form-group ">
+                                                        <label class="col-form-label col-md-4 col-sm-4 label-align" for="anioPago">DESCRIPCION</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" class="form-control " name="descripcion" placeholder="DESCRIPCION" required>
+                                                        </div>
+                                                    </div>
 
                                                     <div class="item form-group ">
                                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="anioPago">CANTIDAD</label>

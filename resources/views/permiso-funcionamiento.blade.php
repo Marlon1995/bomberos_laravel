@@ -9,21 +9,18 @@
 </head>
 <body>
 
-
-
-
-<!---
-
+<!--
  <style>
     .pf__items_logo {
         position: absolute;
         left: -65px;
         top: -75px;
         width: 118%;
+        background-image: url('./assets/images/Logo1.png')
     }
-</style>
-<img src="./assets/índice.jpeg"  class="pf__items_logo">
---->
+</style>-->
+<img src="./assets/images/Logo1.png"  class="pf__items_logo2">
+
 
 <style>
     html, body {
@@ -31,8 +28,9 @@
     }
     .pf__items_logo2 {
         position: absolute;
-        left: 425px;
-        top: -12px;
+        left: 125px;
+        top: 80px;
+        width: 20%;
     }
     .pf__items_titulo {
         position: absolute;
@@ -155,6 +153,9 @@
 
 
 
+<div class="pf__item_fecha2">
+    <small>&nbsp;&nbsp;&nbsp; Atacames, {{ now()->toDateTimeString()  }}</small>
+ </div>
 
 
 
@@ -184,7 +185,6 @@
         </div>
 
 
-
         <div class="pf__item_d">
             Conste por medio de la presente haber cancelado el <b>PERMISO DE FUNCIONAMIENTO</b>
             en esta Dependencia, de conformidad a lo que dispone el <b>Artículo 35 de la Ley de Defensa contra incendios </b>vigente,
@@ -200,9 +200,8 @@
         </div>
 
 <div class="pf__item_fecha">
-   <small>&nbsp;&nbsp;&nbsp; Atacames, {{ now()->toDateTimeString()  }}</small>
-</div>
-
+    <small>&nbsp;&nbsp;&nbsp; Atacames, {{ auth()->user()->created_at  }}</small>
+ </div>
 
 
 

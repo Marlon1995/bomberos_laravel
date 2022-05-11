@@ -48,6 +48,7 @@ class EspeciesController extends Controller
        $especies->direccion = $request->direccion;
        $especies->telefono = $request->telefono;
        $especies->especie = $request->especie;
+       $especies->descripcion = $request->descripcion;
        $especies->cantidad = $request->cantidad;
        $especies->valor = $request->valor;
        $especies->estado = 1;

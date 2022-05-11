@@ -23,11 +23,11 @@ class RolsController extends Controller
     public function index()
     {
         $data = System::all();
-        $rols = DB::table('roles')
+        $roles = DB::table('roles')
             ->select('roles.id','roles.key','roles.role','roles.descripcion','roles.estado')
             ->orderBy('roles.role','ASC')
             ->get();
-         return view( 'rols' , compact('data','rols') );
+         return view( 'rols' , compact('data','roles') );
     }
 
     /**

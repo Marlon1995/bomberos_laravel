@@ -152,9 +152,9 @@ class PaymentsController extends Controller
             if ($tipoPago == 2) {
 
 
-                $file = $request->file('docemtnoRespaldo');
+                $file = $request->file('documentoRespaldo');
                 $docRespaldo = time() . $file->getClientOriginalName();
-                $file->move(public_path() . '/dicumentosRespaldo/', $docRespaldo);
+                $file->move(public_path(). '/documentosRespaldo/', $docRespaldo);
 
 
 

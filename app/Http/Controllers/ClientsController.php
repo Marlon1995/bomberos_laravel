@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AuditoriaModel;
 use App\Client;
+use App\Exports\ClientExport;
 use App\Mail\MailTrap;
 use App\Requerimientos;
 use App\System;
@@ -11,7 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use phpDocumentor\Reflection\Types\Null_;
+use Barryvdh\DomPDF\Facade as PDF;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClientsController extends Controller {
 
@@ -498,6 +500,38 @@ class ClientsController extends Controller {
 
     }
 
+    public function pdfcliente(){
+        $reporte = DB::table('client', 'cli')
+            ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
+            ->join('categorias', 'cli.categoria_id','=', 'categorias.id')
+            ->select('categorias.descripcion')
+            ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
+            ->select('cli.id'
+                , 'cli.ruc'
+                , 'cli.razonSocial'
+                , 'cli.representanteLegal'
+                , 'parroquias.descripcion as parroquia'
+                , 'cli.telefono'
+                , 'cli.barrio'
+                , 'cli.referencia'
+                , 'cli.inspector_id'
+                , 'cli.categoria_id'
+                , 'categorias.descripcion'
+            )
+            ->whereIn('cli.estado', [4])
+            ->orderBy('parroquias.descripcion', 'ASC')
+            ->get();
+        $doc = "";
+        $pdf = PDF::loadView('report/pdf' , ["reporte" => $reporte]);
+        return $pdf->stream($doc . '.pdf');
+    }
+
+ 
+
+    public function export(){
+        $file4 = "REPORTE DEL INSPECTOR".now()->toDateTimeString();
+        return \Maatwebsite\Excel\Facades\Excel::download( new ClientExport , $file4.'.xlsx');
+    }
 
 }
 

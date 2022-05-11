@@ -37,7 +37,6 @@ class CierreCajaExport implements FromView
     
             //return $cobros;
          $cero = 0;
-         $arrayDATA[] = null;
         foreach( $reporte as $item ){
             $arrayDATA[] = [ 
             'fechaYHora'         => $item->created_at,
@@ -132,7 +131,7 @@ class CierreCajaExport implements FromView
         }  
  
       
-        return view('report/cierreCajaExcel', ['arrayDATA' => $arrayDATA]);
+        return view('report/cierreCajaExcel', ['reporte' => $reporte]);
 
       
     }

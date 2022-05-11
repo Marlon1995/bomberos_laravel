@@ -1,18 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Formulario de Inspección</title>
-
-</head>
-<body>
-
-
-<!-- page content -->
-<style>
+    <style>
     html, body{
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     }
@@ -108,383 +101,385 @@
         margin: 0px 50px 0px;
         font-size: 14px;
     }
-</style>
+    .border_table 
+    { 
+        border: 0; 
+        font-size: 11px
+    }  
+    .rep_footer
+    { 
+        width: 100%; 
+    } 
+    .rep_footer__firmas
+    { 
+        font-size: 10px; 
+    } 
+    .rep_footer__logo
+    { 
+        opacity: .4; 
+        width: 10%
+    } 
 
+    </style>
+</head>
 
+<body>
+    <div class="rep_membrete">
+        <img class="rep__logo" src="./assets/img/icons/{{ $data[0]->logo}}" >
+        <div class="rep__titulo">&nbsp; CUERPO DE BOMBEROS<br>DEL CANT&Oacute;N ATACAMES</div>
+        <p class="rep__detalle_articulo">ACUERDO MINISTERIAL No. 1616 DEL 29 DE OCTUBRE DE 1997 <br> &nbsp;&nbsp; &nbsp;
+                                         REGISTRO OFICIAL No. 741 DEL 29 DE ENERO DEL 2019 <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                         RUC: 0860050690001   </p>
+    </div>
 
+    <br><br><br><br><br><br>
 
-        <div class="rep_membrete">
-            <img class="rep__logo" src="./assets/img/icons/{{ $data[0]->logo}}" >
-            <div class="rep__titulo">&nbsp; CUERPO DE BOMBEROS<br>DEL CANT&Oacute;N ATACAMES</div>
-            <p class="rep__detalle_articulo">ACUERDO MINISTERIAL No. 1616 DEL 29 DE OCTUBRE DE 1997 <br> &nbsp;&nbsp; &nbsp;
-                                             REGISTRO OFICIAL No. 741 DEL 29 DE ENERO DEL 2019 <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                             RUC: 0860050690001   </p>
-        </div>
-
-        <br><br><br><br><br><br>
-
-        <div class="rep_perfil_detalle">
-            <span class="num"><b>Nro.</b> {{$client[0]->id}}</span>
-
-            <div class="rep_caja_roja">
-                <div class="rep_caja_roja__titulo_1">FORMULARIO DE INSPECCIÓN</div>
-            </div>
-
-            <div class="rep_fecha">
-                <span class="rep_fecha_span">FECHA:  @php echo date("d/m/Y", strtotime( $client[0]->created_at  )) @endphp </span>
-                <span class="rep_fecha_span">HORA:  @php echo date("H:i:s", strtotime( $client[0]->created_at  )) @endphp </span>
-
-                @if( $client[0]->tipoFormulario == 1 )
-                    <span class="rep_fecha_span">INSPECCIÓN: SI </span>
-                    <span class="rep_fecha_span">RE INSPECCIÓN: NO</span>
-                @endif
-                @if( $client[0]->tipoFormulario == 2 )
-                    <span class="rep_fecha_span">INSPECCIÓN: NO</span>
-                    <span class="rep_fecha_span">RE INSPECCIÓN: SI</span>
-                @endif
-
-
-            </div>
-            <div class="rep_caja_roja__titulo_1"> &nbsp; &nbsp; INFORMACIÓN GENERAL</div>
-
-            <p class="rep_perfil_input">RUC: <span>{{$client[0]->ruc}}</span></p>
-            <p class="rep_perfil_input">RAZÓN SOCIAL-NOMBRE COMERCIAL: &nbsp; &nbsp; &nbsp;
-                                        <span>@php echo strtoupper($client[0]->razonSocial)  @endphp </span>
-            </p>
-            <p class="rep_perfil_input">REPRESENTANTE LEGAL- PROPIETARIO: <span> @php echo strtoupper($client[0]->representanteLegal)  @endphp</span> </p>
-            <p class="rep_perfil_input">Nº. TELÉFONO: &nbsp; &nbsp; <span>{{$client[0]->telefono}}</span></p>
-            <p class="rep_perfil_input">CORREO ELECTRÓNICO: <span> {{$client[0]->email}}</span></p>
-
-            <p class="rep_perfil_input">PARROQUIA: &nbsp; &nbsp; &nbsp; &nbsp;<span>@php echo strtoupper($client[0]->parroquia)  @endphp </span> &nbsp; &nbsp; &nbsp; &nbsp;
-                                        BARRIO: <span>@php echo strtoupper($client[0]->barrio)  @endphp </span> &nbsp; &nbsp; &nbsp; &nbsp;
-                                        REFERENCIA: <span>@php echo strtoupper($client[0]->referencia)  @endphp </span>
-            </p>
-            <p class="rep_perfil_input">CATEGOR&Iacute;A: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span>{{$client[0]->categoria}}</span> &nbsp; &nbsp; &nbsp; &nbsp;
-                                        DENOMINACI&Oacute;N: <span>{{$client[0]->denominacion}}</span>
-            </p>
-            <p class="rep_perfil_input">RIESGO: <span> {{$client[0]->riesgo}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OBSERVACIÓN: <span>{{ empty($client[0]->descripcion) ? ' --' : $client[0]->descripcion }}</span></p>
-         </div>
+    <div class="rep_perfil_detalle">
+        <span class="num"><b>Nro.</b> {{$client[0]->id}}</span>
 
         <div class="rep_caja_roja">
-            <div class="rep_caja_roja__titulo_1">REQUERIMIENTOS ESENCIALES</div>
+            <div class="rep_caja_roja__titulo_1">FORMULARIO DE INSPECCIÓN</div>
         </div>
 
-        <div class="rep_perfil_tabla">
-        <p class="rep_perfil_tabla__titulo"><b>RIESGOS DE INCENDIO </b></p>
+        <div class="rep_fecha">
+            <span class="rep_fecha_span">FECHA:  @php echo date("d/m/Y", strtotime( $client[0]->created_at  )) @endphp </span>
+            <span class="rep_fecha_span">HORA:  @php echo date("H:i:s", strtotime( $client[0]->created_at  )) @endphp </span>
 
-            <table id="tbInstacionesElectricas" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                <tr>
-                    <th class="cb-header-registe_description"><span class="cb-header-registe_description_">INSTALACIONES EL&Eacute;CTRICAS</span></th>
-                    <th class="cb-header-register__resp"> RESPUESTA</th>
-                    <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-                </tr>
-                </thead>
-                <tbody>
-                @forelse ($requerimientos as $item)
-                    @if($item->tipoRequerimiento == 'INSTALACIONES ELECTRICAS')
-                        <tr>
-                            <td>{{$item->descripcion}}</td>
-                            <td>
-                                @if( $item->respuesta == 1 )
-                                    &nbsp; &nbsp; &nbsp;  SI
-                                @endif
-                                @if( $item->respuesta == 0 )
-                                    &nbsp; &nbsp; &nbsp; NO
-                                @endif
-                            </td>
-                            <td>{{$item->observacion}}</td>
-                        </tr>
-                    @endif
-                @empty
-                @endforelse
-                </tbody>
-            </table>
-
-            <table id="tbAlmacenamiento" class="table table-striped table-bordered" style="width:100%" border="1">
-                <thead>
-                <tr>
-                    <th class="cb-header-registe_description"><span class="cb-header-registe_description_">INSTALACIONES EL&Eacute;CTRICAS</span></th>
-                    <th class="cb-header-register__resp"> RESPUESTA</th>
-                    <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-                </tr>
-                </thead>
-                <tbody>
-                @forelse ($requerimientos as $item)
-                    @if($item->tipoRequerimiento == 'ALMACENAMIENTO')
-                        <tr>
-                            <td>{{$item->descripcion}}</td>
-                            <td>
-                                @if( $item->respuesta == 1 )
-                                    &nbsp; &nbsp; &nbsp;  SI
-                                @endif
-                                @if( $item->respuesta == 0 )
-                                    &nbsp; &nbsp; &nbsp; NO
-                                @endif
-                            </td>
-                            <td>{{$item->observacion}}</td>
-                        </tr>
-                    @endif
-                @empty
-                @endforelse
-                </tbody>
-            </table>
-
-            <table id="tbAlmaceammientoGLP" class="table table-striped table-bordered" style="width:100%" border="1">
-                <thead>
-                <tr>
-                    <th class="cb-header-registe_description"><span class="cb-header-registe_description_">ALMACENAMIENTO DE G.L.P.</span></th>
-                    <th class="cb-header-register__resp"> RESPUESTA</th>
-                    <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-                </tr>
-                </thead>
-                <tbody>
-                @forelse ($requerimientos as $item)
-                    @if($item->tipoRequerimiento == 'ALMACENAMIENTO DE G.L.P.')
-                        <tr>
-                            <td>{{$item->descripcion}}</td>
-                            <td>
-
-                                @if( $item->descripcion != 'CANTIDAD' )
-                                    @if( $item->respuesta == 1 )
-                                        &nbsp; &nbsp; &nbsp;  SI
-                                    @endif
-                                    @if( $item->respuesta == 0 )
-                                        &nbsp; &nbsp; &nbsp; NO
-                                    @endif
-                                @endif
-                                @if( $item->descripcion == 'CANTIDAD' )
-                                    &nbsp; &nbsp; &nbsp; {{$item->cantidad }}
-                                @endif
-                            </td>
-                            <td>{{$item->observacion}}</td>
-                        </tr>
-                    @endif
-                @empty
-                @endforelse
-                </tbody>
-            </table>
-
-            <table id="tbEquiposDeProteccion" class="table table-striped table-bordered" style="width:100%" border="1">
-                <thead>
-                <tr>
-                    <th class="cb-header-registe_description"><span class="cb-header-registe_description_">EQUIPOS DE PROTECCION Y CONTRA INCENDIOS</span></th>
-                    <th class="cb-header-register__resp"> RESPUESTA</th>
-                    <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-                </tr>
-                </thead>
-                <tbody>
-                @forelse ($requerimientos as $item)
-                    @if($item->tipoRequerimiento == 'EQUIPOS DE PROTECCION Y CONTRA INCENDIOS')
-                        <tr>
-                            <td>{{$item->descripcion}}</td>
-                            <td>
-
-                                @if( $item->descripcion != 'CANTIDAD' )
-                                    @if( $item->respuesta == 1 )
-                                        &nbsp; &nbsp; &nbsp;  SI
-                                    @endif
-                                    @if( $item->respuesta == 0 )
-                                        &nbsp; &nbsp; &nbsp; NO
-                                    @endif
-                                @endif
-                            </td>
-                            <td>{{$item->observacion}}</td>
-                        </tr>
-                    @endif
-                @empty
-                @endforelse
-                </tbody>
-            </table>
-
+            @if( $client[0]->tipoFormulario == 1 )
+                <span class="rep_fecha_span">INSPECCIÓN: SI </span>
+                <span class="rep_fecha_span">RE INSPECCIÓN: NO</span>
+            @endif
+            @if( $client[0]->tipoFormulario == 2 )
+                <span class="rep_fecha_span">INSPECCIÓN: NO</span>
+                <span class="rep_fecha_span">RE INSPECCIÓN: SI</span>
+            @endif
 
         </div>
-<br><br><br>
+        <div class="rep_caja_roja__titulo_1"> &nbsp; &nbsp; INFORMACIÓN GENERAL</div>
 
-        <div class="rep_perfil_tabla">
-            <p class="rep_perfil_tabla__titulo"><b>EXTINTORES </b></p>
+        <p class="rep_perfil_input">RUC: <span>{{$client[0]->ruc}}</span></p>
+        <p class="rep_perfil_input">RAZÓN SOCIAL-NOMBRE COMERCIAL: &nbsp; &nbsp; &nbsp;
+                                    <span>@php echo strtoupper($client[0]->razonSocial)  @endphp </span>
+        </p>
+        <p class="rep_perfil_input">REPRESENTANTE LEGAL- PROPIETARIO: <span> @php echo strtoupper($client[0]->representanteLegal)  @endphp</span> </p>
+        <p class="rep_perfil_input">Nº. TELÉFONO: &nbsp; &nbsp; <span>{{$client[0]->telefono}}</span></p>
+        <p class="rep_perfil_input">CORREO ELECTRÓNICO: <span> {{$client[0]->email}}</span></p>
 
-            <table id="tbExtintores" class="table table-striped table-bordered" style="width:100%" border="1">
-                <thead>
+        <p class="rep_perfil_input">PARROQUIA: &nbsp; &nbsp; &nbsp; &nbsp;<span>@php echo strtoupper($client[0]->parroquia)  @endphp </span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                    BARRIO: <span>@php echo strtoupper($client[0]->barrio)  @endphp </span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                    REFERENCIA: <span>@php echo strtoupper($client[0]->referencia)  @endphp </span>
+        </p>
+        <p class="rep_perfil_input">CATEGOR&Iacute;A: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span>{{$client[0]->categoria}}</span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                    DENOMINACI&Oacute;N: <span>{{$client[0]->denominacion}}</span>
+        </p>
+        <p class="rep_perfil_input">RIESGO: <span> {{$client[0]->riesgo}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OBSERVACIÓN: <span>{{ empty($client[0]->descripcion) ? ' --' : $client[0]->descripcion }}</span></p>
+     </div>
+
+    <div class="rep_caja_roja">
+        <div class="rep_caja_roja__titulo_1">REQUERIMIENTOS ESENCIALES</div>
+    </div>
+
+    <div class="rep_perfil_tabla">
+    <p class="rep_perfil_tabla__titulo"><b>RIESGOS DE INCENDIO </b></p>
+    </div>
+
+    <table id="tbInstacionesElectricas" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+        <tr>
+            <th class="cb-header-registe_description"><span class="cb-header-registe_description_">INSTALACIONES EL&Eacute;CTRICAS</span></th>
+            <th class="cb-header-register__resp"> RESPUESTA</th>
+            <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+        </tr>
+        </thead>
+        <tbody>
+        @forelse ($requerimientos as $item)
+            @if($item->tipoRequerimiento == 'INSTALACIONES ELECTRICAS')
                 <tr>
-                    <th class="cb-header-registe_description"><span class="cb-header-registe_description_">EXTINTORES</span></th>
-                    <th class="cb-header-register__resp"> P.Q.S.</th>
-                    <th class="cb-header-register__resp"> C. O. 2</th>
-                    <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+                    <td>{{$item->descripcion}}</td>
+                    <td>
+                        @if( $item->respuesta == 1 )
+                            &nbsp; &nbsp; &nbsp;  SI
+                        @endif
+                        @if( $item->respuesta == 0 )
+                            &nbsp; &nbsp; &nbsp; NO
+                        @endif
+                    </td>
+                    <td>{{$item->observacion}}</td>
                 </tr>
-                </thead>
-                <tbody>
-                @forelse ($requerimientos as $item)
-                    @if($item->tipoRequerimiento == 'EXTINTORES')
-                        <tr>
-                            <td>{{$item->descripcion}}</td>
+            @endif
+        @empty
+        @endforelse
+        </tbody>
+    </table>
+    <!--TABLA 2-->
+    <table id="tbAlmacenamiento" class="table table-striped table-bordered" style="width:100%" border="1">
+        <thead>
+        <tr>
+            <th class="cb-header-registe_description"><span class="cb-header-registe_description_">INSTALACIONES EL&Eacute;CTRICAS</span></th>
+            <th class="cb-header-register__resp"> RESPUESTA</th>
+            <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+        </tr>
+        </thead>
+        <tbody>
+        @forelse ($requerimientos as $item)
+            @if($item->tipoRequerimiento == 'ALMACENAMIENTO')
+                <tr>
+                    <td>{{$item->descripcion}}</td>
+                    <td>
+                        @if( $item->respuesta == 1 )
+                            &nbsp; &nbsp; &nbsp;  SI
+                        @endif
+                        @if( $item->respuesta == 0 )
+                            &nbsp; &nbsp; &nbsp; NO
+                        @endif
+                    </td>
+                    <td>{{$item->observacion}}</td>
+                </tr>
+            @endif
+        @empty
+        @endforelse
+        </tbody>
+    </table>
+    <!--TABLA 3-->
+    <table id="tbAlmaceammientoGLP" class="table table-striped table-bordered" style="width:100%" border="1">
+        <thead>
+        <tr>
+            <th class="cb-header-registe_description"><span class="cb-header-registe_description_">ALMACENAMIENTO DE G.L.P.</span></th>
+            <th class="cb-header-register__resp"> RESPUESTA</th>
+            <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+        </tr>
+        </thead>
+        <tbody>
+        @forelse ($requerimientos as $item)
+            @if($item->tipoRequerimiento == 'ALMACENAMIENTO DE G.L.P.')
+                <tr>
+                    <td>{{$item->descripcion}}</td>
+                    <td>
 
-                            @if( $item->descripcion != 'CANTIDAD' )
-                                <td colspan="2">
-                                    @if( $item->respuesta == 1 )
-                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  SI
-                                    @endif
-                                    @if( $item->respuesta == 0 )
-                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NO
-                                    @endif
-                                </td>
-                                <td rowspan="2" rows="4">
-                                    {{ $item->observacion }}
-                                </td>
-
+                        @if( $item->descripcion != 'CANTIDAD' )
+                            @if( $item->respuesta == 1 )
+                                &nbsp; &nbsp; &nbsp;  SI
                             @endif
-
-                            @if( $item->descripcion == 'CANTIDAD' )
-                                <td>
-                                    &nbsp; &nbsp; &nbsp; {{$item->cantidad }}
-                                </td>
-                                <td>
-                                    &nbsp; &nbsp; &nbsp; {{$item->cantidadB }}
-                                </td>
-
+                            @if( $item->respuesta == 0 )
+                                &nbsp; &nbsp; &nbsp; NO
                             @endif
-
-                        </tr>
-                    @endif
-                @empty
-                @endforelse
-                </tbody>
-            </table>
-
-            <table id="tbInstacionesElectricas" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                <tr>
-                    <th class="cb-header-registe_description"><span class="cb-header-registe_description_">INSTALACIONES EL&Eacute;CTRICAS</span></th>
-                    <th class="cb-header-register__resp"> RESPUESTA</th>
-                    <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+                        @endif
+                        @if( $item->descripcion == 'CANTIDAD' )
+                            &nbsp; &nbsp; &nbsp; {{$item->cantidad }}
+                        @endif
+                    </td>
+                    <td>{{$item->observacion}}</td>
                 </tr>
-                </thead>
-                <tbody>
-                @forelse ($requerimientos as $item)
-                    @if($item->tipoRequerimiento == 'INSTALACIONES ELECTRICAS')
-                        <tr>
-                            <td>{{$item->descripcion}}</td>
-                            <td>
-                                @if( $item->respuesta == 1 )
-                                    &nbsp; &nbsp; &nbsp;  SI
-                                @endif
-                                @if( $item->respuesta == 0 )
-                                    &nbsp; &nbsp; &nbsp; NO
-                                @endif
-                            </td>
-                            <td>{{$item->observacion}}</td>
-                        </tr>
-                    @endif
-                @empty
-                @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        <div class="rep_caja_roja">
-            <div class="rep_caja_roja__titulo_1">REQUERIMIENTOS SECUNDARIOS</div>
-        </div>
-
-        <div class="rep_perfil_tabla">
-
-            <table id="tbRecursos" class="table table-striped table-bordered" style="width:100%">
-                <thead>
+            @endif
+        @empty
+        @endforelse
+        </tbody>
+    </table>
+    <!-- TABLA 4 -->
+    <table id="tbEquiposDeProteccion" class="table table-striped table-bordered" style="width:100%" border="1">
+        <thead>
+        <tr>
+            <th class="cb-header-registe_description"><span class="cb-header-registe_description_">EQUIPOS DE PROTECCION Y CONTRA INCENDIOS</span></th>
+            <th class="cb-header-register__resp"> RESPUESTA</th>
+            <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+        </tr>
+        </thead>
+        <tbody>
+        @forelse ($requerimientos as $item)
+            @if($item->tipoRequerimiento == 'EQUIPOS DE PROTECCION Y CONTRA INCENDIOS')
                 <tr>
-                    <th class="cb-header-registe_description"><span class="cb-header-registe_description_">RECURSOS</span></th>
-                    <th class="cb-header-register__resp"> RESPUESTA</th>
-                    <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-                </tr>
-                </thead>
-                <tbody>
-                @forelse ($requerimientos as $item)
-                    @if($item->tipoRequerimiento == 'RECURSOS')
-                        <tr>
-                            <td>{{$item->descripcion}}</td>
-                            <td>
-                                @if( $item->respuesta == 1 )
-                                    &nbsp; &nbsp; &nbsp;  SI
-                                @endif
-                                @if( $item->respuesta == 0 )
-                                    &nbsp; &nbsp; &nbsp; NO
-                                @endif
-                            </td>
-                            <td>{{$item->observacion}}</td>
-                        </tr>
-                    @endif
-                @empty
-                @endforelse
-                </tbody>
-            </table>
+                    <td>{{$item->descripcion}}</td>
+                    <td>
 
-            <table id="tbCausales" class="table table-striped table-bordered" style="width:100%">
-                <thead>
+                        @if( $item->descripcion !== 'CANTIDAD' )
+                            @if( $item->respuesta == 1 )
+                                &nbsp; &nbsp; &nbsp;  SI
+                            @endif
+                            @if( $item->respuesta == 0 )
+                                &nbsp; &nbsp; &nbsp; NO
+                            @endif
+                        @endif
+                    </td>
+                    <td>{{$item->observacion}}</td>
+                </tr>
+            @endif
+        @empty
+        @endforelse
+        </tbody>
+    </table>
+<!-- TABLA DE EXTINTORES-->
+<div class="rep_perfil_tabla">
+    <p class="rep_perfil_tabla__titulo"><b>EXTINTORES </b></p>
+</div>
+    <table id="tbExtintores" class="table table-striped table-bordered" style="width:100%" border="1">
+        <thead>
+        <tr>
+            <th class="cb-header-registe_description"><span class="cb-header-registe_description_">EXTINTORES</span></th>
+            <th class="cb-header-register__resp"> P.Q.S.</th>
+            <th class="cb-header-register__resp"> C. O. 2</th>
+            <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+        </tr>
+        </thead>
+        <tbody>
+        @forelse ($requerimientos as $item)
+            @if($item->tipoRequerimiento == 'EXTINTORES')
                 <tr>
-                    <th class="cb-header-registe_description"><span class="cb-header-registe_description_">CAUSALES PARA RETIRO DE PERMISO DE FUNCIONAMIENTOS</span></th>
-                    <th class="cb-header-register__resp"> RESPUESTA</th>
-                    <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-                </tr>
-                </thead>
-                <tbody>
-                @forelse ($requerimientos as $item)
-                    @if($item->tipoRequerimiento == 'CAUSALES PARA RETIRO DE PERMISO DE FUNCIONAMIENTOS')
-                        <tr>
-                            <td>{{$item->descripcion}}</td>
-                            <td>
-                                @if( $item->respuesta == 1 )
-                                    &nbsp; &nbsp; &nbsp;  SI
-                                @endif
-                                @if( $item->respuesta == 0 )
-                                    &nbsp; &nbsp; &nbsp; NO
-                                @endif
-                            </td>
-                            <td>{{$item->observacion}}</td>
-                        </tr>
+                    <td>{{$item->descripcion}}</td>
+
+                    @if( $item->descripcion != 'CANTIDAD' )
+                        <td colspan="2">
+                            @if( $item->respuesta == 1 )
+                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  SI
+                            @endif
+                            @if( $item->respuesta == 0 )
+                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NO
+                            @endif
+                        </td>
+                        <td rowspan="2" rows="4">
+                            {{ $item->observacion }}
+                        </td>
+
                     @endif
-                @empty
-                @endforelse
-                </tbody>
-            </table>
 
-        </div>
+                    @if( $item->descripcion == 'CANTIDAD' )
+                        <td>
+                            &nbsp; &nbsp; &nbsp; {{$item->cantidad }}
+                        </td>
+                        <td>
+                            &nbsp; &nbsp; &nbsp; {{$item->cantidadB }}
+                        </td>
 
+                    @endif
 
-                            <p style="color: #ca1404">Nota: <small style="color:#2a3f54;"> Además, de cumplir con el pago del permiso del cuerpo de bomberos, tendrá que haber cancelado  las siguientes obligaciones:</small></p>
-                        <div class="rep_perfil_tabla">
+                </tr>
+            @endif
+        @empty
+        @endforelse
+        </tbody>
+    </table>
+    <table id="tbInstacionesElectricas" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+        <tr>
+            <th class="cb-header-registe_description"><span class="cb-header-registe_description_">INSTALACIONES EL&Eacute;CTRICAS</span></th>
+            <th class="cb-header-register__resp"> RESPUESTA</th>
+            <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+        </tr>
+        </thead>
+        <tbody>
+        @forelse ($requerimientos as $item)
+            @if($item->tipoRequerimiento == 'INSTALACIONES ELECTRICAS')
+                <tr>
+                    <td>{{$item->descripcion}}</td>
+                    <td>
+                        @if( $item->respuesta == 1 )
+                            &nbsp; &nbsp; &nbsp;  SI
+                        @endif
+                        @if( $item->respuesta == 0 )
+                            &nbsp; &nbsp; &nbsp; NO
+                        @endif
+                    </td>
+                    <td>{{$item->observacion}}</td>
+                </tr>
+            @endif
+        @empty
+        @endforelse
+        </tbody>
+    </table>
+    
+    <div class="rep_caja_roja">
+        <div class="rep_caja_roja__titulo_1">REQUERIMIENTOS SECUNDARIOS</div>
+    </div>
 
-                            @forelse ($requerimientos as $item)
-                                @if($item->tipoRequerimiento == 'OTROS')
+    <div class="rep_perfil_tabla">
+        <table id="tbRecursos" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+            <tr>
+                <th class="cb-header-registe_description"><span class="cb-header-registe_description_">RECURSOS</span></th>
+                <th class="cb-header-register__resp"> RESPUESTA</th>
+                <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse ($requerimientos as $item)
+                @if($item->tipoRequerimiento == 'RECURSOS')
+                    <tr>
+                        <td>{{$item->descripcion}}</td>
+                        <td>
+                            @if( $item->respuesta == 1 )
+                                &nbsp; &nbsp; &nbsp;  SI
+                            @endif
+                            @if( $item->respuesta == 0 )
+                                &nbsp; &nbsp; &nbsp; NO
+                            @endif
+                        </td>
+                        <td>{{$item->observacion}}</td>
+                    </tr>
+                @endif
+            @empty
+            @endforelse
+            </tbody>
+        </table>
 
-                                    <div>
-                                        {{$item->descripcion}} : &nbsp;&nbsp;&nbsp;
-                                        <span>
-                                             @if( $item->respuesta == 1 )
-                                                SI
-                                            @endif
-                                            @if( $item->respuesta == 0 )
-                                                NO
-                                            @endif
+        <table id="tbCausales" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+            <tr>
+                <th class="cb-header-registe_description"><span class="cb-header-registe_description_">CAUSALES PARA RETIRO DE PERMISO DE FUNCIONAMIENTOS</span></th>
+                <th class="cb-header-register__resp"> RESPUESTA</th>
+                <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse ($requerimientos as $item)
+                @if($item->tipoRequerimiento == 'CAUSALES PARA RETIRO DE PERMISO DE FUNCIONAMIENTOS')
+                    <tr>
+                        <td>{{$item->descripcion}}</td>
+                        <td>
+                            @if( $item->respuesta == 1 )
+                                &nbsp; &nbsp; &nbsp;  SI
+                            @endif
+                            @if( $item->respuesta == 0 )
+                                &nbsp; &nbsp; &nbsp; NO
+                            @endif
+                        </td>
+                        <td>{{$item->observacion}}</td>
+                    </tr>
+                @endif
+            @empty
+            @endforelse
+            </tbody>
+        </table>
+    </div>
+    <p style="color: #ca1404">Nota: <small style="color:#2a3f54;"> Además, de cumplir con el pago del permiso del cuerpo de bomberos, tendrá que haber cancelado  las siguientes obligaciones:</small></p>
+    <div class="rep_perfil_tabla">
 
-                                        </span>
-                                    </div>
+        @forelse ($requerimientos as $item)
+            @if($item->tipoRequerimiento == 'OTROS')
 
-                                @endif
-                            @empty
-                            @endforelse
-                        </div>
+                <div>
+                    {{$item->descripcion}} : &nbsp;&nbsp;&nbsp;
+                    <span>
+                         @if( $item->respuesta == 1 )
+                            SI
+                        @endif
+                        @if( $item->respuesta == 0 )
+                            NO
+                        @endif
 
+                    </span>
+                </div>
 
-
+            @endif
+        @empty
+        @endforelse
+    </div>
+<!-- ENCONTRAR ERROR-->
 @if( !empty($fotosLocal[0]->path) )
 
     <div style="height: 230px; "></div>
 
-
-
     <table class="border_table">
         <tr>
             <td  class="border_table"><p class="cjaFotosLocal">Fotos de Inspección</p></td>
-        </tr>
-        <tr>
             <td class="border_table">
                 <table class="border_table">
                     <tr>
@@ -529,31 +524,31 @@
     </table>
 @endif
 
-<style>.border_table { border: 0; font-size: 11px}  .rep_footer{ width: 100%; } .rep_footer__firmas{ font-size: 10px; } .rep_footer__logo{ opacity: .4; width: 10%} </style>
-
-    <table class="border_table">
+<table class="table table-striped|sm|bordered|hover|inverse table-inverse table-responsive">
+    <thead class="thead-inverse|thead-default">
         <tr>
-            <td class="border_table" colspan="2">________________________</td>
-            <td class="border_table" style="color: #ffffff">________________________</td>
-            <td class="border_table" colspan="2">________________________</td>
+            <th class="border_table" colspan="2">________________________</th>
+            <th ></th>
+            <th class="border_table" colspan="2">________________________</th>
         </tr>
-        <tr>
-            <td class="border_table"  colspan="2">
-                @php echo 'Inspector(a). '.strtoupper($inspector[0]->nombre.' '.$inspector[0]->apellido ) @endphp
-            </td>
-            <td class="border_table"></td>
-            <td class="border_table" colspan="2">
-                @php echo 'Sr(a). '.strtoupper($client[0]->representanteLegal); @endphp
-            </td>
-        </tr>
-
-        <tr>
-            <td class="border_table" colspan="2">INSPECTOR-RESPONSABLE</td>
-            <td class="border_table" style="color: #ffffff">________________________</td>
-            <td class="border_table" colspan="2">PROPIETARIO /ADMINISTRADOR</td>
-        </tr>
-
-    </table>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border_table"  colspan="2">
+                    @php echo 'Inspector(a). '.strtoupper( auth()->user()->nombre.' '.auth()->user()->apellido ) @endphp
+                </td>
+                <td></td>
+                <td class="border_table" colspan="2">
+                    @php echo 'Sr(a). '.strtoupper($client[0]->representanteLegal); @endphp
+                </td>
+            </tr>
+            <tr>
+                <td class="border_table" colspan="2">INSPECTOR-RESPONSABLE</td>
+                <td></td>
+                <td class="border_table" colspan="2">PROPIETARIO /ADMINISTRADOR</td>
+            </tr>
+        </tbody>
+</table>
 
     <div class="rep_footer">
         <img class="rep_footer__logo" src="./assets/img/icons/{{ $data[0]->logo}}" >

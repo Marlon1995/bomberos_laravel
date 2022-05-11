@@ -49,10 +49,10 @@ class clients_secretariaController extends Controller
         $id = $request->input('client_id');
 
         $name="";
-         if ($request->hasFile('respaldo')) {
-            $file = $request->file('respaldo');
+         if ($request->hasFile('documentoRespaldo')) {
+            $file = $request->file('documentoRespaldo');
             $name = time() . $file->getClientOriginalName();
-            $file->move(public_path() . '/dicumentosRespaldo/', $name);
+            $file->move(public_path() . '/documentosRespaldo/', $name);
 
         }
 

@@ -60,7 +60,7 @@
                        </tr>
                     </thead>
                     <tbody>
-                    @forelse ($rols as $item)
+                    @forelse ($roles as $item)
                         @if( $item->id != 1 )
 
                         <tr>

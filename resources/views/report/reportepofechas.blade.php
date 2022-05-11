@@ -76,6 +76,7 @@
     <tr>
         <th>CI - RUC</th>
         <th>RAZÓN SOCIAL</th>
+        <th>NOMBRE PROPIETARIO</th>
         <th>FORMA PAGO</th>
         <th>TIPO DE PAGO</th>
         <th>VALOR</th>
@@ -89,6 +90,7 @@
         <tr>
             <td>{{ $item->ruc }}</td>
             <td>{{ $item->razonSocial }}</td>
+            <td>{{ $item->representanteLegal }}</td>
             <td>{{ $item->formaspago }}</td>
             <td>{{ $item->tipos_pago }}</td>
             <td>$ {{ $item->valor }}</td>

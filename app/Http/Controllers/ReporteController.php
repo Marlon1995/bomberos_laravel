@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Especies;
 use App\Exports\CierreCajaExport;
+use App\Exports\InspectoresExport;
+use App\Exports\NoemitidosExport;
 use App\System;
 use App\User;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -86,11 +88,11 @@ class ReporteController extends Controller
         
     }
     public function cierreCajaExcel(){
-
         $file = "CIERRE DE CAJA DIARIO".now()->toDateTimeString();
         return \Maatwebsite\Excel\Facades\Excel::download( new CierreCajaExport() , $file.'.xlsx');
-        //return Excel::download(new CierreCajaExport,'demo.xlsx');
     }
+
+
 
     public function reporte2(){
           $reporte = DB::table('otros_pagos')
@@ -116,18 +118,14 @@ class ReporteController extends Controller
         $doc = "";
         $pdf = PDF::loadView('report/reporte2' , ["reporte" => $reporte]);
          return $pdf->stream($doc . '.pdf');
-
-
     }
+
     public function reporte3(){
-
-
         $doc = "titulo reporte";
         $pdf = PDF::loadView('report/reporte3');
         return $pdf->stream($doc . '.pdf');
-
-
     }
+
     public function reporte4(){
         $reporte = DB::table('client', 'cli')
             ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
@@ -148,8 +146,6 @@ class ReporteController extends Controller
         $doc = "";
         $pdf = PDF::loadView('report/reporte4' , ["reporte" => $reporte]);
         return $pdf->stream($doc . '.pdf');
-
-
     }
 
 
@@ -266,6 +262,11 @@ class ReporteController extends Controller
                                                         'rangos' => $rangos]);
         return $pdf->stream($doc . '.pdf');
 
+    }
+
+    public function noemitidos(){
+        $file = "REPORTES NO EMITIDOS".now()->toDateTimeString();
+        return \Maatwebsite\Excel\Facades\Excel::download( new NoemitidosExport() , $file.'.xlsx');
     }
 
 
@@ -452,6 +453,7 @@ class ReporteController extends Controller
             $doc = "";
             $pdf = PDF::loadView('report/reporte4' , ["reporte" => $reporte]);
             return $pdf->stream($doc . '.pdf');
+            
         }elseif( $array['tipe'] == 'permisos' ) {
             $reporte = DB::table('client', 'cli')
                 ->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')

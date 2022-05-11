@@ -28,6 +28,7 @@ class CreateClientsTable extends Migration
             $table->bigInteger('pagoLicenciaTurismo');
             $table->bigInteger('pagoPatente');
             $table->bigInteger('fotosLocal_id');
+            $table->bigInteger('inspector_id');
             $table->bigInteger('estado');
             $table->timestamps();
         });
