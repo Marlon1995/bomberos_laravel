@@ -198,12 +198,24 @@
                                                                         </div>
 
                                                                         <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="formaspago">Formas de Pagos</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                                <select class="form-control" name="formaspago">
+                                                                                    @forelse ($formasPago as $pago)
+                                                                                        <option value="{{ $pago->id }}">{{ $pago->nombre }}</option> 
+                                                                                    @empty
+                                                                                        no hay registro
+                                                                                    @endforelse
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="item form-group ">
                                                                             <label class="col-form-label col-md-4 col-sm-4 label-align" for="anioPago">Año Pago</label>
                                                                             <div class="col-md-9 col-sm-9">
                                                                                 <select class="form-control" name="anioPago">
-                                                                                    <option value="0" selected></option>
                                                                                 <?php
-                                                                                $fecha = date("Y");
+                                                                                $fecha = now()->format('Y');
                                                                                 for ($i=2019; $i <=$fecha ; $i++) { 
                                                                                 echo '<option value="'.$i.'">'.$i.'</option>';
                                                                                 }
