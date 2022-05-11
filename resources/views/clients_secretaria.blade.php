@@ -99,7 +99,7 @@
                                             <th class="column-title">DENOMINACI&Oacute;N</th>
                                             <th class="column-title">PARROQUIA</th>
                                              <th class="column-title">ESTADO</th>
-                                            <th class="column-title"></th>
+                                            <th class="column-title">ACCION</th>
                                         </tr>
                                         </thead>
                                         <tbody>
