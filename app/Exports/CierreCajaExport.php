@@ -131,7 +131,7 @@ class CierreCajaExport implements FromView
         }  
  
       
-        return view('report/cierreCajaExcel', ['reporte' => $reporte ]);
+        return view('report/cierreCajaExcel', ['reporte' => $reporte, 'cobros'=>$cobros, 'especie'=>$especie ]);
 
       
     }

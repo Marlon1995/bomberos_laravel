@@ -18,8 +18,8 @@
         width: 118%;
         background-image: url('./assets/images/Logo1.png')
     }
-</style>-->
-<img src="./assets/images/Logo1.png"  class="pf__items_logo2">
+</style>
+<img src="./assets/images/Logo1.png"  class="pf__items_logo2">-->
 
 
 <style>
@@ -151,14 +151,6 @@
 
 </style>
 
-
-
-<div class="pf__item_fecha2">
-    <small>&nbsp;&nbsp;&nbsp; Atacames, {{ now()->toDateTimeString()  }}</small>
- </div>
-
-
-
 <div class="pf__item_a">
             <b>RUC:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             {{ $client[0]->ruc }}
@@ -200,7 +192,7 @@
         </div>
 
 <div class="pf__item_fecha">
-    <small>&nbsp;&nbsp;&nbsp; Atacames, {{ auth()->user()->created_at  }}</small>
+    <small>&nbsp;&nbsp;&nbsp; Atacames, {{ now()->toDateTimeString()  }}</small>
  </div>
 
 

@@ -85,10 +85,6 @@
                                                                 <a class="btn btn-info" href="bill-DiferentPayments/{{ $item->id }}" target="_blank" > IMPRIMIR </a>
                                                             </td>
 
-
-
-
-
                                                         </tr>
                                                     @empty
                                                     @endforelse

@@ -1,38 +1,45 @@
 @extends('layout')
 
 @section('title', ucwords($data[0]->nombre))
-@section('icono', $data[0]->icono )
+@section('icono', $data[0]->icono)
 
 @section('pagecontent')
     <style>
-
-        .ui-pnotify-text{
-            display: none!important;;
+        .ui-pnotify-text {
+            display: none !important;
+            ;
         }
-        .cb-subTitle{
+
+        .cb-subTitle {
             color: #ca1404;
             font-weight: bold;
             margin: 12px 0;
             font-size: 13px;
         }
 
-        .modal-dialog { max-width: 70%!important;      }
+        .modal-dialog {
+            max-width: 70% !important;
+        }
     </style>
-    @if ( session()->has('Respuesta') )
-        <label id="Respuesta"
-               style="display: none;">{{ session('Respuesta') }}</label>
-        <script>toastr.success($("#Respuesta").text());
+    @if (session()->has('Respuesta'))
+        <label id="Respuesta" style="display: none;">{{ session('Respuesta') }}</label>
+        <script>
+            toastr.success($("#Respuesta").text());
         </script>
     @endif
 
-    @if ( session()->has('Respuesta_erro') )  <label id="Respuesta_erro"
-                                                     style="display: none;">{{ session('Respuesta_erro') }}</label>
-    <script>toastr.error($("#Respuesta_erro").text()); </script>
+    @if (session()->has('Respuesta_erro'))
+        <label id="Respuesta_erro" style="display: none;">{{ session('Respuesta_erro') }}</label>
+        <script>
+            toastr.error($("#Respuesta_erro").text());
+        </script>
     @endif
 
-    @if ( session()->has('Respuesta_wn') )  <label id="Respuesta_wn"
-                                                   style="display: none;">{{ session('Respuesta_wn') }}</label>
-    <script>toastr.warning($("#Respuesta_wn").text()); </script>
+    @if (session()->has('Respuesta_wn'))
+        <label id="Respuesta_wn" style="display: none;">{{ session('Respuesta_wn') }}</label>
+        <script>
+            toastr.warning($("#Respuesta_wn").text());
+        </script>
     @endif
 
 
@@ -56,26 +63,28 @@
 
 
 
-                                    <input type="text" class="form-control" placeholder="Buscar por.." value="" id="tbClientes_InpBuscar">
+                                    <input type="text" class="form-control" placeholder="Buscar por.." value=""
+                                        id="tbClientes_InpBuscar">
 
                                     <select class="form-control tbClientes_selectBuscar">
                                         @forelse ($sector as $item)
-                                            <option value="{{$item->descripcion}}">{{$item->descripcion}}</option>
+                                            <option value="{{ $item->descripcion }}">{{ $item->descripcion }}</option>
                                         @empty
                                         @endforelse
                                     </select>
 
 
                                     <select class="form-control tbClientes_selectBuscar">
-                                         <option value="" selected>TODOS</option>
-                                         <option value="DESACTIVAR" selected>ACTIVADOS</option>
+                                        <option value="" selected>TODOS</option>
+                                        <option value="DESACTIVAR" selected>ACTIVADOS</option>
                                         <option value="DESACTIVADOS">DESACTIVADOS</option>
                                     </select>
 
 
 
 
-                                    <span class="input-group-btn"><button class="btn" type="button">Buscar</button></span>
+                                    <span class="input-group-btn"><button class="btn"
+                                            type="button">Buscar</button></span>
                                 </div>
                             </div>
                         </div>
@@ -89,53 +98,66 @@
                                 <p>Listado de Clients registrados</p>
 
                                 <div class="table-responsive">
-                                    <table id="tbClientes" class="table table-striped jambo_table bulk_action" style="width:100%;">
+                                    <table id="tbClientes" class="table table-striped jambo_table bulk_action"
+                                        style="width:100%;">
                                         <thead>
-                                        <tr class="headings">
-                                            <th class="column-title">RUC</th>
-                                            <th class="column-title">RAZ&Oacute;N. SOCIAL</th>
-                                            <th class="column-title">REP. LEGAL</th>
-                                            <th class="column-title">CATEGOR&Iacute;A</th>
-                                            <th class="column-title">DENOMINACI&Oacute;N</th>
-                                            <th class="column-title">PARROQUIA</th>
-                                             <th class="column-title">ESTADO</th>
-                                            <th class="column-title">ACCION</th>
-                                        </tr>
+                                            <tr class="headings">
+                                                <th class="column-title">RUC</th>
+                                                <th class="column-title">RAZ&Oacute;N. SOCIAL</th>
+                                                <th class="column-title">REP. LEGAL</th>
+                                                <th class="column-title">CATEGOR&Iacute;A</th>
+                                                <th class="column-title">DENOMINACI&Oacute;N</th>
+                                                <th class="column-title">PARROQUIA</th>
+                                                <th class="column-title">ESTADO</th>
+                                                <th class="column-title">ACCION</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        @forelse ($clients as $item)
-                                                  <tr class="even pointer">
+                                            @forelse ($clients as $item)
+                                                <tr class="even pointer">
                                                     <td><label class="a-center ruc">{{ $item->ruc }}</label></td>
-                                                    <td><label class="a-center razonSocial">{{ $item->razonSocial }}</label></td>
-                                                    <td><label class="a-center representanteLegal">{{ $item->representanteLegal }}</label></td>
-                                                    <td><label class="a-center categorias">{{ $item->categorias }}</label></td>
-                                                    <td><label class="a-center denominacion">{{ $item->denominacion }}</label></td>
-                                                    <td><label class="a-center">{{ ($item->parroquia) }}</label></td>
-                                                     <td style="text-align: center">
-                                                        @if( $item->estado > 4 )
-                                                        <button class="btn btn-danger btn-block mdlModificaEmpleado" data-toggle="modal" data-idCli_1="{{$item->id}}" data-target="#mdlModificaEmpleado">DESACTIVAR </button>
+                                                    <td><label
+                                                            class="a-center razonSocial">{{ $item->razonSocial }}</label>
+                                                    </td>
+                                                    <td><label
+                                                            class="a-center representanteLegal">{{ $item->representanteLegal }}</label>
+                                                    </td>
+                                                    <td><label class="a-center categorias">{{ $item->categorias }}</label>
+                                                    </td>
+                                                    <td><label
+                                                            class="a-center denominacion">{{ $item->denominacion }}</label>
+                                                    </td>
+                                                    <td><label class="a-center">{{ $item->parroquia }}</label>
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        @if ($item->estado > 4)
+                                                            <button class="btn btn-danger btn-block mdlModificaEmpleado"
+                                                                data-toggle="modal" data-idCli_1="{{ $item->id }}"
+                                                                data-target="#mdlModificaEmpleado">DESACTIVAR </button>
                                                         @endif
-                                                        @if ( $item->estado == 1)
-                                                                DESACTIVADO
-                                                            @endif
-                  
-                                                        @if ( $item->estado <= 4 &&  $item->estado != 1 )
+                                                        @if ($item->estado == 1)
+                                                            DESACTIVADO
+                                                        @endif
+
+                                                        @if ($item->estado <= 4 && $item->estado != 1)
                                                             PENDIENTE
                                                         @endif
 
                                                     </td>
                                                     <td style="text-align: center">
-                                                    @if ( $item->estado <= 4 &&  $item->estado != 1 )
-                                                        <div class="btn btn-warning btn-block mdlModificaInfoEmpleado" data-toggle="modal" data-idCli_1="{{$item->id}}" data-target="#mdlModificaInfoEmpleado">
-                                                            <i class="fa fa-edit"></i>
-                                                        </div>
-                                                    @endif
-                                                        
+                                                        @if ($item->estado <= 4 && $item->estado != 1)
+                                                            <div class="btn btn-warning btn-block mdlModificaInfoEmpleado"
+                                                                data-toggle="modal" data-idCli_1="{{ $item->id }}"
+                                                                data-target="#mdlModificaInfoEmpleado">
+                                                                <i class="fa fa-edit"></i>
+                                                            </div>
+                                                        @endif
+
                                                     </td>
                                                 </tr>
 
-                                        @empty
-                                        @endforelse
+                                            @empty
+                                            @endforelse
                                         </tbody>
                                     </table>
                                 </div>
@@ -159,11 +181,11 @@
 
 
     <!-- Modal mdlNuevEmpleado-->
-    <div class="modal fade" id="mdlModificaEmpleado" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog"  style="max-width: 90%!important;" role="document">
+    <div class="modal fade" id="mdlModificaEmpleado" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 90%!important;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" > <i class="fa fa-ban"></i> DESACTIVAR CLIENTE</h5>
+                    <h5 class="modal-title"> <i class="fa fa-ban"></i> DESACTIVAR CLIENTE</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -177,12 +199,13 @@
 
 
 
-                            <form class="form-horizontal form-label-left" method="POST" action="{{ route('client.destroy', 1)}}" enctype="multipart/form-data">
+                            <form class="form-horizontal form-label-left" method="POST"
+                                action="{{ route('client.destroy', 1) }}" enctype="multipart/form-data">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="client_id" id="client_id_1" value="">
-                            {!! method_field('DELETE') !!}
+                                {!! method_field('DELETE') !!}
 
-                            <!--FORMULARIO DE INSPECCIÓN--->
+                                <!--FORMULARIO DE INSPECCIÓN--->
                                 <div class="row" style="text-align: center;">
                                     <div class="col-12">
                                         <div class="form-group">
@@ -204,7 +227,8 @@
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 offset-md-3">
-                                        <button type="submit" class="btn btn-danger btn-block"><i class="fa fa-ban" style="color: white;"></i> DESACTIVAR</button>
+                                        <button type="submit" class="btn btn-danger btn-block"><i class="fa fa-ban"
+                                                style="color: white;"></i> DESACTIVAR</button>
                                         <button class="btn btn-primary btn-block" data-dismiss="modal">CANCELAR</button>
                                     </div>
                                 </div>
@@ -223,11 +247,11 @@
 
 
 
-    <div class="modal fade" id="mdlModificaInfoEmpleado" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog"  style="max-width: 90%!important;" role="document">
+    <div class="modal fade" id="mdlModificaInfoEmpleado" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 90%!important;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" > <i class="fa fa-pencil"></i> MODIFICAR INFORMACI&Oacute;N DE USUARIOS</h5>
+                    <h5 class="modal-title"> <i class="fa fa-pencil"></i> MODIFICAR INFORMACI&Oacute;N DE USUARIOS</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -238,7 +262,8 @@
                         <div class="x_title cb-subTitle"><b>FORMULARIO DE INSPECCI&Oacute;N</b></div>
 
                         <div class="x_content">
-                            <form class="form-horizontal form-label-left" method="POST" action="{{ route('clients.update', 1)}}">
+                            <form class="form-horizontal form-label-left" method="POST"
+                                action="{{ route('clients.update', 1) }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 {!! method_field('PUT') !!}
                                 <input type="hidden" name="caso" value="update_info_2">
@@ -251,14 +276,16 @@
                                             <div class="col-md-3 col-sm-3 ">
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="radio" name="tipoInspecion" value="1" class="flat" checked> INSPECCI&Oacute;N
+                                                        <input type="radio" name="tipoInspecion" value="1"
+                                                            class="flat" checked> INSPECCI&Oacute;N
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-3 col-sm-3 ">
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="radio" name="tipoInspecion" value="2" class="flat"> RE-INSPECCI&Oacute;N
+                                                        <input type="radio" name="tipoInspecion" value="2"
+                                                            class="flat"> RE-INSPECCI&Oacute;N
                                                     </label>
                                                 </div>
                                             </div>
@@ -277,19 +304,25 @@
                                 <div class="form-group row">
                                     <label class="control-label col-md-4 col-sm-4 ">RUC</label>
                                     <div class="col-md-6 col-sm-6 ">
-                                        <input type="text" name="ruc" id="ruc_md"  onKeyPress="return fn_aceptaNum(event)" value="" class="form-control col-md-5" value="" required>
+                                        <input type="text" name="ruc" id="ruc_md" onKeyPress="return fn_aceptaNum(event)"
+                                            value="" class="form-control col-md-5" value="" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-md-4 col-sm-4 ">RAZ&Oacute;N SOCIAL <small>(NOMBRE COMERCIAL)</small> </label>
+                                    <label class="control-label col-md-4 col-sm-4 ">RAZ&Oacute;N SOCIAL <small>(NOMBRE
+                                            COMERCIAL)</small> </label>
                                     <div class="col-md-8 col-sm-8 ">
-                                        <input type="text" name="razonSocial" id="razonSocial_md" value="" class="form-control col-md-11" required>
+                                        <input type="text" name="razonSocial" id="razonSocial_md" value=""
+                                            class="form-control col-md-11" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-md-4 col-sm-4 ">REPRESENTANTE LEGAL <small>(PROPIETARIO)</small> </label>
+                                    <label class="control-label col-md-4 col-sm-4 ">REPRESENTANTE LEGAL
+                                        <small>(PROPIETARIO)</small> </label>
                                     <div class="col-md-8 col-sm-8 ">
-                                        <input type="text" name="representanteLegal" onKeyPress="return fn_aceptaLETRAS(event)" id="representanteLegal_md" value="" class="form-control col-md-11" required>
+                                        <input type="text" name="representanteLegal"
+                                            onKeyPress="return fn_aceptaLETRAS(event)" id="representanteLegal_md" value=""
+                                            class="form-control col-md-11" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -297,27 +330,31 @@
                                     <div class="col-md-4 col-sm-4">
                                         <select class="form-control" name="parroquia" id="parroquia_md">
                                             @forelse ($sector as $item)
-                                                <option value="{{$item->id}}">{{$item->descripcion}}</option>
+                                                <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
                                             @empty
                                             @endforelse
                                         </select>
                                     </div>
                                     <div class="col-md-6 col-sm-6 ">
                                         <label class="control-label col-md-2 col-sm-2 ">BARRIO</label>
-                                        <input type="text" name="barrio" id="barrio_mod"  onKeyPress="return fn_aceptaLETRAS(event)" class="form-control col-md-6" required>
+                                        <input type="text" name="barrio" id="barrio_mod"
+                                            onKeyPress="return fn_aceptaLETRAS(event)" class="form-control col-md-6"
+                                            required>
                                     </div>
 
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-2 col-sm-2 ">REFERENCIA</label>
                                     <div class="col-md-8 col-sm-8 ">
-                                        <textarea name="referencia" id="referencia_md" value="" class="form-control col-md-10" required ></textarea>
+                                        <textarea name="referencia" id="referencia_md" value="" class="form-control col-md-10" required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-2 col-sm-2">TEL&Eacute;FONO: </label>
                                     <div class="col-md-3 col-sm-3 ">
-                                        <input type="text" name="telefono" id="telefono_md" onKeyPress="return fn_aceptaNum(event)" value="" class="form-control col-md-10" required>
+                                        <input type="text" name="telefono" id="telefono_md"
+                                            onKeyPress="return fn_aceptaNum(event)" value="" class="form-control col-md-10"
+                                            required>
                                     </div>
                                 </div>
 
@@ -326,7 +363,7 @@
                                     <div class="col-md-6 col-sm-6 ">
                                         <select class="form-control" name="categoria" id="categoria_md">
                                             @forelse ($categoria as $item)
-                                                <option value="{{$item->id}}">{{$item->descripcion}}</option>
+                                                <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
                                             @empty
                                             @endforelse
                                         </select>
@@ -379,31 +416,30 @@
 @endsection
 @section('scrpts-jqrey')
     <script>
-
-
-
-
         var tbClientes;
-         fn_tbClientes_ini();
+        fn_tbClientes_ini();
         $("#tbClientes_InpBuscar").val("");
+
         function fn_tbClientes_ini() {
             tbClientes = $('#tbClientes').DataTable({
                 dom: '<"top">rt<"bottom"><"clear">',
                 pageLength: 20,
-                order: [[3, "asc"]],
-                drawCallback: function (settings) {
+                order: [
+                    [3, "asc"]
+                ],
+                drawCallback: function(settings) {
                     //CARGANDO
                 },
                 select: true,
                 "language": {
-                    "lengthMenu": 'Mostrar'+
-                    '<select style="width:60px" >'+
-                    '<option>5</option>'+
-                    '<option>10</option>'+
-                    '<option>20</option>'+
-                    '<option>25</option>'+
-                    '<option value="-1">Todos</option>'+
-                    '</select> registros por página',
+                    "lengthMenu": 'Mostrar' +
+                        '<select style="width:60px" >' +
+                        '<option>5</option>' +
+                        '<option>10</option>' +
+                        '<option>20</option>' +
+                        '<option>25</option>' +
+                        '<option value="-1">Todos</option>' +
+                        '</select> registros por página',
                     "zeroRecords": "No se encontraron resultados en su busqueda",
                     "searchPlaceholder": "Buscar por..",
                     "info": " ",
@@ -421,27 +457,27 @@
             });
 
         }
-        $("#tbClientes_InpBuscar").on('keyup' , function(event){
+        $("#tbClientes_InpBuscar").on('keyup', function(event) {
             tbClientes.search(this.value).draw();
         });
 
-        $(".tbClientes_selectBuscar").change(function(event){
+        $(".tbClientes_selectBuscar").change(function(event) {
 
-                tbClientes.search(this.value).draw();
+            tbClientes.search(this.value).draw();
 
         });
 
 
 
 
-        $(".mdlModificaEmpleado").click(function () {
+        $(".mdlModificaEmpleado").click(function() {
             var id = $(this).attr("data-idCli_1");
             $("#client_id_1").val(id);
         });
 
-        $(".mdlModificaInfoEmpleado").click(function () {
+        $(".mdlModificaInfoEmpleado").click(function() {
             var valorID = $(this).attr("data-idCli_1");
-            var endpoint = 'resumenInfoCliente/'+valorID;
+            var endpoint = 'resumenInfoCliente/' + valorID;
             $("#clietn_id").val(valorID);
 
             $.ajax({
@@ -450,7 +486,7 @@
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded",
                 url: endpoint,
-                success: function( datos ){
+                success: function(datos) {
 
                     $("#tipoInspecion_md").val(datos[0].tipoFormulario);
                     $("#ruc_md").val(datos[0].ruc);
@@ -462,25 +498,29 @@
                     $("#telefono_md").val(datos[0].telefono);
 
 
-                    var endpoint = 'denomincacniones/'+datos[0].categoria_id;
+                    var endpoint = 'denomincacniones/' + datos[0].categoria_id;
                     $.ajax({
                         async: false,
                         type: "GET",
                         dataType: "json",
                         contentType: "application/x-www-form-urlencoded",
                         url: endpoint,
-                        success: function( datos ){
+                        success: function(datos) {
                             $("#actividad").empty();
-                            for( var i=0; i < datos.length ; i++ ){
-                                $("#actividad_md").append('<option value="'+datos[i]['id'] +'">'+datos[i]['descripcion']+' </option>');
+                            for (var i = 0; i < datos.length; i++) {
+                                $("#actividad_md").append('<option value="' + datos[i][
+                                    'id'] + '">' + datos[i]['descripcion'] +
+                                    ' </option>');
                             }
                         }
                     });
 
 
 
-                    $('#categoria_md option[value="'+datos[0].categoria_id+'"]').attr('selected', true)
-                    $('#actividad_md option[value="'+datos[0].denominacion_id+'"]').attr('selected', true)
+                    $('#categoria_md option[value="' + datos[0].categoria_id + '"]').attr('selected',
+                        true)
+                    $('#actividad_md option[value="' + datos[0].denominacion_id + '"]').attr('selected',
+                        true)
 
 
 
@@ -495,26 +535,23 @@
 
         });
 
-        $("#categoria_md").change(function () {
+        $("#categoria_md").change(function() {
             var combo_actividad = $("select[id=categoria_md]").val();
-            var endpoint = 'denomincacniones/'+combo_actividad;
+            var endpoint = 'denomincacniones/' + combo_actividad;
             $.ajax({
                 async: false,
                 type: "GET",
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded",
                 url: endpoint,
-                success: function( datos ){
+                success: function(datos) {
                     $("#actividad_md").empty();
-                    for( var i=0; i < datos.length ; i++ ){
-                        $("#actividad_md").append('<option value="'+datos[i]['id'] +'" selected>'+datos[i]['descripcion']+' </option>');
+                    for (var i = 0; i < datos.length; i++) {
+                        $("#actividad_md").append('<option value="' + datos[i]['id'] + '" selected>' +
+                            datos[i]['descripcion'] + ' </option>');
                     }
                 }
             });
         });
-
-
-
     </script>
 @endsection
-

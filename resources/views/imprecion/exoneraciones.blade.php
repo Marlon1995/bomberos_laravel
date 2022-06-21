@@ -159,10 +159,6 @@
 @if(Str::contains($tipo, 'artesa') || Str::contains($tipo, 'ARTES') || Str::contains($tipo, 'CALI') || Str::contains($tipo, 'calif')) 
 
 
-<div class="pf__item_fecha2">
-   <small>&nbsp;&nbsp;&nbsp; Atacames, {{ now()->toDateTimeString()  }}</small>
-</div>
-
         <div class="pf__item_a">
             <b>Ing.</b> 
             <br>
@@ -170,11 +166,6 @@
              <p><b>FINANCIERA DEL CBCA</b></p>
              <p>En su despacho.-</p>
         </div>
-
-      
-
-    
-
 
         <div class="pf__item_d">
             De mis consideraciones Yo <b>{{substr($client[0]->representanteLegal, 0,50)}}</b> con cédula  <b>{{$client[0]->ruc}}</b> 
@@ -194,7 +185,9 @@
             Atentamente
         </div>
       
-
+        <div class="pf__item_fecha"><br><br>
+            <small>&nbsp;&nbsp;&nbsp; Atacames, {{ now()->toDateTimeString()  }}</small>
+         </div>
     
 
         <div class="pf__atentamente">
@@ -212,9 +205,7 @@
 @elseif(Str::contains($tipo, 'discapaci') || Str::contains($tipo, 'DISCA') ||  Str::contains($tipo, 'DIS') ||  Str::contains($tipo, 'dis')) 
 
 
-<div class="pf__item_fecha2">
-   <small>&nbsp;&nbsp;&nbsp; Atacames, {{ now()->toDateTimeString()  }}</small>
-</div>
+
 
         <div class="pf__item_a">
             <b>Ing.</b> 
@@ -223,11 +214,6 @@
              <p><b>FINANCIERA DEL CBCA</b></p>
              <p>En su despacho.-</p>
         </div>
-
-      
-
-    
-
 
         <div class="pf__item_d">
             De mis consideraciones Yo <b>{{substr($client[0]->representanteLegal, 0,50)}}</b> con cédula  <b>{{$client[0]->ruc}}</b> 
@@ -245,9 +231,11 @@
             Por la atención que usted, le brinde al presente le anticipo mis agradecimientos.
 
             Atentamente
-        </div>
+        </div><br><br>
       
-
+        <div class="pf__item_fecha"><br><br>
+            <small>&nbsp;&nbsp;&nbsp; Atacames, {{ now()->toDateTimeString()  }}</small>
+         </div>
     
 
         <div class="pf__atentamente">
@@ -264,11 +252,6 @@
 
 @elseif(Str::contains($tipo, 'tercera') || Str::contains($tipo, 'TERCERA') || Str::contains($tipo, 'EDAD') || Str::contains($tipo, 'edad')) 
 
-
-<div class="pf__item_fecha2">
-   <small>&nbsp;&nbsp;&nbsp; Atacames, {{ now()->toDateTimeString()  }}</small>
-</div>
-
         <div class="pf__item_a">
             <b>Ing.</b> 
             <br>
@@ -276,11 +259,6 @@
              <p><b>FINANCIERA DEL CBCA</b></p>
              <p>En su despacho.-</p>
         </div>
-
-      
-
-    
-
 
         <div class="pf__item_d">
             De mis consideraciones Yo <b>{{substr($client[0]->representanteLegal, 0,50)}}</b> con cédula  <b>{{$client[0]->ruc}}</b> 
@@ -298,10 +276,12 @@
             Por la atención que usted, le brinde al presente le anticipo mis agradecimientos.
 
             Atentamente
-        </div>
+        </div><br><br>
       
 
-    
+        <div class="pf__item_fecha"><br><br>
+            <small>&nbsp;&nbsp;&nbsp; Atacames, {{ now()->toDateTimeString()  }}</small>
+         </div>
 
         <div class="pf__atentamente">
         Sr(a).<b> {{substr($client[0]->representanteLegal, 0,50)}}</b>

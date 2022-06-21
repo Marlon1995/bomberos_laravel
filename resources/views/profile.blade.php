@@ -29,11 +29,6 @@
         </script>
     @endif
 
-
-
-
-
-
     <!-- page content -->
     <div class="right_col" role="main">
         <div class="">
@@ -110,23 +105,29 @@
                                                 <input type="hidden" name="tipe" value="updatePasword">
                                                 {!! method_field('PUT') !!}
 
-                                                
+
                                                 <div class="item form-group">
-                                                    <label class="col-form-label label-align" for="cedula">Nueva Contraseña</label>
+                                                    <label class="col-form-label label-align" for="cedula">Nueva
+                                                        Contraseña</label>
                                                     <div class="col-md-10">
-                                                        <input type="password" id="contraseniaNueva" name="contraseniaNueva" value="" class="form-control" required="required">
+                                                        <input type="password" id="contraseniaNueva" name="contraseniaNueva"
+                                                            value="" class="form-control" required="required">
                                                     </div>
                                                 </div>
 
                                                 <div class="item form-group">
-                                                    <label class="col-form-label label-align" for="cedula">Confirme Contraseña</label>
+                                                    <label class="col-form-label label-align" for="cedula">Confirme
+                                                        Contraseña</label>
                                                     <div class="col-md-10">
-                                                        <input type="password" id="confirmaContrasenia" name="confirmaContrasenia" value="" class="form-control" required="required">
+                                                        <input type="password" id="confirmaContrasenia"
+                                                            name="confirmaContrasenia" value="" class="form-control"
+                                                            required="required">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-md-6 offset-md-3">
-                                                        <button id="send" type="submit" class="btn btn-success btn-block">Actualizar Contraseña</button>
+                                                        <button id="send" type="submit"
+                                                            class="btn btn-success btn-block">Actualizar Contraseña</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -274,11 +275,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
 
 @endsection
 @section('scrpts-jqrey')
