@@ -50,7 +50,7 @@
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
               <h1>
-                  Cuerpo de Bomberos Cantón Atacames
+                  Cuerpo de Bomberos Cantón Atacames V2
                   </h1>
 
                     <img src="./assets/img/icons/logo.png" alt="CB - atacames" >

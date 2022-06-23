@@ -11,9 +11,11 @@ use App\User;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Action;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Maatwebsite\Excel\Excel;
+use App\Client;
 
 class ReporteController extends Controller
 {
@@ -148,9 +150,9 @@ class ReporteController extends Controller
         return $pdf->stream($doc . '.pdf');
     }
 
+   public function reporte5(){
+        $fechas = Client::whereDate('created_at',Carbon::today())->get();
 
-
-    public function reporte5(){
         $reporte = DB::table('client', 'cli')
             ->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')
             ->select('cli.id'
@@ -164,15 +166,17 @@ class ReporteController extends Controller
             )
             ->where('otros_pagos.numPermisoFuncionamiento', '<>', null)
             ->where('cli.estado', '=', 8)
+            ->where('otros_pagos.created_at','>=', $fechas.'%' )
+            //->whereDate('created_at', Carbon::today())->get()
             //->where('otros_pagos.estado', '=', 8)
             //->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
             ->orderBy('otros_pagos.created_at', 'desc')
             ->orderBy('otros_pagos.year_now', 'desc')
             ->get();
-
+            //dd($fechas);
 
         $doc = "";
-        $pdf = PDF::loadView('report/reporte5' , ["reporte" => $reporte])->setPaper('A4', 'landscape');
+        $pdf = PDF::loadView('report/reporte5' , ["fechas" => $fechas])->setPaper('A4', 'landscape');
         return $pdf->stream($doc . '.pdf');
 
     }
@@ -247,6 +251,7 @@ class ReporteController extends Controller
             ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
             ->select(   'ruc',
                 'razonSocial',
+                'representanteLegal',
                 'formaspago.nombre as formaspago',
                 'tipos_pago.nombre as tipos_pago',
                 'valor',

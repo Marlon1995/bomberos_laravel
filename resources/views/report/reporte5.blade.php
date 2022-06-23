@@ -124,7 +124,7 @@
         {{ $total = 0 }}
         {{ $total_cantidad = 0 }}
         {{ $total_vespecie = 0 }}
-        @forelse($reporte as $item)
+        @forelse($fechas as $item)
             {{ $total = $total + $item->valor }}
             {{ $total_cantidad = $total_cantidad + $item->valor - 2 }}
             {{ $total_vespecie = $total_vespecie + 2 }}
