@@ -152,68 +152,42 @@ class ReporteController extends Controller
 
    public function reporte5(){
         $fechas = Client::whereDate('created_at',Carbon::today())->get();
-
-        $reporte = DB::table('client', 'cli')
-            ->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')
-            ->select('cli.id'
-                , 'cli.ruc'
-                , 'cli.razonSocial'
-                , 'cli.representanteLegal'
-                , 'otros_pagos.year_now as anio'
-                ,'otros_pagos.valor'
-                ,'otros_pagos.numPermisoFuncionamiento'
-                ,'otros_pagos.created_at'
-            )
-            ->where('otros_pagos.numPermisoFuncionamiento', '<>', null)
-            ->where('cli.estado', '=', 8)
-            ->where('otros_pagos.created_at','>=', $fechas.'%' )
-            //->whereDate('created_at', Carbon::today())->get()
-            //->where('otros_pagos.estado', '=', 8)
-            //->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
-            ->orderBy('otros_pagos.created_at', 'desc')
-            ->orderBy('otros_pagos.year_now', 'desc')
-            ->get();
-            //dd($fechas);
-
         $doc = "";
         $pdf = PDF::loadView('report/reporte5' , ["fechas" => $fechas])->setPaper('A4', 'landscape');
         return $pdf->stream($doc . '.pdf');
 
     }
 
-    public function reporteParroquias(){
+    public function reporteParroquias()
+    {
         $reporte = DB::table('client', 'cli')
-            ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
-            ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
+            ->join('denominaciones', 'cli.denominacion_id', "=", 'denominaciones.id')
+            ->join("parroquias", "parroquias.id", "=", "cli.parroquia_id")
             ->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')
-
-            ->select('cli.id'
-                , 'cli.ruc'
-                , 'cli.razonSocial'
-                , 'cli.representanteLegal'
-                , 'parroquias.descripcion  as parroquia'
-                , 'cli.barrio'
-                , 'cli.telefono'
-                , 'cli.referencia'
-                , 'denominaciones.descripcion as denominacion'
-                 , 'otros_pagos.year_now as anio'
-                ,'otros_pagos.valor'
-                ,'otros_pagos.created_at'
+            ->select(
+                'cli.id',
+                'cli.ruc',
+                'cli.razonSocial',
+                'cli.representanteLegal',
+                'parroquias.descripcion  as parroquia',
+                'cli.barrio',
+                'cli.telefono',
+                'cli.referencia',
+                'denominaciones.descripcion as denominacion',
+                'otros_pagos.year_now as anio',
+                'otros_pagos.valor',
+                'otros_pagos.created_at'
             )
             ->where('otros_pagos.numPermisoFuncionamiento', '<>', null)
             ->where('cli.estado', '=', 8)
             ->where('otros_pagos.estado', '<>', 1)
             ->orderBy('parroquias.descripcion', 'desc')
             ->orderBy('otros_pagos.year_now', 'desc')
+            ->limit(1000)
             ->get();
-
-
-
-
         $doc = "";
-        $pdf = PDF::loadView('report/reporteParroquias' , ["reporte" => $reporte])->setPaper('A4', 'landscape');;
+        $pdf = PDF::loadView('report/reporteParroquias', ["reporte" => $reporte])->setPaper('A4', 'landscape');;
         return $pdf->stream($doc . '.pdf');
-
     }
 
 

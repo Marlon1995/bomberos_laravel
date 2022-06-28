@@ -26,7 +26,7 @@ class ClientsController extends Controller {
 
         $data = System::all();
 
-        $sector        = DB::table('parroquias' ,'p')
+        $sector = DB::table('parroquias' ,'p')
                             ->select('p.id', 'p.descripcion')
                             ->where('p.estado', $est_activo)
                             ->orderBy('p.descripcion','ASC')
@@ -34,12 +34,16 @@ class ClientsController extends Controller {
         $denominacion  = DB::table('denominaciones', 'd')->select('d.id', 'd.descripcion')->where('d.estado', $est_activo)->orderBy('d.descripcion','ASC')->get();
         $categoria     = DB::table('categorias', 'cat')->select('cat.id', 'cat.descripcion')->where('cat.estado', $est_activo)->orderBy('cat.descripcion','ASC')->get();
         $riego         = DB::table('riesgos' ,'r')->select('r.id', 'r.descripcion')->where('r.estado', $est_activo)->orderBy('r.descripcion','ASC')->get();
-
+        $pagos         = DB::table('client')
+                        ->join('otros_pagos','otros_pagos.client_id', '=', 'client.id')
+                        ->get();
+//dd($pagos);
         if( auth()->user()->role_id == 3 ) {
 
             $clients = DB::table('client', 'cli')
                 ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
                 ->join('categorias', 'cli.categoria_id', 'categorias.id')
+                ->join('otros_pagos', 'otros_pagos.client_id', '=', 'cli.id')
                 ->select('cli.id'
                     , 'cli.ruc'
                     , 'cli.razonSocial'
@@ -52,6 +56,7 @@ class ClientsController extends Controller {
                     , 'cli.tipoFormulario'
                     , 'denominaciones.descripcion as denominacion'
                     , 'categorias.descripcion as categorias'
+                    , 'otros_pagos.year_now as anio'
                     , 'cli.estado'
                 )
                 ->whereNotIn('cli.estado', [1])
@@ -63,6 +68,7 @@ class ClientsController extends Controller {
             $clients = DB::table('client', 'cli')
                 ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
                 ->join('categorias', 'cli.categoria_id', 'categorias.id')
+                ->join('otros_pagos', 'otros_pagos.client_id', '=', 'cli.id')
                 ->select('cli.id'
                     , 'cli.ruc'
                     , 'cli.razonSocial'
@@ -75,6 +81,7 @@ class ClientsController extends Controller {
                     , 'cli.tipoFormulario'
                     , 'denominaciones.descripcion as denominacion'
                     , 'categorias.descripcion as categorias'
+                    , 'otros_pagos.year_now as anio'
                     , 'cli.estado'
                 )
                 ->whereNotIn('cli.estado', [1, 8])
@@ -83,7 +90,7 @@ class ClientsController extends Controller {
 
         }
 
-        return view( 'clients' , compact('data','sector','denominacion','categoria','clients','riego') );
+        return view( 'clients' , compact('data','sector','denominacion','categoria','clients','riego','pagos') );
     }
 
     public function store(Request $request) {

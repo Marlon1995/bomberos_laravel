@@ -90,7 +90,7 @@
                                                 <th class="column-title">REP. LEGAL</th>
                                                 <th class="column-title">CATEGOR&Iacute;A</th>
                                                 <th class="column-title">DENOMINACI&Oacute;N</th>
-                                                <th class="column-title"></th>
+                                                <th class="column-title">AÑO PAGO</th>
                                                 <th class="column-title no-link last"></th>
                                             </tr>
                                         </thead>
@@ -105,6 +105,8 @@
                                                         </td>
                                                         <td><label
                                                                 class="a-center representanteLegal">{{ $item->representanteLegal }}</label>
+                                                        </td>
+                                                        <td><label class="a-center denominacion">{{ $item->anio }}</label>
                                                         </td>
                                                         <td><label
                                                                 class="a-center categorias">{{ $item->categorias }}</label>
@@ -132,7 +134,8 @@
                                                                     <a href="clients/{{ $item->id }}"
                                                                         class="btn btn-primary"><i
                                                                             class="fa fa-file-text-o"></i></a>
-                                                                    <a href="#" class="btn btn-warning mdlModificaEmpleado"
+                                                                    <a href="#"
+                                                                        class="btn btn-warning mdlModificaEmpleado"
                                                                         data-toggle="modal"
                                                                         data-idmodCli="{{ $item->id }}"
                                                                         data-target="#mdlModificaEmpleado"><i
@@ -147,7 +150,8 @@
                                                                         action="{{ route('clients.update', $item->id) }}">
                                                                         <input type="hidden" name="_token"
                                                                             value="{{ csrf_token() }}">
-                                                                        <input type="hidden" name="caso" value="solicitar">
+                                                                        <input type="hidden" name="caso"
+                                                                            value="solicitar">
                                                                         {!! method_field('PUT') !!}
                                                                         <button type="submit" class="btn btn-info"><i
                                                                                 class="fa fa-envelope-o"
@@ -206,6 +210,7 @@
                                                                 {{ $item->representanteLegal }}</td>
                                                             <td>{{ $item->categorias }}</td>
                                                             <td>{{ $item->denominacion }}</td>
+                                                            <td>{{ $item->anio }}</td>
                                                             <td style="	white-space:nowrap;">
                                                                 @if ($item->estado == 6)
                                                                     <form method="POST"
@@ -242,7 +247,8 @@
                                                                     </form>
                                                                 @endif
                                                                 @if ($item->estado == 7)
-                                                                    <a href="#" class="btn btn-info btn-block">EMITIDO </a>
+                                                                    <a href="#"
+                                                                        class="btn btn-info btn-block">EMITIDO </a>
                                                                 @endif
 
 
@@ -376,8 +382,9 @@
                                 <div class="form-group row">
                                     <label class="control-label col-md-4 col-sm-4 ">RUC</label>
                                     <div class="col-md-6 col-sm-6 ">
-                                        <input type="text" name="ruc" id="ruc" onKeyPress="return fn_aceptaNum(event)"
-                                            class="form-control col-md-5" required>
+                                        <input type="text" name="ruc" id="ruc"
+                                            onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-5"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -431,8 +438,8 @@
                                 <div class="form-group row">
                                     <label class="control-label col-md-2 col-sm-2">E-MAIL: </label>
                                     <div class="col-md-7 col-sm-7 ">
-                                        <input type="email" name="email" id="email" class="form-control col-md-10"
-                                            required>
+                                        <input type="email" name="email" id="email"
+                                            class="form-control col-md-10" required>
                                     </div>
                                 </div>
 
@@ -463,7 +470,8 @@
                                 <div class="form-group">
                                     <div class="col-md-6 offset-md-3">
                                         <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-success btn__infoPersoanlCli">Guardar</button>
+                                        <button type="submit"
+                                            class="btn btn-success btn__infoPersoanlCli">Guardar</button>
                                     </div>.ñ
                                 </div>
                             </form>
@@ -537,8 +545,9 @@
                                 <div class="form-group row">
                                     <label class="control-label col-md-4 col-sm-4 ">RUC</label>
                                     <div class="col-md-6 col-sm-6 ">
-                                        <input type="text" name="ruc" id="ruc_md" onKeyPress="return fn_aceptaNum(event)"
-                                            value="" class="form-control col-md-5" value="" required disabled="">
+                                        <input type="text" name="ruc" id="ruc_md"
+                                            onKeyPress="return fn_aceptaNum(event)" value=""
+                                            class="form-control col-md-5" value="" required disabled="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -554,8 +563,8 @@
                                         <small>(PROPIETARIO)</small> </label>
                                     <div class="col-md-8 col-sm-8 ">
                                         <input type="text" name="representanteLegal"
-                                            onKeyPress="return fn_aceptaLETRAS(event)" id="representanteLegal_md" value=""
-                                            class="form-control col-md-11" required>
+                                            onKeyPress="return fn_aceptaLETRAS(event)" id="representanteLegal_md"
+                                            value="" class="form-control col-md-11" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -586,8 +595,8 @@
                                     <label class="control-label col-md-2 col-sm-2">TEL&Eacute;FONO: </label>
                                     <div class="col-md-3 col-sm-3 ">
                                         <input type="text" name="telefono" id="telefono_md"
-                                            onKeyPress="return fn_aceptaNum(event)" value="" class="form-control col-md-10"
-                                            required>
+                                            onKeyPress="return fn_aceptaNum(event)" value=""
+                                            class="form-control col-md-10" required>
                                     </div>
                                 </div>
 
@@ -968,13 +977,16 @@
                             $("#actividad").empty();
                             for (var i = 0; i < datos.length; i++) {
                                 $("#actividad_md").append('<option value="' + datos[i][
-                                    'id'] + '">' + datos[i]['descripcion'] +
+                                        'id'
+                                    ] + '">' + datos[i]['descripcion'] +
                                     ' </option>');
                             }
                         }
                     });
-                    $('#categoria_md option[value="' + datos[0].categoria_id + '"]').attr('selected', true)
-                    $('#actividad_md option[value="' + datos[0].denominacion_id + '"]').attr('selected', true)
+                    $('#categoria_md option[value="' + datos[0].categoria_id + '"]').attr('selected',
+                        true)
+                    $('#actividad_md option[value="' + datos[0].denominacion_id + '"]').attr('selected',
+                        true)
 
                 }
             });

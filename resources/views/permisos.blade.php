@@ -132,8 +132,7 @@
                                                     <td><label class="a-center categorias">{{ $item->categorias }}</label>
                                                     </td>
                                                     <td>
-                                                        <label
-                                                            class="a-center denominacion">{{ $item->denominacion }}</label>
+                                                        <label class="a-center denominacion">{{ $item->denominacion }}</label>
                                                     </td>
                                                     <td style="text-align: center">
                                                         <a href="permiso/{{ $item->id }}" target="_blank"

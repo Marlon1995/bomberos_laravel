@@ -113,14 +113,13 @@
         <tr>
             <th>Ruc</th>
             <th>Nombre_Local</th>
-            <th>R.Legar</th>
-            <th>Parroqui</th>
-            <th>Dirección</th>
+            <th>R.Legal</th>
+            <th>Parroquias</th>
+            <th>Barrio</th>
             <th>Teléfono</th>
             <th>Denominación</th>
             <th>Año</th>
         </tr>
-
         {{ $total = 0 }}
         @forelse($reporte as $item)
             {{ $total = $total + $item->valor }}
@@ -130,7 +129,7 @@
                 <td>{{ $item->razonSocial }}</td>
                 <td>{{ $item->representanteLegal }}</td>
                 <td>{{ $item->parroquia }}</td>
-                <td>{{ $item->barrio }}/ {{ $item->referencia }}</td>
+                <td>{{ $item->barrio }}</td>
                 <td>{{ $item->telefono }}</td>
                 <td>{{ $item->denominacion }}</td>
                 <td>{{ $item->anio }}</td>
