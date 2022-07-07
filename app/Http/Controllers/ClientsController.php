@@ -60,8 +60,23 @@ class ClientsController extends Controller {
                     , 'cli.estado'
                 )
                 ->whereNotIn('cli.estado', [1])
-                ->orderBy('cli.razonSocial', 'ASC')
+                ->groupBy('cli.id'
+                , 'cli.ruc'
+                , 'cli.razonSocial'
+                , 'cli.representanteLegal'
+                , 'cli.parroquia_id'
+                , 'cli.telefono'
+                , 'cli.referencia'
+                , 'cli.categoria_id'
+                , 'cli.denominacion_id'
+                , 'cli.tipoFormulario'
+                , 'denominaciones.descripcion'
+                , 'categorias.descripcion'
+                , 'otros_pagos.year_now'
+                , 'cli.estado')
+                ->orderBy('cli.created_at','DESC','otros_pagos.year_now','')
                 ->get();
+                
 
 
         }else {

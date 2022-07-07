@@ -59,10 +59,10 @@
                         <div class="title_right">
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Buscar por.." value=""
-                                        id="tbClientes_InpBuscar">
+                                    <input type="text"  name="InpBuscar" id="InpBuscar"  placeholder="Buscar por.." value=""
+                                       >
                                     <span class="input-group-btn">
-                                        <button class="btn" type="button">Buscar</button>
+                                        <button class="btn" name="buscar" type="button">Buscar</button>
                                     </span>
                                 </div>
                             </div>
@@ -92,6 +92,8 @@
                                                 <th class="column-title">DENOMINACI&Oacute;N</th>
                                                 <th class="column-title">AÑO PAGO</th>
                                                 <th class="column-title no-link last"></th>
+                                                <th class="column-title no-link last"></th>
+                                                <th class="column-title no-link last"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -106,13 +108,13 @@
                                                         <td><label
                                                                 class="a-center representanteLegal">{{ $item->representanteLegal }}</label>
                                                         </td>
-                                                        <td><label class="a-center denominacion">{{ $item->anio }}</label>
+                                                        <td><label class="a-center denominacion">{{ $item->categorias }}</label>
                                                         </td>
                                                         <td><label
-                                                                class="a-center categorias">{{ $item->categorias }}</label>
+                                                                class="a-center categorias">{{ $item->denominacion }}</label>
                                                         </td>
                                                         <td><label
-                                                                class="a-center denominacion">{{ $item->denominacion }}</label>
+                                                                class="a-center denominacion">{{ $item->anio }}</label>
                                                         </td>
                                                         <td class="a-center last">
                                                             @if ($item->estado == 4)
@@ -760,7 +762,12 @@
 @endsection
 @section('scrpts-jqrey')
     <script>
+
+
         $(document).ready(function() {
+         
+            var tbClientes=$('#table_id').DataTable();
+        
             var combo_actividad = $("select[id=categoria]").val();
             var endpoint = 'denomincacniones/' + combo_actividad;
             $.ajax({
@@ -784,7 +791,15 @@
         });
         // $(".btn__infoPersoanlCli").hide();
 
+        //var tableC = $('#tbClientes').DataTable();
+        //console.table(tableC);
 
+        $("#InpBuscar").on('keyup',function(event) {
+          
+          var dato=$("#InpBuscar").val();
+           tbClientes.search( dato ).draw();
+       }); 
+    
 
         $("#categoria_md").change(function() {
             var combo_actividad = $("select[id=categoria_md]").val();
@@ -896,13 +911,14 @@
                 }
             });
         });
-
-
-        var tbClientes;
-        var tbClientes;
+       
+      
+       
+        $("#InpBuscar").val("");
         fn_tbClientes_ini();
-        $("#tbClientes_InpBuscar").val("");
+        
 
+     
         function fn_tbClientes_ini() {
             tbClientes = $('#tbClientes').DataTable({
                 dom: '<"top">rt<"bottom"><"clear">',
@@ -939,14 +955,10 @@
                 }
             });
 
+           
         }
 
- 
-        $("#tbClientes_InpBuscar").on('keyup', function(event) {
-
-       
-            tbClientes.search(this.value).draw();
-        });
+    
 
         $(".mdlModificaEmpleado").click(function() {
             var valorID = $(this).attr("data-idmodCli");
@@ -997,4 +1009,7 @@
 
         });
     </script>
+
+
+
 @endsection

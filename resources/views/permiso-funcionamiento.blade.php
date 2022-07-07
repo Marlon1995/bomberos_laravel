@@ -188,7 +188,8 @@
         </div>
 
         <div class="pf__item_f">
-            <b>PERMISO VÁLIDO HASTA DICIEMBRE 31 DEL {{now()->year}}</b>
+           
+            <b>PERMISO VÁLIDO HASTA DICIEMBRE 31 DEL {{substr($client[0]->anio,0,4)}}</b>
         </div>
 
 <div class="pf__item_fecha">

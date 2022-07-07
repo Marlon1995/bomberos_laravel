@@ -71,6 +71,7 @@ class PerisoFuncionamientoController extends Controller
                 , 'cli.riesgo_id'
                 , 'cli.denominacion_id'
                 , 'cli.tipoFormulario'
+                ,'cli.updated_at as anio'
                 , 'denominaciones.descripcion as denominacion'
                 , 'categorias.descripcion as categorias'
                 , 'riesgos.descripcion as riesgo'
