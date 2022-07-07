@@ -34,6 +34,7 @@ class PerisoFuncionamientoController extends Controller
                 , 'cli.parroquia_id'
                 , 'cli.barrio'
                 , 'cli.telefono'
+                ,'cli.updated_at'
                 , 'cli.referencia'
                 , 'cli.categoria_id'
                 , 'cli.riesgo_id'

@@ -183,7 +183,7 @@ class ReporteController extends Controller
             ->where('otros_pagos.estado', '<>', 1)
             ->orderBy('parroquias.descripcion', 'desc')
             ->orderBy('otros_pagos.year_now', 'desc')
-            ->limit(1000)
+            ->limit(100)
             ->get();
         $doc = "";
         $pdf = PDF::loadView('report/reporteParroquias', ["reporte" => $reporte])->setPaper('A4', 'landscape');;

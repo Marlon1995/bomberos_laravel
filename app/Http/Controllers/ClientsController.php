@@ -507,7 +507,9 @@ class ClientsController extends Controller {
 
     }
 
-    public function pdfcliente(){
+    public function pdfcliente($id){
+
+       
         $reporte = DB::table('client', 'cli')
             ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
             ->join('categorias', 'cli.categoria_id','=', 'categorias.id')
@@ -526,6 +528,7 @@ class ClientsController extends Controller {
                 , 'categorias.descripcion'
             )
             ->whereIn('cli.estado', [4])
+            ->where('cli.inspector_id','=',$id)
             ->orderBy('parroquias.descripcion', 'ASC')
             ->get();
         $doc = "";

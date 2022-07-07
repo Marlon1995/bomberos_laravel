@@ -73,7 +73,7 @@ Route::get('reporteParroquias', 'ReporteController@reporteParroquias'); // permi
 Route::get('reportePorFechas', 'ReporteController@reportePorFechas'); // permisos
 Route::get('report-date', 'ReporteController@reporte6'); // permisos
 
-Route::get('/report/pdf', 'ClientsController@pdfcliente');
+Route::get('/report/pdf/{id}', 'ClientsController@pdfcliente');
 Route::get('export/', 'ClientsController@export');
 
 Route::get('reporte-general', 'ReporteController@reporte7');

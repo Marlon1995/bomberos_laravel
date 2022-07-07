@@ -36,6 +36,41 @@ class OtrosPagosController extends Controller
         return view('otros-cobros', compact('data',  'impuestos', 'formasPago'));
     }
 
+    public function update(Request $request, $id){
+        $caso = $request->input('caso');
+     
+        if($caso == 'revertir_permiso'){
+
+
+            DB::table('otros_cobros')
+                ->where('id', $id)
+                ->update([
+                    'estado'        => 1,
+                    'updated_at'    => Carbon::now()
+                ]);
+
+
+         
+
+            $auditoria = new AuditoriaModel();
+            $auditoria->user_id     = auth()->user()->id;
+            $auditoria->role_id     = auth()->user()->role->id;
+            $auditoria->modulo      = 'Revertir Permiso';
+            $auditoria->descripcion = 'Al revertir permiso de funcionameinto las tablas otros_pagos cambian a estado  anulado id re cliente'.$id;
+            $auditoria->accion      = 'MOMDIFICA LOCAL';
+            $auditoria->valor       = $id;
+            $auditoria->created_at  = Carbon::now();
+            $auditoria->save();
+
+
+            return back()->with('Respuesta','El registro fue revertido correctamente!!');
+
+
+
+
+        }
+    }
+
     public function store(Request $request){
 
 

@@ -115,6 +115,7 @@
                                                 <th class="column-title">REP. LEGAL</th>
                                                 <th class="column-title">CATEGOR&Iacute;A</th>
                                                 <th class="column-title">DENOMINACI&Oacute;N</th>
+                                                <th class="column-title">AÑO</th>
                                                 <th class="column-title no-link last"> &nbsp;ACCI&Oacute;N&nbsp;&nbsp;</th>
                                             </tr>
                                         </thead>
@@ -133,6 +134,10 @@
                                                     </td>
                                                     <td>
                                                         <label class="a-center denominacion">{{ $item->denominacion }}</label>
+                                                    </td>
+                                                    <td>
+                                                        
+                                                        <label class="a-center updated_at">{{ $item->updated_at }}</label>
                                                     </td>
                                                     <td style="text-align: center">
                                                         <a href="permiso/{{ $item->id }}" target="_blank"

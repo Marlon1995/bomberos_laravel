@@ -37,7 +37,7 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="page-title">
                                             <div class="title_left">
-                                                <h2><i class="fa fa-usd"></i> Otros Pagos</h2>
+                                                <h2><i class="fa fa-usd"></i> Otros Cobros</h2>
                                             </div>
                                             <div class="title_right" style="text-align: right">
                                                  <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#mdlNuevoPago"> <i class="fa fa-user"></i> Agregar</a>
@@ -58,6 +58,7 @@
                                                         <th class="column-title saldo__pagos">VALOR</th>
                                                         <th class="column-title saldo__pagos">FECHA</th>
                                                         <th class="column-title saldo__pagos">AÑO</th>
+                                                        <th class="column-title accion__pagos" align="center"></th>
                                                         <th class="column-title accion__pagos" align="center"></th>
                                                     </tr>
                                                     </thead>
@@ -83,6 +84,19 @@
                                                             </td>
                                                             <td>
                                                                 <a class="btn btn-info" href="bill-DiferentPayments/{{ $item->id }}" target="_blank" > IMPRIMIR </a>
+                                                            </td>
+                                                            <td>
+                                                            <form method="POST"
+                                                                        action="{{ route('different-payments.update', $item->id) }}">
+                                                                        <input type="hidden" name="_token"
+                                                                            value="{{ csrf_token() }}">
+                                                                        <input type="hidden" name="caso"
+                                                                            value="revertir_permiso">
+                                                                        {!! method_field('PUT') !!}
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger btn-block">Revertir
+                                                                            Permiso</button>
+                                                                    </form>
                                                             </td>
 
                                                         </tr>
