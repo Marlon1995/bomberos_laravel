@@ -54,16 +54,25 @@
 
                     <div class="page-title">
                         <div class="title_left">
-                            <h2><i class="fa fa-fire-extinguisher"></i> Formularios de Inspecci&oacute;n </h2>
+                            <h2><i class="fa fa-fire-extinguisher"></i> Lista de inspecciones </h2>
                         </div>
                         <div class="title_right">
-                            <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
+                            <div class="col-md-9 col-sm-12 col-xs-12 form-group pull-right top_search">
                                 <div class="input-group">
-                                    <input type="text"  name="InpBuscar" id="InpBuscar"  placeholder="Buscar por.." value=""
-                                       >
-                                    <span class="input-group-btn">
-                                        <button class="btn" name="buscar" type="button">Buscar</button>
-                                    </span>
+
+
+
+
+                                    <input type="text" class="form-control" placeholder="Buscar por.." value=""
+                                        id="tbClientes_InpBuscar">
+
+                             
+
+
+
+
+                                    <span class="input-group-btn"><button class="btn"
+                                            type="button">Buscar</button></span>
                                 </div>
                             </div>
                         </div>
@@ -78,8 +87,6 @@
                                     <a href="#" class="btn btn-outline-primary" data-toggle="modal"
                                         data-target="#mdlNuevEmpleado"> <i class="fa fa-user"></i> Agregar</a>
                                 @endif
-                                <p>Listado de Formularios de Inspecci&oacute;n registrados</p>
-
                                 <div class="table-responsive">
                                     <table id="tbClientes" class="table table-striped jambo_table bulk_action"
                                         style="width:100%;">
@@ -91,7 +98,6 @@
                                                 <th class="column-title">CATEGOR&Iacute;A</th>
                                                 <th class="column-title">DENOMINACI&Oacute;N</th>
                                                 <th class="column-title">AÑO PAGO</th>
-                                                <th class="column-title no-link last"></th>
                                                 <th class="column-title no-link last"></th>
                                                 <th class="column-title no-link last"></th>
                                             </tr>
@@ -322,9 +328,7 @@
 
 
     </div>
-    </div>
-    </div>
-    </div>
+  
     <!-- /page contsent -->
 
 
@@ -766,8 +770,60 @@
 
         $(document).ready(function() {
          
-            var tbClientes=$('#table_id').DataTable();
-        
+            var tbClientes;
+          
+        fn_tbClientes_ini();
+        $("#tbClientes_InpBuscar").val("");
+
+        function fn_tbClientes_ini() {
+            tbClientes = $('#tbClientes').DataTable({
+                dom: '<"top">rt<"bottom"><"clear">',
+                pageLength: 20,
+                order: [
+                    [3, "asc"]
+                ],
+                drawCallback: function(settings) {
+                    //CARGANDO
+                },
+                select: true,
+                "language": {
+                    "lengthMenu": 'Mostrar' +
+                        '<select style="width:60px" >' +
+                        '<option>5</option>' +
+                        '<option>10</option>' +
+                        '<option>20</option>' +
+                        '<option>25</option>' +
+                        '<option value="-1">Todos</option>' +
+                        '</select> registros por página',
+                    "zeroRecords": "No se encontraron resultados en su busqueda",
+                    "searchPlaceholder": "Buscar por..",
+                    "info": " ",
+                    "infoEmpty": "No existen registros",
+                    "infoFiltered": "",
+                    "search": "Buscar:",
+                    "processing": "Procesando...:",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                }
+            });
+
+        }
+        $("#tbClientes_InpBuscar").on('keyup', function(event) {
+            tbClientes.search(this.value).draw();
+        });
+
+        $(".tbClientes_selectBuscar").change(function(event) {
+
+            tbClientes.search(this.value).draw();
+
+        });
+
+
+
             var combo_actividad = $("select[id=categoria]").val();
             var endpoint = 'denomincacniones/' + combo_actividad;
             $.ajax({
@@ -789,16 +845,9 @@
                 }
             });
         });
-        // $(".btn__infoPersoanlCli").hide();
+        
 
-        //var tableC = $('#tbClientes').DataTable();
-        //console.table(tableC);
-
-        $("#InpBuscar").on('keyup',function(event) {
-          
-          var dato=$("#InpBuscar").val();
-           tbClientes.search( dato ).draw();
-       }); 
+  
     
 
         $("#categoria_md").change(function() {
@@ -913,51 +962,8 @@
         });
        
       
-       
-        $("#InpBuscar").val("");
-        fn_tbClientes_ini();
+   
         
-
-     
-        function fn_tbClientes_ini() {
-            tbClientes = $('#tbClientes').DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
-                pageLength: 20,
-                order: [
-                    [3, "asc"]
-                ],
-                drawCallback: function(settings) {
-                    //CARGANDO
-                },
-                select: true,
-                "language": {
-                    "lengthMenu": 'Mostrar' +
-                        '<select style="width:60px" >' +
-                        '<option>5</option>' +
-                        '<option>10</option>' +
-                        '<option>20</option>' +
-                        '<option>25</option>' +
-                        '<option value="-1">Todos</option>' +
-                        '</select> registros por página',
-                    "zeroRecords": "No se encontraron resultados en su busqueda",
-                    "searchPlaceholder": "Buscar por..",
-                    "info": " ",
-                    "infoEmpty": "No existen registros",
-                    "infoFiltered": "",
-                    "search": "Buscar:",
-                    "processing": "Procesando...:",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    },
-                }
-            });
-
-           
-        }
-
     
 
         $(".mdlModificaEmpleado").click(function() {

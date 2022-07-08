@@ -477,7 +477,10 @@
 
 
     <script src="/assets/js/custom.min.js"></script>
+    <script type="text/javascript" src="/assets/dataTable/datatables.min.js"></script>
+
     <script type="text/javascript" src="/assets/dataTable/dis/js/jquery.dataTables.min.js"></script>
+
 
     <script src="/assets/vendors/pnotify/dist/pnotify.js"></script>
     <script src="/assets/vendors/pnotify/dist/pnotify.buttons.js"></script>
