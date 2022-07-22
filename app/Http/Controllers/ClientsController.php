@@ -38,12 +38,13 @@ class ClientsController extends Controller {
                         ->join('otros_pagos','otros_pagos.client_id', '=', 'client.id')
                         ->get();
 //dd($pagos);
+
         if( auth()->user()->role_id == 3 ) {
 
             $clients = DB::table('client', 'cli')
                 ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
                 ->join('categorias', 'cli.categoria_id', 'categorias.id')
-                ->join('otros_pagos', 'otros_pagos.client_id', '=', 'cli.id')
+               // ->join('otros_pagos', 'otros_pagos.client_id', '=', 'cli.id')
                 ->select('cli.id'
                     , 'cli.ruc'
                     , 'cli.razonSocial'
@@ -56,9 +57,10 @@ class ClientsController extends Controller {
                     , 'cli.tipoFormulario'
                     , 'denominaciones.descripcion as denominacion'
                     , 'categorias.descripcion as categorias'
-                    , 'otros_pagos.year_now as anio'
+                    //, 'YEAR(cli.created_at ) as anio'
                     , 'cli.estado'
                 )
+                ->selectRaw('YEAR(cli.created_at ) as anio')
                 ->whereNotIn('cli.estado', [1])
                 ->groupBy('cli.id'
                 , 'cli.ruc'
@@ -72,7 +74,7 @@ class ClientsController extends Controller {
                 , 'cli.tipoFormulario'
                 , 'denominaciones.descripcion'
                 , 'categorias.descripcion'
-                , 'otros_pagos.year_now'
+                , 'cli.created_at'
                 , 'cli.estado')
                 ->orderBy('cli.created_at','DESC','otros_pagos.year_now','')
                 ->get();

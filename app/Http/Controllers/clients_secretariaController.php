@@ -79,9 +79,10 @@ class clients_secretariaController extends Controller
                 'estado' => 1,
                 'updated_at' => Carbon::now()
             ]);
-
+         
 
         $auditoria = new AuditoriaModel();
+        
         $auditoria->user_id = auth()->user()->id;
         $auditoria->role_id  = auth()->user()->role->id;
         $auditoria->modulo = 'Formularios';
@@ -89,8 +90,9 @@ class clients_secretariaController extends Controller
         $auditoria->accion = 'desctiva al cliente';
         $auditoria->valor = $id;
         $auditoria->created_at = Carbon::now();
+        
         $auditoria->save();
-
+       
         return back()->with('Respuesta','Se DESACTIVO el cliente de la Razón Social'.strtoupper ($client[0]->razonSocial).' del sistema.');
     }
 

@@ -226,7 +226,7 @@
                                                                                 <select class="form-control" name="anioPago">
                                                                                 <?php
                                                                                 $fecha = now()->format('Y');
-                                                                                for ($i=2019; $i <=$fecha ; $i++) { 
+                                                                                for ($i=2013; $i <=$fecha ; $i++) { 
                                                                                 echo '<option value="'.$i.'">'.$i.'</option>';
                                                                                 }
                                                                             ?>
