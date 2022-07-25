@@ -85,7 +85,7 @@ class ClientsController extends Controller {
             $clients = DB::table('client', 'cli')
                 ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
                 ->join('categorias', 'cli.categoria_id', 'categorias.id')
-                ->join('otros_pagos', 'otros_pagos.client_id', '=', 'cli.id')
+               // ->join('otros_pagos', 'otros_pagos.client_id', '=', 'cli.id')
                 ->select('cli.id'
                     , 'cli.ruc'
                     , 'cli.razonSocial'
@@ -98,9 +98,10 @@ class ClientsController extends Controller {
                     , 'cli.tipoFormulario'
                     , 'denominaciones.descripcion as denominacion'
                     , 'categorias.descripcion as categorias'
-                    , 'otros_pagos.year_now as anio'
+                  //  , 'otros_pagos.year_now as anio'
                     , 'cli.estado'
                 )
+                ->selectRaw('YEAR(cli.created_at ) as anio')
                 ->whereNotIn('cli.estado', [1, 8])
                 ->orderBy('cli.razonSocial', 'ASC')
                 ->get();
