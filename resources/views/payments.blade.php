@@ -549,7 +549,7 @@
                                                                 <input type="text" class="form-control datepicker"
                                                                     name="valor_porcentaje" id="valor_porcentaje" required
                                                                     placeholder="1.46% ">
-                                                                <!--<input type="text" name="recargo_valor" id="recargo_valor">-->
+                                                                <input type="hidden" name="recargo_valor" id="recargo_valor">
 
                                                             </div>
                                                         </div>
