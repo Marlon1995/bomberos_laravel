@@ -153,7 +153,7 @@ class PaymentsController extends Controller
 
 
                 $file = $request->file('documentoRespaldo');
-                $docRespaldo = time() . $file->getClientOriginalName();
+                $docRespaldo = time() .'documentoRespaldo';
                 $file->move(public_path(). '/dicumentosRespaldo/', $docRespaldo);
 
 
