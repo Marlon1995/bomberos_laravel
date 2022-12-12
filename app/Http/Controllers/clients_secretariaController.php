@@ -7,6 +7,7 @@ use App\System;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class clients_secretariaController extends Controller
 {
@@ -46,13 +47,17 @@ class clients_secretariaController extends Controller
     }
 
     public function destroy( Request $request, $id) {
-        $id = $request->input('client_id');
+     
 
+        
         $name="";
-         if ($request->hasFile('documentoRespaldo')) {
-            $file = $request->file('documentoRespaldo');
+   
+         if ($request->hasFile('respaldo')) {
+            $file = $request->file('respaldo');
+           
             $name = time() . $file->getClientOriginalName();
-            $file->move(public_path() . '/documentosRespaldo/', $name);
+            $file->move(public_path() . '/dicumentosRespaldo/', $name);
+          
 
         }
 

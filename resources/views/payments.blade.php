@@ -752,7 +752,7 @@
                                                             <label class="col-form-label col-md-4 col-sm-4 label-align"
                                                                 for="cedula">Respaldo </label>
                                                             <div class="col-md-10 col-sm-10">
-                                                                <input type="file" name="docemtnoRespaldo" required>
+                                                                <input type="file" name="documentoRespaldo" required>
                                                             </div>
                                                         </div>
 
