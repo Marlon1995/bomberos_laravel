@@ -36,9 +36,9 @@ class PaymentsController extends Controller
                 'otros_pagos.tipoPago')
             ->get();
         $clients = DB::table('client', 'cli')
-            ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
-            ->join('categorias', 'cli.categoria_id', 'categorias.id')
-            ->join('riesgos', 'cli.riesgo_id', 'riesgos.id')
+            /* ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id') */
+            /* ->join('categorias', 'cli.categoria_id', 'categorias.id') */
+            /* ->join('riesgos', 'cli.riesgo_id', 'riesgos.id') */
             ->leftJoin('otros_pagos', function ($lj) {
                 $lj->on('otros_pagos.client_id', '=', 'cli.id')
                     ->where('otros_pagos.tipoPago', '<>', 3);
@@ -49,9 +49,9 @@ class PaymentsController extends Controller
                 , 'cli.ruc'
                 , 'cli.razonSocial'
                 , 'cli.representanteLegal'
-                , 'denominaciones.descripcion as denominacion'
-                , 'categorias.descripcion as categorias'
-                , 'riesgos.descripcion as riesgo'
+                /* , 'denominaciones.descripcion as denominacion' */
+                /* , 'categorias.descripcion as categorias' */
+                /* , 'riesgos.descripcion as riesgo' */
                 , 'cli.estado'
                 , 'tasa_anual.valTasaAnual'
             )
@@ -60,10 +60,10 @@ class PaymentsController extends Controller
 
 
         $impuestos = DB::table('client')
-            ->join('categorias', 'categorias.id', 'client.categoria_id')
-            ->join('denominaciones', 'denominaciones.id', 'client.denominacion_id')
+            /* ->join('categorias', 'categorias.id', 'client.categoria_id') */
+            /* ->join('denominaciones', 'denominaciones.id', 'client.denominacion_id') */
             ->join('parroquias', 'parroquias.id', 'client.parroquia_id')
-            ->select('client.id', 'client.razonSocial', 'client.representanteLegal', 'client.ruc', 'client.barrio', 'client.telefono', 'parroquias.descripcion as parroquia', 'client.referencia', 'categorias.descripcion as categoria', 'denominaciones.descripcion as denominacion')
+            ->select('client.id', 'client.razonSocial', 'client.representanteLegal', 'client.ruc', 'client.barrio', 'client.telefono', 'parroquias.descripcion as parroquia', 'client.referencia'/* , 'categorias.descripcion as categoria' *//* , 'denominaciones.descripcion as denominacion' */)
             ->whereIn('client.estado', [7])
             ->get();
 

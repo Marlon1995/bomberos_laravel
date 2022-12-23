@@ -87,6 +87,10 @@
                                     <a href="#" class="btn btn-outline-primary" data-toggle="modal"
                                         data-target="#mdlNuevEmpleado"> <i class="fa fa-user"></i> Agregar</a>
                                 @endif
+
+                                    <a href="#" class="btn btn-outline-warning" data-toggle="modal"
+                                        data-target="#mdlIframePagina"> <i class="fa fa-user"></i> Visualizar</a>
+
                                 <div class="table-responsive">
                                     <table id="tbClientes" class="table table-striped jambo_table bulk_action"
                                         style="width:100%;">
@@ -95,8 +99,8 @@
                                                 <th class="column-title">RUC</th>
                                                 <th class="column-title">RAZ&Oacute;N. SOCIAL</th>
                                                 <th class="column-title">REP. LEGAL</th>
-                                                <th class="column-title">CATEGOR&Iacute;A</th>
-                                                <th class="column-title">DENOMINACI&Oacute;N</th>
+                                                <!-- <th class="column-title">CATEGOR&Iacute;A</th> -->
+                                                <!-- <th class="column-title">DENOMINACI&Oacute;N</th> -->
                                                 <th class="column-title">AÑO PAGO</th>
                                                 <th class="column-title no-link last"></th>
                                                 <th class="column-title no-link last"></th>
@@ -108,20 +112,9 @@
                                                 @if (auth()->user()->hasRoles([4,3]))
                                                     <tr class="even pointer">
                                                         <td><label class="a-center ruc">{{ $item->ruc }}</label></td>
-                                                        <td><label
-                                                                class="a-center razonSocial">{{ $item->razonSocial }}</label>
-                                                        </td>
-                                                        <td><label
-                                                                class="a-center representanteLegal">{{ $item->representanteLegal }}</label>
-                                                        </td>
-                                                        <td><label class="a-center denominacion">{{ $item->categorias }}</label>
-                                                        </td>
-                                                        <td><label
-                                                                class="a-center categorias">{{ $item->denominacion }}</label>
-                                                        </td>
-                                                        <td><label
-                                                                class="a-center denominacion">{{ $item->anio }}</label>
-                                                        </td>
+                                                        <td><label class="a-center razonSocial">{{ $item->razonSocial }}</label></td>
+                                                        <td><label class="a-center representanteLegal">{{ $item->representanteLegal }}</label></td>
+                                                        <td><label class="a-center denominacion">{{ $item->anio }}</label></td>
                                                         <td class="a-center last">
                                                             @if ($item->estado == 4)
                                                                 <div class="btn btn-success btn-block">ACTIVO</div>
@@ -216,8 +209,6 @@
                                                                 {{ $item->razonSocial }}</td>
                                                             <td class="a-center" style="width: 15%">
                                                                 {{ $item->representanteLegal }}</td>
-                                                            <td>{{ $item->categorias }}</td>
-                                                            <td>{{ $item->denominacion }}</td>
                                                             <td>{{ $item->anio }}</td>
                                                             <td style="	white-space:nowrap;">
                                                                 @if ($item->estado == 6)
@@ -330,6 +321,23 @@
     </div>
   
     <!-- /page contsent -->
+
+    <div class="modal fade" id="mdlIframePagina" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 90%!important;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> <i class="fa fa-user"></i> SRI EN LINEA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <iframe width="100%" height="600" src="https://srienlinea.sri.gob.ec/sri-en-linea/SriRucWeb/ConsultaRuc/Consultas/consultaRuc/" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Modal mdlNuevEmpleado-->
@@ -449,25 +457,12 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label class="control-label col-md-2 col-sm-2 ">CATEGOR&Iacute;A</label>
-                                    <div class="col-md-6 col-sm-6 ">
-                                        <select class="form-control" name="categoria" id="categoria">
-                                            @forelse ($categoria as $item)
-                                                <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
-                                            @empty
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row">
+<!--                                 <div class="form-group row">
                                     <label class="control-label col-md-2 col-sm-2 ">DENOMINACI&Oacute;N</label>
                                     <div class="col-md-6 col-sm-6 ">
                                         <select class="form-control" name="actividad" id="actividad"></select>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!--fin INFORMACIÓN GENERAL-->
 
@@ -606,25 +601,12 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label class="control-label col-md-2 col-sm-2 ">CATEGOR&Iacute;A</label>
-                                    <div class="col-md-6 col-sm-6 ">
-                                        <select class="form-control" name="categoria" id="categoria_md">
-                                            @forelse ($categoria as $item)
-                                                <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
-                                            @empty
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row">
+<!--                                 <div class="form-group row">
                                     <label class="control-label col-md-2 col-sm-2 ">DENOMINACI&Oacute;N</label>
                                     <div class="col-md-6 col-sm-6 ">
                                         <select class="form-control" name="actividad" id="actividad_md"></select>
                                     </div>
-                                </div>
+                                </div> -->
 
 
                                 <!--fin INFORMACIÓN GENERAL-->
@@ -707,7 +689,7 @@
                                                 <p class="margin_p"><b>RUC</b></p>
                                                 <p class="margin_p"><b>DIRECCI&Oacute;N</b></p>
                                                 <p class="margin_p"><b>TEL&Eacute;FONO</b></p>
-                                                <p class="margin_p"><b>CATEGORIA</b></p>
+                                                <!-- <p class="margin_p"><b>CATEGORIA</b></p> -->
 
                                             </div>
                                             <div class="col-sm-5" style="text-align: left;padding: 10px">
@@ -716,7 +698,7 @@
                                                 <p class="margin_p" id="ruc__mdPAgos"></p>
                                                 <p class="margin_p" id="direccion__MdPagos"></p>
                                                 <p class="margin_p" id="telefono__MdPagos"></p>
-                                                <p class="margin_p" id="catgoria__MdPagos"></p>
+                                                <!-- <p class="margin_p" id="catgoria__MdPagos"></p> -->
                                             </div>
                                             <div class="col-sm-1"></div>
                                         </div>
@@ -838,7 +820,7 @@
                         $("#actividad").append('<option value="' + datos[i]['id'] + '">' + datos[i][
                             'descripcion'
                         ] + ' </option>');
-                        $("#actividad_md").append('<option value="' + datos[i]['id'] + '" >' + datos[i][
+                        $("_#actividadmd").append('<option value="' + datos[i]['id'] + '" >' + datos[i][
                             'descripcion'
                         ] + ' </option>');
                     }
@@ -945,13 +927,13 @@
                     $("#ruc__mdPAgos").text(datos['cliente']['ruc']);
                     $("#direccion__MdPagos").text(datos['cliente']['direccion']);
                     $("#telefono__MdPagos").text(datos['cliente']['telefono']);
-                    $("#catgoria__MdPagos").text(datos['cliente']['categoria']);
+                    /* $("#catgoria__MdPagos").text(datos['cliente']['categoria']); */
                     $("#saldo__mdpagos").text('$ ' + datos['cliente']['saldo']);
                     $("#anticipos__mdpagos").text('$ ' + datos['Pagos']['anticipos']);
                     $("#descuentos__mdpagos").text('$ ' + datos['Pagos']['descuentos']);
                     $("#RecargoTrimestral__mdpagos").text('$ ' + datos['Pagos']['RecargoTrimestral']);
                     $("#TasaAnual__mdpagos").text('$ ' + datos['Pagos']['TasaAnual']);
-                    $("#TotalTasaAnual__mdpagos").text('$ ' + datos['Pagos']['TasaAnualR']);
+                    $("#TotalTasaAnual__mdpagos").text('$ '/*  + datos['Pagos']['TasaAnualR'] */);
 
 
                 },

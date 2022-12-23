@@ -105,8 +105,8 @@
                                                 <th class="column-title">RUC</th>
                                                 <th class="column-title">RAZ&Oacute;N. SOCIAL</th>
                                                 <th class="column-title">REP. LEGAL</th>
-                                                <th class="column-title">CATEGOR&Iacute;A</th>
-                                                <th class="column-title">DENOMINACI&Oacute;N</th>
+<!--                                                 <th class="column-title">CATEGOR&Iacute;A</th>
+                                                <th class="column-title">DENOMINACI&Oacute;N</th> -->
                                                 <th class="column-title">PARROQUIA</th>
                                                 <th class="column-title">ESTADO</th>
                                                 <th class="column-title">ACCION</th>
@@ -121,11 +121,6 @@
                                                     </td>
                                                     <td><label
                                                             class="a-center representanteLegal">{{ $item->representanteLegal }}</label>
-                                                    </td>
-                                                    <td><label class="a-center categorias">{{ $item->categorias }}</label>
-                                                    </td>
-                                                    <td><label
-                                                            class="a-center denominacion">{{ $item->denominacion }}</label>
                                                     </td>
                                                     <td><label class="a-center">{{ $item->parroquia }}</label>
                                                     </td>

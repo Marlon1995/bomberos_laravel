@@ -79,20 +79,25 @@ class DataController extends Controller
             ->where('otros_pagos.tipoPago','=',6)
             ->get();
 
-        $TasaAnualR =  $generarPago = DB::table('client','cli')
+/*         $TasaAnualR =  DB::table('client','cli')
             ->join('tasa_anual',  [
                 'cli.categoria_id' => 'tasa_anual.categoria_id',
                 'cli.riesgo_id' => 'tasa_anual.riesgo_id' ,
                 'cli.denominacion_id' => 'tasa_anual.denominacion_id' ])
             ->select('tasa_anual.valTasaAnual as TasaAnualR')
             ->where('cli.id', $id)
-            ->get();
+            ->get(); */
+
+        /*return $TasaAnualR; */
+        
         $cliente = DB::table('client')
-            ->join('categorias',  'categorias.id' , 'client.categoria_id')
+            /* ->join('categorias',  'categorias.id' , 'client.categoria_id') */
             ->join('parroquias',  'parroquias.id' , 'client.parroquia_id')
-            ->select( 'client.razonSocial','client.representanteLegal','client.ruc','client.barrio', 'client.telefono','parroquias.descripcion as parroquia','client.referencia','categorias.descripcion as categoria')
+            ->select( 'client.razonSocial','client.representanteLegal','client.ruc','client.barrio', 'client.telefono','parroquias.descripcion as parroquia','client.referencia'/* ,'categorias.descripcion as categoria' */)
             ->where('client.id','=',$id)
             ->get();
+
+        
 
 
 
@@ -107,7 +112,7 @@ class DataController extends Controller
                     "descuentos"        => (empty($descuentos[0]->descuentos)) ? 0 : $descuentos[0]->descuentos,
                     "RecargoTrimestral" => (empty($RecargoTrimestral[0]->RecargoTrimestral)) ? 0 :round($RecargoTrimestral[0]->RecargoTrimestral,5),
                     "TasaAnual"         => (empty($TasaAnual[0]->TasaAnual)) ? 0 : round($TasaAnual[0]->TasaAnual,5),
-                    "TasaAnualR"         => (empty($TasaAnualR[0]->TasaAnualR)) ? 0 : round($TasaAnualR[0]->TasaAnualR,5)
+                    "TasaAnualR"         => (empty($TasaAnual[0]->TasaAnualR)) ? 0 : round($TasaAnual[0]->TasaAnualR,5)
                 ),
                 "cliente" => array(
                     "razonSocial"           => strtoupper ($cliente[0]->razonSocial),
@@ -115,7 +120,7 @@ class DataController extends Controller
                     "ruc"                   => $cliente[0]->ruc,
                     "telefono"              => $cliente[0]->telefono,
                     "direccion"             => strtoupper ($cliente[0]->parroquia.' '.$cliente[0]->barrio),
-                    "categoria"             => strtoupper ($cliente[0]->categoria),
+                    /* "categoria"             => strtoupper ($cliente[0]->categoria), */
                     "saldo"                 => $saldo
                  ),
                 "Respuesta"     => 'ok'
@@ -284,7 +289,7 @@ return $pdf->stream($doc . '.pdf');
         $data = System::all();
         $client = DB::table('otros_pagos')
             ->join('client','client.id','otros_pagos.client_id')
-            ->join('categorias','categorias.id','client.categoria_id')
+            /* ->join('categorias','categorias.id','client.categoria_id') */
             ->join('parroquias','client.parroquia_id','parroquias.id')
                 ->join('tipos_pago',  function ($join) {
                     $join->on('tipos_pago.id',  'otros_pagos.tipoPago')
@@ -296,7 +301,7 @@ return $pdf->stream($doc . '.pdf');
                     ,'parroquias.descripcion as parroquia'
                     ,'barrio'
                     ,'telefono'
-                    ,'categorias.descripcion as categoria'
+                    /* ,'categorias.descripcion as categoria' */
                     ,'referencia'
                     ,'formaspago.nombre as formaspago'
                     ,'tipos_pago.nombre as tipos_pago'
@@ -369,8 +374,8 @@ return $pdf->stream($doc . '.pdf');
     public function inspecciones(){
         $data = System::all();
         $clients = DB::table('client','cli')
-            ->join('denominaciones','cli.denominacion_id','denominaciones.id')
-            ->join('categorias','cli.categoria_id','categorias.id')
+            /* ->join('denominaciones','cli.denominacion_id','denominaciones.id') */
+            /* ->join('categorias','cli.categoria_id','categorias.id') */
             ->select(   'cli.id'
                 ,'cli.ruc'
                 ,'cli.razonSocial'
@@ -381,8 +386,8 @@ return $pdf->stream($doc . '.pdf');
                 ,'cli.categoria_id'
                 ,'cli.denominacion_id'
                 ,'cli.tipoFormulario'
-                ,'denominaciones.descripcion as denominacion'
-                ,'categorias.descripcion as categorias'
+                /* ,'denominaciones.descripcion as denominacion' */
+                /* ,'categorias.descripcion as categorias' */
                 ,'cli.estado'
             )
             ->orWhere( function ( $q ){

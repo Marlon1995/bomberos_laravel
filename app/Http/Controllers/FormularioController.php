@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\AuditoriaModel;
 use App\DetalleRequerimiento;
+use App\Inspecciones;
+use App\Inspecciones_sec;
+use App\PagoInspeccion;
 use App\FotosLocalModel;
 use App\Mail\MailTrap;
 use App\System;
@@ -21,23 +24,78 @@ class FormularioController extends Controller{
         return redirect('/');
     }
 
-    public function store(Request $request){
+    public function store(Request $request) {
+        //queda en el codigo
         $longitud =  $request->input('count');
         $client_id = $request->input('client_id');
+        $valorBCI = $request->input('respuesta_bci');
+
         $client = DB::table('client')->select('ruc', 'razonSocial','representanteLegal','email')->where('id', $client_id)->get();
 
-        for ($i=1; $i <= 27; $i++){
-            $data = new DetalleRequerimiento();
+        //añadido en el codigo
+        for ($i=1; $i <= 18; $i++){
+            $data = new Inspecciones();
             $data->client_id        = $client_id;
             $data->requerimiento_id = $i;
             $data->respuesta        = $request->input('respuesta_'.$i);
-            $data->cantidad         = $request->input('cantidad_'.$i);
-            $data->cantidadB         = $request->input('cantidadB_'.$i);
-            $data->observacion      = $request->input('observacion_'.$i);
+            $data->tipo             = 'X';
             $data->estado           = 2;
             $data->save();
         }
 
+        //añadido en el codigo
+        for ($i=19; $i <= 24; $i++){
+            $data = new Inspecciones();
+            $data->client_id        = $client_id;
+            $data->requerimiento_id = $i;
+            $data->respuesta        = $request->input('respuesta_'.$i);
+            $data->tipo             = 'Y';
+            $data->estado           = 2;
+            $data->save();
+        }
+
+        $sumInspection_x = DB::table('inspecciones')->select('respuesta')->where(['client_id' => $client_id,'tipo' => 'X'])->get()->sum('respuesta');
+        $sumInspection_y = DB::table('inspecciones')->select('respuesta')->where(['client_id' => $client_id,'tipo' => 'Y'])->get()->sum('respuesta');
+        $valor_p = ((5 * $sumInspection_x)/129) + ((5*$sumInspection_y)/26) + $valorBCI;
+
+        //valores de la tabla para el calculo
+        if ($valor_p < 3) {
+            $valor_descripcion = 'Alto 30% - SBU';
+            $valor_riesgo = (float) 127.50;
+        } else if ($valor_p > 3 && $valor_p < 5) {
+            $valor_descripcion = 'Alto 30% - SBU';
+            $valor_riesgo = (float) 127.50;
+        } else if ($valor_p > 5 && $valor_p < 8) {
+            $valor_descripcion = 'Medio 20% - SBU';
+            $valor_riesgo = (float) 85;
+        } else {
+            $valor_descripcion = 'Leve 10% - SBU';
+            $valor_riesgo = (float) 42.50;
+        }
+
+        $tipoInstalacion_id = $request->input('tipoInstalacion');
+        $cantidad_m2 = (float) $request->input('cantidad_m2');
+        $tipoInstalacion = DB::table('tipo_instalacion')->select('valor')->where('id', $tipoInstalacion_id)->get();
+
+        $totalPagar = ($cantidad_m2 * $tipoInstalacion[0]->valor) + $valor_riesgo;
+
+        //guardamos el valor final a pagar
+        $pagoInspeccion = new PagoInspeccion();
+        $pagoInspeccion->client_id = $client_id;
+        $pagoInspeccion->valor = $totalPagar;
+        $pagoInspeccion->save();
+
+        //guardamos inspecciones_secundarios
+        $valorInspeccionesSec = new Inspecciones_sec();
+        $valorInspeccionesSec->client_id = $client_id;
+        $valorInspeccionesSec->valor_bci = $valorBCI;
+        $valorInspeccionesSec->observacion = $request->input('observacion_formulario');
+        $valorInspeccionesSec->riesgo = $valor_descripcion;
+        $valorInspeccionesSec->tipoInstalacion_id = $tipoInstalacion_id;
+        $valorInspeccionesSec->cantidad_m2 = $cantidad_m2;
+        $valorInspeccionesSec->save();
+
+        //queda en el codigo
         for ($i=1; $i <= 6; $i++) {
             if ($request->hasFile('foto'.$i)) {
                 $file = $request->file('foto'.$i);
@@ -53,6 +111,7 @@ class FormularioController extends Controller{
             }
         }
 
+        //queda en el codigo
         DB::table('client')->where('id', $client_id)->update([
             'riesgo_id'  => $request->input('tipoNegocio'),
             'decripcion' => $request->input('decripcion_riego'),
@@ -60,7 +119,7 @@ class FormularioController extends Controller{
             'updated_at'  => Carbon::now()
         ]);
 
-
+        //queda en el codigo
         $auditoria = new AuditoriaModel();
         $auditoria->user_id = auth()->user()->id;
         $auditoria->role_id  = auth()->user()->role->id;
@@ -70,8 +129,6 @@ class FormularioController extends Controller{
         $auditoria->valor = $client_id;
         $auditoria->created_at = Carbon::now();
         $auditoria->save();
-
-
 
         $users = DB::table('users')
             ->join('roles', 'roles.id','=','users.role_id')
@@ -93,11 +150,11 @@ class FormularioController extends Controller{
             "telefono" => auth()->user()->telefono,
             "sistema" => "CUERPO DE BOMBEROS ATACAMES"
         );
+
         Mail::to($client[0]->email)->send(new MailTrap($body));
 
-        foreach ( $users as $item){
-
-            if( $item->role_id == 3 ){
+        foreach ($users as $item) {
+            if ($item->role_id == 3) {
                  $body = array(
                     "asunto" => "ASUNTO",
                     "titulo" => "FORMULARIO DE INSPECCIÓN ",
@@ -110,10 +167,7 @@ class FormularioController extends Controller{
                     "telefono" => auth()->user()->telefono,
                     "sistema" => "CUERPO DE BOMBEROS ATACAMES. Todos los derechos reservados"
                 );
-
-
-            }else
-            if( $item->role_id == 7 ){
+            } else if ( $item->role_id == 7 ) {
                 //jefe de prevenció
                 $para="Jefe de Prevención";
                 $body = array(
@@ -128,10 +182,7 @@ class FormularioController extends Controller{
                     "telefono" => auth()->user()->telefono,
                     "sistema" => "CUERPO DE BOMBEROS ATACAMES. Todos los derechos reservados"
                 );
-
-
-            }else
-            if( $item->role_id == 8 ){
+            } else if ( $item->role_id == 8 ) {
                 //jefe de prevenció
                 $body = array(
                     "asunto" => "ASUNTO",
@@ -145,10 +196,9 @@ class FormularioController extends Controller{
                     "telefono" => auth()->user()->telefono,
                     "sistema" => "CUERPO DE BOMBEROS ATACAMES. Todos los derechos reservados"
                 );
-
             }
-            Mail::to($item->email)->send(new MailTrap($body));
 
+            Mail::to($item->email)->send(new MailTrap($body));
         }
 
         return redirect('clients')->with('Respuesta','Se completo el registro del Formulario de Inspección correctamente.');
@@ -158,15 +208,24 @@ class FormularioController extends Controller{
         //check 1
         $data = System::all();
         $requerimientos = DB::table('requerimientos')
-            ->join('det_requerimientos','requerimientos.id','det_requerimientos.requerimiento_id')
-            ->select(   'requerimientos.id as edit','requerimientos.*','det_requerimientos.*' )
-            ->where('det_requerimientos.client_id',$id)
-            
+            ->join('inspecciones','requerimientos.check_id','inspecciones.requerimiento_id')
+            ->select('requerimientos.*','inspecciones.*' )
+            ->where('inspecciones.client_id',$id)
             ->get();
+
+        $inspecciones_sec = DB::table('inspecciones_sec')
+            ->select('inspecciones_sec.*')
+            ->where('inspecciones_sec.client_id',$id)
+            ->get();
+
+        $tipoInstalacion = DB::table('tipo_instalacion')
+            ->select('tipo_instalacion.id','tipo_instalacion.descripcion')
+            ->get();
+
         $client = DB::table('client')
             ->join('parroquias','parroquias.id','client.parroquia_id')
-            ->join('categorias','categorias.id','client.categoria_id')
-            ->join('denominaciones','denominaciones.id','client.denominacion_id')
+/*             ->join('categorias','categorias.id','client.categoria_id')
+            ->join('denominaciones','denominaciones.id','client.denominacion_id') */
             ->select(   'client.id'
                 ,'client.created_at'
                 ,'client.tipoFormulario'
@@ -179,13 +238,13 @@ class FormularioController extends Controller{
                 ,'client.telefono'
                 ,'client.riesgo_id'
                 ,'client.decripcion'
-                 ,'categorias.descripcion as categoria'
-                ,'denominaciones.descripcion as denominacion'
+/*                 ,'categorias.descripcion as categoria'
+                ,'denominaciones.descripcion as denominacion' */
                 ,'client.estado'
             )->where('client.id', $id)
             ->orderBy('client.created_at', 'desc')
             ->get();
-         $riego = DB::table('tasa_anual')
+/*          $riego = DB::table('tasa_anual')
             ->join('client',  [
                 'client.denominacion_id' => 'tasa_anual.denominacion_id',
                 'client.categoria_id'    => 'tasa_anual.categoria_id' ])
@@ -193,7 +252,7 @@ class FormularioController extends Controller{
             ->select('riesgos.id','riesgos.descripcion')
             ->where('client.id', $id)
             ->groupBy('riesgos.id','riesgos.descripcion')
-            ->get();
+            ->get(); */
 
         $fotosLocal = DB::table('fotos_local')
             ->join('client','client.id','fotos_local.client_id')
@@ -202,22 +261,64 @@ class FormularioController extends Controller{
             ->get();
 
 
-        return view( 'formulario-edit' , compact('data','client','requerimientos','riego','fotosLocal') );
+        return view( 'formulario-edit' , compact('data','client','requerimientos','inspecciones_sec','fotosLocal', 'tipoInstalacion') );
 
      }
 
     public function update(Request $request, $id) {
         $longitud =  $request->input('count');
+        $valorBCI = $request->input('respuesta_bci');
 
-        for ($i=1; $i <= 27; $i++){
-             DB::table('det_requerimientos')->where(['client_id' => $id,'requerimiento_id' => $i])->update([
+        for ($i=1; $i <= 18; $i++){
+             DB::table('inspecciones')->where(['client_id' => $id,'requerimiento_id' => $i])->update([
                 'respuesta'     => $request->input('respuesta_'.$i),
-                'cantidad'      => $request->input('cantidad_'.$i),
-                'cantidadB'     => $request->input('cantidadB_'.$i),
-                'observacion'   => $request->input('observacion_'.$i),
-
              ]);
         }
+
+        for ($i=19; $i <= 24; $i++){
+            DB::table('inspecciones')->where(['client_id' => $id,'requerimiento_id' => $i])->update([
+               'respuesta'     => $request->input('respuesta_'.$i),
+            ]);
+       }
+
+       $sumInspection_x = DB::table('inspecciones')->select('respuesta')->where(['client_id' => $id,'tipo' => 'X'])->get()->sum('respuesta');
+       $sumInspection_y = DB::table('inspecciones')->select('respuesta')->where(['client_id' => $id,'tipo' => 'Y'])->get()->sum('respuesta');
+       $valor_p = ((5 * $sumInspection_x)/129) + ((5*$sumInspection_y)/26) + $valorBCI;
+
+       //valores de la tabla para el calculo
+       if ($valor_p < 3) {
+           $valor_descripcion = 'Alto 30% - SBU';
+           $valor_riesgo = (float) 127.50;
+       } else if ($valor_p > 3 && $valor_p < 5) {
+           $valor_descripcion = 'Alto 30% - SBU';
+           $valor_riesgo = (float) 127.50;
+       } else if ($valor_p > 5 && $valor_p < 8) {
+           $valor_descripcion = 'Medio 20% - SBU';
+           $valor_riesgo = (float) 85;
+       } else {
+           $valor_descripcion = 'Leve 10% - SBU';
+           $valor_riesgo = (float) 42.50;
+       }
+
+       $tipoInstalacion_id = $request->input('tipoInstalacion');
+       $cantidad_m2 = (float) $request->input('cantidad_m2');
+       $tipoInstalacion = DB::table('tipo_instalacion')->select('valor')->where('id', $tipoInstalacion_id)->get();
+
+       $totalPagar = ($cantidad_m2 * $tipoInstalacion[0]->valor) + $valor_riesgo;
+
+        DB::table('pago_inspeccion')->where('client_id', $id)->update([
+            'valor' => $totalPagar,
+            'updated_at'  => Carbon::now()
+        ]);
+
+        DB::table('inspecciones_sec')->where('client_id', $id)->update([
+            'valor_bci' => $valorBCI,
+            'observacion' => $request->input('observacion_formulario'),
+            'riesgo' => $valor_descripcion,
+            'tipoInstalacion_id' => $tipoInstalacion_id,
+            'cantidad_m2' => $cantidad_m2,
+            'updated_at'  => Carbon::now()
+        ]);
 
         DB::table('client')->where('id', $id)->update([
             'riesgo_id' => $request->input('tipoNegocio'),

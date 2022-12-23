@@ -250,7 +250,7 @@
                     <tr><td>DIRECCIÓN</td></tr>
                     <tr><td>RUC</td></tr>
                     <tr><td>TELÉFONO</td></tr>
-                    <tr><td>CATEGORIA</td></tr>
+                    <!-- <tr><td>CATEGORIA</td></tr> -->
                     <tr><td>AÑO A CANCELAR</td></tr>
                     <tr><td>VALOR ESTABLECIDO</td></tr>
                     <tr><td>VALOR ESPECIE</td></tr>
@@ -270,7 +270,6 @@
                     <tr><td>{{ substr( strtoupper($client[0]->parroquia.'/'.$client[0]->barrio.'/'.$client[0]->referencia),0,70) }}</td></tr>
                     <tr><td>{{$client[0]->ruc}}</td></tr>
                     <tr><td>{{$client[0]->telefono}}</td></tr>
-                    <tr><td>{{$client[0]->categoria}}</td></tr>
                     <tr><td>Permiso año {{ $client[0]->year_now }}</td></tr>
 
                     <tr>

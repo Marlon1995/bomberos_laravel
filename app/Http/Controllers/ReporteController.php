@@ -130,8 +130,8 @@ class ReporteController extends Controller
 
     public function reporte4(){
         $reporte = DB::table('client', 'cli')
-            ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
-            ->join('categorias', 'cli.categoria_id', 'categorias.id')
+            /* ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id') */
+            /* ->join('categorias', 'cli.categoria_id', 'categorias.id') */
             ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
             ->select('cli.id'
                 , 'cli.ruc'
@@ -152,6 +152,7 @@ class ReporteController extends Controller
 
    public function reporte5(){
         $fechas = Client::whereDate('created_at',Carbon::today())->get();
+        /* return $fechas; */
         $doc = "";
         $pdf = PDF::loadView('report/reporte5' , ["fechas" => $fechas])->setPaper('A4', 'landscape');
         return $pdf->stream($doc . '.pdf');
@@ -232,10 +233,11 @@ class ReporteController extends Controller
                 'otros_pagos.created_at')
             ->whereNotIn('tipos_pago.id', [2])
             ->where('otros_pagos.estado','=', 8)
-            ->where('otros_pagos.created_at','>=', $fecha1_c.'%' )
-            ->where('otros_pagos.created_at','<=', $fecha2_c.'%' )
+            ->where('otros_pagos.created_at','>=', $fecha1_c.'%')
+            ->where('otros_pagos.created_at','<=', $fecha2_c.'%')
             ->orderBy('otros_pagos.created_at', 'desc')
             ->get();
+
         $doc = "";
         $pdf = PDF::loadView('report/reportepofechas' , ["reporte" => $reporte,
                                                         'rangos' => $rangos]);
@@ -300,8 +302,8 @@ class ReporteController extends Controller
         }elseif ( $array['tipe'] == 'remitidos' ) {
 
             $reporte = DB::table('client', 'cli')
-                ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
-                ->join('categorias', 'cli.categoria_id', 'categorias.id')
+                /* ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id') */
+                /* ->join('categorias', 'cli.categoria_id', 'categorias.id') */
                 ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
                 ->select('cli.id'
                     , 'cli.ruc'
@@ -409,8 +411,8 @@ class ReporteController extends Controller
         }elseif ( $array['tipe'] == 'remitidos' ) {
 
             $reporte = DB::table('client', 'cli')
-                ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
-                ->join('categorias', 'cli.categoria_id', 'categorias.id')
+                /* ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id') */
+                /* ->join('categorias', 'cli.categoria_id', 'categorias.id') */
                 ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
                 ->select('cli.id'
                     , 'cli.ruc'

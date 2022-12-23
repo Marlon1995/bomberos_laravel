@@ -24,9 +24,9 @@ class PerisoFuncionamientoController extends Controller
     public function index(){
         $data = System::all();
         $clients = DB::table('client', 'cli')
-            ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
-            ->join('categorias', 'cli.categoria_id', 'categorias.id')
-            ->join('riesgos', 'cli.riesgo_id', 'riesgos.id')
+            /* ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id') */
+            /* ->join('categorias', 'cli.categoria_id', 'categorias.id') */
+            /* ->join('riesgos', 'cli.riesgo_id', 'riesgos.id') */
             ->select('cli.id'
                 , 'cli.ruc'
                 , 'cli.razonSocial'
@@ -40,9 +40,9 @@ class PerisoFuncionamientoController extends Controller
                 , 'cli.riesgo_id'
                 , 'cli.denominacion_id'
                 , 'cli.tipoFormulario'
-                , 'denominaciones.descripcion as denominacion'
+/*                 , 'denominaciones.descripcion as denominacion'
                 , 'categorias.descripcion as categorias'
-                , 'riesgos.descripcion as riesgo'
+                , 'riesgos.descripcion as riesgo' */
                 , 'cli.estado'
             )
             ->where('cli.estado', '=', 8)
@@ -56,9 +56,9 @@ class PerisoFuncionamientoController extends Controller
     public function pdf($id) {
         $client = DB::table('client', 'cli')
             ->join('parroquias','cli.parroquia_id','parroquias.id')
-            ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
-            ->join('categorias', 'cli.categoria_id', 'categorias.id')
-            ->join('riesgos', 'cli.riesgo_id', 'riesgos.id')
+/*             ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
+            ->join('categorias', 'cli.categoria_id', 'categorias.id') */
+            /* ->join('riesgos', 'cli.riesgo_id', 'riesgos.id') */
             ->select('cli.id'
                 , 'cli.ruc'
                 , 'cli.razonSocial'
@@ -72,9 +72,9 @@ class PerisoFuncionamientoController extends Controller
                 , 'cli.denominacion_id'
                 , 'cli.tipoFormulario'
                 ,'cli.updated_at as anio'
-                , 'denominaciones.descripcion as denominacion'
+/*                 , 'denominaciones.descripcion as denominacion'
                 , 'categorias.descripcion as categorias'
-                , 'riesgos.descripcion as riesgo'
+                , 'riesgos.descripcion as riesgo' */
                 , 'cli.estado'
             )
             ->where('cli.id', '=', $id)->get();
@@ -160,15 +160,20 @@ class PerisoFuncionamientoController extends Controller
 
     public function show($id) {
 
-
-        $generarPago = DB::table('client','cli')
-            ->join('tasa_anual',  [
-                                            'cli.categoria_id' => 'tasa_anual.categoria_id',
-                                            'cli.riesgo_id' => 'tasa_anual.riesgo_id' ,
-                                            'cli.denominacion_id' => 'tasa_anual.denominacion_id' ])
+/*      $generarPago = DB::table('client','cli')
+            ->join('tasa_anual',  [ 'cli.categoria_id' => 'tasa_anual.categoria_id',
+                                    'cli.riesgo_id' => 'tasa_anual.riesgo_id' ,
+                                    'cli.denominacion_id' => 'tasa_anual.denominacion_id' ])
             ->select('cli.id as cliente_id','tasa_anual.id as tasas_anual_id','tasa_anual.valTasaAnual as valor','cli.id', 'cli.ruc','cli.razonSocial','cli.representanteLegal','cli.email')
             ->where('cli.id', $id)
+            ->get(); */
+
+        $generarPago = DB::table('client')
+            ->join('pago_inspeccion', 'client.id', 'pago_inspeccion.client_id')
+            ->select('client.id as cliente_id','pago_inspeccion.valor as valor','client.id', 'client.ruc','client.razonSocial','client.representanteLegal','client.email')
+            ->where('client.id', $id)
             ->get();
+            
 
         $anio= date('Y');
         $mes = date("m");
@@ -179,11 +184,11 @@ class PerisoFuncionamientoController extends Controller
         //$valorCalculado = $generarPago[0]->valor - $valorFechaRegistro;
         $valorCalculado = $generarPago[0]->valor;
 
-        $obj = new PagosTasasModel();  
+/*         $obj = new PagosTasasModel();  
         $obj->client_id     = $generarPago[0]->cliente_id;
         $obj->tasa_anual_id = $generarPago[0]->tasas_anual_id;
-        $obj->estado        = 7; // pago tasa anual pendiente
-        $obj->save();
+        $obj->estado        = 7;
+        $obj->save(); */
 
         $send = new OtrosPagosModel();
         $send->client_id = $generarPago[0]->cliente_id;
@@ -193,7 +198,6 @@ class PerisoFuncionamientoController extends Controller
         $send->estado    = 7; // estado pendiente
         $send->save();
 
-
         $send = new OtrosPagosModel();
         $send->client_id = $generarPago[0]->cliente_id;
         $send->tipoPago  = 6;
@@ -202,8 +206,6 @@ class PerisoFuncionamientoController extends Controller
         $send->estado    = 8; //pagado
         $send->save();
 
-
-        
         $auditoria = new AuditoriaModel();
         $auditoria->user_id = auth()->user()->id;
         $auditoria->role_id  = auth()->user()->role->id;
@@ -213,7 +215,6 @@ class PerisoFuncionamientoController extends Controller
         $auditoria->valor       = $id;
         $auditoria->created_at  = Carbon::now();
         $auditoria->save();
-
 
         $body = array(
             "asunto" => "ASUNTO",
@@ -228,10 +229,7 @@ class PerisoFuncionamientoController extends Controller
             "sistema" => "CUERPO DE BOMBEROS ATACAMES"
         );
 
-
-
 //        Mail::to($generarPago[0]->email)->send(new MailTrap($body));
-
 
         DB::table('client')->where('id', $id)->update([
             'estado' => 7, // Se a generado la solicitud de pago del permiso de funcionamiento correctamente

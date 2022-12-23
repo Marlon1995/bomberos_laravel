@@ -175,11 +175,10 @@
                                                     <thead>
                                                         <tr class="headings">
                                                             <th class="column-title ruc__pagos">CI - RUC</th>
-                                                            <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL
-                                                            </th>
+                                                            <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL</th>
                                                             <th class="column-title repesLegar__pagos">REP. LEGAL</th>
-                                                            <th class="column-title saldo__pagos">CATEGORIA</th>
-                                                            <th class="column-title saldo__pagos">DENOMINACION</th>
+<!--                                                             <th class="column-title saldo__pagos">CATEGORIA</th>
+                                                            <th class="column-title saldo__pagos">DENOMINACION</th> -->
                                                             <th class="column-title accion__pagos" align="center"></th>
 
                                                         </tr>
@@ -195,12 +194,6 @@
                                                                 </td>
                                                                 <td><label
                                                                         class="repLegar___tbPagos">{{ $item->representanteLegal }}</label>
-                                                                </td>
-                                                                <td><label
-                                                                        class="valTasaAnual__tbPagos">{{ $item->categoria }}</label>
-                                                                </td>
-                                                                <td><label
-                                                                        class="saldo__tbpagos">{{ $item->denominacion }}</label>
                                                                 </td>
 
                                                                 <td>
@@ -263,8 +256,8 @@
                                                             <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL
                                                             </th>
                                                             <th class="column-title repesLegar__pagos">REP. LEGAL</th>
-                                                            <th class="column-title saldo__pagos">CATEGORIA</th>
-                                                            <th class="column-title saldo__pagos">DENOMINACION</th>
+<!--                                                             <th class="column-title saldo__pagos">CATEGORIA</th>
+                                                            <th class="column-title saldo__pagos">DENOMINACION</th> -->
                                                             <th class="column-title accion__pagos" align="center"></th>
                                                         </tr>
                                                     </thead>
@@ -279,12 +272,6 @@
                                                                 </td>
                                                                 <td><label
                                                                         class="repLegar___tbPagos">{{ $item->representanteLegal }}</label>
-                                                                </td>
-                                                                <td><label
-                                                                        class="valTasaAnual__tbPagos">{{ $item->categoria }}</label>
-                                                                </td>
-                                                                <td><label
-                                                                        class="saldo__tbpagos">{{ $item->denominacion }}</label>
                                                                 </td>
                                                                 <td>
                                                                     <div data-toggle="modal"
@@ -344,8 +331,8 @@
                                                             <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL
                                                             </th>
                                                             <th class="column-title repesLegar__pagos">REP. LEGAL</th>
-                                                            <th class="column-title saldo__pagos">CATEGORIA</th>
-                                                            <th class="column-title saldo__pagos">DENOMINACION</th>
+                                                            <!-- <th class="column-title saldo__pagos">CATEGORIA</th> -->
+                                                            <!-- <th class="column-title saldo__pagos">DENOMINACION</th> -->
                                                             <th class="column-title accion__pagos" align="center"></th>
                                                         </tr>
                                                     </thead>
@@ -360,12 +347,6 @@
                                                                 </td>
                                                                 <td><label
                                                                         class="repLegar___tbPagos">{{ $item->representanteLegal }}</label>
-                                                                </td>
-                                                                <td><label
-                                                                        class="valTasaAnual__tbPagos">{{ $item->categoria }}</label>
-                                                                </td>
-                                                                <td><label
-                                                                        class="saldo__tbpagos">{{ $item->denominacion }}</label>
                                                                 </td>
                                                                 <td>
                                                                     <div class="btn btn-info btnmdlSolicitud__pagos"
@@ -455,7 +436,7 @@
                                                     <p class="margin_p"><b>RUC</b></p>
                                                     <p class="margin_p"><b>DIRECCI&Oacute;N</b></p>
                                                     <p class="margin_p"><b>TEL&Eacute;FONO</b></p>
-                                                    <p class="margin_p"><b>CATEGORIA</b></p>
+                                                    <!-- <p class="margin_p"><b>CATEGORIA</b></p> -->
 
                                                 </div>
                                                 <div class="col-sm-5" style="text-align: left;padding: 10px">
@@ -464,7 +445,7 @@
                                                     <p class="margin_p" id="ruc__mdPAgos"></p>
                                                     <p class="margin_p" id="direccion__MdPagos"></p>
                                                     <p class="margin_p" id="telefono__MdPagos"></p>
-                                                    <p class="margin_p" id="catgoria__MdPagos"></p>
+                                                    <!-- <p class="margin_p" id="catgoria__MdPagos"></p> -->
                                                 </div>
                                                 <div class="col-sm-1"></div>
                                             </div>
@@ -490,9 +471,9 @@
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label id="permiso">$
                                                             1.00</label></p>
 
-                                                    <p class="margin_p"><b>Valor Tasa Anual:
+<!--                                                     <p class="margin_p"><b>Valor Tasa Anual:
                                                             &nbsp;&nbsp;&nbsp;</b><label
-                                                            id="TotalTasaAnual__mdpagos"></label></p>
+                                                            id="TotalTasaAnual__mdpagos"></label></p> -->
                                                 </div>
                                                 <div class="col-sm-5" style="text-align: center;">
                                                     <br><br>
@@ -544,7 +525,7 @@
 
                                                         <div class="item form-group numTransaccion_1CAJA">
                                                             <label class="col-form-label col-md-4 col-sm-4 label-align"
-                                                                for="cedula">Pocentaje Recargo: </label>
+                                                                for="cedula">Porcentaje Recargo: </label>
                                                             <div class="col-md-10 col-sm-10">
                                                                 <input type="text" class="form-control datepicker"
                                                                     name="valor_porcentaje" id="valor_porcentaje" required
@@ -666,7 +647,7 @@
                                                     <p class="margin_p"><b>RUC</b></p>
                                                     <p class="margin_p"><b>DIRECCI&Oacute;N</b></p>
                                                     <p class="margin_p"><b>TEL&Eacute;FONO</b></p>
-                                                    <p class="margin_p"><b>CATEGORIA</b></p>
+                                                    <!-- <p class="margin_p"><b>CATEGORIA</b></p> -->
 
                                                 </div>
                                                 <div class="col-sm-5" style="text-align: left;padding: 10px">
@@ -675,7 +656,7 @@
                                                     <p class="margin_p" id="ruc__mdPAgos_m"></p>
                                                     <p class="margin_p" id="direccion__MdPagos_m"></p>
                                                     <p class="margin_p" id="telefono__MdPagos_m"></p>
-                                                    <p class="margin_p" id="catgoria__MdPagos_m"></p>
+                                                    <!-- <p class="margin_p" id="catgoria__MdPagos_m"></p> -->
                                                 </div>
                                                 <div class="col-sm-1"></div>
                                             </div>
@@ -693,8 +674,8 @@
                                                     <p class="margin_p"><b>T. Tasa Anual:
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label
                                                             id="TasaAnual__mdpagos_m"></label></p>
-                                                    <p class="margin_p"><b>Valor Tasa Anual: &nbsp;&nbsp;&nbsp;
-                                                        </b><label id="TotalTasaAnual__m_"></label></p>
+<!--                                                     <p class="margin_p"><b>Valor Tasa Anual: &nbsp;&nbsp;&nbsp;
+                                                        </b><label id="TotalTasaAnual__m_"></label></p> -->
 
                                                 </div>
                                                 <div class="col-sm-5" style="text-align: center;">
@@ -849,7 +830,7 @@
                                                     <p class="margin_p"><b>RUC</b></p>
                                                     <p class="margin_p"><b>DIRECCI&Oacute;N</b></p>
                                                     <p class="margin_p"><b>TEL&Eacute;FONO</b></p>
-                                                    <p class="margin_p"><b>CATEGORIA</b></p>
+                                                    <!-- <p class="margin_p"><b>CATEGORIA</b></p> -->
 
                                                 </div>
                                                 <div class="col-sm-5" style="text-align: left;padding: 10px">
@@ -858,7 +839,7 @@
                                                     <p class="margin_p" id="ruc__mdPAgos_a"></p>
                                                     <p class="margin_p" id="direccion__MdPagos_a"></p>
                                                     <p class="margin_p" id="telefono__MdPagos_a"></p>
-                                                    <p class="margin_p" id="catgoria__MdPagos_a"></p>
+                                                    <!-- <p class="margin_p" id="catgoria__MdPagos_a"></p> -->
                                                 </div>
                                                 <div class="col-sm-1"></div>
                                             </div>
@@ -876,8 +857,8 @@
                                                     <p class="margin_p"><b>T. Tasa Anual:
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label
                                                             id="TasaAnual__mdpagos_a"></label></p>
-                                                    <p class="margin_p"><b>Valor Tasa Anual: &nbsp;&nbsp;&nbsp;
-                                                        </b><label id="TotalTasaAnual__mdpagos_a"></label></p>
+<!--                                                     <p class="margin_p"><b>Valor Tasa Anual: &nbsp;&nbsp;&nbsp;
+                                                        </b><label id="TotalTasaAnual__mdpagos_a"></label></p> -->
 
 
                                                 </div>
@@ -959,20 +940,21 @@
 @endsection
 @section('scrpts-jqrey')
     <script>
+        $(document).ready(function() {
         var tbClienteSecretario;
         var tbPagosTasaAnual;
         var tbPagosSolicitudes;
-        $("#tbClientesSecretario_InpBuscar").val("");
-        $("#tbPagosTasaAnual_buscador").val("");
-        $("#tbPagoSolicitudes_buscador").val("");
 
         fn_tbClienteSecretario_ini();
         fn_tbPagosTasaAnual_ini();
         fn_tbPagosSolicitudes_ini();
 
+        $("#tbClientesSecretario_InpBuscar").val("");
+        $("#tbPagosTasaAnual_buscador").val("");
+        $("#tbPagoSolicitudes_buscador").val("");
 
         function fn_tbClienteSecretario_ini() {
-            tbClienteSecretario = $("#tbClienteSecretario").dataTable({
+            tbClienteSecretario = $("#tbClienteSecretario").DataTable({
                 dom: '<"top">rt<"bottom"><"clear">',
                 pageLength: 20,
                 order: [
@@ -1009,12 +991,16 @@
 
 
         function fn_tbPagosTasaAnual_ini() {
-            tbPagosTasaAnual = $("#tbPagosTasaAnual").dataTable({
+            tbPagosTasaAnual = $("#tbPagosTasaAnual").DataTable({
                 dom: '<"top">rt<"bottom"><"clear">',
                 pageLength: 20,
                 order: [
-                    [5, "desc"]
+                    [1, "ASC"]
                 ],
+                drawCallback: function(settings) {
+                    //CARGANDO
+                },
+                select: true,
                 "language": {
                     "lengthMenu": 'Mostrar' +
                         '<select style="width:60px" >' +
@@ -1044,13 +1030,12 @@
             tbPagosTasaAnual.search(this.value).draw();
         });
 
-
         function fn_tbPagosSolicitudes_ini() {
-            tbPagosSolicitudes = $("#tbPagosSolicitudes").dataTable({
+            tbPagosSolicitudes = $("#tbPagosSolicitudes").DataTable({
                 dom: '<"top">rt<"bottom"><"clear">',
                 pageLength: 20,
                 order: [
-                    [5, "desc"]
+                    [1, "desc"]
                 ],
                 "language": {
                     "lengthMenu": 'Mostrar' +
@@ -1080,6 +1065,7 @@
         $("#tbPagoSolicitudes_buscador").on('keyup', function(event) {
             tbPagosSolicitudes.search(this.value).draw();
         });
+    });
 
 
 
@@ -1105,7 +1091,7 @@
                     $("#ruc__mdPAgos").text(datos['cliente']['ruc']);
                     $("#direccion__MdPagos").text(datos['cliente']['direccion']);
                     $("#telefono__MdPagos").text(datos['cliente']['telefono']);
-                    $("#catgoria__MdPagos").text(datos['cliente']['categoria']);
+                    /* $("#catgoria__MdPagos").text(datos['cliente']['categoria']); */
                     var $valor = datos['cliente']['saldo'] + 2;
                     if ($valor == 2) {
                         $("#permiso").text('$ ' + 2.00);
@@ -1120,7 +1106,7 @@
                         $valor = datos['cliente']['saldo'] + 2;
                     }
 
-                    var $total_tasa = datos['Pagos']['TasaAnualR'];
+                    var $total_tasa = datos['Pagos']['TasaAnual'];
 
                     var $total = $valor
 
@@ -1152,7 +1138,7 @@
                     $("#valor__tbPagos_a_1").val(datos['cliente']['saldo']);
                     $(".TasaAnual__mdpagos_m").val(datos['cliente']['saldo']);
 
-                    $("#TotalTasaAnual__mdpagos").text($total_tasa);
+                    /* $("#TotalTasaAnual__mdpagos").text($total_tasa); */
 
 
 
@@ -1196,7 +1182,7 @@
                     $("#ruc__mdPAgos_m").text(datos['cliente']['ruc']);
                     $("#direccion__MdPagos_m").text(datos['cliente']['direccion']);
                     $("#telefono__MdPagos_m").text(datos['cliente']['telefono']);
-                    $("#catgoria__MdPagos_m").text(datos['cliente']['categoria']);
+                    /* $("#catgoria__MdPagos_m").text(datos['cliente']['categoria']); */
                     $("#saldo__mdpagos_m").text(datos['cliente']['saldo']);
                     $("#valor_tasa").val(datos['cliente']['saldo']);
                     $(".TasaAnual__mdpagos_m").val(datos['cliente']['saldo']);
@@ -1324,14 +1310,14 @@
                     $("#ruc__mdPAgos_a").text(datos['cliente']['ruc']);
                     $("#direccion__MdPagos_a").text(datos['cliente']['direccion']);
                     $("#telefono__MdPagos_a").text(datos['cliente']['telefono']);
-                    $("#catgoria__MdPagos_a").text(datos['cliente']['categoria']);
+                    /* $("#catgoria__MdPagos_a").text(datos['cliente']['categoria']); */
                     $("#saldo__mdpagos_a").text(datos['cliente']['saldo']);
                     $(".TasaAnual__mdpagos_m").val(datos['cliente']['saldo']);
                     $("#anticipos__mdpagos_a").text(datos['Pagos']['anticipos']);
                     $("#descuentos__mdpagos_a").text('$ ' + datos['Pagos']['descuentos']);
                     $("#RecargoTrimestral__mdpagos_a").text('$ ' + datos['Pagos']['RecargoTrimestral']);
                     $("#TasaAnual__mdpagos_a").text('$ ' + datos['Pagos']['TasaAnual']);
-                    $("#TotalTasaAnual__mdpagos_a").text('$ ' + datos['Pagos']['TasaAnualR']);
+                    /* $("#TotalTasaAnual__mdpagos_a").text('$ ' + datos['Pagos']['TasaAnualR']); */
 
                 },
                 error: function(d) {

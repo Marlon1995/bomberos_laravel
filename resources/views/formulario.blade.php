@@ -122,19 +122,6 @@
                                     {{ $client[0]->telefono }}
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-2 col-sm-2 ">DENOMINACI&Oacute;N</label>
-                                <div class="col-md-10 col-sm-10 ">
-                                    {{ $client[0]->denominacion }}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-2 col-sm-2 ">CATEGOR&Iacute;A</label>
-                                <div class="col-md-3 col-sm-3 ">
-                                    {{ $client[0]->categoria }}
-                                </div>
-                            </div>
-
 
                             <!--fin INFORMACIÓN GENERAL-->
 
@@ -146,47 +133,80 @@
                                 <div class="x_title cb-subTitle"><b>REQUERIMIENTOS ESENCIALES</b></div>
                                 <p>RIESGOS DE INCENDIO </p>
 
+                                <!-- INICIO CODIGO JACXIMIR -->
                                 <div class="table-responsive">
-                                    <table id="tbInstacionesElectricas" class="table table-striped jambo_table bulk_action"
-                                        style="width:100%">
+                                    <table id="tbConstruccion" class="table table-striped jambo_table bulk_action"
+                                           style="width:100%">
                                         <thead>
+                                            <tr class="headings" style="text-align:center;">
+                                                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                                            </tr>
+
                                             <tr class="headings">
-                                                <th class="column-title cb-header-registe_description">
-                                                    <p class="cb-subTitle">INSTALACIONES EL&Eacute;CTRICAS</p>
-                                                </th>
-                                                <th class="column-title cb-header-register__tbSi">SI</th>
-                                                <th class="column-title cb-header-register__tbNo">NO</th>
-                                                <th class="column-title cb-header-register__tbObservacion">OBSERVACIONES
+                                                <th class="column-title cb-header-registe_construccion" colspan="2" 
+                                                    style="text-align:center;">
+                                                    <p class="cb-subTitle">CONSTRUCCI&Oacute;N</p>
                                                 </th>
                                             </tr>
                                         </thead>
+
                                         <tbody>
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Nº de pisos - Altura</td>
+                                                <td></td>
+                                            </tr>
                                             @forelse ($requerimientos as $item)
-                                                @if ($item->tipoRequerimiento == 'INSTALACIONES ELECTRICAS')
-                                                    <tr class="even pointe">
-                                                        <td>{{ $item->descripcion }}</td>
-                                                        <td>
-                                                            <div class="col-md-2 col-sm-2 ">
-                                                                <div class="checkbox">
-                                                                    <label><input type="radio"
-                                                                            name="respuesta_{{ $item->id }}" value="1"
-                                                                            class=" " required></label>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="col-md-2 col-sm-2 ">
-                                                                <div class="checkbox">
-                                                                    <label><input type="radio"
-                                                                            name="respuesta_{{ $item->id }}" value="0"
-                                                                            class=" " required></label>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="observacion_{{ $item->id }}" id="autocomplete-custom-append" rows="5"
-                                                                onKeyPress="return fn_aceptaLETRAS(event)" class="form-control col-md-12 col-sm-12 col-xs-12"></textarea>
-                                                        </td>
+                                                @if ($item->tipoRequerimiento == 'CONSTRUCCION_NA')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Superficie mayor sector Incendios</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'CONSTRUCCION_SMSI')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Resistencia al fuego</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'CONSTRUCCION_RF')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Falsos techos</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'CONSTRUCCION_FT')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
                                             @empty
@@ -196,46 +216,48 @@
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table id="tbAlmacenamiento" class="table table-striped jambo_table bulk_action"
-                                        style="width:100%">
+                                    <table id="tbFactoresSituacion" class="table table-striped jambo_table bulk_action"
+                                           style="width:100%">
                                         <thead>
+                                            <tr class="headings" style="text-align:center;">
+                                                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                                            </tr>
+
                                             <tr class="headings">
-                                                <th class="column-title cb-header-registe_description">
-                                                    <p class="cb-subTitle">ALMACENAMIENTO </p>
-                                                </th>
-                                                <th class="column-title cb-header-register__tbSi">SI</th>
-                                                <th class="column-title cb-header-register__tbNo">NO</th>
-                                                <th class="column-title cb-header-register__tbObservacion">OBSERVACIONES
+                                                <th class="column-title cb-header-registe_factores_situacion" colspan="2" 
+                                                    style="text-align:center;">
+                                                    <p class="cb-subTitle">FACTORES DE SITUACI&Oacute;N</p>
                                                 </th>
                                             </tr>
                                         </thead>
+
                                         <tbody>
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Distancia de los bomberos</td>
+                                                <td></td>
+                                            </tr>
                                             @forelse ($requerimientos as $item)
-                                                @if ($item->tipoRequerimiento == 'ALMACENAMIENTO')
-                                                    <tr class="even pointe">
-                                                        <td>{{ $item->descripcion }}</td>
-                                                        <td>
-                                                            <div class="col-md-2 col-sm-2 ">
-                                                                <div class="checkbox">
-                                                                    <label><input type="radio"
-                                                                            name="respuesta_{{ $item->id }}" value="1"
-                                                                            class=" " required></label>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="col-md-2 col-sm-2 ">
-                                                                <div class="checkbox">
-                                                                    <label><input type="radio"
-                                                                            name="respuesta_{{ $item->id }}" value="0"
-                                                                            class=" " required></label>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="observacion_{{ $item->id }}" id="autocomplete-custom-append"
-                                                                onKeyPress="return fn_aceptaLETRAS(event)" rows="5" class="form-control col-md-12 col-sm-12 col-xs-12"></textarea>
-                                                        </td>
+                                                @if ($item->tipoRequerimiento == 'FACTORES_DB')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Accesibilidad de edificios</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'FACTORES_AE')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
                                             @empty
@@ -245,346 +267,343 @@
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table id="tbAlmaceammientoGLP" class="table table-striped jambo_table bulk_action"
-                                        style="width:100%">
+                                    <table id="tbProcesos" class="table table-striped jambo_table bulk_action"
+                                           style="width:100%">
                                         <thead>
+                                            <tr class="headings" style="text-align:center;">
+                                                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                                            </tr>
+
                                             <tr class="headings">
-                                                <th class="column-title cb-header-registe_description">
-                                                    <p class="cb-subTitle">ALMACENAMIENTO DE G.L.P.</p>
-                                                </th>
-                                                <th class="column-title cb-header-register__tbSi">SI</th>
-                                                <th class="column-title cb-header-register__tbNo">NO</th>
-                                                <th class="column-title cb-header-register__tbObservacion">OBSERVACIONES
+                                                <th class="column-title cb-header-registe_procesos" colspan="2" 
+                                                    style="text-align:center;">
+                                                    <p class="cb-subTitle">PROCESOS</p>
                                                 </th>
                                             </tr>
                                         </thead>
+
                                         <tbody>
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Peligro de activaci&oacute;n</td>
+                                                <td></td>
+                                            </tr>
                                             @forelse ($requerimientos as $item)
-                                                @if ($item->tipoRequerimiento == 'ALMACENAMIENTO DE G.L.P.')
-                                                    <tr class="even pointe">
-                                                        <td>{{ $item->descripcion }}</td>
-                                                        @if ($item->descripcion != 'CANTIDAD')
-                                                            <td>
-                                                                <div class="col-md-2 col-sm-2 ">
-                                                                    <div class="checkbox">
-                                                                        <label><input type="radio"
-                                                                                name="respuesta_{{ $item->id }}"
-                                                                                value="1" class=" "
-                                                                                required></label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="col-md-2 col-sm-2 ">
-                                                                    <div class="checkbox">
-                                                                        <label><input type="radio"
-                                                                                name="respuesta_{{ $item->id }}"
-                                                                                value="0" class=" "
-                                                                                required></label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        @else
-                                                            <td colspan="2">
-                                                                <div class="form-group row">
-                                                                    <input type="text" name="cantidad_{{ $item->id }}"
-                                                                        onKeyPress="return fn_aceptaNum(event)"
-                                                                        class="form-control col-md-12 col-sd-12" required>
-                                                                </div>
-                                                            </td>
-                                                        @endif
-                                                        <td>
-                                                            <textarea name="observacion_{{ $item->id }}" rows="3" onKeyPress="return fn_aceptaLETRAS(event)"
-                                                                class="form-control col-md-12 col-sm-12 col-xs-12"></textarea>
-                                                        </td>
+                                                @if ($item->tipoRequerimiento == 'PROCESOS_PA')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Carga t&eacute;rmica</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'PROCESOS_CT')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Combustibilidad</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'PROCESOS_C')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Orden y limpieza</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'PROCESOS_OL')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Almacenamiento en altura</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'PROCESOS_AA')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
                                             @empty
                                             @endforelse
                                         </tbody>
                                     </table>
-                                    <div>
+                                </div>
 
+                                <div class="table-responsive">
+                                    <table id="tbFactorConcentracion" class="table table-striped jambo_table bulk_action"
+                                           style="width:100%">
+                                        <thead>
+                                            <tr class="headings" style="text-align:center;">
+                                                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                                            </tr>
 
-                                        <div class="table-responsive">
-                                            <table id="tbEquiposDeProteccion"
-                                                class="table table-striped jambo_table bulk_action" style="width:100%">
-                                                <thead>
-                                                    <tr class="headings">
-                                                        <th class="column-title cb-header-registe_description">
-                                                            <p class="cb-subTitle">EQUIPOS DE PROTECCION Y CONTRA
-                                                                INCENDIOS</p>
-                                                        </th>
-                                                        <th class="column-title cb-header-register__tbSi">SI</th>
-                                                        <th class="column-title cb-header-register__tbNo">NO</th>
-                                                        <th class="column-title cb-header-register__tbObservacion">
-                                                            OBSERVACIONES</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @forelse ($requerimientos as $item)
-                                                        @if ($item->tipoRequerimiento == 'EQUIPOS DE PROTECCION Y CONTRA INCENDIOS')
-                                                            <tr class="even pointe">
-                                                                <td>{{ $item->descripcion }}</td>
-                                                                <td>
-                                                                    <div class="col-md-2 col-sm-2 ">
-                                                                        <div class="checkbox">
-                                                                            <label><input type="radio"
-                                                                                    name="respuesta_{{ $item->id }}"
-                                                                                    value="1" class=" "
-                                                                                    required></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="col-md-2 col-sm-2 ">
-                                                                        <div class="checkbox">
-                                                                            <label><input type="radio"
-                                                                                    name="respuesta_{{ $item->id }}"
-                                                                                    value="0" class=" "
-                                                                                    required></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <textarea name="observacion_{{ $item->id }}" rows="5" onKeyPress="return fn_aceptaLETRAS(event)"
-                                                                        class="form-control col-md-12 col-sm-12 col-xs-12"></textarea>
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-                                                    @empty
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                            <tr class="headings">
+                                                <th class="column-title cb-header-registe_factor_concentracion" colspan="2" 
+                                                    style="text-align:center;">
+                                                    <p class="cb-subTitle">FACTOR DE CONCENTRACI&Oacute;N</p>
+                                                </th>
+                                            </tr>
+                                        </thead>
 
-
-                                        <div class="table-responsive">
-                                            <table id="tbExtintores" class="table table-striped jambo_table bulk_action"
-                                                style="width:100%">
-                                                <thead>
-                                                    <tr class="headings">
-                                                        <th class="column-title  cb-header-registe_description">
-                                                            <p class="cb-subTitle">EXTINTORES</p>
-                                                        </th>
-                                                        <th class="column-title  cb-header-register__tbSi">PQS</th>
-                                                        <th class="column-title  cb-header-register__tbNo">CO2</th>
-                                                        <th class="column-title  cb-header-register__tbObservacion">
-                                                            OBSERVACIONES</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @forelse ($requerimientos as $item)
-                                                        @if ($item->tipoRequerimiento == 'EXTINTORES')
-                                                            <tr class="even pointe">
-                                                                <td>{{ $item->descripcion }}</td>
-                                                                @if ($item->descripcion != 'CANTIDAD')
-                                                                    <td>
-                                                                        <div class="col-md-2 col-sm-2 ">
-                                                                            <div class="checkbox">
-                                                                                <label><input type="radio"
-                                                                                        name="respuesta_{{ $item->id }}"
-                                                                                        value="1" class=" "
-                                                                                        required> SI </label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="col-md-2 col-sm-2 ">
-                                                                            <div class="checkbox">
-                                                                                <label><input type="radio"
-                                                                                        name="respuesta_{{ $item->id }}"
-                                                                                        value="0" class=" "
-                                                                                        required> NO </label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td rowspan="2">
-                                                                        <textarea name="observacion_{{ $item->id }}" rows="4" onKeyPress="return fn_aceptaLETRAS(event)"
-                                                                            class="form-control col-md-12 col-sm-12 col-xs-12"></textarea>
-                                                                    </td>
-                                                                @else
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            name="cantidad_{{ $item->id }}"
-                                                                            onKeyPress="return fn_aceptaNum(event)"
-                                                                            class="form-control" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            name="cantidadB_{{ $item->id }}"
-                                                                            onKeyPress="return fn_aceptaNum(event)"
-                                                                            class="form-control" required>
-                                                                    </td>
-                                                                @endif
-                                                            </tr>
-                                                        @endif
-                                                    @empty
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-
-                                        <div class="x_title cb-subTitle"><b>REQUERIMIENTOS SECUNDARIOS</b></div>
-
-                                        <div class="table-responsive">
-                                            <table id="tbRecursos" class="table table-striped jambo_table bulk_action"
-                                                style="width:100%">
-                                                <thead>
-                                                    <tr class="headings">
-                                                        <th class="column-title cb-header-registe_description">
-                                                            <p class="cb-subTitle">RECURSOS</p>
-                                                        </th>
-                                                        <th class="column-title cb-header-register__tbSi">SI</th>
-                                                        <th class="column-title cb-header-register__tbNo">NO</th>
-                                                        <th class="column-title cb-header-register__tbObservacion">
-                                                            OBSERVACIONES</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @forelse ($requerimientos as $item)
-                                                        @if ($item->tipoRequerimiento == 'RECURSOS')
-                                                            <tr class="even pointe">
-                                                                <td>{{ $item->descripcion }}</td>
-                                                                <td>
-                                                                    <div class="col-md-2 col-sm-2 ">
-                                                                        <div class="checkbox">
-                                                                            <label><input type="radio"
-                                                                                    name="respuesta_{{ $item->id }}"
-                                                                                    value="1" class=" "
-                                                                                    required></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="col-md-2 col-sm-2 ">
-                                                                        <div class="checkbox">
-                                                                            <label><input type="radio"
-                                                                                    name="respuesta_{{ $item->id }}"
-                                                                                    value="0" class=" "
-                                                                                    required></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <textarea name="observacion_{{ $item->id }}" rows="3" onKeyPress="return fn_aceptaLETRAS(event)"
-                                                                        class="form-control col-md-12 col-sm-12 col-xs-12"></textarea>
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-                                                    @empty
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div class="table-responsive">
-                                            <table id="tbCausales" class="table table-striped jambo_table bulk_action"
-                                                style="width:100%">
-                                                <thead>
-                                                    <tr class="headings">
-                                                        <th class="column-title  cb-header-registe_description">
-                                                            <p class="cb-subTitle">CAUSALES PARA RETIRO DE PERMISO DE
-                                                                FUNCIONAMIENTOS</p>
-                                                        </th>
-                                                        <th class="column-title  cb-header-register__tbSi">SI</th>
-                                                        <th class="column-title  cb-header-register__tbNo">NO</th>
-                                                        <th class="column-title  cb-header-register__tbObservacion">
-                                                            OBSERVACIONES</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @forelse ($requerimientos as $item)
-                                                        @if ($item->tipoRequerimiento == 'CAUSALES PARA RETIRO DE PERMISO DE FUNCIONAMIENTOS')
-                                                            <tr class="headings">
-                                                                <td>{{ $item->descripcion }}</td>
-                                                                <td>
-                                                                    <div class="col-md-2 col-sm-2 ">
-                                                                        <div class="checkbox">
-                                                                            <label><input type="radio"
-                                                                                    name="respuesta_{{ $item->id }}"
-                                                                                    value="1" class=" "
-                                                                                    required></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="col-md-2 col-sm-2 ">
-                                                                        <div class="checkbox">
-                                                                            <label><input type="radio"
-                                                                                    name="respuesta_{{ $item->id }}"
-                                                                                    value="0" class=" "
-                                                                                    required></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <textarea name="observacion_{{ $item->id }}" rows="3" onKeyPress="return fn_aceptaLETRAS(event)"
-                                                                        class="form-control col-md-12 col-sm-12 col-xs-12"></textarea>
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-                                                    @empty
-                                                    @endforelse
-
-                                                </tbody>
-                                            </table>
-
-
-                                            <hr>
-                                            <h2 style="color: #ca1404">Nota:
-                                                <small style="color:#2a3f54;"> Además, de cumplir con el pago del permiso
-                                                    del cuerpo de bomberos, tendrá que haber cancelado las siguientes
-                                                    obligaciones
-                                                </small>
-                                            </h2>
-
-
+                                        <tbody>
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Factor de concentraci&oacute;n</td>
+                                                <td></td>
+                                            </tr>
                                             @forelse ($requerimientos as $item)
-                                                @if ($item->tipoRequerimiento == 'OTROS')
-                                                    <div class="form-group row">
-                                                        <label
-                                                            class="col-md-3 col-sm-3  control-label">{{ $item->descripcion }}</label>
-                                                        <div class="col-md-9 col-sm-9 ">
-                                                            <div class="radio">
-                                                                <label><input type="radio" value="1" id="si"
-                                                                        name="respuesta_{{ $item->id }}"
-                                                                        class=" " required> SI </label>
-                                                                <label><input type="radio" value="0" id="no"
-                                                                        name="respuesta_{{ $item->id }}"
-                                                                        class=" " required> NO </label>
-                                                                <input type="hidden" name="count"
-                                                                    value="{{ $item->id }}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                @if ($item->tipoRequerimiento == 'FACTOR_FC')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table id="tbPropagabilidad" class="table table-striped jambo_table bulk_action"
+                                           style="width:100%">
+                                        <thead>
+                                            <tr class="headings" style="text-align:center;">
+                                                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                                            </tr>
+
+                                            <tr class="headings">
+                                                <th class="column-title cb-header-registe_propagabilidad" colspan="3" 
+                                                    style="text-align:center;">
+                                                    <p class="cb-subTitle">PROPAGABILIDAD</p>
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Vertical</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'PROPAGABILIDAD_V')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
                                                 @endif
                                             @empty
                                             @endforelse
 
-                                            <hr>
-                                            <h2 style="color: #ca1404">TIPO DE RIESGO </h2>
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Horizontal</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'PROPAGABILIDAD_H')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                                            <div class="form-group row">
-                                                <label class="control-label col-md-2 col-sm-2 ">RIESGO</label>
-                                                <div class="col-md-3 col-sm-3 ">
-                                                    <select class="form-control" name="tipoNegocio" id="tipoNegocio">
-                                                        @forelse ($riego as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->descripcion }}
-                                                            </option>
-                                                        @empty
-                                                        @endforelse
-                                                    </select>
-                                                </div>
-                                            </div>
+                                <div class="table-responsive">
+                                    <table id="tbDestructibilidad" class="table table-striped jambo_table bulk_action"
+                                           style="width:100%">
+                                        <thead>
+                                            <tr class="headings" style="text-align:center;">
+                                                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                                            </tr>
 
-                                            <div class="form-group row">
-                                                <label class="control-label col-md-2 col-sm-2 ">OBSERVACI&Oacute;N</label>
-                                                <div class="col-md-8 col-sm-8 ">
-                                                    <textarea name="decripcion_riego" id="decripcion_riego" value="" class="form-control col-md-10" required></textarea>
-                                                </div>
-                                            </div>
+                                            <tr class="headings">
+                                                <th class="column-title cb-header-registe_destructibilidad" colspan="2" 
+                                                    style="text-align:center;">
+                                                    <p class="cb-subTitle">DESTRUCTIBILIDAD</p>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Por calor</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PC')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Por humo</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PH')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Por corrosi&oacute;n</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PCO')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+
+                                            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                                                <td>Por agua</td>
+                                                <td></td>
+                                            </tr>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PA')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table id="tbDestructibilidad" class="table table-striped jambo_table bulk_action"
+                                           style="width:100%">
+                                        <thead>
+                                            <tr class="headings" style="text-align:center;">
+                                                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">SV</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">CV</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($requerimientos as $item)
+                                                @if ($item->tipoRequerimiento == 'GENERALES_Y')
+                                                    <tr class="even pointe" style="text-align:center;">
+                                                        <td>{{$item->descripcion}}</td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos_01}}" 
+                                                                   value="{{$item->puntos_01}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos_01}}">{{$item->puntos_01}}</label></td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table id="tbObservacionGeneral" class="table table-striped jambo_table bulk_action"
+                                           style="width:100%">
+                                        <thead>
+                                            <tr class="headings" style="text-align:center;">
+                                                <th class="column-title cb-header-register__tbObservacion" style="width:100%;">OBSERVACI&Oacute;N</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr class="even pointe" style="text-align:center;">
+                                                <td><textarea name="observacion_formulario" id="observacion_formulario" value="" class="form-control col-md-12" required></textarea></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <h2 style="color: #ca1404">BCI</h2>
+                                    
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2 col-sm-2 ">SELECCIONAR VALOR</label>
+                                        <div class="col-md-3 col-sm-3">
+                                            <label>SI</label><input type="radio" name="respuesta_bci" value="1" required/>
+                                            <label>NO</label><input type="radio" name="respuesta_bci" value="0" required/>
+                                        </div>
+                                    </div>
+
+                                    <h2 style="color: #ca1404">TIPO DE INSTALACI&Oacute;N</h2>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2 col-sm-2 ">INSTALACI&Oacute;N</label>
+                                        <div class="col-md-3 col-sm-3">
+                                            <select class="form-control" name="tipoInstalacion" id="tipoInstalacion">
+                                                @forelse ($tipoInstalacion as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
+                                                @empty
+                                                @endforelse
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2 col-sm-2 ">INGRESAR # (m2)</label>
+                                        <div class="col-md-1 col-sm-1">
+                                            <input name="cantidad_m2" id="cantidad_m2" onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-10" required>
+                                        </div>
+                                    </div>
 
                                             <br>
 

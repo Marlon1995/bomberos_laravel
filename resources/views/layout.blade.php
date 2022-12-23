@@ -140,7 +140,7 @@
         table thead th,
         table tbody td,
         table tbody td label {
-            font-size: 10px !important;
+            font-size: 12px !important;
         }
 
         table tbody td a,

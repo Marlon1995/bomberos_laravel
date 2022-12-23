@@ -195,222 +195,528 @@
             BARRIO: <span>@php echo strtoupper($client[0]->barrio)  @endphp </span> &nbsp; &nbsp; &nbsp; &nbsp;
             REFERENCIA: <span>@php echo strtoupper($client[0]->referencia)  @endphp </span>
         </p>
-        <p class="rep_perfil_input">CATEGOR&Iacute;A: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp;<span>{{ $client[0]->categoria }}</span> &nbsp; &nbsp; &nbsp; &nbsp;
-            DENOMINACI&Oacute;N: <span>{{ $client[0]->denominacion }}</span>
-        </p>
-        <p class="rep_perfil_input">RIESGO: <span> {{ $client[0]->riesgo }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            OBSERVACIÓN: <span>{{ empty($client[0]->descripcion) ? ' --' : $client[0]->descripcion }}</span></p>
+        <p class="rep_perfil_input">RIESGO: <span> {{ $inspecciones_sec[0]->riesgo }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            OBSERVACIÓN: <span>{{ empty($inspecciones_sec[0]->observacion) ? ' --' : $inspecciones_sec[0]->observacion }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            BCI: <span>{{ $inspecciones_sec[0]->valor_bci == 1 ? 'SI' : 'NO' }}</span></p>
     </div>
 
     <div class="rep_caja_roja">
         <div class="rep_caja_roja__titulo_1">REQUERIMIENTOS ESENCIALES</div>
     </div>
 
-    <div class="rep_perfil_tabla">
+<!--     <div class="rep_perfil_tabla">
         <p class="rep_perfil_tabla__titulo"><b>RIESGOS DE INCENDIO </b></p>
-    </div>
+    </div> -->
 
-    <table id="tbInstacionesElectricas" class="table table-striped table-bordered" style="width:100%">
+    <table id="tbConstruccion" class="table table-striped table-bordered" style="width:100%">
         <thead>
-            <tr>
-                <th class="cb-header-registe_description"><span class="cb-header-registe_description_">INSTALACIONES
-                        EL&Eacute;CTRICAS</span></th>
-                <th class="cb-header-register__resp"> RESPUESTA</th>
-                <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+            <tr class="headings" style="text-align:center;">
+                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                <th class="column-title cb-header-register__tbPuntos" style="width:25%;">PUNTOS</th>
             </tr>
-        </thead>
-        <tbody>
-            @forelse ($requerimientos as $item)
-                @if ($item->tipoRequerimiento == 'INSTALACIONES ELECTRICAS')
-                    <tr>
-                        <td>{{ $item->descripcion }}</td>
-                        <td>
-                            @if ($item->respuesta == 1)
-                                &nbsp; &nbsp; &nbsp; SI
-                            @endif
-                            @if ($item->respuesta == 0)
-                                &nbsp; &nbsp; &nbsp; NO
-                            @endif
-                        </td>
-                        <td>{{ $item->observacion }}</td>
-                    </tr>
-                @endif
-            @empty
-            @endforelse
-        </tbody>
-    </table>
-    <!--TABLA 2-->
-    <table id="tbAlmacenamiento" class="table table-striped table-bordered" style="width:100%" border="1">
-        <thead>
-            <tr>
-                <th class="cb-header-registe_description"><span class="cb-header-registe_description_">INSTALACIONES
-                        EL&Eacute;CTRICAS</span></th>
-                <th class="cb-header-register__resp"> RESPUESTA</th>
-                <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($requerimientos as $item)
-                @if ($item->tipoRequerimiento == 'ALMACENAMIENTO')
-                    <tr>
-                        <td>{{ $item->descripcion }}</td>
-                        <td>
-                            @if ($item->respuesta == 1)
-                                &nbsp; &nbsp; &nbsp; SI
-                            @endif
-                            @if ($item->respuesta == 0)
-                                &nbsp; &nbsp; &nbsp; NO
-                            @endif
-                        </td>
-                        <td>{{ $item->observacion }}</td>
-                    </tr>
-                @endif
-            @empty
-            @endforelse
-        </tbody>
-    </table>
-    <!--TABLA 3-->
-    <table id="tbAlmaceammientoGLP" class="table table-striped table-bordered" style="width:100%" border="1">
-        <thead>
-            <tr>
-                <th class="cb-header-registe_description"><span class="cb-header-registe_description_">ALMACENAMIENTO DE
-                        G.L.P.</span></th>
-                <th class="cb-header-register__resp"> RESPUESTA</th>
-                <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($requerimientos as $item)
-                @if ($item->tipoRequerimiento == 'ALMACENAMIENTO DE G.L.P.')
-                    <tr>
-                        <td>{{ $item->descripcion }}</td>
-                        <td>
 
-                            @if ($item->descripcion != 'CANTIDAD')
-                                @if ($item->respuesta == 1)
-                                    &nbsp; &nbsp; &nbsp; SI
-                                @endif
-                                @if ($item->respuesta == 0)
-                                    &nbsp; &nbsp; &nbsp; NO
-                                @endif
-                            @endif
-                            @if ($item->descripcion == 'CANTIDAD')
-                                &nbsp; &nbsp; &nbsp; {{ $item->cantidad }}
-                            @endif
-                        </td>
-                        <td>{{ $item->observacion }}</td>
-                    </tr>
-                @endif
-            @empty
-            @endforelse
-        </tbody>
-    </table>
-    <!-- TABLA 4 -->
-    <table id="tbEquiposDeProteccion" class="table table-striped table-bordered" style="width:100%" border="1">
-        <thead>
-            <tr>
-                <th class="cb-header-registe_description"><span class="cb-header-registe_description_">EQUIPOS DE
-                        PROTECCION Y CONTRA INCENDIOS</span></th>
-                <th class="cb-header-register__resp"> RESPUESTA</th>
-                <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($requerimientos as $item)
-                @if ($item->tipoRequerimiento == 'EQUIPOS DE PROTECCION Y CONTRA INCENDIOS')
-                    <tr>
-                        <td>{{ $item->descripcion }}</td>
-                        <td>
-
-                            @if ($item->descripcion !== 'CANTIDAD')
-                                @if ($item->respuesta == 1)
-                                    &nbsp; &nbsp; &nbsp; SI
-                                @endif
-                                @if ($item->respuesta == 0)
-                                    &nbsp; &nbsp; &nbsp; NO
-                                @endif
-                            @endif
-                        </td>
-                        <td>{{ $item->observacion }}</td>
-                    </tr>
-                @endif
-            @empty
-            @endforelse
-        </tbody>
-    </table>
-    <!-- TABLA DE EXTINTORES-->
-    <div class="rep_perfil_tabla">
-        <p class="rep_perfil_tabla__titulo"><b>EXTINTORES </b></p>
-    </div>
-    <table id="tbExtintores" class="table table-striped table-bordered" style="width:100%" border="1">
-        <thead>
-            <tr>
-                <th class="cb-header-registe_description"><span class="cb-header-registe_description_">EXTINTORES</span>
+            <tr class="headings">
+                <th class="column-title cb-header-registe_construccion" colspan="3" 
+                    style="text-align:center;">
+                    <p class="cb-subTitle cb-header-registe_description_">CONSTRUCCI&Oacute;N</p>
                 </th>
-                <th class="cb-header-register__resp"> P.Q.S.</th>
-                <th class="cb-header-register__resp"> C. O. 2</th>
-                <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($requerimientos as $item)
-                @if ($item->tipoRequerimiento == 'EXTINTORES')
-                    <tr>
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Nº de pisos - Altura</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'CONSTRUCCION_NA')
+                    @if ($i == 0)
+                    <tr class="even pointe" style="text-align:center;">
                         <td>{{ $item->descripcion }}</td>
-
-                        @if ($item->descripcion != 'CANTIDAD')
-                            <td colspan="2">
-                                @if ($item->respuesta == 1)
-                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SI
-                                @endif
-                                @if ($item->respuesta == 0)
-                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NO
-                                @endif
-                            </td>
-                            <td rowspan="2" rows="4">
-                                {{ $item->observacion }}
-                            </td>
-                        @endif
-
-                        @if ($item->descripcion == 'CANTIDAD')
-                            <td>
-                                &nbsp; &nbsp; &nbsp; {{ $item->cantidad }}
-                            </td>
-                            <td>
-                                &nbsp; &nbsp; &nbsp; {{ $item->cantidadB }}
-                            </td>
-                        @endif
-
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="4">{{ $item->respuesta }}</td>
                     </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Superficie mayor sector Incendios</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'CONSTRUCCION_SMSI')
+                    @if ($i == 4)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="6">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Resistencia al fuego</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'CONSTRUCCION_RF')
+                    @if ($i == 10)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Falsos techos</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'CONSTRUCCION_FT')
+                    @if ($i == 13)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
                 @endif
             @empty
             @endforelse
         </tbody>
     </table>
-    <table id="tbInstacionesElectricas" class="table table-striped table-bordered" style="width:100%">
+
+    <table id="tbFactoresSituacion" class="table table-striped table-bordered" style="width:100%">
         <thead>
-            <tr>
-                <th class="cb-header-registe_description"><span class="cb-header-registe_description_">INSTALACIONES
-                        EL&Eacute;CTRICAS</span></th>
-                <th class="cb-header-register__resp"> RESPUESTA</th>
-                <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
+            <tr class="headings" style="text-align:center;">
+                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                <th class="column-title cb-header-register__tbPuntos" style="width:25%;">PUNTOS</th>
+            </tr>
+
+            <tr class="headings">
+                <th class="column-title cb-header-registe_construccion" colspan="3" 
+                    style="text-align:center;">
+                    <p class="cb-subTitle cb-header-registe_description_">FACTORES DE SITUACI&Oacute;N</p>
+                </th>
             </tr>
         </thead>
+
         <tbody>
-            @forelse ($requerimientos as $item)
-                @if ($item->tipoRequerimiento == 'INSTALACIONES ELECTRICAS')
-                    <tr>
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Distancia de los bomberos</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'FACTORES_DB')
+                    @if ($i == 16)
+                    <tr class="even pointe" style="text-align:center;">
                         <td>{{ $item->descripcion }}</td>
-                        <td>
-                            @if ($item->respuesta == 1)
-                                &nbsp; &nbsp; &nbsp; SI
-                            @endif
-                            @if ($item->respuesta == 0)
-                                &nbsp; &nbsp; &nbsp; NO
-                            @endif
-                        </td>
-                        <td>{{ $item->observacion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="5">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Accesibilidad de edificios</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'FACTORES_AE')
+                    @if ($i == 21)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="4">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+        </tbody>
+    </table>
+
+    <table id="tbFactoresSituacion" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr class="headings" style="text-align:center;">
+                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                <th class="column-title cb-header-register__tbPuntos" style="width:25%;">PUNTOS</th>
+            </tr>
+
+            <tr class="headings">
+                <th class="column-title cb-header-registe_construccion" colspan="3" 
+                    style="text-align:center;">
+                    <p class="cb-subTitle cb-header-registe_description_">PROCESOS</p>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Peligro de activaci&oacute;n</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'PROCESOS_PA')
+                    @if ($i == 25)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Carga t&eacute;rmica</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'PROCESOS_CT')
+                    @if ($i == 28)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Combustibilidad</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'PROCESOS_C')
+                    @if ($i == 31)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Orden y limpieza</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'PROCESOS_OL')
+                    @if ($i == 34)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Almacenamiento en altura</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'PROCESOS_AA')
+                    @if ($i == 37)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+        </tbody>
+    </table>
+
+    <table id="tbFactoresSituacion" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr class="headings" style="text-align:center;">
+                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                <th class="column-title cb-header-register__tbPuntos" style="width:25%;">PUNTOS</th>
+            </tr>
+
+            <tr class="headings">
+                <th class="column-title cb-header-registe_construccion" colspan="3" 
+                    style="text-align:center;">
+                    <p class="cb-subTitle cb-header-registe_description_">FACTOR DE CONCENTRACI&Oacute;N</p>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Factor de concentraci&oacute;n</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'FACTOR_FC')
+                    @if ($i == 40)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+        </tbody>
+    </table>
+
+    <table id="tbFactoresSituacion" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr class="headings" style="text-align:center;">
+                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                <th class="column-title cb-header-register__tbPuntos" style="width:25%;">PUNTOS</th>
+            </tr>
+
+            <tr class="headings">
+                <th class="column-title cb-header-registe_construccion" colspan="3" 
+                    style="text-align:center;">
+                    <p class="cb-subTitle cb-header-registe_description_">PROPAGABILIDAD</p>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Vertical</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'PROPAGABILIDAD_V')
+                    @if ($i == 43)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Horizontal</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'PROPAGABILIDAD_H')
+                    @if ($i == 46)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+        </tbody>
+    </table>
+
+    <table id="tbFactoresSituacion" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr class="headings" style="text-align:center;">
+                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">COEFICIENTE</th>
+                <th class="column-title cb-header-register__tbPuntos" style="width:25%;">PUNTOS</th>
+            </tr>
+
+            <tr class="headings">
+                <th class="column-title cb-header-registe_construccion cb-header-registe_description_" colspan="3" 
+                    style="text-align:center;padding:15px 0px;">
+                    DESTRUCTIBILIDAD
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Por calor</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PC')
+                    @if ($i == 49)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Por humo</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PH')
+                    @if ($i == 52)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Por corrosi&oacute;n</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PCO')
+                    @if ($i == 55)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+
+            <tr class="even pointe" style="text-align:center;font-weight:900;">
+                <td colspan="3">Por agua</td>
+            </tr>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PA')
+                    @if ($i == 58)
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td rowspan="3">{{ $item->respuesta }}</td>
+                    </tr>
+                    @else
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                    </tr>
+                    @endif
+                @endif
+            @empty
+            @endforelse
+        </tbody>
+    </table>
+
+    <table id="tbFactoresSituacion" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr class="headings" style="text-align:center;">
+                <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                <th class="column-title cb-header-register__tbCoeficiente" style="width:12.5%;">SV</th>
+                <th class="column-title cb-header-register__tbPuntos" style="width:12.5%;">CV</th>
+                <th class="column-title cb-header-register__tbPuntos" style="width:25%;">PUNTOS</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @forelse ($inspecciones as $i => $item)
+                @if ($item->tipoRequerimiento == 'GENERALES_Y')
+                    <tr class="even pointe" style="text-align:center;">
+                        <td>{{ $item->descripcion }}</td>
+                        <td>{{ $item->puntos }}</td>
+                        <td>{{ $item->puntos_01 }}</td>
+                        <td>{{ $item->respuesta }}</td>
                     </tr>
                 @endif
             @empty
@@ -418,71 +724,6 @@
         </tbody>
     </table>
 
-    <div class="rep_caja_roja">
-        <div class="rep_caja_roja__titulo_1">REQUERIMIENTOS SECUNDARIOS</div>
-    </div>
-
-    <div class="rep_perfil_tabla">
-        <table id="tbRecursos" class="table table-striped table-bordered" style="width:100%">
-            <thead>
-                <tr>
-                    <th class="cb-header-registe_description"><span
-                            class="cb-header-registe_description_">RECURSOS</span></th>
-                    <th class="cb-header-register__resp"> RESPUESTA</th>
-                    <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($requerimientos as $item)
-                    @if ($item->tipoRequerimiento == 'RECURSOS')
-                        <tr>
-                            <td>{{ $item->descripcion }}</td>
-                            <td>
-                                @if ($item->respuesta == 1)
-                                    &nbsp; &nbsp; &nbsp; SI
-                                @endif
-                                @if ($item->respuesta == 0)
-                                    &nbsp; &nbsp; &nbsp; NO
-                                @endif
-                            </td>
-                            <td>{{ $item->observacion }}</td>
-                        </tr>
-                    @endif
-                @empty
-                @endforelse
-            </tbody>
-        </table>
-
-        <table id="tbCausales" class="table table-striped table-bordered" style="width:100%">
-            <thead>
-                <tr>
-                    <th class="cb-header-registe_description"><span class="cb-header-registe_description_">CAUSALES PARA
-                            RETIRO DE PERMISO DE FUNCIONAMIENTOS</span></th>
-                    <th class="cb-header-register__resp"> RESPUESTA</th>
-                    <th class="cb-header-register__tbObservacion">OBSERVACIONES</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($requerimientos as $item)
-                    @if ($item->tipoRequerimiento == 'CAUSALES PARA RETIRO DE PERMISO DE FUNCIONAMIENTOS')
-                        <tr>
-                            <td>{{ $item->descripcion }}</td>
-                            <td>
-                                @if ($item->respuesta == 1)
-                                    &nbsp; &nbsp; &nbsp; SI
-                                @endif
-                                @if ($item->respuesta == 0)
-                                    &nbsp; &nbsp; &nbsp; NO
-                                @endif
-                            </td>
-                            <td>{{ $item->observacion }}</td>
-                        </tr>
-                    @endif
-                @empty
-                @endforelse
-            </tbody>
-        </table>
-    </div>
     <p style="color: #ca1404">Nota: <small style="color:#2a3f54;"> Además, de cumplir con el pago del permiso del cuerpo
             de bomberos, tendrá que haber cancelado las siguientes obligaciones:</small></p>
     <div class="rep_perfil_tabla">

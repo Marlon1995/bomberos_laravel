@@ -31,11 +31,11 @@ class clients_secretariaController extends Controller
 
         $clients = DB::table('client','cli')
             ->join('parroquias','cli.parroquia_id'          ,'parroquias.id')
-            ->join('denominaciones','cli.denominacion_id'   ,'denominaciones.id')
-            ->join('categorias','cli.categoria_id'          ,'categorias.id')
+            /* ->join('denominaciones','cli.denominacion_id'   ,'denominaciones.id') */
+            /* ->join('categorias','cli.categoria_id'          ,'categorias.id') */
             ->select(   'cli.id'    ,'cli.ruc'          ,'cli.razonSocial'  ,'cli.representanteLegal'   ,'cli.parroquia_id'
                         ,'cli.telefono'     ,'cli.referencia'   ,'cli.categoria_id' ,'cli.denominacion_id'      ,'cli.tipoFormulario'
-                        ,'denominaciones.descripcion as denominacion'               ,'categorias.descripcion as categorias'
+                        /* ,'denominaciones.descripcion as denominacion'               ,'categorias.descripcion as categorias' */
                         ,'cli.estado'       ,'parroquias.descripcion as parroquia'
             )
            // ->whereNotIn( 'cli.estado'  , [1])

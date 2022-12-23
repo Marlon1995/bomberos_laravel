@@ -32,7 +32,7 @@ class ClientsController extends Controller {
                             ->orderBy('p.descripcion','ASC')
                             ->get();
         $denominacion  = DB::table('denominaciones', 'd')->select('d.id', 'd.descripcion')->where('d.estado', $est_activo)->orderBy('d.descripcion','ASC')->get();
-        $categoria     = DB::table('categorias', 'cat')->select('cat.id', 'cat.descripcion')->where('cat.estado', $est_activo)->orderBy('cat.descripcion','ASC')->get();
+        /* $categoria     = DB::table('categorias', 'cat')->select('cat.id', 'cat.descripcion')->where('cat.estado', $est_activo)->orderBy('cat.descripcion','ASC')->get(); */
         $riego         = DB::table('riesgos' ,'r')->select('r.id', 'r.descripcion')->where('r.estado', $est_activo)->orderBy('r.descripcion','ASC')->get();
         $pagos         = DB::table('client')
                         ->join('otros_pagos','otros_pagos.client_id', '=', 'client.id')
@@ -42,8 +42,8 @@ class ClientsController extends Controller {
         if( auth()->user()->role_id == 3 ) {
 
             $clients = DB::table('client', 'cli')
-                ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
-                ->join('categorias', 'cli.categoria_id', 'categorias.id')
+                /* ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id') */
+                /* ->join('categorias', 'cli.categoria_id', 'categorias.id') */
                // ->join('otros_pagos', 'otros_pagos.client_id', '=', 'cli.id')
                 ->select('cli.id'
                     , 'cli.ruc'
@@ -55,8 +55,8 @@ class ClientsController extends Controller {
                     , 'cli.categoria_id'
                     , 'cli.denominacion_id'
                     , 'cli.tipoFormulario'
-                    , 'denominaciones.descripcion as denominacion'
-                    , 'categorias.descripcion as categorias'
+/*                     , 'denominaciones.descripcion as denominacion'
+                    , 'categorias.descripcion as categorias' */
                     //, 'YEAR(cli.created_at ) as anio'
                     , 'cli.estado'
                 )
@@ -72,8 +72,8 @@ class ClientsController extends Controller {
                 , 'cli.categoria_id'
                 , 'cli.denominacion_id'
                 , 'cli.tipoFormulario'
-                , 'denominaciones.descripcion'
-                , 'categorias.descripcion'
+/*                 , 'denominaciones.descripcion'
+                , 'categorias.descripcion' */
                 , 'cli.created_at'
                 , 'cli.estado')
                 ->orderBy('cli.created_at','DESC','otros_pagos.year_now','')
@@ -83,8 +83,8 @@ class ClientsController extends Controller {
 
         }else {
             $clients = DB::table('client', 'cli')
-                ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
-                ->join('categorias', 'cli.categoria_id', 'categorias.id')
+/*                 ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
+                ->join('categorias', 'cli.categoria_id', 'categorias.id') */
                // ->join('otros_pagos', 'otros_pagos.client_id', '=', 'cli.id')
                 ->select('cli.id'
                     , 'cli.ruc'
@@ -96,8 +96,8 @@ class ClientsController extends Controller {
                     , 'cli.categoria_id'
                     , 'cli.denominacion_id'
                     , 'cli.tipoFormulario'
-                    , 'denominaciones.descripcion as denominacion'
-                    , 'categorias.descripcion as categorias'
+/*                     , 'denominaciones.descripcion as denominacion'
+                    , 'categorias.descripcion as categorias' */
                   //  , 'otros_pagos.year_now as anio'
                     , 'cli.estado'
                 )
@@ -108,7 +108,7 @@ class ClientsController extends Controller {
 
         }
 
-        return view( 'clients' , compact('data','sector','denominacion','categoria','clients','riego','pagos') );
+        return view( 'clients' , compact('data','sector','denominacion','clients','riego','pagos') );
     }
 
     public function store(Request $request) {
@@ -130,8 +130,8 @@ class ClientsController extends Controller {
         $send->telefono             =  $request->input('telefono');
         $send->email             =  $request->input('email');
         $send->referencia           =  $request->input('referencia');
-        $send->categoria_id         =  $request->input('categoria');
-        $send->denominacion_id      =  $request->input('actividad');
+        /* $send->categoria_id         =  $request->input('categoria'); */
+        /* $send->denominacion_id      =  $request->input('actividad'); */
         $send->inspector_id     = auth()->user()->id;
         $send->estado               =  2; // ESTADO ACTIVADO
         $send->save();
@@ -151,7 +151,7 @@ class ClientsController extends Controller {
     public function show($id) {
 
         $data = System::all();
-        $riego = DB::table('tasa_anual')
+/*         $riego = DB::table('tasa_anual')
             ->join('client',  [
                 'client.denominacion_id' => 'tasa_anual.denominacion_id',
                 'client.categoria_id'    => 'tasa_anual.categoria_id' ])
@@ -159,13 +159,13 @@ class ClientsController extends Controller {
             ->select('riesgos.id','riesgos.descripcion')
             ->where('client.id', $id)
             ->groupBy('riesgos.id','riesgos.descripcion')
-            ->get();
+            ->get(); */
 
         $requerimientos = Requerimientos::all();
         $client = DB::table('client')
             ->join('parroquias','parroquias.id','client.parroquia_id')
-            ->join('categorias','categorias.id','client.categoria_id')
-            ->join('denominaciones','denominaciones.id','client.denominacion_id')
+/*             ->join('categorias','categorias.id','client.categoria_id')
+            ->join('denominaciones','denominaciones.id','client.denominacion_id') */
             ->select(   'client.id'
                                 ,'client.ruc'
                                 ,'client.razonSocial'
@@ -174,12 +174,17 @@ class ClientsController extends Controller {
                                 ,'client.barrio'
                                 ,'client.referencia'
                                 ,'client.telefono'
-                                ,'denominaciones.descripcion as denominacion'
-                                ,'categorias.descripcion as categoria'
+                                /* ,'denominaciones.descripcion as denominacion' */
+                                /* ,'categorias.descripcion as categoria' */
                                 ,'client.estado'
             )->where('client.id', $id)
             ->get();
-        return view( 'formulario' , compact('data','client','requerimientos' , 'riego') );
+
+        $tipoInstalacion = DB::table('tipo_instalacion')
+            ->select('tipo_instalacion.id','tipo_instalacion.descripcion')
+            ->get();
+
+        return view( 'formulario' , compact('data','client','requerimientos' ,'tipoInstalacion') );
     }
     public function update(Request $request, $id){
         $caso = $request->input('caso');
@@ -529,9 +534,9 @@ class ClientsController extends Controller {
 
        
         $reporte = DB::table('client', 'cli')
-            ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
-            ->join('categorias', 'cli.categoria_id','=', 'categorias.id')
-            ->select('categorias.descripcion')
+            /* ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id') */
+            /* ->join('categorias', 'cli.categoria_id','=', 'categorias.id') */
+            /* ->select('categorias.descripcion') */
             ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
             ->select('cli.id'
                 , 'cli.ruc'
@@ -543,7 +548,7 @@ class ClientsController extends Controller {
                 , 'cli.referencia'
                 , 'cli.inspector_id'
                 , 'cli.categoria_id'
-                , 'categorias.descripcion'
+                /* , 'categorias.descripcion' */
             )
             ->whereIn('cli.estado', [4])
             ->where('cli.inspector_id','=',$id)

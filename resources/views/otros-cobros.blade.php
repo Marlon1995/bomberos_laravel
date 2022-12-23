@@ -391,8 +391,10 @@ $("#porcentajedescuento").hide();
 
         $(".calcularValorPorcenjate").click( function () {
             var valor=$("#valor").val();
+            console.log("valor: " + valor);
             var descuento=0;
             var tasa=$("#porcenjatetasa").val();
+            console.log("tasa: " + tasa);
             if($("#tipodescuento").val()=='personalizado')  
                 {
              
