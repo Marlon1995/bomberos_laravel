@@ -132,12 +132,9 @@
                         <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#clients" role="tab"
-                                    aria-controls="home" aria-selected="true">Tasa Anual</a>
+                                    aria-controls="home" aria-selected="true">Pagos Ordenanza</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="home-tab" data-toggle="tab" href="#solicitudes" role="tab"
-                                    aria-controls="home" aria-selected="true">Anticipos</a>
-                            </li>
+                         
                         </ul>
                     @endif
 
@@ -194,18 +191,22 @@
                                                                 </td>
                                                                 <td><label
                                                                         class="repLegar___tbPagos">{{ $item->representanteLegal }}</label>
+                                                                       
                                                                 </td>
 
                                                                 <td>
                                                                     <form method="POST"
-                                                                        action="{{ route('payments.destroy', $item->id) }}">
+                                                                        action="{{ route('payments-ordenanzas.destroy', $item->id) }}">
+
+                                                                        @if ($item->estado==7)
+                                                                       
                                                                         <div data-toggle="modal"
                                                                             data-ruc_patototal="{{ $item->id }}"
                                                                             data-idCli="{{ $item->id }}"
                                                                             data-target="#mdlPagos"
                                                                             class="btn btn-info btn-xs btn-block pagar__pagos">
                                                                             Facturar </div>
-
+                                                                        @endif
                                                                         <input type="hidden" name="_token"
                                                                             value="{{ csrf_token() }}">
                                                                         {!! method_field('DELETE') !!}
@@ -460,7 +461,7 @@
                                                             id="descuentos__mdpagos"></label></p>
                                                     <p class="margin_p"><b>Recargo: &nbsp;&nbsp; </b><label
                                                             id="RecargoTrimestral__mdpagos"></label></p>
-                                                    <p class="margin_p"><b>T. Tasa Anual vssff:
+                                                    <p class="margin_p"><b>T. Tasa Anual sddsa:
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label
                                                             id="TasaAnual__mdpagos"></label></p>
 
@@ -486,7 +487,7 @@
 
 
 
-                                            <form method="POST" action="{{ route('payments.update', 2) }}">
+                                            <form method="POST" action="{{ route('payments-ordenanzas.update', 2) }}">
                                                 <input type="hidden" name="tipoPago" value="3">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <input type="hidden" name="cliend_ida" id="cliend_idmp_1" value="">
@@ -671,7 +672,7 @@
                                                             id="descuentos__mdpagos_m"></label></p>
                                                     <p class="margin_p"><b>T. Impuesto BCE: &nbsp;&nbsp; </b><label
                                                             id="RecargoTrimestral__mdpagos_m"></label></p>
-                                                    <p class="margin_p"><b>T. Tasa Anual sdsad:
+                                                    <p class="margin_p"><b>T. Tasa Anual:
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label
                                                             id="TasaAnual__mdpagos_m"></label></p>
 <!--                                                     <p class="margin_p"><b>Valor Tasa Anual: &nbsp;&nbsp;&nbsp;
@@ -1074,7 +1075,7 @@
         $(".pagar__pagos").on('click', function() {
 
             var cli_id = $(this).attr("data-idCli");
-            var endpoint = 'resumenPago/' + cli_id;
+            var endpoint = 'resumenPagoOrdenanzas/' + cli_id;
             $("#cliend_idmp_1").val(cli_id);
 
             console.log(endpoint);
@@ -1133,7 +1134,7 @@
                         var $total_global = $total + $recargo;
                         $("#saldo__mdpagos").text($total_global.toFixed(2));
                     });
-
+console.log(datos);
                     $("#TasaAnual__mdpagos").text('$ ' + datos['Pagos']['TasaAnual']);
                     $("#valor__tbPagos_a_1").val(datos['cliente']['saldo']);
                     $(".TasaAnual__mdpagos_m").val(datos['cliente']['saldo']);
@@ -1167,7 +1168,7 @@
         $(".btnmdlSolicitud__pagos").on('click', function() {
 
             var cli_id = $(this).attr("data-idCli");
-            var endpoint = 'resumenPago/' + cli_id;
+            var endpoint = 'resumenPagoOrdenanzas/' + cli_id;
             $("#cliend_idmp").val(cli_id);
 
             $.ajax({
@@ -1297,7 +1298,7 @@
             //anticipo
             var cli_id = $(this).attr("data-idCli");
             $("#cliend_ida").val(cli_id);
-            var endpoint = 'resumenPago/' + cli_id;
+            var endpoint = 'resumenPagoOrdenanzas/' + cli_id;
             $.ajax({
                 async: false,
                 type: "GET",
@@ -1305,6 +1306,7 @@
                 contentType: "application/x-www-form-urlencoded",
                 url: endpoint,
                 success: function(datos) {
+                    console.log("MArlon:"+datos);
                     $("#razonSocial__MdPagos_a").text(datos['cliente']['razonSocial']);
                     $("#repLegar__MdPagos_a").text(datos['cliente']['representanteLegal']);
                     $("#ruc__mdPAgos_a").text(datos['cliente']['ruc']);

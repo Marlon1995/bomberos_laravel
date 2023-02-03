@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AuditoriaModel;
 use App\otrosCotrosModel;
 use App\OtrosPagosModel;
+use App\PagosOrdenanzaModel;
 use App\System;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -164,25 +165,25 @@ class OtrosPagosController extends Controller
         $descripcion='';
         switch ($request->tipoOrdenanza){
             case 1:
-                $descripcion='Gasolineras';
+                $descripcion='Art. 21. – DE LAS GASOLINERAS';
                 break;
             case 2:
-                $descripcion='Transporte de Combustibles';
+                $descripcion='Art. 22. – DEL TRANSPORTE DE COMBUSTIBLES';
                 break;
             case 3:
-                $descripcion='Espectáculos o eventos';
+                $descripcion='Art. 23. – DE LOS ESPECTÁCULOS O EVENTOS DE CONCENTRACIÓN MASIVA';
                 break;
             case 4:
-                $descripcion='Aprobación de planos';
+                $descripcion='Art. 24. – DE LA APROBACIÓN DE PLANOS';
                 break;
             case 5:
-                $descripcion='Infracciones y multas';
+                $descripcion='Art. 25. – DE LA INFRACCIONES Y MULTAS';
                 break;
 
             default;
         }
 
-        $data = new OtrosPagosModel();
+        $data = new PagosOrdenanzaModel();
         $data->client_id                    = $id_cliente[0]->id;
         $data->tipoPago                     = 3;
         $data->formaPago_id                 = $request->input('formaspago');
@@ -212,10 +213,10 @@ class OtrosPagosController extends Controller
         // $data->timestamps                   = Carbon::now();
         // $data->save();
 
-        DB::table('client')->where('id', $id_cliente[0]->id)->update([
+    /*    DB::table('client')->where('id', $id_cliente[0]->id)->update([
             'estado' => 7, // Se a generado la solicitud de pago del permiso de funcionamiento correctamente
             'updated_at'  => Carbon::now()
-        ]);
+        ]);*/
         return back()->with('Respuesta', 'Se genero el PAGO correctamente.(IMPRECIÓN DE COMPROBANTES EN COLA)');
         // $descuento = 0;
         // if ($request->input('tipodescuento') == 'personalizado') {

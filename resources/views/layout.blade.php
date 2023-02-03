@@ -251,12 +251,21 @@
                                 <li>
                                     <a><i class="fa fa-line-chart"></i> Facturar <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="/payments"> Pagos</a></li>
+                                        <li><a href="/payments"> Pagos Permisos</a></li>
+                                        <li><a href="/payments-ordenanzas"> Pagos Ordenanzas</a></li>
                                         <li><a href="/especies"> Especies</a></li>
                                         <li><a href="/different-payments"> Otros Cobros</a></li>
                                         <li><a href="/history-payments"> Historial Pagos</a></li>
                                     </ul>
                                 </li>
+                                <li><a><i class="fa fa-shield"></i> Permisos <span
+                                                class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="/permisos"> Imprimir Permisos Establecimientos</a></li>
+                                            <li><a href="/permisos-ordenanza"> Imprimir Permisos Ordenanzas</a></li>
+
+                                        </ul>
+                                    </li>
 
                                 <li>
                                     <a href="/cobro-ordenanza"><i class="fa fa-facebook"></i>Cobros Ordenanzas</a>

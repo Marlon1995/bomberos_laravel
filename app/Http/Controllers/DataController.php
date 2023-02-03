@@ -137,6 +137,102 @@ class DataController extends Controller
         return json_encode($res);
     }
 
+    public function resumenPagoOrdenanzas($id){
+      
+
+        $anticipos = DB::table('client')
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
+            ->select( DB::raw('sum(pagos_ordenanza.valor) as anticipos' ))
+            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.estado','=',8)
+            ->where('pagos_ordenanza.tipoPago','=',1)
+            ->get();
+
+        $descuentos = DB::table('client')
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
+            ->select( DB::raw('sum(pagos_ordenanza.valor) as descuentos' ))
+            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.estado','=',8)
+            ->where('pagos_ordenanza.tipoPago','=',2)
+            ->get();
+
+        $RecargoTrimestral = DB::table('client')
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
+            ->select( DB::raw('sum(pagos_ordenanza.valor) as RecargoTrimestral' ))
+            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.estado','=',7)
+            ->where('pagos_ordenanza.tipoPago','=',4)
+            ->get();
+
+
+        $TasaAnual = DB::table('client')
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
+            ->select( DB::raw('sum(pagos_ordenanza.valor) as TasaAnual' ))
+            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.estado','=',7)
+            //->where('pagos_ordenanza.tipoPago','=',6)
+            ->get();
+            
+
+/*         $TasaAnualR =  DB::table('client','cli')
+            ->join('tasa_anual',  [
+                'cli.categoria_id' => 'tasa_anual.categoria_id',
+                'cli.riesgo_id' => 'tasa_anual.riesgo_id' ,
+                'cli.denominacion_id' => 'tasa_anual.denominacion_id' ])
+            ->select('tasa_anual.valTasaAnual as TasaAnualR')
+            ->where('cli.id', $id)
+            ->get(); */
+
+        /*return $TasaAnualR; */
+        
+        $cliente = DB::table('client')
+            /* ->join('categorias',  'categorias.id' , 'client.categoria_id') */
+            ->join('parroquias',  'parroquias.id' , 'client.parroquia_id')
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
+            ->select( 'client.razonSocial','client.representanteLegal','client.ruc','client.barrio', 'client.telefono','parroquias.descripcion as parroquia','client.referencia'/* ,'categorias.descripcion as categoria' */)
+            ->where('client.id','=',$id)
+            ->get();
+
+        
+
+
+
+
+        $saldo = round( (( $TasaAnual[0]->TasaAnual - ($anticipos[0]->anticipos + $descuentos[0]->descuentos )) + $RecargoTrimestral[0]->RecargoTrimestral ), 5);
+
+
+         if(!empty($cliente[0]->ruc)) {
+            $res = array(
+                "Pagos" => array(
+                    "anticipos"         => (empty($anticipos[0]->anticipos)) ? 0 : $anticipos[0]->anticipos,
+                    "descuentos"        => (empty($descuentos[0]->descuentos)) ? 0 : $descuentos[0]->descuentos,
+                    "RecargoTrimestral" => (empty($RecargoTrimestral[0]->RecargoTrimestral)) ? 0 :round($RecargoTrimestral[0]->RecargoTrimestral,5),
+                    "TasaAnual"         => (empty($TasaAnual[0]->TasaAnual)) ? 0 : round($TasaAnual[0]->TasaAnual,5),
+                    "TasaAnualR"         => (empty($TasaAnual[0]->TasaAnualR)) ? 0 : round($TasaAnual[0]->TasaAnualR,5)
+                ),
+                "cliente" => array(
+                    "razonSocial"           => strtoupper ($cliente[0]->razonSocial),
+                    "representanteLegal"    => strtoupper ($cliente[0]->representanteLegal),
+                    "ruc"                   => $cliente[0]->ruc,
+                    "telefono"              => $cliente[0]->telefono,
+                    "direccion"             => strtoupper ($cliente[0]->parroquia.' '.$cliente[0]->barrio),
+                   
+                    "saldo"                 => $saldo
+                 ),
+                "Respuesta"     => 'ok'
+            );
+
+
+            return json_encode($res);
+        }
+        $res = array(
+            "Pagos" => [],
+            "cliente" => [],
+            "Respuesta"     => 'no existe infromacion'
+        );
+        return json_encode($res);
+    }
+
     public function dashboard(){
         $array = array(
             "industrias" => '0999999999',

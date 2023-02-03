@@ -27,13 +27,16 @@ Route::resource('clients-edit', 'FormularioController');
 Route::get('inspecciones', 'DataController@inspecciones');
 Route::resource('formulario-cliente-pdf', 'pdfClientesController');
 Route::resource('permisos', 'PerisoFuncionamientoController');
+Route::resource('permisos-ordenanza', 'PerisoFuncionamientoOrdenanzaController');
+
 Route::resource('permiso-funcionamiento', 'PerisoFuncionamientoController');
 
 
-Route::get('permiso/{id}', 'PerisoFuncionamientoController@pdf');
+Route::get('permiso-ordenanzas/{id}', 'PerisoFuncionamientoOrdenanzaController@pdf');
 
 
 Route::resource('payments', 'PaymentsController');
+Route::resource('payments-ordenanzas', 'PaymentsOrdenanzaController');
 Route::resource('different-payments', 'OtrosPagosController');
 
 Route::get('cobro-ordenanza', 'OtrosPagosController@mostrar_pago_ordenanza');
@@ -58,6 +61,8 @@ Route::resource('especies', 'EspeciesController');
 Route::get('denomincacniones/{id}', 'DataController@denomincacniones');
 Route::get('verificaRuc/{ruc}', 'DataController@verificaRuc');
 Route::get('resumenPago/{id}', 'DataController@resumenPago');
+
+Route::get('resumenPagoOrdenanzas/{id}', 'DataController@resumenPagoOrdenanzas');
 Route::get('resumenInfoCliente/{id}', 'DataController@resumenInfoCliente');
 Route::get('dashboard', 'DataController@dashboard');;
 

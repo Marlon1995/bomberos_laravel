@@ -54,6 +54,29 @@ class ReporteController extends Controller
             ->orderBy('otros_pagos.created_at', 'desc')
             ->get();
 
+            $reporte_ordenanzas = DB::table('pagos_ordenanza')
+            ->join('client', 'client.id', 'pagos_ordenanza.client_id')
+            ->join('tipos_pago', function ($join) {
+                $join->on('tipos_pago.id', 'pagos_ordenanza.tipoPago')
+                    ->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+            })
+            ->leftJoin('formaspago', 'formaspago.id', 'pagos_ordenanza.formaPago_id')
+            ->select(   'ruc',
+                'razonSocial',
+                'formaspago.nombre as formaspago',
+                'tipos_pago.nombre as tipos_pago',
+                'valor',
+               'pagos_ordenanza.year_now',
+               'pagos_ordenanza.numPermisoFuncionamiento',
+               'pagos_ordenanza.numTransaccion',
+               'valor','pagos_ordenanza.recargo',
+                'pagos_ordenanza.created_at')
+            ->whereNotIn('tipos_pago.id', [2])
+            ->where('pagos_ordenanza.estado','=', 8)
+            ->where('pagos_ordenanza.created_at','like', date("Y-m-d").'%' )
+            ->orderBy('pagos_ordenanza.created_at', 'desc')
+            ->get();
+
         $cobros= DB::table('otros_cobros')
             ->leftJoin('formaspago','formaspago.id','otros_cobros.formaPago_id')
             ->select('ruc',
@@ -83,6 +106,7 @@ class ReporteController extends Controller
         $doc = "";
         $pdf = PDF::loadView('report/reporte1' , [
                                                     "reporte" => $reporte,
+                                                    "reporte_ordenanzas" => $reporte_ordenanzas,
                                                     "cobros"  => $cobros,
                                                     "especie" => $especie
                                                 ])->setPaper('A4');

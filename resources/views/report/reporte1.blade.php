@@ -172,7 +172,77 @@
         </table>
 
         <br><br>
+        <center>
+            <h5>PAGOS ORDENANZAS</h5>
+        </center>
+        <table>
+            <tr>
+                <th>N°</th>
+                <th>FECHA</th>
+                <th>AÑO PERMISO</th>
+                <th>N° ESPECIE</th>
+                <th>CI - RUC</th>
+                <th>RAZÓN SOCIAL</th>
+                <th>FORMA PAGO</th>
+                <th>N° DOCUMENTO</th>
+                <th>TIPO DE PAGO</th>
+                <th>VALOR</th>
+                <th>RECARGO</th>
+                <th>ESPECIE</th>
+                <th>TOTAL</th>
 
+
+            </tr>
+
+            {{ $total_pago_or = 0 }}
+            {{ $total_vpagos_or = 0 }}
+            {{ $total_especie_or = 0 }}
+            {{ $total_recargo_or = 0 }}
+            {{ $x = 1 }}
+
+            @forelse($reporte_ordenanzas as $item)
+                {{ $total_pago_or = $total_pago_or + $item->valor }}
+                {{ $total_vpagos_or = $total_vpagos_or + $item->valor - 2 }}
+                {{ $total_especie_or = $total_especie_or + 2 }}
+                {{ $total_recargo_or = $total_recargo_or + $item->recargo }}
+                <tr>
+                    <td>{{ $x++ }}</td>
+                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
+                    <td>{{ $item->year_now }}</td>
+                    <td>{{ $item->numPermisoFuncionamiento }}</td>
+                    <td>{{ $item->ruc }}</td>
+                    <td>{{ $item->razonSocial }}</td>
+                    <td>{{ $item->formaspago }}</td>
+                    <td>{{ $item->numTransaccion }}</td>
+                    <td>{{ $item->tipos_pago }}</td>
+                    <td>${{ round($item->valor - 2, 2) }}</td>
+                    <td>${{ $item->recargo }}</td>
+                    <td>${{ 2 }}</td>
+                    <td>${{ round($item->valor + $item->recargo, 2) }}</td>
+
+                </tr>
+            @empty
+            @endforelse
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td> <strong>TOTALES</strong></td>
+                <td><strong>${{ round($total_vpagos_or, 2) }}</strong></td>
+                <td><strong>${{ round($total_recargo_or, 4) }}</strong></td>
+                <td><strong>${{ round($total_especie_or, 2) }}</strong></td>
+                <td><strong>${{ round($total_pago_or + $total_recargo_or, 2) }}</strong></td>
+
+            </tr>
+        </table>
+
+        <br><br>
 
         <center>
             <h5>OTROS COBROS</h5>
@@ -300,7 +370,7 @@
                 style="color: #ffffff">______________________________________________________________________________________________
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             </span></th>
-            <b>TOTAL RECAUDADO</b>: $ {{ round($total + $total_pago + $totalEspecies + $total_recargo, 2) }}
+            <b>TOTAL RECAUDADO</b>: $ {{ round($total + $total_pago+$total_pago_or + $totalEspecies + $total_recargo, 2) }}
         </div>
 
 

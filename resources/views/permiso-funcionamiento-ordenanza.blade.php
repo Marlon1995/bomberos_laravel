@@ -181,8 +181,8 @@
 
         <div class="pf__item_d">
             Conste por medio de la presente haber cancelado el <b>PERMISO DE FUNCIONAMIENTO</b>
-            en esta Dependencia, de conformidad a lo que dispone el <b>Artículo 35 de la Ley de Defensa contra incendios </b>vigente,
-            permiso que se deberá ser renovado cada año.
+            en esta Dependencia, de conformidad a lo que dispone el <b>{{ $client[0]->descripcion }} </b>vigente,
+            permiso que se deberá ser renovado.
         </div>
 
         <div class="pf__item_e">

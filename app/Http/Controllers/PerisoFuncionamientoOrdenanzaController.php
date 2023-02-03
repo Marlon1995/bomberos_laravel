@@ -1,0 +1,244 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\AuditoriaModel;
+use App\Mail\MailTrap;
+use App\OtrosPagosModel;
+use App\PagosTasasModel;
+use App\System;
+use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+
+class PerisoFuncionamientoOrdenanzaController extends Controller
+{
+
+
+    function __construct() {
+        $this->middleware(['authUser','roles:3']);
+    }
+
+
+    public function index(){
+        $data = System::all();
+        $clients = DB::table('client', 'cli')
+        
+            ->select('cli.id'
+                , 'cli.ruc'
+                , 'cli.razonSocial'
+                , 'cli.representanteLegal'
+                , 'cli.parroquia_id'
+                , 'cli.barrio'
+                , 'cli.telefono'
+                ,'cli.updated_at'
+                , 'cli.referencia'
+                , 'cli.categoria_id'
+                , 'cli.riesgo_id'
+                , 'cli.denominacion_id'
+                , 'cli.tipoFormulario'
+                , 'cli.estado'
+            )
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'cli.id')
+            ->where('pagos_ordenanza.estado', '=', 8)
+          //  ->where('cli.estado', '=', 8)
+            ->orderBy('pagos_ordenanza.created_at', 'ASC')
+            ->get();
+
+
+        return view('permisos-ordenanza', compact('data', 'clients'));
+    }
+
+    public function pdf($id) {
+        $client = DB::table('client', 'cli')
+            ->join('parroquias','cli.parroquia_id','parroquias.id')
+/*             ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id')
+            ->join('categorias', 'cli.categoria_id', 'categorias.id') */
+            /* ->join('riesgos', 'cli.riesgo_id', 'riesgos.id') */
+            ->select('cli.id'
+                , 'cli.ruc'
+                , 'cli.razonSocial'
+                , 'cli.representanteLegal'
+                , 'parroquias.descripcion as parroquia'
+                , 'cli.barrio'
+                , 'cli.telefono'
+                , 'cli.referencia'
+                , 'cli.categoria_id'
+                , 'cli.riesgo_id'
+                , 'cli.denominacion_id'
+                , 'cli.tipoFormulario'
+                ,'pagos_ordenanza.created_at as anio'
+                ,'pagos_ordenanza.descripcion'
+/*                 , 'denominaciones.descripcion as denominacion'
+                , 'categorias.descripcion as categorias'
+                , 'riesgos.descripcion as riesgo' */
+                , 'cli.estado'
+            )
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'cli.id')
+            ->where('cli.id', '=', $id)
+          
+            ->get();
+         
+
+        $anticipos = DB::table('client')
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
+            ->select( DB::raw('sum(pagos_ordenanza.valor) as anticipos' ))
+            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.estado','=',8)
+            ->where('pagos_ordenanza.tipoPago','=',1)
+            ->get();
+
+        $descuentos = DB::table('client')
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
+            ->select('pagos_ordenanza.descripcion as descripcion')
+            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.estado','=',8)
+            ->where('pagos_ordenanza.tipoPago','=',2)
+            ->get();
+
+        $RecargoTrimestral = DB::table('client')
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
+            ->select( DB::raw('sum(pagos_ordenanza.valor) as RecargoTrimestral' ))
+            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.estado','=',7)
+            ->where('pagos_ordenanza.tipoPago','=',4)
+            ->get();
+
+        $TasaAnual = DB::table('client')
+            ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
+            ->select( DB::raw('sum(pagos_ordenanza.valor) as TasaAnual' ))
+            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.estado','=',8)
+            ->where('pagos_ordenanza.tipoPago','=',6)
+            ->get();
+
+
+
+        $tasas= array(
+            array(
+                "TasaAnual"         => (empty($TasaAnual[0]->TasaAnual)) ? 0 : round($TasaAnual[0]->TasaAnual,5),
+            )
+        );
+
+        $numPermisoFuncionamiento = DB::table('pagos_ordenanza')
+             ->select( 'numPermisoFuncionamiento as name')
+            ->where('client_id', '=', $id)
+            ->where('tipoPago', '=', 3)
+            ->where('estado', '=', 8)
+            ->get();
+
+
+        $auditoria = new AuditoriaModel();
+        $auditoria->user_id = auth()->user()->id;
+        $auditoria->role_id  = auth()->user()->role->id;
+        $auditoria->modulo      = 'Permiso';
+        $auditoria->descripcion = 'Genera el permiso de funcionamiento de la razon Social: '.$client[0]->razonSocial.' con ruc '.$client[0]->ruc.' del permiso '.$id;
+        $auditoria->accion      = 'GENERA PERMISO DE FUNCIONAMIENTO';
+        $auditoria->valor       = $id;
+        $auditoria->created_at  = Carbon::now();
+        $auditoria->save();
+
+
+
+
+
+//        return view('permiso-funcionamiento', compact('client','client','numPermisoFuncionamiento'));
+        $doc = "Permiso de Funcionamiento";
+        $pdf = PDF::loadView('permiso-funcionamiento-ordenanza', ['client' => $client,
+                                                        'tasas' => $tasas,
+                                                        'numPermisoFuncionamiento' => $numPermisoFuncionamiento
+                                                        ,'descuentos'=> $descuentos]);
+
+
+        return $pdf->stream($doc . '.pdf');
+
+
+    }
+
+
+   
+
+
+    public function show($id) {
+
+/*      $generarPago = DB::table('client','cli')
+            ->join('tasa_anual',  [ 'cli.categoria_id' => 'tasa_anual.categoria_id',
+                                    'cli.riesgo_id' => 'tasa_anual.riesgo_id' ,
+                                    'cli.denominacion_id' => 'tasa_anual.denominacion_id' ])
+            ->select('cli.id as cliente_id','tasa_anual.id as tasas_anual_id','tasa_anual.valTasaAnual as valor','cli.id', 'cli.ruc','cli.razonSocial','cli.representanteLegal','cli.email')
+            ->where('cli.id', $id)
+            ->get(); */
+
+        $generarPago = DB::table('client')
+            ->join('pago_inspeccion', 'client.id', 'pago_inspeccion.client_id')
+            ->select('client.id as cliente_id','pago_inspeccion.valor as valor','client.id', 'client.ruc','client.razonSocial','client.representanteLegal','client.email')
+            ->where('client.id', $id)
+            ->get();
+            
+
+        $anio= date('Y');
+        $mes = date("m");
+        $mes = $mes-1;
+
+        $valorFechaRegistro = ($generarPago[0]->valor / 12) * $mes;
+
+        //$valorCalculado = $generarPago[0]->valor - $valorFechaRegistro;
+        $valorCalculado = $generarPago[0]->valor;
+
+/*         $obj = new PagosTasasModel();  
+        $obj->client_id     = $generarPago[0]->cliente_id;
+        $obj->tasa_anual_id = $generarPago[0]->tasas_anual_id;
+        $obj->estado        = 7;
+        $obj->save(); */
+
+        $send = new OtrosPagosModel();
+        $send->client_id = $generarPago[0]->cliente_id;
+        $send->tipoPago  = 3; // TOTAL
+        $send->year_now  = $anio;
+        $send->valor     = $valorCalculado;
+        $send->estado    = 7; // estado pendiente
+        $send->save();
+
+        $send = new OtrosPagosModel();
+        $send->client_id = $generarPago[0]->cliente_id;
+        $send->tipoPago  = 6;
+        $send->year_now  = $anio;
+        $send->valor     = $valorCalculado;
+        $send->estado    = 8; //pagado
+        $send->save();
+
+        $auditoria = new AuditoriaModel();
+        $auditoria->user_id = auth()->user()->id;
+        $auditoria->role_id  = auth()->user()->role->id;
+        $auditoria->modulo      = 'Genera Pago';
+        $auditoria->descripcion = 'Genera el valor de tasa anual para la razon Social: '.$generarPago[0]->razonSocial.' con ruc '.$generarPago[0]->ruc.' el valor de de tasa anual: $'.$valorCalculado.', para el cliente_id '.$generarPago[0]->cliente_id.', con id '.$generarPago[0]->id;
+        $auditoria->accion      = 'GENERA PAGO TASA ANUAL';
+        $auditoria->valor       = $id;
+        $auditoria->created_at  = Carbon::now();
+        $auditoria->save();
+
+        $body = array(
+            "asunto" => "ASUNTO",
+            "titulo" => "SOLICITUD DE PAGO DE TASA ANUAL",
+            "para" => "Sr(a). ".$generarPago[0]->representanteLegal,
+            "mensaje" => "La solicitud de pago de impuesto de TASA ANUAL para la Razón Social: " . $generarPago[0]->razonSocial . " con RUC: " . $generarPago[0]->ruc . " ha sido generada correctamente, se le recuerda que tiene que cancelar el valor de $ ".$valorCalculado.' en las oficinas del CUERPO DE BOMBEROS DEL CANTÓN ATACAMES, impuesto valido hasta el 31 diciembre de '.$anio,
+            "posdata" => "Saludos cordiales, Atentamente.",
+            "de" => auth()->user()->nombre . ' ' . auth()->user()->apellido,
+            "rol" => auth()->user()->role->role,
+            "miCorreo" => auth()->user()->email,
+            "telefono" => auth()->user()->telefono,
+            "sistema" => "CUERPO DE BOMBEROS ATACAMES"
+        );
+
+//        Mail::to($generarPago[0]->email)->send(new MailTrap($body));
+
+        DB::table('client')->where('id', $id)->update([
+            'estado' => 7, // Se a generado la solicitud de pago del permiso de funcionamiento correctamente
+            'updated_at'  => Carbon::now()
+        ]);
+
+        return back()->with('Respuesta', 'Se a generado la solicitud de pago del permiso de funcionamiento correctamente.');
+    }
+
+}
