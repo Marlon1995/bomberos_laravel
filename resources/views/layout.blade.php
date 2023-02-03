@@ -149,7 +149,6 @@
         table tbody td div {
             font-size: 12px !important;
         }
-
     </style>
 
 </head>
@@ -175,17 +174,16 @@
                         <div class="profile_pic">
 
                             @if (empty(auth()->user()->foto))
-                                @if (auth()->user()->sexo == 'M')
-                                    @php $icono = "invitado.jpg"; @endphp
-                                @else
-                                    @php $icono = "mujer.jpg"; @endphp
-                                @endif
+                            @if (auth()->user()->sexo == 'M')
+                            @php $icono = "invitado.jpg"; @endphp
                             @else
-                                @php $icono = auth()->user()->foto; @endphp
+                            @php $icono = "mujer.jpg"; @endphp
+                            @endif
+                            @else
+                            @php $icono = auth()->user()->foto; @endphp
                             @endif
 
-                            <img src="/assets/img/users/{{ $icono }}" alt="{{ auth()->user()->nombre }}"
-                                style="padding: 0!important" class="img-circle profile_img">
+                            <img src="/assets/img/users/{{ $icono }}" alt="{{ auth()->user()->nombre }}" style="padding: 0!important" class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                             <span>{{ auth()->user()->role->role }},</span>
@@ -201,149 +199,138 @@
                             <h3>Men&uacute;</h3>
                             <ul class="nav side-menu">
                                 @if (auth()->user()->hasRoles([1]))
-                                    <li>
-                                        <a href="/"><i class="fa fa-home"></i> Inicio </a>
-                                    </li>
+                                <li>
+                                    <a href="/"><i class="fa fa-home"></i> Inicio </a>
+                                </li>
                                 @endif
                                 <li>
                                     <a href="/profile"><i class="fa fa-user"></i> Perfil </a>
                                 </li>
 
                                 @if (auth()->user()->hasRoles([1, 4]))
-                                    <li>
-                                        <a href="/clients"><i class="fa fa-fire-extinguisher"></i> Emitir Formulario</a>
-                                    <li>
-                                      
-                                        <a>REPORTES <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                          
-                                            <li><a href="{{ url('/report/pdf/'.auth()->user()->id) }} "{{auth()->user()->id}} target="_blank"> <i class="fa fa-file-pdf-o"></i>
-                                                    PDF</a></li>
-                                            <li><a href="export/" target="_blank"><i class="fa fa-file-excel-o"></i>
-                                                    EXCEL</a></li>
+                                <li>
+                                    <a href="/clients"><i class="fa fa-fire-extinguisher"></i> Emitir Formulario</a>
+                                <li>
 
-                                        </ul>
-                                    </li>
-                                    </li>
+                                    <a>REPORTES <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+
+                                        <li><a href="{{ url('/report/pdf/'.auth()->user()->id) }} " {{auth()->user()->id}} target="_blank"> <i class="fa fa-file-pdf-o"></i>
+                                                PDF</a></li>
+                                        <li><a href="export/" target="_blank"><i class="fa fa-file-excel-o"></i>
+                                                EXCEL</a></li>
+
+                                    </ul>
+                                </li>
+                                </li>
                                 @endif
 
                                 @if (auth()->user()->hasRoles([7, 8]))
-                                    <li>
-                                        <a href="/inspecciones"><i class="fa fa-fire-extinguisher"></i> Inspecciones</a>
-                                    </li>
+                                <li>
+                                    <a href="/inspecciones"><i class="fa fa-fire-extinguisher"></i> Inspecciones</a>
+                                </li>
                                 @endif
 
                                 @if (auth()->user()->hasRoles([3]))
-                                    <li>
-                                        <a href="/clients"><i class="fa fa-fire-extinguisher"></i>Formularios</a>
-                                    </li>
+                                <li>
+                                    <a href="/clients"><i class="fa fa-fire-extinguisher"></i>Formularios</a>
+                                </li>
                                 @endif
 
 
                                 @if (auth()->user()->hasRoles([5]))
-                                    <li><a><i class="fa fa-usd"></i> Descuentos <span
-                                                class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="/payments"> Descuentos</a></li>
-                                            <li><a href="/history-payments"> Historial Descuentos</a></li>
-                                        </ul>
-                                    </li>
+                                <li><a><i class="fa fa-usd"></i> Descuentos <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/payments"> Descuentos</a></li>
+                                        <li><a href="/history-payments"> Historial Descuentos</a></li>
+                                    </ul>
+                                </li>
                                 @endif
 
                                 @if (auth()->user()->hasRoles([3]))
-                                    <li>
-                                        <a><i class="fa fa-line-chart"></i> Facturar <span
-                                                class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="/payments"> Pagos</a></li>
-                                            <li><a href="/especies"> Especies</a></li>
-                                            <li><a href="/different-payments"> Otros Cobros</a></li>
-                                            <li><a href="/history-payments"> Historial Pagos</a></li>
-                                        </ul>
-                                    </li>
+                                <li>
+                                    <a><i class="fa fa-line-chart"></i> Facturar <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/payments"> Pagos</a></li>
+                                        <li><a href="/especies"> Especies</a></li>
+                                        <li><a href="/different-payments"> Otros Cobros</a></li>
+                                        <li><a href="/history-payments"> Historial Pagos</a></li>
+                                    </ul>
+                                </li>
 
-                                    <li><a><i class="fa fa-shield"></i> Permisos <span
-                                                class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="/permisos"> Re Impresion</a></li>
-                                        </ul>
-                                    </li>
+                                <li>
+                                    <a href="/cobro-ordenanza"><i class="fa fa-facebook"></i>Cobros Ordenanzas</a>
+                                </li>
 
-                                    <li>
-                                        <a href="/client"><i class="fa fa-group"></i>Clientes</a>
-                                    </li>
+                                <li>
+                                    <a href="/client"><i class="fa fa-group"></i>Clientes</a>
+                                </li>
 
-                                    <li>
-                                        <a href="/moras"><i class="fa fa-dashboard"></i> Tasas BCE </a>
-                                    </li>
+                                <li>
+                                    <a href="/moras"><i class="fa fa-dashboard"></i> Tasas BCE </a>
+                                </li>
 
-                                    <li><a><i class="fa fa-file"></i> Reportes <span
-                                                class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li>
-                                                <a>Cierre Caja Diario <span class="fa fa-chevron-down"></span></a>
-                                                <ul class="nav child_menu">
-                                                    <li><a href="/reporte1" target="_blank"> <i
-                                                                class="fa fa-file-pdf-o"></i> PDF</a></li>
-                                                    <li><a href="/cierre-caja-excel" target="_blank"><i
-                                                                class="fa fa-file-excel-o"></i> EXCEL</a></li>
+                                <li><a><i class="fa fa-file"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a>Cierre Caja Diario <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><a href="/reporte1" target="_blank"> <i class="fa fa-file-pdf-o"></i> PDF</a></li>
+                                                <li><a href="/cierre-caja-excel" target="_blank"><i class="fa fa-file-excel-o"></i> EXCEL</a></li>
 
-                                                </ul>
-                                            </li>
+                                            </ul>
+                                        </li>
 
 
 
-                                            <li><a href="/report-date">Rango de Fechas</a></li>
-                                            <li>
-                                                <a>Registros no emitidos <span class="fa fa-chevron-down"></span></a>
-                                                <ul class="nav child_menu">
-                                                    <li><a href="/reporte4" target="_blank"> <i
-                                                                class="fa fa-file-pdf-o"></i> PDF</a></li>
-                                                    <li><a href="/noemitidos" target="_blank"><i
-                                                                class="fa fa-file-excel-o"></i> EXCEL</a></li>
+                                        <li><a href="/report-date">Rango de Fechas</a></li>
+                                        <li>
+                                            <a>Registros no emitidos <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><a href="/reporte4" target="_blank"> <i class="fa fa-file-pdf-o"></i> PDF</a></li>
+                                                <li><a href="/noemitidos" target="_blank"><i class="fa fa-file-excel-o"></i> EXCEL</a></li>
 
-                                                </ul>
-                                            </li>
-                                            <li><a href="/reporte5" target="_blank">Reporte Diario</a></li>
-                                            <li><a href="/reporteParroquias" target="_blank">Clientes Por Parroquias
-                                                </a></li>
-                                        </ul>
-                                    </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="/reporte5" target="_blank">Reporte Diario</a></li>
+                                        <li><a href="/reporteParroquias" target="_blank">Clientes Por Parroquias
+                                            </a></li>
+                                    </ul>
+                                </li>
                                 @endif
 
 
                                 @if (auth()->user()->hasRoles([5]))
-                                    <li>
-                                        <a href="/reporte-general"><i class="fa fa-file"></i> Reportes </a>
-                                    </li>
+                                <li>
+                                    <a href="/reporte-general"><i class="fa fa-file"></i> Reportes </a>
+                                </li>
                                 @endif
 
 
                                 @if (auth()->user()->hasRoles([1, 5]))
-                                    <li><a><i class="fa fa-key"></i> Empleados <span
-                                                class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="/users">Cuentas</a></li>
-                                            @if (auth()->user()->hasRoles([1]))
-                                                <li><a href="/rols">Roles</a></li>
-                                            @endif
+                                <li><a><i class="fa fa-key"></i> Empleados <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/users">Cuentas</a></li>
+                                        @if (auth()->user()->hasRoles([1]))
+                                        <li><a href="/rols">Roles</a></li>
+                                        @endif
 
-                                        </ul>
-                                    </li>
+                                    </ul>
+                                </li>
                                 @endif
 
 
 
                                 @if (auth()->user()->hasRoles([1]))
-                                    <li>
-                                        <a href="/config"><i class="fa fa-cogs"></i> Sistema </a>
-                                    </li>
+                                <li>
+                                    <a href="/config"><i class="fa fa-cogs"></i> Sistema </a>
+                                </li>
                                 @endif
 
                                 @if (auth()->user()->hasRoles([6]))
-                                    <li>
-                                        <a href="/home"><i class="fa fa-bar-chart"></i> Dashboard </a>
-                                    </li>
+                                <li>
+                                    <a href="/home"><i class="fa fa-bar-chart"></i> Dashboard </a>
+                                </li>
                                 @endif
                             </ul>
                         </div>
@@ -366,13 +353,10 @@
                     <nav class="nav navbar-nav">
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
-                                <a href="javascript:" class="user-profile dropdown-toggle" aria-haspopup="true"
-                                    id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="/assets/img/users/{{ $icono }}"
-                                        alt="{{ auth()->user()->nombre }}">
+                                <a href="javascript:" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="/assets/img/users/{{ $icono }}" alt="{{ auth()->user()->nombre }}">
                                 </a>
-                                <div class="dropdown-menu dropdown-usermenu pull-right"
-                                    aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/profile"> Perfil</a>
                                     <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out pull-right"></i>
                                         Salir</a>

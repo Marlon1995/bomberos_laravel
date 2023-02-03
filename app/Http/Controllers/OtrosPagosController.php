@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AuditoriaModel;
 use App\otrosCotrosModel;
+use App\OtrosPagosModel;
 use App\System;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,16 +12,18 @@ use Illuminate\Support\Facades\DB;
 
 class OtrosPagosController extends Controller
 {
-    function __construct() {
-        $this->middleware(['authUser','roles:3']);
+    function __construct()
+    {
+        $this->middleware(['authUser', 'roles:3']);
     }
 
-    public function index()    {
+    public function index()
+    {
 
 
         $impuestos = DB::table('otros_cobros')
-             ->select('id', 'razonSocial', 'representanteLegal', 'ruc','telefono','created_at','valor','porcenjatetasa','year_now')
-            ->where('estado','=',8)
+            ->select('id', 'razonSocial', 'representanteLegal', 'ruc', 'telefono', 'created_at', 'valor', 'porcenjatetasa', 'year_now')
+            ->where('estado', '=', 8)
             ->orderBy('created_at', 'desc')
 
             ->get();
@@ -36,10 +39,11 @@ class OtrosPagosController extends Controller
         return view('otros-cobros', compact('data',  'impuestos', 'formasPago'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $caso = $request->input('caso');
-     
-        if($caso == 'revertir_permiso'){
+
+        if ($caso == 'revertir_permiso') {
 
 
             DB::table('otros_cobros')
@@ -50,61 +54,51 @@ class OtrosPagosController extends Controller
                 ]);
 
 
-         
+
 
             $auditoria = new AuditoriaModel();
             $auditoria->user_id     = auth()->user()->id;
             $auditoria->role_id     = auth()->user()->role->id;
             $auditoria->modulo      = 'Revertir Permiso';
-            $auditoria->descripcion = 'Al revertir permiso de funcionameinto las tablas otros_pagos cambian a estado  anulado id re cliente'.$id;
+            $auditoria->descripcion = 'Al revertir permiso de funcionameinto las tablas otros_pagos cambian a estado  anulado id re cliente' . $id;
             $auditoria->accion      = 'MOMDIFICA LOCAL';
             $auditoria->valor       = $id;
             $auditoria->created_at  = Carbon::now();
             $auditoria->save();
 
 
-            return back()->with('Respuesta','El registro fue revertido correctamente!!');
-
-
-
-
+            return back()->with('Respuesta', 'El registro fue revertido correctamente!!');
         }
     }
 
-    public function store(Request $request){
-
-
-
-
-
+    public function store(Request $request)
+    {
         $descuento = 0;
-        if($request->input('tipodescuento')=='personalizado') {
+        if ($request->input('tipodescuento') == 'personalizado') {
             //imput oculto
             $descuento = $request->input('porcentajedescuento');
-        }else{
+        } else {
 
             $descuento = $request->input('tipodescuento');
-
         }
 
 
         $valor          = floatval($request->input('valor'));
         $porcentaje     = floatval($request->input('porcenjatetasa'));
-        if($request->input('tipodescuento')=='100') {
+        if ($request->input('tipodescuento') == '100') {
             //imput oculto
-            $pago_valor=2;
-        }else{
+            $pago_valor = 2;
+        } else {
 
 
-            $total= floatval($valor)+(floatval($valor)*(floatval($porcentaje)/100));
+            $total = floatval($valor) + (floatval($valor) * (floatval($porcentaje) / 100));
 
-            $pago_valor             = (floatval($valor)-(floatval($valor)*(floatval($descuento)/100)));
-            $porcentaje_descuento   = $pago_valor*($porcentaje/100);
-            $total                  = $pago_valor+$porcentaje_descuento;
-
+            $pago_valor             = (floatval($valor) - (floatval($valor) * (floatval($descuento) / 100)));
+            $porcentaje_descuento   = $pago_valor * ($porcentaje / 100);
+            $total                  = $pago_valor + $porcentaje_descuento;
         }
 
-        
+
 
 
 
@@ -128,7 +122,7 @@ class OtrosPagosController extends Controller
         $auditoria->user_id         = auth()->user()->id;
         $auditoria->role_id         = auth()->user()->role->id;
         $auditoria->modulo          = 'Otros Cobros';
-        $auditoria->descripcion     = 'Genera el pago de OTROS COBOS de la razonSocial ' . $request->input('nombreLocal'). ',valor: $ '. round($total ,2).', descrpción ' . $request->input('descripcion');
+        $auditoria->descripcion     = 'Genera el pago de OTROS COBOS de la razonSocial ' . $request->input('nombreLocal') . ',valor: $ ' . round($total, 2) . ', descrpción ' . $request->input('descripcion');
         $auditoria->accion          = 'Pago de anticipo';
         $auditoria->valor           = (int) $request->input('ruc');
         $auditoria->created_at      = Carbon::now();
@@ -137,7 +131,147 @@ class OtrosPagosController extends Controller
         return back()->with('Respuesta', 'Se genero el PAGO correctamente.(IMPRECIÓN DE COMPROBANTES EN COLA)');
     }
 
+    public function mostrar_pago_ordenanza()
+    {
+
+        $impuestos = DB::table('otros_cobros')
+            ->select('id', 'razonSocial', 'representanteLegal', 'ruc', 'telefono', 'created_at', 'valor', 'porcenjatetasa', 'year_now')
+            ->where('estado', '=', 8)
+            ->orderBy('created_at', 'desc')
+
+            ->get();
+
+        $formasPago = DB::table('formaspago')
+            ->select('id', 'nombre')
+            ->whereIn('estado', [2])
+            ->orderBy('nombre', 'asc')
+            ->get();
+
+
+        $data = System::all();
+        return view('cobros-ordenanzas', compact('data',  'impuestos', 'formasPago'));
+    }
+
+
+    public function agregar_pago_ordenanza(Request $request)
+    {
+        $id_cliente = DB::table('client')
+            ->select('id')
+            ->where('ruc', '=', $request->ruc)
+            ->orderBy('created_at', 'desc')
+
+            ->get();
+        $descripcion='';
+        switch ($request->tipoOrdenanza){
+            case 1:
+                $descripcion='Gasolineras';
+                break;
+            case 2:
+                $descripcion='Transporte de Combustibles';
+                break;
+            case 3:
+                $descripcion='Espectáculos o eventos';
+                break;
+            case 4:
+                $descripcion='Aprobación de planos';
+                break;
+            case 5:
+                $descripcion='Infracciones y multas';
+                break;
+
+            default;
+        }
+
+        $data = new OtrosPagosModel();
+        $data->client_id                    = $id_cliente[0]->id;
+        $data->tipoPago                     = 3;
+        $data->formaPago_id                 = $request->input('formaspago');
+        $data->year_now                     = $request->input('anio');
+        $data->descripcion                  = $descripcion;
+        $data->numTransaccion               = $request->input('num_transaccion');
+        $data->numPermisoFuncionamiento     = $request->input('num_permiso');
+        $data->docRespaldo                  = Null; //pago valor
+        $data->valor                        = $request->input('valor'); //porcenta en porcentaje
+        $data->estado                       = 7;
+        $data->recargo                      = Null;
+        $data->timestamps                   = Carbon::now();
+        $data->save();
+
+        // $data = new OtrosPagosModel();
+        // $data->client_id                    = $id_cliente[0]->id;
+        // $data->tipoPago                     = 6;
+        // $data->formaPago_id                 = $request->input('formaspago');
+        // $data->year_now                     = $request->input('anio');
+        // $data->descripcion                  = $descripcion;
+        // $data->numTransaccion               = $request->input('num_transaccion');
+        // $data->numPermisoFuncionamiento     = $request->input('num_permiso');
+        // $data->docRespaldo                  = Null; //pago valor
+        // $data->valor                        = $request->input('valor'); //porcenta en porcentaje
+        // $data->estado                       = 8;
+        // $data->recargo                      = Null;
+        // $data->timestamps                   = Carbon::now();
+        // $data->save();
+
+        DB::table('client')->where('id', $id_cliente[0]->id)->update([
+            'estado' => 7, // Se a generado la solicitud de pago del permiso de funcionamiento correctamente
+            'updated_at'  => Carbon::now()
+        ]);
+        return back()->with('Respuesta', 'Se genero el PAGO correctamente.(IMPRECIÓN DE COMPROBANTES EN COLA)');
+        // $descuento = 0;
+        // if ($request->input('tipodescuento') == 'personalizado') {
+        //     //imput oculto
+        //     $descuento = $request->input('porcentajedescuento');
+        // } else {
+
+        //     $descuento = $request->input('tipodescuento');
+        // }
+
+
+        // $valor          = floatval($request->input('valor'));
+        // $porcentaje     = floatval($request->input('porcenjatetasa'));
+        // if ($request->input('tipodescuento') == '100') {
+        //     //imput oculto
+        //     $pago_valor = 2;
+        // } else {
+
+
+        //     $total = floatval($valor) + (floatval($valor) * (floatval($porcentaje) / 100));
+
+        //     $pago_valor             = (floatval($valor) - (floatval($valor) * (floatval($descuento) / 100)));
+        //     $porcentaje_descuento   = $pago_valor * ($porcentaje / 100);
+        //     $total                  = $pago_valor + $porcentaje_descuento;
+        // }
 
 
 
+
+
+        // //$pago_valor = $request->input('valor') ;
+        // $data = new otrosCotrosModel();
+        // $data->razonSocial          = $request->input('nombreLocal');
+        // $data->representanteLegal   = $request->input('representanteLegal');
+        // $data->ruc                  = $request->input('ruc');
+        // $data->direccion            = $request->input('direccion');
+        // $data->telefono             = $request->input('telefono');
+        // $data->formaPago_id         = 1; // efectivo
+        // $data->descripcion          = $request->input('decripcion_mp_1');
+        // $data->valor                = $pago_valor; //pago valor
+        // $data->porcenjatetasa       = $request->input('porcenjatetasa'); //porcenta en porcentaje
+        // $data->year_now             = $request->input('anioPago');
+        // $data->estado               = 8;
+        // $data->timestamps          = Carbon::now();
+        // $data->save();
+
+        // $auditoria = new AuditoriaModel();
+        // $auditoria->user_id         = auth()->user()->id;
+        // $auditoria->role_id         = auth()->user()->role->id;
+        // $auditoria->modulo          = 'Otros Cobros';
+        // $auditoria->descripcion     = 'Genera el pago de OTROS COBOS de la razonSocial ' . $request->input('nombreLocal') . ',valor: $ ' . round($total, 2) . ', descrpción ' . $request->input('descripcion');
+        // $auditoria->accion          = 'Pago de anticipo';
+        // $auditoria->valor           = (int) $request->input('ruc');
+        // $auditoria->created_at      = Carbon::now();
+        // $auditoria->save();
+
+        // return back()->with('Respuesta', 'Se genero el PAGO correctamente.(IMPRECIÓN DE COMPROBANTES EN COLA)');
+    }
 }

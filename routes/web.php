@@ -36,6 +36,9 @@ Route::get('permiso/{id}', 'PerisoFuncionamientoController@pdf');
 Route::resource('payments', 'PaymentsController');
 Route::resource('different-payments', 'OtrosPagosController');
 
+Route::get('cobro-ordenanza', 'OtrosPagosController@mostrar_pago_ordenanza');
+Route::post('/agregar-cobro-ordenanza', 'OtrosPagosController@agregar_pago_ordenanza');
+
 Route::get('history-payments', 'DataController@historialPagos');
 Route::get('bill-payments/{id}', 'DataController@facturaPago');
 Route::get('exoneraciones_artesano/{id}', 'DataController@exoneracion_artesano');
