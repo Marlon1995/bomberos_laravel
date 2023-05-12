@@ -162,6 +162,7 @@ class OtrosPagosController extends Controller
             ->orderBy('created_at', 'desc')
 
             ->get();
+            
         $descripcion='';
         switch ($request->tipoOrdenanza){
             case 1:

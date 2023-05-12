@@ -275,7 +275,7 @@
         </tr>
     </table>
     <p class="pf__item_f"><small>&nbsp;&nbsp;&nbsp; {{strtoupper($client[0]->representanteLegal) }} </small></p>
-    <p class="pf__item_f_DETALLE"><small>&nbsp;&nbsp;&nbsp;  FIRMA DEL SOLICITANTE</small></p>
+    <p class="pf__item_f_DETALLE"><small>&nbsp;&nbsp;&nbsp;  CONTRIBUYENTE</small></p>
 
 
 

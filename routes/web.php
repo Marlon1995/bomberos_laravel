@@ -31,6 +31,7 @@ Route::resource('permisos-ordenanza', 'PerisoFuncionamientoOrdenanzaController')
 
 Route::resource('permiso-funcionamiento', 'PerisoFuncionamientoController');
 
+Route::get('permiso/{id}', 'PerisoFuncionamientoController@pdf');
 
 Route::get('permiso-ordenanzas/{id}', 'PerisoFuncionamientoOrdenanzaController@pdf');
 

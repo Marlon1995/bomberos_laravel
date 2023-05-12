@@ -410,7 +410,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-md-4 col-sm-4 ">REPRESENTANTE LEGAL
+                                    <label class="control-label col-md-4 col-sm-4 ">REPRESENTANTE LEGAL O PERSONA NATURAL
                                         <small>(PROPIETARIO)</small> </label>
                                     <div class="col-md-8 col-sm-8 ">
                                         <input type="text" name="representanteLegal" id="representanteLegal"

@@ -60,55 +60,25 @@
 
     <table class="table table-striped table-bordered" style="width:100%">
         <thead>
-            <tr>
-                <th><span style="text-align: center;">ALMACENAMIENTO</span></th>
-            </tr>
+           
             <tr>
                 <th>Razon Social</th>
                 <th>Representante Legal</th>
-                <th>Categoria</th>
             </tr>
         </thead>
         <tbody>
             @forelse ($reporte as $item)
-                @if ($item->descripcion == 'Almacenamiento')
                     <tr>
                         <td>{{ $item->razonSocial }}</td>
                         <td>{{ $item->representanteLegal }}</td>
-                        <td>{{ $item->descripcion }}</td>
                     </tr>
-                @endif
             @empty
                 <h1>No hay registros</h1>
             @endforelse
         </tbody>
     </table>
 
-    <table class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th><span style="text-align: center;">COMERCIO</span></th>
-            </tr>
-            <tr>
-                <th>Razon Social</th>
-                <th>Representante Legal</th>
-                <th>Categoria</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($reporte as $item)
-                @if ($item->descripcion == 'Comercio')
-                    <tr>
-                        <td>{{ $item->razonSocial }}</td>
-                        <td>{{ $item->representanteLegal }}</td>
-                        <td>{{ $item->descripcion }}</td>
-                    </tr>
-                @endif
-            @empty
-                <h1>No hay registros</h1>
-            @endforelse
-        </tbody>
-    </table>    
+      
 
 </body>
 

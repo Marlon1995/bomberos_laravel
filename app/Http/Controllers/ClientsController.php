@@ -532,9 +532,8 @@ class ClientsController extends Controller {
 
     public function pdfcliente($id){
 
-       
         $reporte = DB::table('client', 'cli')
-            /* ->join('denominaciones', 'cli.denominacion_id', 'denominaciones.id') */
+             ->join('inspecciones', 'cli.id', 'inspecciones.client_id') 
             /* ->join('categorias', 'cli.categoria_id','=', 'categorias.id') */
             /* ->select('categorias.descripcion') */
             ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
@@ -548,10 +547,12 @@ class ClientsController extends Controller {
                 , 'cli.referencia'
                 , 'cli.inspector_id'
                 , 'cli.categoria_id'
+                ,'inspecciones.created_at'
                 /* , 'categorias.descripcion' */
             )
             ->whereIn('cli.estado', [4])
             ->where('cli.inspector_id','=',$id)
+            ->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
             ->orderBy('parroquias.descripcion', 'ASC')
             ->get();
         $doc = "";

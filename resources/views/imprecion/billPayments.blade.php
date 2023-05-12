@@ -254,6 +254,7 @@
                     <tr><td>AÑO A CANCELAR</td></tr>
                     <tr><td>VALOR ESTABLECIDO</td></tr>
                     <tr><td>VALOR ESPECIE</td></tr>
+                    <tr><td>SERVICIO ADMINISTRATIVO (TITULO DE CREDITO)</td></tr>
                     <tr><td>VALOR P. EXONERACION</td></tr>
                     <tr><td><label class="tbFactura_trtdlabel">RECARGO TASA ACTIVA REF.BCE. ORD.#74 CON <br> FECHA 31 DE OCTUBRE 2018</label> </td></tr>
                     <tr><td>VALOR TOTAL A PAGAR</td></tr>
@@ -286,8 +287,10 @@
                             $ {{$client[0]->valor - $especie}}
                         </td>
                     </tr>
+                   
 
                      <tr><td> $ {{$especie}}<br></td></tr>
+                     <tr><td> $ 1<br></td></tr>
                      @php
                      if($client[0]->valor<=4)
                      $permiso = 2;
@@ -296,7 +299,7 @@
                      @endphp
                      <tr><td> $ {{$permiso}}<br></td></tr>
                      <tr><td> ${{$client[0]->recargo}} <br><br></td></tr>
-                    <tr><td>$ {{round($client[0]->valor+$client[0]->recargo+$permiso,2) }}</td></tr>
+                    <tr><td>$ {{round($client[0]->valor+$client[0]->recargo+$permiso+1,2) }}</td></tr>
 
 
                 </table>
