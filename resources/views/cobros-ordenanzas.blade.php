@@ -578,11 +578,14 @@
                 case '1':
                     reiniciar_select();
                     
-                    $("#input-cantidad").hide();
                     $("#espectaculos-div").hide();
                     $("#combustibles-div").hide();
                     $("#infracciones-div").hide();
-                    total_pagar = 250;
+                    $("#planos-div").hide();
+                    $("#input-cantidad").show();
+                    $("#mensaje-input").text('Cantidad de surtidores');
+
+                    precio_ordenanza = 120;
                     tipo_ordenanza='gasolinera';
 
                     break;
