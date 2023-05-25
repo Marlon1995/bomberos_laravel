@@ -387,7 +387,7 @@
             <div class="modal-dialog" style="max-width:80%;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title"><i class="fa fa-money"></i> Pago impuesto de Tasa Anual </h4>
+                        <h4 class="modal-title"><i class="fa fa-money"></i> PAGO PERMISO DE FUNCIONAMIENTO </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -406,8 +406,10 @@
                                             OCTUBRE DE 1997</h2>
                                         <p style="margin: 2px; font-weight: bold;">REGISTRO OFICIAL N° 741 DEL 29 DE ENERO
                                             DEL 2019</p>
-                                        <p style="margin: 2px; font-weight: bold;">RUC 08600506900001</p>
-                                        <p style="margin: 2px; font-weight: bold;">TELEFONO: 0602731-001</p>
+                                        <p style="margin: 2px; font-weight: bold;">RUC: 08600506900001</p>
+                                        <p style="margin: 2px; font-weight: bold;">TELÉFONO: 0602760-223</p>
+                                        <p style="margin: 2px; font-weight: bold;">DIRECCIÓN: AV. PRINCIPAL/ATACAMES/LOS ALMENDROS</p>
+
                                     </div>
                                     <div class="col-sm-3"></div>
                                 </div>
@@ -415,10 +417,9 @@
                                 <div class="row">
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-6" style="text-align: center">
-                                        <h2 style="text-align: center; font-weight: bold">ORDEN DE PAGO DE PERMISO DE
-                                            FUNCIONAMIENTO CUERPO DE BOMBEROS</h2>
+                                       
                                         <p style="text-align: right;">Atacames, {{ now()->toDateTimeString() }}</p>
-                                        <p style="text-align: right;">Permiso año {{ date('Y') }} </p>
+                                       
                                         <style>
                                             .margin_p {
                                                 margin: -6px;
@@ -428,62 +429,58 @@
 
 
                                         <div class="container">
-                                            <div class="row" style="border: 1px solid;">
+                                            <div class="row" style="border: 0px solid;">
                                                 <div class="col-sm-1"></div>
-                                                <div class="col-sm-5" style="text-align: left;padding: 10px">
-                                                    <p class="margin_p"><b>NOMBRE DEL LOCAL</b></p>
-                                                    <p class="margin_p"><b>REPRESENTANTE /PROPIETARIO</b></p>
-                                                    <p class="margin_p"><b>RUC</b></p>
-                                                    <p class="margin_p"><b>DIRECCI&Oacute;N</b></p>
-                                                    <p class="margin_p"><b>TEL&Eacute;FONO</b></p>
+                                                <div class="col-sm-5" style="text-align: left;">
+                                                    <p class="margin_p"><b>NOMBRE DEL ESTABLECIMIENTO: </b></p>
+                                                    <p class="margin_p"><b>CONTRIBUYENTE:</b></p>
+                                                    <p class="margin_p"><b>RUC: </b></p>
+                                                    <p class="margin_p"><b>DIRECCI&Oacute;N:</b></p>
+                                                    <p class="margin_p"><b>TEL&Eacute;FONO:</b></p><br>
+                                                    <p class="margin_p"><h2><b>AÑO:</b> {{ date('Y') }}</b></h2></p>
+
                                                     <!-- <p class="margin_p"><b>CATEGORIA</b></p> -->
 
                                                 </div>
-                                                <div class="col-sm-5" style="text-align: left;padding: 10px">
+                                                <div class="col-sm-5" style="text-align: left;padding: 5px">
                                                     <p class="margin_p" id="razonSocial__MdPagos"></p>
                                                     <p class="margin_p" id="repLegar__MdPagos"></p>
                                                     <p class="margin_p" id="ruc__mdPAgos"></p>
                                                     <p class="margin_p" id="direccion__MdPagos"></p>
-                                                    <p class="margin_p" id="telefono__MdPagos"></p>
+                                                    <p class="margin_p" id="telefono__MdPagos"></p><br>
+                                                  
+                                                    
                                                     <!-- <p class="margin_p" id="catgoria__MdPagos"></p> -->
                                                 </div>
                                                 <div class="col-sm-1"></div>
                                             </div>
+                                            <h2 style="text-align: center; font-weight: bold">PERMISO DE FUNCIONAMIENTO</h2>
                                             <div class="row" style="border: 1px solid;">
                                                 <div class="col-sm-1"></div>
-                                                <div class="col-sm-5" style="text-align: left;padding: 10px">
-                                                    <p class="margin_p"><b>T. Anticipos:
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b> <label
-                                                            id="anticipos__mdpagos"></label></p>
-                                                    <p class="margin_p"><b>T. Descuentos:
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label
-                                                            id="descuentos__mdpagos"></label></p>
-                                                    <p class="margin_p"><b>Recargo: &nbsp;&nbsp; </b><label
-                                                            id="RecargoTrimestral__mdpagos"></label></p>
-                                                    <p class="margin_p"><b>T. Tasa Anual vssff:
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label
-                                                            id="TasaAnual__mdpagos"></label></p>
+                                                <div class="col-sm-6" style="text-align: left;padding: 10px">
 
-                                                    <p class="margin_p"><b>Valor Especie:
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label>$ 2.00</label>
-                                                    </p>
-                                                    <p class="margin_p"><b>Valor P. Exoneracion:
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label id="permiso">$
-                                                            1.00</label></p>
+                                                <p class="margin_p"><label><b>TASA DE PERMISO DE FUNCIONAMIENTO: </b></label></p>
+                                                    <p class="margin_p"><label><b>RECARGO:</b></label></p>
+                                                    <p class="margin_p"><label><b>DESCUENTO: </b></label></p>
+                                                    <p class="margin_p"><label><b>ANTICIPO:</b></label></p>
+                                                    <p class="margin_p"><label><b>ESPECIE:</b></label></p>
+                                                    <p class="margin_p"><label><b>SERVICIO ADMINISTRATIVO(TITULO DE CRÉDITO):</b></label></p>
+                                                    <p class="margin_p"  style="font-size: 20px; font-weight: bold"><label><b><h2>TOTAL:</h2></b></label></p>
 
-<!--                                                     <p class="margin_p"><b>Valor Tasa Anual:
-                                                            &nbsp;&nbsp;&nbsp;</b><label
-                                                            id="TotalTasaAnual__mdpagos"></label></p> -->
-                                                </div>
-                                                <div class="col-sm-5" style="text-align: center;">
-                                                    <br><br>
-                                                    <p style="font-size: 20px; font-weight: bold"><b>TOTAL: </b>$ <label
-                                                            id="saldo__mdpagos"></label></p>
                                                 </div>
 
-                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-5" style="text-align: right;padding: 10px">
+                                                <p class="margin_p" ><label id="TasaAnual__mdpagos"></label></p>
+                                                <p class="margin_p" ><label id="RecargoTrimestral__mdpagos"></label></p>
+                                                <p class="margin_p" ><label id="descuentos__mdpagos"></label></p>
+                                                <p class="margin_p" ><label id="anticipos__mdpagos"></label></p>
+                                                <p class="margin_p" ><label>$ 2.00</label></p>
+                                                <p class="margin_p" ><label>$ 1.00</label></p><br>
+                                                <p style="font-size: 20px; font-weight: bold">$ <label id="saldo__mdpagos"></label></p>                                 
+                                                </div>
+                                              
                                             </div>
-
+                                       
 
 
                                             <form method="POST" action="{{ route('payments.update', 2) }}">
@@ -642,7 +639,7 @@
                                             <div class="row" style="border: 1px solid;">
                                                 <div class="col-sm-1"></div>
                                                 <div class="col-sm-5" style="text-align: left;padding: 10px">
-                                                    <p class="margin_p"><b>NOMBRE DEL LOCAL</b></p>
+                                                    <p class="margin_p"><b>NOMBRE DEL ESTABLECIMIENTO: </b></p>
                                                     <p class="margin_p"><b>REPRESENTANTE /PROPIETARIO</b></p>
                                                     <p class="margin_p"><b>RUC</b></p>
                                                     <p class="margin_p"><b>DIRECCI&Oacute;N</b></p>
@@ -825,7 +822,7 @@
                                             <div class="row" style="border: 1px solid;">
                                                 <div class="col-sm-1"></div>
                                                 <div class="col-sm-5" style="text-align: left;padding: 10px">
-                                                    <p class="margin_p"><b>NOMBRE DEL LOCAL</b></p>
+                                                    <p class="margin_p"><b>NOMBRE DEL ESTABLECIMIENTO</b></p>
                                                     <p class="margin_p"><b>REPRESENTANTE /PROPIETARIO</b></p>
                                                     <p class="margin_p"><b>RUC</b></p>
                                                     <p class="margin_p"><b>DIRECCI&Oacute;N</b></p>
@@ -1103,7 +1100,7 @@
                     else {
                         $("#permiso").text('$ ' + 0.00);
 
-                        $valor = datos['cliente']['saldo'] + 2;
+                        $valor = datos['cliente']['saldo'] + 2+1;
                     }
 
                     var $total_tasa = datos['Pagos']['TasaAnual'];
