@@ -261,7 +261,7 @@
     </div>
     <table class="tbDatos"  >
       
-            <td style="width: 200px">
+            <td style="width: 75px">
                 <table border="0">
                     <tr><td>NOMBRE DEL ESTABLECIMIENTO:</td></tr>
                     <tr><td>CONTRIBUYENTE:</td></tr>
@@ -275,13 +275,13 @@
 
                 </table>
             </td>
-            <td style="width: 100px">
+            <td style="width: 350px">
                 <table border="0">
                    
                     <tr><td>{{$client[0]->razonSocial}}</td></tr>
                     <tr><td>{{$client[0]->representanteLegal}}</td></tr>
-                    <tr><td>{{ substr( strtoupper($client[0]->parroquia.'/'.$client[0]->barrio.'/'.$client[0]->referencia),0,70) }}</td></tr>
                     <tr><td>{{$client[0]->ruc}}</td></tr>
+                    <tr><td>{{ substr( strtoupper($client[0]->parroquia.'/'.$client[0]->barrio.'/'.$client[0]->referencia),0,70) }}</td></tr>
                     <tr><td>{{$client[0]->telefono}}</td></tr>
                     <tr><td >No. EMISIÓN: 000001</td></tr>
 
@@ -290,8 +290,8 @@
     </table>
       
     <table class="tbFactura" >
-      
-            <td style="width: 300px">
+        <td style="width: 300px">
+            <br></br>
             <p ><h3 style="text-align: center;">PERMISO DE FUNCIONAMIENTO</h3></p>    
                 <table border="1">
                 <tr><td style="text-align:center">RUBROS</td><td  style="width: 300px; text-align:center">VALORES</td></tr>
