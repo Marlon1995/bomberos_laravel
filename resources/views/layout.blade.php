@@ -159,12 +159,12 @@
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
-            <div class="col-md-3 left_col">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
+            <div class="col-md-3 left_col" style="background: #0d6350;">
+                <div class="left_col scroll-view" style="background: #0d6350;">
+                    <div class="navbar nav_title" style="border: 0; background:#0d6350; ">
                         <a href="/" class="site_title">
-                            <img src="/assets/img/icons/@yield('icono')" alt="@yield('title')">
-                            <span><small>@yield('title')</small></span>
+                            <img src="" alt="">
+                            <span><small>CBA - ATACAMES</small></span>
                         </a>
                     </div>
                     <div class="clearfix"></div>
@@ -177,7 +177,7 @@
                             @if (auth()->user()->sexo == 'M')
                             @php $icono = "invitado.jpg"; @endphp
                             @else
-                            @php $icono = "mujer.jpg"; @endphp
+                            @php $icono = "bombero.png"; @endphp
                             @endif
                             @else
                             @php $icono = auth()->user()->foto; @endphp
@@ -209,7 +209,7 @@
 
                                 @if (auth()->user()->hasRoles([1, 4]))
                                 <li>
-                                    <a href="/clients"><i class="fa fa-fire-extinguisher"></i> Emitir Formulario</a>
+                                    <a href="/clients"><i class="fa fa-file-text"></i> Emitir Formulario</a>
                                 <li>
 
                                     <a>REPORTES <span class="fa fa-chevron-down"></span></a>
@@ -233,7 +233,7 @@
 
                                 @if (auth()->user()->hasRoles([3]))
                                 <li>
-                                    <a href="/clients"><i class="fa fa-fire-extinguisher"></i>Formularios</a>
+                                    <a href="/clients"><i class="fa fa-file-text"></i>Formularios</a>
                                 </li>
                                 @endif
 
@@ -249,7 +249,7 @@
 
                                 @if (auth()->user()->hasRoles([3]))
                                 <li>
-                                    <a><i class="fa fa-line-chart"></i> Facturar <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-credit-card"></i> Facturar <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="/payments"> Pagos Permisos</a></li>
                                         <li><a href="/payments-ordenanzas"> Pagos Ordenanzas</a></li>
@@ -258,7 +258,7 @@
                                         <li><a href="/history-payments"> Historial Pagos</a></li>
                                     </ul>
                                 </li>
-                                <li><a><i class="fa fa-shield"></i> Permisos <span
+                                <li><a><i class="fa fa-building"></i> Permisos <span
                                                 class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="/permisos"> Imprimir Permisos Establecimientos</a></li>
@@ -268,18 +268,16 @@
                                     </li>
 
                                 <li>
-                                    <a href="/cobro-ordenanza"><i class="fa fa-facebook"></i>Cobros Ordenanzas</a>
+                                    <a href="/cobro-ordenanza"><i class="fa fa-calendar"></i>Cobros Ordenanzas</a>
                                 </li>
 
                                 <li>
                                     <a href="/client"><i class="fa fa-group"></i>Clientes</a>
                                 </li>
 
-                                <li>
-                                    <a href="/moras"><i class="fa fa-dashboard"></i> Tasas BCE </a>
-                                </li>
+                               
 
-                                <li><a><i class="fa fa-file"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                <li><a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li>
                                             <a>Cierre Caja Diario <span class="fa fa-chevron-down"></span></a>

@@ -55,7 +55,7 @@
                                                             style="width: 150px">
                                                     @else
                                                         <img class="img-responsive avatar-view"
-                                                            src="./assets/img/users/mujer.jpg" alt="Foto de Perfil"
+                                                            src="./assets/img/users/bombero.png" alt="Foto de Perfil"
                                                             style="width: 150px">
                                                     @endif
                                                 @else
