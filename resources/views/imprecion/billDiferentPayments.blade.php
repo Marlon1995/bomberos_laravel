@@ -242,35 +242,77 @@
         </div>
 
 
-        <table class="tbFactura" border="1">
+        <table class="tbFactura" border="0">
             <tr>
                 <td style="width: 200px">
-                    <table border="0">
-                        <tr><td>NOMBRE DEL LOCAL</td></tr>
-                        <tr><td>PROPIETARIO O REPRESENTANTE</td></tr>
-                        <tr><td>DIRECCIÓN</td></tr>
-                        <tr><td>RUC</td></tr>
-                        <tr><td>TELÉFONO</td></tr>
+                    <table border="1">
+                        <tr>
+                            <td>NOMBRE DEL LOCAL</td>
+                            <td>{{$client[0]->razonSocial}}</td>
+                        </tr>
+                        <tr>
+                            <td>PROPIETARIO O REPRESENTANTE</td>
+                            <td>{{$client[0]->representanteLegal}}</td>
+                        </tr>
+                        <tr>
+                            <td>DIRECCIÓN</td>
+                            <td>{{ substr($client[0]->direccion,0,50)}}</td>
+                        </tr>
+                        <tr>
+                            <td>RUC</td>
+                            <td>{{$client[0]->ruc}}</td>
+                        </tr>
+                        <tr>
+                            <td>TELÉFONO</td>
+                            <td>{{$client[0]->telefono}}</td>
+                        </tr>
                         <!-- <tr><td>CATEGORIA</td></tr> -->
-                        <tr><td>AÑO A CANCELAR</td></tr>
-                        <tr><td>VALOR ESTABLECIDO</td></tr>
-                        <tr><td>VALOR ESPECIE</td></tr>
-                        <tr><td><label class="tbFactura_trtdlabel">RECARGO TASA ACTIVA REF.BCE. ORD.#74 CON <br> FECHA 31 DE OCTUBRE 2018</label> </td></tr>
-                        <tr><td>VALOR TOTAL A PAGAR</td></tr>
+                        <tr>
+                            <td>AÑO A CANCELAR</td>
+                            <td>Permiso año {{ $client[0]->year_now }}</td>
+                        </tr>
+                        <tr>
+                            <td>VALOR ESTABLECIDO</td>
+                            <td>
+                                $ {{ floatval($client[0]->valor) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>VALOR ESPECIE</td>
+                            <td> $ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td><label class="tbFactura_trtdlabel">RECARGO TASA ACTIVA REF.BCE. ORD.#74 CON <br> FECHA 31 DE OCTUBRE 2018</label> </td>
+                            <td style="padding-top:4px !important;padding-bottom:4px !important">
+                                $ @php
+                                    $resultado =  ((($client[0]->valor) * $client[0]->porcenjatetasa)/100);
+                                    echo $resultado;
+                                @endphp
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>VALOR TOTAL A PAGAR</td>
+                            <td>$ @php
+                                    $resultado =  ((($client[0]->valor) * $client[0]->porcenjatetasa)/100);
+                                    $total     =   ($client[0]->valor + round($resultado , 3));
+                                    echo $total;
+                                @endphp
+
+                            </td>
+                        </tr>
 
 
 
                     </table>
                 </td>
-                <td style="width: 200px">
-                    <table border="0">
-                        <tr><td></td></tr>
+                <!-- <td style="width: 200px">
+                    <table border="1">
                         <tr><td>{{$client[0]->razonSocial}}</td></tr>
                         <tr><td>{{$client[0]->representanteLegal}}</td></tr>
                         <tr><td>{{ substr($client[0]->direccion,0,50)}}</td></tr>
                          <tr><td>{{$client[0]->ruc}}</td></tr>
                         <tr><td>{{$client[0]->telefono}}</td></tr>
-                        <!-- <tr><td>I. Categoría</td></tr> -->
                         <tr><td>Permiso año {{ $client[0]->year_now }}</td></tr>
                         <tr><td>
                                 $ {{ floatval($client[0]->valor) }}
@@ -279,7 +321,7 @@
 
                         <tr><td> $ 0.00</td></tr>
 
-                        <tr><td>
+                        <tr><td style="padding-top:4px !important;padding-bottom:4px !important">
                                 $ @php
                                     $resultado =  ((($client[0]->valor) * $client[0]->porcenjatetasa)/100);
                                     echo $resultado;
@@ -287,6 +329,7 @@
 
                             </td>
                         </tr>
+
                         <tr><td>$ @php
                                     $resultado =  ((($client[0]->valor) * $client[0]->porcenjatetasa)/100);
                                     $total     =   ($client[0]->valor + round($resultado , 3));
@@ -297,7 +340,7 @@
 
 
                     </table>
-                </td>
+                </td> -->
             </tr>
         </table>
         <p class="pf__item_f"><small>&nbsp;&nbsp;&nbsp; {{strtoupper($client[0]->representanteLegal) }} </small></p>

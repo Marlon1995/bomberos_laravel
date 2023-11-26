@@ -242,24 +242,48 @@
     </div>
 
 
-    <table class="tbFactura" border="1">
+    <table class="tbFactura" border="0">
         <tr>
             <td style="width: 200px">
-                <table border="0">
-                    <tr><td>NOMBRE DEL LOCAL</td></tr>
-                    <tr><td>PROPIETARIO O REPRESENTANTE</td></tr>
-                    <tr><td>DIRECCIÓN</td></tr>
-                    <tr><td>RUC</td></tr>
-                    <tr><td>TELÉFONO</td></tr>
-                    <tr><td>#ESPECIE</td></tr>
-                     <tr><td>VALOR ESPECIE</td></tr>
-                     <tr><td>VALOR TOTAL A PAGAR</td></tr>
+                <table border="1">
+                    <tr>
+                        <td>NOMBRE DEL LOCAL</td>
+                        <td>{{$client[0]->razonSocial}}</td>
+                    </tr>
+                    <tr>
+                        <td>PROPIETARIO O REPRESENTANTE</td>
+                        <td>{{$client[0]->representanteLegal}}</td>
+                    </tr>
+                    <tr>
+                        <td>DIRECCIÓN</td>
+                        <td>{{ substr($client[0]->direccion,0,50)}}</td>
+                    </tr>
+                    <tr>
+                        <td>RUC</td>
+                        <td>{{$client[0]->ruc}}</td>
+                    </tr>
+                    <tr>
+                        <td>TELÉFONO</td>
+                        <td>{{$client[0]->telefono}}</td>
+                    </tr>
+                    <tr>
+                        <td>#ESPECIE</td>
+                        <td>{{$client[0]->especie}}</td>
+                    </tr>
+                     <tr>
+                        <td>VALOR ESPECIE</td>
+                        <td>$ {{ floatval($client[0]->valor * $client[0]->cantidad) }}</td>
+                    </tr>
+                     <tr>
+                        <td>VALOR TOTAL A PAGAR</td>
+                        <td>$ {{ floatval($client[0]->valor * $client[0]->cantidad) }}</td>
+                    </tr>
 
 
 
                 </table>
             </td>
-            <td style="width: 200px">
+            <!-- <td style="width: 200px">
                 <table border="0">
                     <tr><td></td></tr>
                     <tr><td>{{$client[0]->razonSocial}}</td></tr>
@@ -271,7 +295,7 @@
                     <tr><td>$ {{ floatval($client[0]->valor * $client[0]->cantidad) }}</td></tr>
                     <tr><td>$ {{ floatval($client[0]->valor * $client[0]->cantidad) }}</td></tr>
                 </table>
-            </td>
+            </td> -->
         </tr>
     </table>
     <p class="pf__item_f"><small>&nbsp;&nbsp;&nbsp; {{strtoupper($client[0]->representanteLegal) }} </small></p>
