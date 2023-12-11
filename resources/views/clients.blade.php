@@ -409,15 +409,22 @@
                                             class="form-control col-md-11" required>
                                     </div>
                                 </div>
+                              
+
                                 <div class="form-group row">
-                                    <label class="control-label col-md-4 col-sm-4 ">REPRESENTANTE LEGAL O PERSONA NATURAL
-                                        <small>(PROPIETARIO)</small> </label>
-                                    <div class="col-md-8 col-sm-8 ">
-                                        <input type="text" name="representanteLegal" id="representanteLegal"
-                                            onKeyPress="return fn_aceptaLETRAS(event)" class="form-control col-md-11"
-                                            required>
+                                <label class="control-label col-md-2 col-sm-2">PROPIETARIO</label>
+                                    <div class="col-md-4 col-sm-4">
+                                        <select class="form-control" name="representanteLegal" id="representanteLegal">
+                                          
+                                                <option value="REPRESENTANTE LEGAL">REPRESENTANTE LEGAL</option>
+                                                <option value="PERSONA NATURAL">PERSONA NATURAL</option>
+
+                                          
+                                        </select>
                                     </div>
                                 </div>
+
+
                                 <div class="form-group row">
                                     <label class="control-label col-md-2 col-sm-2">PARROQUIA</label>
                                     <div class="col-md-4 col-sm-4">
@@ -428,13 +435,16 @@
                                             @endforelse
                                         </select>
                                     </div>
-                                    <div class="col-md-6 col-sm-6 ">
-                                        <label class="control-label col-md-2 col-sm-2 ">BARRIO</label>
-                                        <input type="text" name="barrio" id="barrio"
-                                            onKeyPress="return fn_aceptaLETRAS(event)" class="form-control col-md-6"
-                                            required>
+                                </div>
+                     
+
+                    <div class="form-group row">
+                                    <label class="control-label col-md-2 col-sm-2 ">BARRIO</label>
+                                    <div class="col-md-8 col-sm-8 ">
+                                        <textarea name="barrio" id="barrio" class="form-control col-md-10" required></textarea>
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label class="control-label col-md-2 col-sm-2 ">REFERENCIA</label>
                                     <div class="col-md-8 col-sm-8 ">

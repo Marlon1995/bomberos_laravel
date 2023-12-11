@@ -452,7 +452,7 @@
                                             </div>
                                             <div class="row" style="border: 1px solid;">
                                                 <div class="col-sm-1"></div>
-                                                <div class="col-sm-5" style="text-align: left;padding: 10px">
+                                                <div class="col-sm-6" style="text-align: left;padding: 10px">
                                                     <p class="margin_p"><b>T. Anticipos:
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b> <label
                                                             id="anticipos__mdpagos"></label></p>
@@ -461,28 +461,27 @@
                                                             id="descuentos__mdpagos"></label></p>
                                                     <p class="margin_p"><b>Recargo: &nbsp;&nbsp; </b><label
                                                             id="RecargoTrimestral__mdpagos"></label></p>
-                                                    <p class="margin_p"><b>T. Tasa Anual sddsa:
+                                                    <p class="margin_p"><b>Total:
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label
                                                             id="TasaAnual__mdpagos"></label></p>
 
                                                     <p class="margin_p"><b>Valor Especie:
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label>$ 2.00</label>
                                                     </p>
+                                                    <p class="margin_p"><label><b>Servicio Admistrativo: $1.00</label></p>
+                                                    
+
                                                     <p class="margin_p"><b>Valor P. Exoneracion:
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><label id="permiso">$
                                                             1.00</label></p>
 
-<!--                                                     <p class="margin_p"><b>Valor Tasa Anual:
-                                                            &nbsp;&nbsp;&nbsp;</b><label
-                                                            id="TotalTasaAnual__mdpagos"></label></p> -->
-                                                </div>
-                                                <div class="col-sm-5" style="text-align: center;">
-                                                    <br><br>
-                                                    <p style="font-size: 20px; font-weight: bold"><b>TOTAL: </b>$ <label
-                                                            id="saldo__mdpagos"></label></p>
-                                                </div>
+                                                            <p style="font-size: 20px; font-weight: bold"><b>TOTAL: $</b> <label id="saldo__mdpagos"></label></p>
 
-                                                <div class="col-sm-1"></div>
+
+                                                </div>
+                                              
+
+                                              
                                             </div>
 
 
@@ -1104,7 +1103,7 @@
                     else {
                         $("#permiso").text('$ ' + 0.00);
 
-                        $valor = datos['cliente']['saldo'] + 2;
+                        $valor = datos['cliente']['saldo'] + 2+1;
                     }
 
                     var $total_tasa = datos['Pagos']['TasaAnual'];
@@ -1134,7 +1133,7 @@
                         var $total_global = $total + $recargo;
                         $("#saldo__mdpagos").text($total_global.toFixed(2));
                     });
-console.log(datos);
+
                     $("#TasaAnual__mdpagos").text('$ ' + datos['Pagos']['TasaAnual']);
                     $("#valor__tbPagos_a_1").val(datos['cliente']['saldo']);
                     $(".TasaAnual__mdpagos_m").val(datos['cliente']['saldo']);
