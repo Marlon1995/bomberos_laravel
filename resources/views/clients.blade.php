@@ -88,8 +88,7 @@
                                         data-target="#mdlNuevEmpleado"> <i class="fa fa-user"></i> Agregar</a>
                                 @endif
 
-                                    <a href="#" class="btn btn-outline-warning" data-toggle="modal"
-                                        data-target="#mdlIframePagina"> <i class="fa fa-user"></i> Visualizar</a>
+                                    
 
                                 <div class="table-responsive">
                                     <table id="tbClientes" class="table table-striped jambo_table bulk_action"
@@ -99,8 +98,8 @@
                                                 <th class="column-title">RUC</th>
                                                 <th class="column-title">RAZ&Oacute;N. SOCIAL</th>
                                                 <th class="column-title">REP. LEGAL</th>
-                                                <!-- <th class="column-title">CATEGOR&Iacute;A</th> -->
-                                                <!-- <th class="column-title">DENOMINACI&Oacute;N</th> -->
+                                                <th class="column-title">CATEGOR&Iacute;A</th> 
+                                                 <th class="column-title">DENOMINACI&Oacute;N</th> 
                                                 <th class="column-title">AÑO PAGO</th>
                                                 <th class="column-title no-link last"></th>
                                                 <th class="column-title no-link last"></th>
@@ -466,13 +465,25 @@
                                             class="form-control col-md-10" required>
                                     </div>
                                 </div>
-
-<!--                                 <div class="form-group row">
+                                <div class="form-group row">
+                                <label class="control-label col-md-2 col-sm-2">CATEGORIA</label>
+                                    <div class="col-md-4 col-sm-4">
+                                        <select class="form-control" name="categoria" id="categoria_md">
+                                            @forelse ($categoria as $item)
+                                                <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
+                                            @empty
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                    </div>
+                               <div class="form-group row">
                                     <label class="control-label col-md-2 col-sm-2 ">DENOMINACI&Oacute;N</label>
                                     <div class="col-md-6 col-sm-6 ">
-                                        <select class="form-control" name="actividad" id="actividad"></select>
+                                        <select class="form-control" name="actividad" id="actividad_md"></select>
                                     </div>
-                                </div> -->
+                                </div> 
+                                    
+                              
 
                                 <!--fin INFORMACIÓN GENERAL-->
 
@@ -609,15 +620,25 @@
                                             onKeyPress="return fn_aceptaNum(event)" value=""
                                             class="form-control col-md-10" required>
                                     </div>
-                                </div>
-
-<!--                                 <div class="form-group row">
+                                    </div>
+                                    <div class="form-group row">
+                                <label class="control-label col-md-2 col-sm-2">CATEGORIA</label>
+                                    <div class="col-md-4 col-sm-4">
+                                        <select class="form-control" name="categoria" id="categoria_md">
+                                            @forelse ($categoria as $item)
+                                                <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
+                                            @empty
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                    </div>
+                               <div class="form-group row">
                                     <label class="control-label col-md-2 col-sm-2 ">DENOMINACI&Oacute;N</label>
                                     <div class="col-md-6 col-sm-6 ">
                                         <select class="form-control" name="actividad" id="actividad_md"></select>
                                     </div>
-                                </div> -->
-
+                                </div> 
+                              
 
                                 <!--fin INFORMACIÓN GENERAL-->
 
@@ -699,7 +720,7 @@
                                                 <p class="margin_p"><b>RUC</b></p>
                                                 <p class="margin_p"><b>DIRECCI&Oacute;N</b></p>
                                                 <p class="margin_p"><b>TEL&Eacute;FONO</b></p>
-                                                <!-- <p class="margin_p"><b>CATEGORIA</b></p> -->
+                                                 <p class="margin_p"><b>CATEGORIA</b></p> 
 
                                             </div>
                                             <div class="col-sm-5" style="text-align: left;padding: 10px">
@@ -708,7 +729,7 @@
                                                 <p class="margin_p" id="ruc__mdPAgos"></p>
                                                 <p class="margin_p" id="direccion__MdPagos"></p>
                                                 <p class="margin_p" id="telefono__MdPagos"></p>
-                                                <!-- <p class="margin_p" id="catgoria__MdPagos"></p> -->
+                                                <p class="margin_p" id="catgoria__MdPagos"></p> 
                                             </div>
                                             <div class="col-sm-1"></div>
                                         </div>
@@ -937,7 +958,7 @@
                     $("#ruc__mdPAgos").text(datos['cliente']['ruc']);
                     $("#direccion__MdPagos").text(datos['cliente']['direccion']);
                     $("#telefono__MdPagos").text(datos['cliente']['telefono']);
-                    /* $("#catgoria__MdPagos").text(datos['cliente']['categoria']); */
+                     $("#catgoria__MdPagos").text(datos['cliente']['categoria']); 
                     $("#saldo__mdpagos").text('$ ' + datos['cliente']['saldo']);
                     $("#anticipos__mdpagos").text('$ ' + datos['Pagos']['anticipos']);
                     $("#descuentos__mdpagos").text('$ ' + datos['Pagos']['descuentos']);

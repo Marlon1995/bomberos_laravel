@@ -164,36 +164,28 @@
 @section('scrpts-jqrey')
 
     <script>
-        var tbPermisos_ini;
+        var tbPermisosOrdenanza;
         $(document).ready(function() {
             $("#tbPermisos_InpBuscar").val("");
 
             fn_tbPermisos_ini();
-            $("#tbPermisos_InpBuscar").on('keyup', function(event) {
-                tbPermisos_ini.search(this.value).draw();
-            });
+         
 
         });
 
         function fn_tbPermisos_ini() {
-            tbPermisos_ini = $('#tbPermisos').DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
-                pageLength: 10,
-                order: [
-                    [5, "desc"]
-                ],
-                drawCallback: function(settings) {
-                    //CARGANDO
-                },
+            tbPermisos = $("#tbPermisos").dataTable({
+                pageLength: 20,
+                order: [[1, "asc"]],
                 "language": {
-                    "lengthMenu": 'Mostrar' +
-                        '<select style="width:60px" >' +
-                        '<option>5</option>' +
-                        '<option>10</option>' +
-                        '<option>20</option>' +
-                        '<option>25</option>' +
-                        '<option value="-1">Todos</option>' +
-                        '</select> registros por página',
+                    "lengthMenu": 'Mostrar'+
+                    '<select style="width:60px" >'+
+                    '<option>5</option>'+
+                    '<option>10</option>'+
+                    '<option>20</option>'+
+                    '<option>25</option>'+
+                    '<option value="-1">Todos</option>'+
+                    '</select> registros por página',
                     "zeroRecords": "No se encontraron resultados en su busqueda",
                     "searchPlaceholder": "Buscar por..",
                     "info": " ",
@@ -207,9 +199,13 @@
                         "next": "Siguiente",
                         "previous": "Anterior"
                     },
-                },
-                select: true
+                }
             });
         }
+
+        $("#tbPermisos_InpBuscar").on('keyup', function(event) {
+            $("#tbPermisos").search(this.value).draw();
+            });
+            
     </script>
 @endsection

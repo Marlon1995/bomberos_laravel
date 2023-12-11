@@ -32,12 +32,12 @@ class ClientsController extends Controller {
                             ->orderBy('p.descripcion','ASC')
                             ->get();
         $denominacion  = DB::table('denominaciones', 'd')->select('d.id', 'd.descripcion')->where('d.estado', $est_activo)->orderBy('d.descripcion','ASC')->get();
-        /* $categoria     = DB::table('categorias', 'cat')->select('cat.id', 'cat.descripcion')->where('cat.estado', $est_activo)->orderBy('cat.descripcion','ASC')->get(); */
+         $categoria     = DB::table('categorias', 'cat')->select('cat.id', 'cat.descripcion')->where('cat.estado', $est_activo)->orderBy('cat.descripcion','ASC')->get(); 
         $riego         = DB::table('riesgos' ,'r')->select('r.id', 'r.descripcion')->where('r.estado', $est_activo)->orderBy('r.descripcion','ASC')->get();
         $pagos         = DB::table('client')
                         ->join('otros_pagos','otros_pagos.client_id', '=', 'client.id')
                         ->get();
-//dd($pagos);
+
 
         if( auth()->user()->role_id == 3 ) {
 
@@ -108,7 +108,7 @@ class ClientsController extends Controller {
 
         }
 
-        return view( 'clients' , compact('data','sector','denominacion','clients','riego','pagos') );
+        return view( 'clients' , compact('data','sector','denominacion','clients','riego','pagos','categoria') );
     }
 
     public function store(Request $request) {
@@ -130,8 +130,8 @@ class ClientsController extends Controller {
         $send->telefono             =  $request->input('telefono');
         $send->email             =  $request->input('email');
         $send->referencia           =  $request->input('referencia');
-        /* $send->categoria_id         =  $request->input('categoria'); */
-        /* $send->denominacion_id      =  $request->input('actividad'); */
+         $send->categoria_id         =  $request->input('categoria'); 
+         $send->denominacion_id      =  $request->input('actividad'); 
         $send->inspector_id     = auth()->user()->id;
         $send->estado               =  2; // ESTADO ACTIVADO
         $send->save();
@@ -534,8 +534,8 @@ class ClientsController extends Controller {
 
         $reporte = DB::table('client', 'cli')
              ->join('inspecciones', 'cli.id', 'inspecciones.client_id') 
-            /* ->join('categorias', 'cli.categoria_id','=', 'categorias.id') */
-            /* ->select('categorias.descripcion') */
+             ->join('categorias', 'cli.categoria_id','=', 'categorias.id') 
+             ->select('categorias.descripcion') 
             ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
             ->select('cli.id'
                 , 'cli.ruc'
@@ -548,7 +548,7 @@ class ClientsController extends Controller {
                 , 'cli.inspector_id'
                 , 'cli.categoria_id'
                 ,'inspecciones.created_at'
-                /* , 'categorias.descripcion' */
+                 , 'categorias.descripcion' 
             )
             ->whereIn('cli.estado', [4])
             ->where('cli.inspector_id','=',$id)
