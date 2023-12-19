@@ -118,6 +118,8 @@
                 <th>VALOR</th>
                 <th>RECARGO</th>
                 <th>ESPECIE</th>
+                <th>T. ADMIN</th>
+
                 <th>TOTAL</th>
 
 
@@ -127,13 +129,15 @@
             {{ $total_vpagos = 0 }}
             {{ $total_especie = 0 }}
             {{ $total_recargo = 0 }}
+            {{ $total_admin = 0 }}
             {{ $x = 1 }}
 
             @forelse($reporte as $item)
                 {{ $total_pago = $total_pago + $item->valor }}
                 {{ $total_vpagos = $total_vpagos + $item->valor - 2 }}
                 {{ $total_especie = $total_especie + 2 }}
-                {{ $total_recargo = $total_recargo + $item->recargo }}
+                {{ $total_admin = $total_admin + 1 }}
+                {{ $total_recargo = $total_recargo + $item->recargo  }}
                 <tr>
                     <td>{{ $x++ }}</td>
                     <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
@@ -147,7 +151,8 @@
                     <td>${{ round($item->valor - 2, 2) }}</td>
                     <td>${{ $item->recargo }}</td>
                     <td>${{ 2 }}</td>
-                    <td>${{ round($item->valor + $item->recargo, 2) }}</td>
+                    <td>${{ 1 }}</td>
+                    <td>${{ round($item->valor + $item->recargo+1, 2) }}</td>
 
                 </tr>
             @empty
@@ -162,11 +167,13 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                
                 <td> <strong>TOTALES</strong></td>
                 <td><strong>${{ round($total_vpagos, 2) }}</strong></td>
                 <td><strong>${{ round($total_recargo, 4) }}</strong></td>
                 <td><strong>${{ round($total_especie, 2) }}</strong></td>
-                <td><strong>${{ round($total_pago + $total_recargo, 2) }}</strong></td>
+                <td><strong>${{ round($total_admin, 2) }}</strong></td>
+                <td><strong>${{ round($total_pago + $total_recargo+1, 2) }}</strong></td>
 
             </tr>
         </table>
@@ -189,6 +196,7 @@
                 <th>VALOR</th>
                 <th>RECARGO</th>
                 <th>ESPECIE</th>
+                <th>T. ADMIN</th>
                 <th>TOTAL</th>
 
 
@@ -198,12 +206,14 @@
             {{ $total_vpagos_or = 0 }}
             {{ $total_especie_or = 0 }}
             {{ $total_recargo_or = 0 }}
+            {{ $total_admin_or = 0 }}
             {{ $x = 1 }}
 
             @forelse($reporte_ordenanzas as $item)
                 {{ $total_pago_or = $total_pago_or + $item->valor }}
                 {{ $total_vpagos_or = $total_vpagos_or + $item->valor - 2 }}
                 {{ $total_especie_or = $total_especie_or + 2 }}
+                {{ $total_admin_or = $total_admin_or + 1 }}
                 {{ $total_recargo_or = $total_recargo_or + $item->recargo }}
                 <tr>
                     <td>{{ $x++ }}</td>
@@ -217,8 +227,10 @@
                     <td>{{ $item->tipos_pago }}</td>
                     <td>${{ round($item->valor - 2, 2) }}</td>
                     <td>${{ $item->recargo }}</td>
+                    
                     <td>${{ 2 }}</td>
-                    <td>${{ round($item->valor + $item->recargo, 2) }}</td>
+                    <td>${{ 1 }}</td>
+                    <td>${{ round($item->valor + $item->recargo+1, 2) }}</td>
 
                 </tr>
             @empty
@@ -237,7 +249,8 @@
                 <td><strong>${{ round($total_vpagos_or, 2) }}</strong></td>
                 <td><strong>${{ round($total_recargo_or, 4) }}</strong></td>
                 <td><strong>${{ round($total_especie_or, 2) }}</strong></td>
-                <td><strong>${{ round($total_pago_or + $total_recargo_or, 2) }}</strong></td>
+                <td><strong>${{ round($total_admin_or, 2) }}</strong></td>
+                <td><strong>${{ round($total_pago_or + $total_recargo_or+$total_admin_or, 2) }}</strong></td>
 
             </tr>
         </table>
@@ -307,7 +320,7 @@
 
 
         <center>
-            <h5>ESPECIES</h5>
+            <h5>ESPECIES PARA SOLICITUD</h5>
         </center>
         <table>
             <tr>
@@ -370,7 +383,7 @@
                 style="color: #ffffff">______________________________________________________________________________________________
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             </span></th>
-            <b>TOTAL RECAUDADO</b>: $ {{ round($total + $total_pago+$total_pago_or + $totalEspecies + $total_recargo, 2) }}
+            <b>TOTAL RECAUDADO</b>: $ {{ round($total + $total_pago+$total_admin+$total_pago_or +$total_admin_or+ $totalEspecies + $total_recargo, 2) }}
         </div>
 
 
@@ -424,7 +437,7 @@
         <br>
         <br>
 
-        <div class="firmas">__________________________
+        <div class="firmas">_________
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
         <div class="firmas">Recaudador(a) Tnlga. Patricia Pincay 

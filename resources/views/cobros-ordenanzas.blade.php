@@ -92,51 +92,28 @@
                                                                         </div>
 
                                                                         <div class="item form-group ">
-                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">PROPIETARIO</label>
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">REPRESENTANTE LEGAL- PROPIETARIO</label>
                                                                             <div class="col-md-9 col-sm-9">
                                                                                 <input type="text" class="form-control" name="representanteLegal" id="representanteLegal"  onKeyPress="return fn_aceptaLETRAS(event)"   placeholder="PROPIETARIO" required>
                                                                             </div>
                                                                         </div>
 
+                                                                   
+
+                                                                     
+
                                                                         <div class="item form-group ">
-                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="formaspago">Formas de Pagos</label>
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">TELÉFONO</label>
                                                                             <div class="col-md-9 col-sm-9">
-                                                                                <select class="form-control" name="formaspago">
-                                                                                    @forelse ($formasPago as $pago)
-                                                                                        <option value="{{ $pago->id }}">{{ $pago->nombre }}</option> 
-                                                                                    @empty
-                                                                                        no hay registro
-                                                                                    @endforelse
-                                                                                </select>
+                                                                                <input type="text" class="form-control" name="telefono" id="telefono"  placeholder="TELEFONO" required>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="item form-group ">
-                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="anioPago">Año Pago</label>
-                                                                            <div class="col-md-9 col-sm-9">
-                                                                                <select class="form-control" name="anioPago">
-                                                                                <?php
-                                                                                $fecha = now()->format('Y');
-                                                                                for ($i=2013; $i <=$fecha ; $i++) { 
-                                                                                echo '<option value="'.$i.'">'.$i.'</option>';
-                                                                                }
-                                                                            ?>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="item form-group ">
-                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">N° TRANSACCIÓN</label>
-                                                                            <div class="col-md-9 col-sm-9">
-                                                                                <input type="text" class="form-control" name="num_transaccion"   placeholder="NÚMERO DE TRANSACCIÓN" required>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="item form-group ">
-                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">N° PERMISO FUNCIONAMIENTO</label>
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">DIRECCIÓN</label>
                                                                             <div class="col-md-9 col-sm-9">
                                                                                 <!-- <input type="text" class="form-control " name="num_permiso_funcionamiento"   placeholder="NÚMERO PERMISO FUNCIONAMIENTO" required> -->
-                                                                                <input type="text" class="form-control" name="num_permiso"   placeholder="NÚMERO DE PERMISO DE FUNCIONAMIENTO" required>
+                                                                                <input type="text" class="form-control" name="direccion" id="direccion"   placeholder="DIRECCIÓN" required>
 
                                                                             </div>
                                                                         </div>
@@ -561,6 +538,8 @@
                         toastr.success('El RUC: '+datos[0].ruc+ ', YA EXISTE');
                         $("#nombreLocal").val(datos[0].razonSocial);
                         $("#representanteLegal").val(datos[0].representanteLegal);
+                        $("#telefono").val(datos[0].telefono);
+                        $("#direccion").val(datos[0].referencia);
                         return true;
                     }
 
