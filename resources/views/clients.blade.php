@@ -98,9 +98,9 @@
                                                 <th class="column-title">RUC</th>
                                                 <th class="column-title">RAZ&Oacute;N. SOCIAL</th>
                                                 <th class="column-title">REP. LEGAL</th>
-                                                <th class="column-title">CATEGOR&Iacute;A</th> 
-                                                 <th class="column-title">DENOMINACI&Oacute;N</th> 
                                                 <th class="column-title">AÑO PAGO</th>
+
+                                                 <th class="column-title">ACCIONES</th> 
                                                 <th class="column-title no-link last"></th>
                                                 <th class="column-title no-link last"></th>
                                             </tr>
@@ -622,7 +622,7 @@
                                     </div>
                                     </div>
                                     <div class="form-group row">
-                                <label class="control-label col-md-2 col-sm-2">CATEGORIA</label>
+                                <label class="control-label col-md-2 col-sm-2">AÑO</label>
                                     <div class="col-md-4 col-sm-4">
                                         <select class="form-control" name="categoria" id="categoria_md">
                                             @forelse ($categoria as $item)
@@ -633,7 +633,7 @@
                                     </div>
                                     </div>
                                <div class="form-group row">
-                                    <label class="control-label col-md-2 col-sm-2 ">DENOMINACI&Oacute;N</label>
+                                    <label class="control-label col-md-2 col-sm-2 "></label>
                                     <div class="col-md-6 col-sm-6 ">
                                         <select class="form-control" name="actividad" id="actividad_md"></select>
                                     </div>
@@ -786,48 +786,48 @@
             var tbClientes;
           
         fn_tbClientes_ini();
-        $("#tbClientes_InpBuscar").val("");
 
         function fn_tbClientes_ini() {
             tbClientes = $('#tbClientes').DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
-                pageLength: 20,
-                order: [
-                    [3, "asc"]
-                ],
-                drawCallback: function(settings) {
-                    //CARGANDO
-                },
-                select: true,
-                "language": {
-                    "lengthMenu": 'Mostrar' +
-                        '<select style="width:60px" >' +
-                        '<option>5</option>' +
-                        '<option>10</option>' +
-                        '<option>20</option>' +
-                        '<option>25</option>' +
-                        '<option value="-1">Todos</option>' +
-                        '</select> registros por página',
-                    "zeroRecords": "No se encontraron resultados en su busqueda",
-                    "searchPlaceholder": "Buscar por..",
-                    "info": " ",
-                    "infoEmpty": "No existen registros",
-                    "infoFiltered": "",
-                    "search": "Buscar:",
-                    "processing": "Procesando...:",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    },
-                }
-            });
+    dom: '<"top">rt<"bottom"ip<"clear">>', // Include pagination input
+    pageLength: 20,
+    lengthMenu: [5, 10, 20, 25, -1], // Customize the number of records per page
+    drawCallback: function(settings) {
+        // CARGANDO
+    },
+    select: true,
+    language: {
+        lengthMenu: 'Mostrar' +
+            '<select style="width:60px">' +
+            '<option>5</option>' +
+            '<option>10</option>' +
+            '<option>20</option>' +
+            '<option>25</option>' +
+            '<option value="-1">Todos</option>' +
+            '</select> registros por página',
+        zeroRecords: "No se encontraron resultados en su búsqueda",
+        searchPlaceholder: "Buscar por..",
+        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+        infoEmpty: "No existen registros",
+        infoFiltered: "(filtrados de _MAX_ registros totales)",
+        search: "Buscar:",
+        processing: "Procesando...",
+        paginate: {
+            first: "Primero",
+            last: "Último",
+            next: "Siguiente",
+            previous: "Anterior"
+        },
+    }
+});
 
         }
-        $("#tbClientes_InpBuscar").on('keyup', function(event) {
-            tbClientes.search(this.value).draw();
-        });
+        $("#tbClientes_InpBuscar").on('input', function() {
+    tbClientes.search(this.value).draw();
+}).on('clear', function() {
+    // Handle the case when the input field is cleared
+    tbClientes.search('').draw();
+});
 
         $(".tbClientes_selectBuscar").change(function(event) {
 

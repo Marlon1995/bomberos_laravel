@@ -44,7 +44,11 @@ Route::get('cobro-ordenanza', 'OtrosPagosController@mostrar_pago_ordenanza');
 Route::post('/agregar-cobro-ordenanza', 'OtrosPagosController@agregar_pago_ordenanza');
 
 Route::get('history-payments', 'DataController@historialPagos');
+Route::get('history-ordenanzas', 'DataController@historialOrdenanzas');
+
 Route::get('bill-payments/{id}', 'DataController@facturaPago');
+Route::get('bill-payments-ordenanzas/{id}', 'DataController@facturaPagoOrdenanzas');
+
 Route::get('exoneraciones_artesano/{id}', 'DataController@exoneracion_artesano');
 Route::get('exoneraciones_tercera/{id}', 'DataController@exoneracion_tercera');
 Route::get('exoneraciones_discapacidad/{id}', 'DataController@exoneracion_discapacidad');

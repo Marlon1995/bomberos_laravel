@@ -535,8 +535,9 @@
                                         <thead>
                                             <tr class="headings" style="text-align:center;">
                                                 <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
-                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">SV</th>
-                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">CV</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:15%;">SV</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:15%;">CV</th>
+                                                <th class="column-title cb-header-register__tbCoeficiente" style="width:15%;">NC</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -548,6 +549,8 @@
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                         <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos_01}}" 
                                                                    value="{{$item->puntos_01}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos_01}}">{{$item->puntos_01}}</label></td>
+                                                                   <td><input type="radio" name="sinvalor" id="sinvalor" 
+                                                                   value=0 required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">0</label></td>
                                                     </tr>
                                                 @endif
                                             @empty

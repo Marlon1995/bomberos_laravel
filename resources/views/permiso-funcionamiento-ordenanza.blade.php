@@ -104,23 +104,31 @@
         text-align: justify;
         width: 540px;
     }
+    .pf__item_d_2 {
+        position: absolute;
+        left: 130px;
+        top: 600px;
+        font-size: 12px;
+        text-align: justify;
+        width: 540px;
+    }
     .pf__item_e {
         position: absolute;
         left: 130px;
-        top: 555px;
+        top: 700px;
         font-size: 12px;
         text-align: justify;
     }
     .pf__item_f {
         position: absolute;
         left: 130px;
-        top: 615px;
+        top: 750px;
         font-size: 12px;
     }
     .pf__item_fecha{
         position: absolute;
         left: 480px;
-        top: 655px;
+        top: 800px;
         font-size: 12px;
     }
 
@@ -181,8 +189,11 @@
 
         <div class="pf__item_d">
             Conste por medio de la presente haber cancelado el <b>PERMISO DE FUNCIONAMIENTO</b>
-            en esta Dependencia, de conformidad a lo que dispone el <b>{{ $client[0]->descripcion }} </b>vigente,
-            permiso que se deberá ser renovado.
+            en esta Dependencia, conformidad a lo que establece la Ordenanza Municipal Cantón Atacames, para el cobro de valores del Cuerpo de Bomberos, por concepto de tasas de servicios para prevención, mitigación y extinción de incendios dentro de la jurisdicción cantonal, aprobada mediante Edición Especial Nº 713 - Registro Oficial, de fecha 13 de enero de 2023 vigente, permiso que se deberá ser renovado.
+        </div>
+      
+        <div class="pf__item_d_2">
+        <b>{{ $client[0]->descripcion }}</b>
         </div>
 
         <div class="pf__item_e">
