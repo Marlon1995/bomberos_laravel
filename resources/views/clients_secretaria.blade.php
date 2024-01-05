@@ -416,7 +416,7 @@
         function fn_tbClientes_ini() {
             tbClientes = $('#tbClientes').DataTable({
                 dom: '<"top">rt<"bottom"><"clear">',
-                pageLength: 20,
+                pageLength: 10,
                 order: [
                     [3, "asc"]
                 ],

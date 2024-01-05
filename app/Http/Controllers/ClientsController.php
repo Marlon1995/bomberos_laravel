@@ -76,7 +76,7 @@ class ClientsController extends Controller {
                 , 'categorias.descripcion' */
                 , 'cli.created_at'
                 , 'cli.estado')
-                ->orderBy('cli.created_at','DESC','otros_pagos.year_now','')
+                ->orderBy('cli.created_at','desc')
                 ->get();
                 
 
@@ -103,7 +103,7 @@ class ClientsController extends Controller {
                 )
                 ->selectRaw('YEAR(cli.created_at ) as anio')
                 ->whereNotIn('cli.estado', [1, 8])
-                ->orderBy('cli.razonSocial', 'ASC')
+                ->orderBy('cli.created_at', 'desc')
                 ->get();
 
         }

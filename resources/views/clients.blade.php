@@ -95,11 +95,12 @@
                                         style="width:100%;">
                                         <thead>
                                             <tr class="headings">
+                                            <th class="column-title">ID</th>
                                                 <th class="column-title">RUC</th>
                                                 <th class="column-title">RAZ&Oacute;N. SOCIAL</th>
                                                 <th class="column-title">REP. LEGAL</th>
-                                                <th class="column-title">CATEGOR&Iacute;A</th> 
-                                                 <th class="column-title">DENOMINACI&Oacute;N</th> 
+                                              <!--  <th class="column-title">CATEGOR&Iacute;A</th> 
+                                                 <th class="column-title">DENOMINACI&Oacute;N</th>  -->
                                                 <th class="column-title">AÑO PAGO</th>
                                                 <th class="column-title no-link last"></th>
                                                 <th class="column-title no-link last"></th>
@@ -110,6 +111,8 @@
                                                 <!---INPECTOR ROL 4--->
                                                 @if (auth()->user()->hasRoles([4,3]))
                                                     <tr class="even pointer">
+                                                    <td><label class="a-center id">{{ $item->id }}</label></td>
+
                                                         <td><label class="a-center ruc">{{ $item->ruc }}</label></td>
                                                         <td><label class="a-center razonSocial">{{ $item->razonSocial }}</label></td>
                                                         <td><label class="a-center representanteLegal">{{ $item->representanteLegal }}</label></td>
@@ -203,6 +206,8 @@
                                                 @if (auth()->user()->hasRoles([3]))
                                                     @if ($item->estado == 4 || $item->estado == 6 || $item->estado == 7 || $item->estado == 8)
                                                         <tr class="even pointer">
+                                                        <td class="a-center">{{ $item->id }}</td>
+
                                                             <td class="a-center">{{ $item->ruc }}</td>
                                                             <td class="a-center" style="width: 10%">
                                                                 {{ $item->razonSocial }}</td>
@@ -786,15 +791,17 @@
             var tbClientes;
           
         fn_tbClientes_ini();
-        $("#tbClientes_InpBuscar").val("");
+
+    });
+       
 
         function fn_tbClientes_ini() {
             tbClientes = $('#tbClientes').DataTable({
                 dom: '<"top">rt<"bottom"><"clear">',
-                pageLength: 20,
+                pageLength: 10,
                 order: [
-                    [3, "asc"]
-                ],
+                [0, "desc"]
+            ],
                 drawCallback: function(settings) {
                     //CARGANDO
                 },
@@ -822,6 +829,14 @@
                         "previous": "Anterior"
                     },
                 }
+                ,
+    columnDefs: [
+        {
+            targets: 0, // Indica la posición de la columna que quieres ocultar (en este caso, la columna 0)
+            visible: false
+        }
+        // Puedes agregar más definiciones de columnas según sea necesario
+    ]
             });
 
         }
@@ -829,11 +844,7 @@
             tbClientes.search(this.value).draw();
         });
 
-        $(".tbClientes_selectBuscar").change(function(event) {
-
-            tbClientes.search(this.value).draw();
-
-        });
+   
 
 
 
@@ -857,7 +868,7 @@
                     }
                 }
             });
-        });
+      
         
 
   
