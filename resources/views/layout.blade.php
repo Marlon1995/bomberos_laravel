@@ -2,11 +2,13 @@
 <html lang="en">
 
 <head>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+
     <link rel="shortcut icon" href="/assets/img/icons/@yield('icono')" type="image/x-icon">
 
 
@@ -62,6 +64,20 @@
             opacity: 0 !important;
         }
 
+                /* Estilos para pantallas grandes */
+@media (min-width: 1200px) {
+    /* Estilos específicos para pantallas grandes */
+}
+
+/* Estilos para pantallas medianas */
+@media (max-width: 1199px) and (min-width: 768px) {
+    /* Estilos específicos para pantallas medianas */
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 767px) {
+    /* Estilos específicos para pantallas pequeñas */
+} 
         #contenedor {
             width: auto;
             height: 100pc

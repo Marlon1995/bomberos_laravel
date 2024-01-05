@@ -20,6 +20,8 @@
         .modal-dialog {
             max-width: 70% !important;
         }
+
+
     </style>
     @if (session()->has('Respuesta'))
         <label id="Respuesta" style="display: none;">{{ session('Respuesta') }}</label>
