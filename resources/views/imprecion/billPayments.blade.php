@@ -183,13 +183,13 @@
     .pf__item_foter_fecha{
         position: absolute;
         left: 70px;
-        top:380px;
+        top:400px;
         font-size: 10px;
     }
     .pf__item_foter_fecha2{
         position: absolute;
         left: 450px;
-        top: 380px;
+        top: 400px;
         font-size: 10px;
     }
 
@@ -304,7 +304,7 @@
                            }
 
                        @endphp
-                       $ {{$client[0]->valor - $especie}}</td></tr>
+                       $ {{round($client[0]->valor,2) }}</td></tr>
                     <tr><td>VALOR ESPECIE</td><td style="width: 300px; text-align:center">$ {{$especie}}</td></tr>
                     <tr><td>SERVICIO ADMINISTRATIVO (TITULO DE CREDITO)</td><td style="width: 300px; text-align:center">$ 1.00</td></tr>
                     @php
@@ -320,8 +320,8 @@
                      $recargo = 0;
                      @endphp
                     <tr> <td>VALOR P. EXONERACION</td><td style="width: 300px; text-align:center">$ {{$permiso}}</td></tr>
-                    <tr><td><label class="tbFactura_trtdlabel">RECARGO TASA ACTIVA REF.BCE. ORD.#74 CON <br> FECHA 31 DE OCTUBRE 2018</label> </td><td style="width: 300px; text-align:center">${{$recargo}}</td></tr>
-                    <tr><td>VALOR TOTAL A PAGAR</td><td style="width: 300px; text-align:center">$ {{round($client[0]->valor+$client[0]->recargo+$permiso+1,2) }}</td></tr>
+                    <tr><td><label class="tbFactura_trtdlabel">Recargo de Interés por Mora de conformidad al art. 21 del Código Tributario</label> </td><td style="width: 300px; text-align:center">${{$recargo}}</td></tr>
+                    <tr><td>VALOR TOTAL A PAGAR</td><td style="width: 300px; text-align:center">$ {{round($client[0]->valor+$client[0]->recargo+$especie+$permiso+1,2) }}</td></tr>
 
                     </table>
                     </td>
