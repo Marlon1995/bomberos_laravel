@@ -34,6 +34,7 @@ class CierreCajaExport implements FromView
        ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
        ->orderBy('otros_pagos.created_at', 'desc')
        ->get();
+       
     
             //return $cobros;
          $cero = 0;
@@ -129,6 +130,7 @@ class CierreCajaExport implements FromView
     
             ];
         }  
+ 
  
       
         return view('report/cierreCajaExcel', ['reporte' => $reporte, 'cobros'=>$cobros, 'especie'=>$especie ]);

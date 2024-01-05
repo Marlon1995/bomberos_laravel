@@ -153,17 +153,7 @@
                                     <div class="title_left">
                                         <h2><i class="fa fa-usd"></i> Pago de impuesto de Tasa Anual. </h2>
                                     </div>
-                                    <div class="title_right">
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Buscar por.."
-                                                    value="" id="tbPagosTasaAnual_buscador">
-                                                <span class="input-group-btn">
-                                                    <button class="btn" type="button">Buscar</button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                                 <div class="">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -174,6 +164,7 @@
                                                     class="table table-striped jambo_table bulk_action" style="width:100%">
                                                     <thead>
                                                         <tr class="headings">
+                                                        <th class="column-title ruc__pagos">ID</th>
                                                             <th class="column-title ruc__pagos">CI - RUC</th>
                                                             <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL</th>
                                                             <th class="column-title repesLegar__pagos">REP. LEGAL</th>
@@ -186,6 +177,9 @@
                                                     <tbody>
                                                         @forelse($impuestos  as $item)
                                                             <tr class="even pointer">
+                                                            <td><label
+                                                                        class="ruc__tbpagos">{{ $item->id }}</label>
+                                                                </td>
                                                                 <td><label
                                                                         class="ruc__tbpagos">{{ $item->ruc }}</label>
                                                                 </td>
@@ -231,17 +225,7 @@
                                     <div class="title_left">
                                         <h2><i class="fa fa-usd"></i> Pago de Anticipos</h2>
                                     </div>
-                                    <div class="title_right">
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Buscar por.."
-                                                    value="" id="tbPagoSolicitudes_buscador">
-                                                <span class="input-group-btn">
-                                                    <button class="btn" type="button">Buscar</button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                 
                                 </div>
                                 <div class="">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -252,6 +236,7 @@
                                                     class="table table-striped jambo_table bulk_action" style="width:100%">
                                                     <thead>
                                                         <tr class="headings">
+                                                        <th class="column-title ruc__pagos">ID</th>
                                                             <th class="column-title ruc__pagos">CI - RUC</th>
                                                             <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL
                                                             </th>
@@ -264,6 +249,9 @@
                                                     <tbody>
                                                         @forelse($impuestos  as $item)
                                                             <tr class="even pointer">
+                                                            <td><label
+                                                                        class="ruc__tbpagos">{{ $item->id }}</label>
+                                                                </td>
                                                                 <td><label
                                                                         class="ruc__tbpagos">{{ $item->ruc }}</label>
                                                                 </td>
@@ -306,17 +294,7 @@
                                             <div class="title_left">
                                                 <h2><i class="fa fa-file-text-o"></i> Solicitud de Descuentos</h2>
                                             </div>
-                                            <div class="title_right">
-                                                <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" placeholder="Buscar por.."
-                                                            value="" id="tbClientesSecretario_InpBuscar">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn" type="button">Buscar</button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                          
                                         </div>
 
                                         <div class="x_content">
@@ -327,18 +305,22 @@
                                                     class="table table-striped jambo_table bulk_action" style="width:100%">
                                                     <thead>
                                                         <tr class="headings">
+                                                        <th class="column-title ruc__pagos">ID</th>
                                                             <th class="column-title ruc__pagos">CI - RUC</th>
                                                             <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL
                                                             </th>
                                                             <th class="column-title repesLegar__pagos">REP. LEGAL</th>
                                                             <!-- <th class="column-title saldo__pagos">CATEGORIA</th> -->
                                                             <!-- <th class="column-title saldo__pagos">DENOMINACION</th> -->
-                                                            <th class="column-title accion__pagos" align="center"></th>
+                                                            <th class="column-title accion__pagos" ></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @forelse ($impuestos as $item)
                                                             <tr class="evenpointer">
+                                                            <td><label
+                                                                        class="ruc__tbpagos">{{ $item->id }}</label>
+                                                                </td>
                                                                 <td><label
                                                                         class="ruc__tbpagos">{{ $item->ruc }}</label>
                                                                 </td>
@@ -951,11 +933,11 @@
         $("#tbPagoSolicitudes_buscador").val("");
 
         function fn_tbClienteSecretario_ini() {
-            tbClienteSecretario = $("#tbClienteSecretario").DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
-                pageLength: 20,
+            tbClienteSecretario = $("#tbClienteSecretario").dataTable({
+          
+                pageLength: 10,
                 order: [
-                    [1, "asc"]
+                    [0, "asc"]
                 ],
                 "language": {
                     "lengthMenu": 'Mostrar' +
@@ -978,8 +960,16 @@
                         "last": "Último",
                         "next": "Siguiente",
                         "previous": "Anterior"
-                    },
-                }
+                    }
+     
+                },
+                columnDefs: [
+        {
+            targets: 0, // Indica la posición de la columna que quieres ocultar (en este caso, la columna 0)
+            visible: false
+        }
+        // Puedes agregar más definiciones de columnas según sea necesario
+    ]
             });
         }
         $("#tbClientesSecretario_InpBuscar").on('keyup', function(event) {
@@ -988,11 +978,11 @@
 
 
         function fn_tbPagosTasaAnual_ini() {
-            tbPagosTasaAnual = $("#tbPagosTasaAnual").DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
-                pageLength: 20,
+            tbPagosTasaAnual = $("#tbPagosTasaAnual").dataTable({
+               
+                pageLength: 10,
                 order: [
-                    [1, "ASC"]
+                    [0, "ASC"]
                 ],
                 drawCallback: function(settings) {
                     //CARGANDO
@@ -1019,8 +1009,15 @@
                         "last": "Último",
                         "next": "Siguiente",
                         "previous": "Anterior"
-                    },
-                }
+                    }
+                },
+                    columnDefs: [
+        {
+            targets: 0, // Indica la posición de la columna que quieres ocultar (en este caso, la columna 0)
+            visible: false
+        }
+        // Puedes agregar más definiciones de columnas según sea necesario
+    ]
             });
         }
         $("#tbPagosTasaAnual_buscador").on('keyup', function(event) {
@@ -1028,11 +1025,11 @@
         });
 
         function fn_tbPagosSolicitudes_ini() {
-            tbPagosSolicitudes = $("#tbPagosSolicitudes").DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
-                pageLength: 20,
+            tbPagosSolicitudes = $("#tbPagosSolicitudes").dataTable({
+               
+                pageLength: 10,
                 order: [
-                    [1, "desc"]
+                    [0, "desc"]
                 ],
                 "language": {
                     "lengthMenu": 'Mostrar' +
@@ -1055,8 +1052,16 @@
                         "last": "Último",
                         "next": "Siguiente",
                         "previous": "Anterior"
-                    },
-                }
+                    }
+                },
+                    
+                    columnDefs: [
+                        {
+                            targets: 0, // Indica la posición de la columna que quieres ocultar (en este caso, la columna 0)
+                            visible: false
+                        }
+                        // Puedes agregar más definiciones de columnas según sea necesario
+                    ]
             });
         }
         $("#tbPagoSolicitudes_buscador").on('keyup', function(event) {

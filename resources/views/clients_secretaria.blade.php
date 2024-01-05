@@ -63,8 +63,7 @@
 
 
 
-                                    <input type="text" class="form-control" placeholder="Buscar por.." value=""
-                                        id="tbClientes_InpBuscar">
+                                 
 
                                     <select class="form-control tbClientes_selectBuscar">
                                         @forelse ($sector as $item)
@@ -102,6 +101,7 @@
                                         style="width:100%;">
                                         <thead>
                                             <tr class="headings">
+                                            <th class="column-title">ID</th>
                                                 <th class="column-title">RUC</th>
                                                 <th class="column-title">RAZ&Oacute;N. SOCIAL</th>
                                                 <th class="column-title">REP. LEGAL</th>
@@ -115,6 +115,8 @@
                                         <tbody>
                                             @forelse ($clients as $item)
                                                 <tr class="even pointer">
+                                                <td><label class="a-center ruc">{{ $item->id }}</label></td>
+
                                                     <td><label class="a-center ruc">{{ $item->ruc }}</label></td>
                                                     <td><label
                                                             class="a-center razonSocial">{{ $item->razonSocial }}</label>
@@ -414,11 +416,11 @@
         $("#tbClientes_InpBuscar").val("");
 
         function fn_tbClientes_ini() {
-            tbClientes = $('#tbClientes').DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
+            tbClientes = $('#tbClientes').dataTable({
+             
                 pageLength: 10,
                 order: [
-                    [3, "asc"]
+                    [0, "desc"]
                 ],
                 drawCallback: function(settings) {
                     //CARGANDO
@@ -447,18 +449,19 @@
                         "previous": "Anterior"
                     },
                 }
+                ,
+    columnDefs: [
+        {
+            targets: 0, // Indica la posición de la columna que quieres ocultar (en este caso, la columna 0)
+            visible: false
+        }
+        // Puedes agregar más definiciones de columnas según sea necesario
+    ]
+        
             });
 
         }
-        $("#tbClientes_InpBuscar").on('keyup', function(event) {
-            tbClientes.search(this.value).draw();
-        });
-
-        $(".tbClientes_selectBuscar").change(function(event) {
-
-            tbClientes.search(this.value).draw();
-
-        });
+      
 
 
 

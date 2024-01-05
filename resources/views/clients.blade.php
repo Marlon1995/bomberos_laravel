@@ -56,26 +56,7 @@
                         <div class="title_left">
                             <h2><i class="fa fa-fire-extinguisher"></i> Lista de inspecciones </h2>
                         </div>
-                        <div class="title_right">
-                            <div class="col-md-9 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                <div class="input-group">
-
-
-
-
-                                    <input type="text" class="form-control" placeholder="Buscar por.." value=""
-                                        id="tbClientes_InpBuscar">
-
-                             
-
-
-
-
-                                    <span class="input-group-btn"><button class="btn"
-                                            type="button">Buscar</button></span>
-                                </div>
-                            </div>
-                        </div>
+                      
                     </div>
                     <div class="clearfix"></div>
 
@@ -797,10 +778,9 @@
        
 
         function fn_tbClientes_ini() {
-            tbClientes = $('#tbClientes').DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
+            tbClientes = $('#tbClientes').dataTable({
+                
                 pageLength: 10,
-                lengthMenu: [5, 10, 20, 25, -1], // Customize the number of records per page
                 order: [
                 [0, "desc"]
             ],

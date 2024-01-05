@@ -42,15 +42,7 @@
                         </div>
                         <div class="x_content">
                             <div class="title_right">
-                                <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Buscar por.." value=""
-                                            id="tbEspecies_InpBuscar">
-                                        <span class="input-group-btn">
-                                            <button class="btn" type="button">Buscar</button>
-                                        </span>
-                                    </div>
-                                </div>
+                              
                             </div>
 
 
@@ -305,8 +297,8 @@
 @endsection
 @section('scrpts-jqrey')
     <script>
-        var tbEspecies = $('#tbEspecies').DataTable({
-            dom: '<"top">rt<"bottom"><"clear">',
+        var tbEspecies = $('#tbEspecies').dataTable({
+
             pageLength: 30,
             order: [
                 [0, "asc"]

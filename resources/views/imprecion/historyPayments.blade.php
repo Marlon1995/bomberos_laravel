@@ -34,6 +34,8 @@
                                         <table id="tb_historial" class="table table-striped jambo_table bulk_action" style="width:100%">
                                             <thead>
                                             <tr class="headings">
+                                            <th class="column-title ">ID</th>
+
                                                 <th class="column-title ">CI - RUC</th>
                                                 <th class="column-title ">RAZ&Oacute;N SOCIAL</th>
                                                 <th class="column-title ">FORMA PAGO</th>
@@ -58,6 +60,8 @@
 
                                             @forelse ($historial as $item)
                                                     <tr class="evenpointer">
+                                                    <td><label>{{$item->id}}</label></td>
+
                                                         <td><label>{{$item->ruc}}</label></td>
                                                         <td><label>{{$item->razonSocial}}</label></td>
 
@@ -121,7 +125,9 @@
             function fn_tb_historial_ini() {
                 tb_historial = $("#tb_historial").dataTable({
                      pageLength: 20,
-
+                     order: [
+                [0, "desc"]
+            ],
                     "language": {
                         "lengthMenu": 'Mostrar'+
                         '<select style="width:60px" >'+
@@ -143,7 +149,15 @@
                             "next": "Siguiente",
                             "previous": "Anterior"
                         },
-                    }
+                    },
+                  
+    columnDefs: [
+        {
+            targets: 0, // Indica la posición de la columna que quieres ocultar (en este caso, la columna 0)
+            visible: false
+        }
+        // Puedes agregar más definiciones de columnas según sea necesario
+    ]
                 });
             }
 

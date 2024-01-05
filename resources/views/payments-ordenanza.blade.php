@@ -150,17 +150,7 @@
                                     <div class="title_left">
                                         <h2><i class="fa fa-usd"></i> Pago de impuesto de Tasa Anual. </h2>
                                     </div>
-                                    <div class="title_right">
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Buscar por.."
-                                                    value="" id="tbPagosTasaAnual_buscador">
-                                                <span class="input-group-btn">
-                                                    <button class="btn" type="button">Buscar</button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -232,17 +222,7 @@
                                     <div class="title_left">
                                         <h2><i class="fa fa-usd"></i> Pago de Anticipos</h2>
                                     </div>
-                                    <div class="title_right">
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Buscar por.."
-                                                    value="" id="tbPagoSolicitudes_buscador">
-                                                <span class="input-group-btn">
-                                                    <button class="btn" type="button">Buscar</button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                
                                 </div>
                                 <div class="">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -308,15 +288,7 @@
                                                 <h2><i class="fa fa-file-text-o"></i> Solicitud de Descuentos</h2>
                                             </div>
                                             <div class="title_right">
-                                                <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" placeholder="Buscar por.."
-                                                            value="" id="tbClientesSecretario_InpBuscar">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn" type="button">Buscar</button>
-                                                        </span>
-                                                    </div>
-                                                </div>
+                                               
                                             </div>
                                         </div>
 
@@ -954,8 +926,8 @@
         $("#tbPagoSolicitudes_buscador").val("");
 
         function fn_tbClienteSecretario_ini() {
-            tbClienteSecretario = $("#tbClienteSecretario").DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
+            tbClienteSecretario = $("#tbClienteSecretario").dataTable({
+            
                 pageLength: 20,
                 order: [
                     [1, "asc"]
@@ -991,8 +963,8 @@
 
 
         function fn_tbPagosTasaAnual_ini() {
-            tbPagosTasaAnual = $("#tbPagosTasaAnual").DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
+            tbPagosTasaAnual = $("#tbPagosTasaAnual").dataTable({
+             
                 pageLength: 20,
                 order: [
                     [1, "ASC"]
@@ -1031,8 +1003,8 @@
         });
 
         function fn_tbPagosSolicitudes_ini() {
-            tbPagosSolicitudes = $("#tbPagosSolicitudes").DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
+            tbPagosSolicitudes = $("#tbPagosSolicitudes").dataTable({
+           
                 pageLength: 20,
                 order: [
                     [1, "desc"]

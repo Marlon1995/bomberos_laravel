@@ -84,17 +84,7 @@
                         <div class="title_left">
                             <h2><i class="fa fa-shield"></i> Permisos de Funcionamiento</h2>
                         </div>
-                        <div class="title_right">
-                            <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Buscar por.." value=""
-                                        id="tbPermisos_InpBuscar">
-                                    <span class="input-group-btn">
-                                        <button class="btn" type="button">Buscar</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                    
                     </div>
 
 
@@ -110,6 +100,7 @@
                                         style="width:100%;">
                                         <thead>
                                             <tr class="headings">
+                                            <th class="column-title">ID</th>
                                                 <th class="column-title">RUC</th>
                                                 <th class="column-title">RAZ&Oacute;N SOCIAL</th>
                                                 <th class="column-title">REP. LEGAL</th>
@@ -120,6 +111,7 @@
                                         <tbody>
                                             @forelse ($clients as $item)
                                                 <tr class="even pointer">
+                                                <td><label class="a-center ruc">{{ $item->id }}</label></td>
                                                     <td><label class="a-center ruc">{{ $item->ruc }}</label></td>
                                                     <td><label
                                                             class="a-center razonSocial">{{ $item->razonSocial }}</label>
@@ -176,7 +168,7 @@
         function fn_tbPermisos_ini() {
             tbPermisos = $("#tbPermisos").dataTable({
                 pageLength: 20,
-                order: [[1, "asc"]],
+                order: [[0, "desc"]],
                 "language": {
                     "lengthMenu": 'Mostrar'+
                     '<select style="width:60px" >'+
@@ -200,6 +192,14 @@
                         "previous": "Anterior"
                     },
                 }
+                ,
+    columnDefs: [
+        {
+            targets: 0, // Indica la posición de la columna que quieres ocultar (en este caso, la columna 0)
+            visible: false
+        }
+        // Puedes agregar más definiciones de columnas según sea necesario
+    ]
             });
         }
 

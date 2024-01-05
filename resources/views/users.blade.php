@@ -41,18 +41,7 @@
 
                         </div>
                         <div class="x_content">
-                            <div class="title_right">
-                                <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Buscar por.." value=""
-                                            id="tbUsers_InpBuscar">
-                                        <span class="input-group-btn">
-                                            <button class="btn" type="button">Buscar</button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
+                      
 
                             <p class="col-md-6 col-sm-12 col-xs-12">
                                 <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#mdlUser__new">
@@ -391,7 +380,7 @@
 
         function fn_tbUsers_ini() {
             tbUsers = $('#tbUsers').DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
+               
                 pageLength: 30,
                 order: [
                     [5, "desc"]

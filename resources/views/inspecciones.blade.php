@@ -13,17 +13,7 @@
                         <div class="title_left">
                             <h2><i class="fa fa-fire-extinguisher"></i> Formularios de Inspecci&oacute;n </h2>
                         </div>
-                        <div class="title_right">
-                            <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right top_search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Buscar por.." value=""
-                                        id="tbClientes_InpBuscar">
-                                    <span class="input-group-btn">
-                                        <button class="btn" type="button">Buscar</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                     
                     </div>
                     <div class="clearfix"></div>
                     <div class="row">
@@ -86,8 +76,8 @@
         $("#tbClientes_InpBuscar").val("");
 
         function fn_tbClientes_ini() {
-            tbClientes = $('#tbClientes').DataTable({
-                dom: '<"top">rt<"bottom"><"clear">',
+            tbClientes = $('#tbClientes').dataTable({
+             
                 pageLength: 20,
                 order: [
                     [3, "asc"]

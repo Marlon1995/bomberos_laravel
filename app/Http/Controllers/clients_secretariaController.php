@@ -37,10 +37,11 @@ class clients_secretariaController extends Controller
                         ,'cli.telefono'     ,'cli.referencia'   ,'cli.categoria_id' ,'cli.denominacion_id'      ,'cli.tipoFormulario'
                         /* ,'denominaciones.descripcion as denominacion'               ,'categorias.descripcion as categorias' */
                         ,'cli.estado'       ,'parroquias.descripcion as parroquia'
+                        
             )
-           // ->whereNotIn( 'cli.estado'  , [1])
+           ->whereNotIn( 'cli.estado'  , [1])
 
-            ->orderBy('cli.razonSocial' ,'ASC')->get();
+            ->orderBy('cli.id' ,'desc')->get();
 
 
         return view( 'clients_secretaria' , compact('data','sector','categoria','clients') );
@@ -48,7 +49,7 @@ class clients_secretariaController extends Controller
 
     public function destroy( Request $request, $id) {
      
-
+        $id=$request->input('client_id');
         
         $name="";
    
@@ -60,9 +61,10 @@ class clients_secretariaController extends Controller
           
 
         }
-
+    
 
         $client = DB::table('client')->select(   'id','razonSocial')->where('id', $id)->get();
+        
 
         DB::table('client')->where('id', $id)
             ->update([
@@ -91,14 +93,14 @@ class clients_secretariaController extends Controller
         $auditoria->user_id = auth()->user()->id;
         $auditoria->role_id  = auth()->user()->role->id;
         $auditoria->modulo = 'Formularios';
-        $auditoria->descripcion = 'Desactiva al cliente id '.$id.' y Razón Social '.$client[0]->razonSocial;
+        $auditoria->descripcion = 'Desactiva al cliente id '.$id;
         $auditoria->accion = 'desctiva al cliente';
         $auditoria->valor = $id;
         $auditoria->created_at = Carbon::now();
         
         $auditoria->save();
        
-        return back()->with('Respuesta','Se DESACTIVO el cliente de la Razón Social'.strtoupper ($client[0]->razonSocial).' del sistema.');
+        return back()->with('Respuesta','Se DESACTIVO el cliente  del sistema.');
     }
 
 

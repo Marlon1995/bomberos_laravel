@@ -50,6 +50,10 @@
         .cb-header-register__tbObservacion {
             width: 50%;
         }
+        .radio-input {
+        transform: scale(2.0); /* Ajusta este valor según sea necesario para aumentar el tamaño */
+        margin-right: 5px; /* Espaciado opcional entre el input y el texto */
+    }
     </style>
 
     <div class="right_col" role="main">
@@ -160,8 +164,9 @@
                                                 @if ($item->tipoRequerimiento == 'CONSTRUCCION_NA')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
-                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
+                                                        <td><input type="radio" class="radio-input"   name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                   value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label>
+                                                                </td>
                                                     </tr>
                                                 @endif
                                             @empty
@@ -175,7 +180,7 @@
                                                 @if ($item->tipoRequerimiento == 'CONSTRUCCION_SMSI')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -190,7 +195,7 @@
                                                 @if ($item->tipoRequerimiento == 'CONSTRUCCION_RF')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -205,7 +210,7 @@
                                                 @if ($item->tipoRequerimiento == 'CONSTRUCCION_FT')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -241,7 +246,7 @@
                                                 @if ($item->tipoRequerimiento == 'FACTORES_DB')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -256,7 +261,7 @@
                                                 @if ($item->tipoRequerimiento == 'FACTORES_AE')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -292,7 +297,7 @@
                                                 @if ($item->tipoRequerimiento == 'PROCESOS_PA')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -307,7 +312,7 @@
                                                 @if ($item->tipoRequerimiento == 'PROCESOS_CT')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -322,7 +327,7 @@
                                                 @if ($item->tipoRequerimiento == 'PROCESOS_C')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -337,7 +342,7 @@
                                                 @if ($item->tipoRequerimiento == 'PROCESOS_OL')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -352,7 +357,7 @@
                                                 @if ($item->tipoRequerimiento == 'PROCESOS_AA')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -388,7 +393,7 @@
                                                 @if ($item->tipoRequerimiento == 'FACTOR_FC')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -424,7 +429,7 @@
                                                 @if ($item->tipoRequerimiento == 'PROPAGABILIDAD_V')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -439,7 +444,7 @@
                                                 @if ($item->tipoRequerimiento == 'PROPAGABILIDAD_H')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -474,7 +479,7 @@
                                                 @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PC')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -489,7 +494,7 @@
                                                 @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PH')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -504,7 +509,7 @@
                                                 @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PCO')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -519,7 +524,7 @@
                                                 @if ($item->tipoRequerimiento == 'DESTRUCTIBILIDAD_PA')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                     </tr>
                                                 @endif
@@ -545,11 +550,11 @@
                                                 @if ($item->tipoRequerimiento == 'GENERALES_Y')
                                                     <tr class="even pointe" style="text-align:center;">
                                                         <td>{{$item->descripcion}}</td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
-                                                        <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos_01}}" 
+                                                        <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos_01}}" 
                                                                    value="{{$item->puntos_01}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos_01}}">{{$item->puntos_01}}</label></td>
-                                                                   <td><input type="radio" name="sinvalor" id="sinvalor" 
+                                                                   <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                    value=0 required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">0</label></td>
                                                     </tr>
                                                 @endif
@@ -582,8 +587,8 @@
                                     <div class="form-group row">
                                         <label class="control-label col-md-2 col-sm-2 ">SELECCIONAR VALOR</label>
                                         <div class="col-md-3 col-sm-3">
-                                            <label>SI</label><input type="radio" name="respuesta_bci" value="1" required/>
-                                            <label>NO</label><input type="radio" name="respuesta_bci" value="0" required/>
+                                            <label>SI</label><input type="radio" class="radio-input"  name="respuesta_bci" value="1" required/>
+                                            <label>NO</label><input type="radio" class="radio-input"  name="respuesta_bci" value="0" required/>
                                         </div>
                                     </div>
 
