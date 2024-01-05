@@ -401,7 +401,7 @@
                                     <label class="control-label col-md-4 col-sm-4 ">NOMBRE PROPIETARIO</label>
                                     <div class="col-md-8 col-sm-8 ">
                                         <input type="text" name="representanteLegal" id="representanteLegal"
-                                            onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-11"
+                                             class="form-control col-md-11"
                                             required>
                                     </div>
                                 </div>
@@ -580,7 +580,7 @@
                                     <label class="control-label col-md-4 col-sm-4 ">NOMBRE PROPIETARIO</label>
                                     <div class="col-md-8 col-sm-8 ">
                                         <input type="text" name="representanteLegal" id="representanteLegal"
-                                            onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-11"
+                                             class="form-control col-md-11"
                                             required>
                                     </div>
                                 </div>
