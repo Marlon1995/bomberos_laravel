@@ -161,6 +161,7 @@
                                                     class="table table-striped jambo_table bulk_action" style="width:100%">
                                                     <thead>
                                                         <tr class="headings">
+                                                        <th class="column-title ruc__pagos">ID</th>
                                                             <th class="column-title ruc__pagos">CI - RUC</th>
                                                             <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL</th>
                                                             <th class="column-title repesLegar__pagos">REP. LEGAL</th>
@@ -173,6 +174,9 @@
                                                     <tbody>
                                                         @forelse($impuestos  as $item)
                                                             <tr class="even pointer">
+                                                            <td><label
+                                                                        class="ruc__tbpagos">{{ $item->id }}</label>
+                                                                </td>
                                                                 <td><label
                                                                         class="ruc__tbpagos">{{ $item->ruc }}</label>
                                                                 </td>
@@ -930,7 +934,7 @@
             
                 pageLength: 20,
                 order: [
-                    [1, "asc"]
+                    [0, "desc"]
                 ],
                 "language": {
                     "lengthMenu": 'Mostrar' +
@@ -954,7 +958,14 @@
                         "next": "Siguiente",
                         "previous": "Anterior"
                     },
-                }
+                },
+    columnDefs: [
+        {
+            targets: 0, // Indica la posición de la columna que quieres ocultar (en este caso, la columna 0)
+            visible: false
+        }
+        // Puedes agregar más definiciones de columnas según sea necesario
+    ]
             });
         }
         $("#tbClientesSecretario_InpBuscar").on('keyup', function(event) {
@@ -965,9 +976,9 @@
         function fn_tbPagosTasaAnual_ini() {
             tbPagosTasaAnual = $("#tbPagosTasaAnual").dataTable({
              
-                pageLength: 20,
+                pageLength: 10,
                 order: [
-                    [1, "ASC"]
+                    [0, "ASC"]
                 ],
                 drawCallback: function(settings) {
                     //CARGANDO
@@ -995,7 +1006,15 @@
                         "next": "Siguiente",
                         "previous": "Anterior"
                     },
-                }
+                },
+                
+    columnDefs: [
+        {
+            targets: 0, // Indica la posición de la columna que quieres ocultar (en este caso, la columna 0)
+            visible: false
+        }
+        // Puedes agregar más definiciones de columnas según sea necesario
+    ]
             });
         }
         $("#tbPagosTasaAnual_buscador").on('keyup', function(event) {

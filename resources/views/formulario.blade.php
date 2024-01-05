@@ -574,8 +574,8 @@
                                         </thead>
 
                                         <tbody>
-                                            <tr class="even pointe" style="text-align:center;">
-                                                <td><textarea name="observacion_formulario" id="observacion_formulario" value="" class="form-control col-md-12" required></textarea></td>
+                                            <tr class="even pointer" style="text-align:center;">
+                                                <td><textarea name="observacion_formulario" id="observacion_formulario" value="" class="form-control col-md-12" ></textarea></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -586,9 +586,13 @@
                                     
                                     <div class="form-group row">
                                         <label class="control-label col-md-2 col-sm-2 ">SELECCIONAR VALOR</label>
-                                        <div class="col-md-3 col-sm-3">
-                                            <label>SI</label><input type="radio" class="radio-input"  name="respuesta_bci" value="1" required/>
-                                            <label>NO</label><input type="radio" class="radio-input"  name="respuesta_bci" value="0" required/>
+                                        <div class="col-md-6 col-sm-6">
+                                        <label> SI &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" class="radio-input" name="respuesta_bci" value="1" required/>   
+        </label>
+        <label> &nbsp;&nbsp;NO &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" class="radio-input" name="respuesta_bci" value="0" required/>   
+        </label>
                                         </div>
                                     </div>
 
@@ -596,7 +600,7 @@
 
                                     <div class="form-group row">
                                         <label class="control-label col-md-2 col-sm-2 ">INSTALACI&Oacute;N</label>
-                                        <div class="col-md-3 col-sm-3">
+                                        <div class="col-md-6 col-sm-6">
                                             <select class="form-control" name="tipoInstalacion" id="tipoInstalacion">
                                                 @forelse ($tipoInstalacion as $item)
                                                     <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
@@ -608,8 +612,8 @@
 
                                     <div class="form-group row">
                                         <label class="control-label col-md-2 col-sm-2 ">INGRESAR # (m2)</label>
-                                        <div class="col-md-1 col-sm-1">
-                                            <input name="cantidad_m2" id="cantidad_m2" onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-10" required>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input name="cantidad_m2" id="cantidad_m2" onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-12" required>
                                         </div>
                                     </div>
 
