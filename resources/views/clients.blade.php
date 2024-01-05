@@ -398,7 +398,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-md-4 col-sm-4 ">PROPIETARIO</label>
+                                    <label class="control-label col-md-4 col-sm-4 ">NOMBRE PROPIETARIO</label>
                                     <div class="col-md-8 col-sm-8 ">
                                         <input type="text" name="representanteLegal" id="representanteLegal"
                                             onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-11"
@@ -577,7 +577,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-md-4 col-sm-4 ">PROPIETARIO</label>
+                                    <label class="control-label col-md-4 col-sm-4 ">NOMBRE PROPIETARIO</label>
                                     <div class="col-md-8 col-sm-8 ">
                                         <input type="text" name="representanteLegal" id="representanteLegal"
                                             onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-11"
