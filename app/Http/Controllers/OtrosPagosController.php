@@ -166,19 +166,19 @@ class OtrosPagosController extends Controller
         $descripcion='';
         switch ($request->tipoOrdenanza){
             case 1:
-                $descripcion='Art. 21. – DE LAS GASOLINERAS';
+                $descripcion='Art. 20. – DE LAS GASOLINERAS. Categorizada como Instalación Especial y de Alto Riesgo, la tasa de prevención de incendios para las Gasolineras, considerando como base para el valor de cobro establecido, los registros históricos de los últimos tres (3) años de recaudación en el Cuerpo de Bomberos de Atacames. ';
                 break;
             case 2:
-                $descripcion='Art. 22. – DEL TRANSPORTE DE COMBUSTIBLES';
+                $descripcion='Art. 21. – DEL TRANSPORTE DE COMBUSTIBLES. La tasa de servicios para el permiso de transporte de combustibles y materiales peligrosos se cobrará anualmente, luego de la inspección de los vehículos dedicados a esta actividad; los mismos que deben contar con la señalética y equipos necesarios de Prevención y Defensa Contra Incendios.';
                 break;
             case 3:
-                $descripcion='Art. 23. – DE LOS ESPECTÁCULOS O EVENTOS DE CONCENTRACIÓN MASIVA';
+                $descripcion='Art. 22. – DE LOS ESPECTÁCULOS O EVENTOS DE CONCENTRACIÓN MASIVA. Para obtener el permiso ocasional para espectáculos o eventos de concentración masiva, es previo a la Autorización que el Cuerpo de Bomberos del Cantón Atacames emite para la realización de actividades no permanentes, para lo cual debe ser solicitada en el término de cinco (5) días previos, su validez será determinada al momento de su emisión, de acuerdo al artículo 353 del Reglamento de Prevención, Mitigación y Protección Contra Incendios.';
                 break;
             case 4:
-                $descripcion='Art. 24. – DE LA APROBACIÓN DE PLANOS';
+                $descripcion='Art. 23. – DE LA APROBACIÓN DE PLANOS. El cobro de la tasa por la revisión de planos de entidades fabriles, industriales, de concentración de público y de edificaciones, así como todo proyecto urbanístico que deba contar con sistemas de prevención y defensa contra incendios, en la jurisdicción del cantón Atacames, de acuerdo a lo que establece el artículo 53 de la Ley de Defensa Contra Incendios.';
                 break;
             case 5:
-                $descripcion='Art. 25. – DE LA INFRACCIONES Y MULTAS';
+                $descripcion='Art. 24. – DE LA INFRACCIONES Y MULTAS. Los valores que los ciudadanos deberán cancelar en el caso de cometimiento de infracciones se regirán en base a una tabla';
                 break;
 
             default;

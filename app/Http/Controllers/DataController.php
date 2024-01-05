@@ -279,13 +279,55 @@ class DataController extends Controller
                 ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
                 ->select('ruc', 'razonSocial', 'formaspago.nombre as formaspago', 'tipos_pago.nombre as tipos_pago', 'valor', 'otros_pagos.id'
                     , 'otros_pagos.created_at', 'otros_pagos.descripcion')
-                ->whereNotIn('tipos_pago.id', [5,6])
+                //->whereNotIn('tipos_pago.id', [5,6])
                 ->where('otros_pagos.estado','=', 8)
                 ->orderBy('otros_pagos.created_at', 'desc')
                 ->get();
             return view('imprecion/historyPayments', compact('data', 'historial'));
         }
     }
+
+
+/* historial cobros*/
+public function historialOrdenanzas(){
+    $data = System::all();
+
+    if( auth()->user()->role_id == 5 ) {
+        $historial = DB::table('otros')
+            ->join('client', 'client.id', 'pagos_ordenanza.client_id')
+            ->join('tipos_pago', function ($join) {
+                $join->on('tipos_pago.id', 'pagos_ordenanza.tipoPago')
+                    ->where('tipos_pago.nombre', '<>', 'TOTAL');
+                  
+            })
+            ->leftJoin('formaspago', 'formaspago.id', 'pagos_ordenanza.formaPago_id')
+            ->select('ruc', 'razonSocial', 'formaspago.nombre as formaspago', 'tipos_pago.nombre as tipos_pago', 'valor', 'pagos_ordenanza.id', 'pagos_ordenanza.created_at'
+                ,'pagos_ordenanza.docRespaldo' , 'pagos_ordenanza.descripcion' )
+            ->whereIn('tipos_pago.id', [2])
+            ->orderBy('id', 'desc')
+            ->get();
+        return view('imprecion/historyOrdenanzas', compact('data','historial'));
+
+    }else {
+     
+        $historial = DB::table('pagos_ordenanza')
+            ->join('client', 'client.id', 'pagos_ordenanza.client_id')
+            ->join('tipos_pago', function ($join) {
+                $join->on('tipos_pago.id', 'pagos_ordenanza.tipoPago')
+                    ->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+             })
+            ->leftJoin('formaspago', 'formaspago.id', 'pagos_ordenanza.formaPago_id')
+            ->select('ruc', 'razonSocial', 'formaspago.nombre as formaspago', 'tipos_pago.nombre as tipos_pago', 'valor', 'pagos_ordenanza.id'
+                , 'pagos_ordenanza.created_at', 'pagos_ordenanza.descripcion')
+            ->whereNotIn('tipos_pago.id', [5,6])
+            ->where('pagos_ordenanza.estado','=', 8)
+            ->orderBy('id', 'desc')
+            ->get();
+            
+        return view('imprecion/historyOrdenanzas', compact('data', 'historial'));
+    }
+}
+
 
     public function exoneracion_artesano($id) {
 $tipo =  'artesano';
@@ -379,6 +421,44 @@ return $pdf->stream($doc . '.pdf');
         return $pdf->stream($doc . '.pdf');
 
 
+    }
+    
+    public function facturaPagoOrdenanzas( $id ){
+        $data = System::all();
+        $client = DB::table('pagos_ordenanza')
+            ->join('client','client.id','pagos_ordenanza.client_id')
+            /* ->join('categorias','categorias.id','client.categoria_id') */
+            ->join('parroquias','client.parroquia_id','parroquias.id')
+                ->join('tipos_pago',  function ($join) {
+                    $join->on('tipos_pago.id',  'pagos_ordenanza.tipoPago')
+                        ->where('tipos_pago.nombre','<>','PAGO TOTAL');
+                })
+                ->leftJoin('formaspago','formaspago.id','pagos_ordenanza.formaPago_id')
+                ->select('ruc'
+                    ,'razonSocial'
+                    ,'parroquias.descripcion as parroquia'
+                    ,'barrio'
+                    ,'telefono'
+                    /* ,'categorias.descripcion as categoria' */
+                    ,'referencia'
+                    ,'formaspago.nombre as formaspago'
+                    ,'tipos_pago.nombre as tipos_pago'
+                    ,'valor'
+                    ,'pagos_ordenanza.recargo'
+                    ,'year_now'
+                    ,'pagos_ordenanza.id' ,'representanteLegal'
+                    ,'pagos_ordenanza.created_at'
+                    ,'pagos_ordenanza.descripcion')
+                ->whereNotIn('tipos_pago.id', [5,6])
+                ->where('pagos_ordenanza.id', '=', $id)
+               
+            ->get();
+
+
+        $doc = "Comprobante de Pago";
+        $pdf = PDF::loadView('imprecion/billPayments', ['data' => $data, 'client'  => $client])
+            ->setPaper('A5', 'landscape');
+        return $pdf->stream($doc . '.pdf' );
     }
 
     public function facturaPago( $id ){

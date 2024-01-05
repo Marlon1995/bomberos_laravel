@@ -238,7 +238,7 @@
                                 @endif
 
 
-                                @if (auth()->user()->hasRoles([5]))
+                                @if (auth()->user()->hasRoles([5,3]))
                                 <li><a><i class="fa fa-usd"></i> Descuentos <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="/payments"> Descuentos</a></li>
@@ -248,17 +248,17 @@
                                 @endif
 
                                 @if (auth()->user()->hasRoles([3]))
-                               
-                                <li><a href="/different-payments"><i class="fa fa-credit-card"></i> Otros Cobros</a></li>
 
 
                                 <li><a><i class="fa fa-building"></i> Permisos <span
                                                 class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                         <li><a href="/payments"> Pagos Permisos</a></li>
+                                        <li><a href="/different-payments"> Otros Cobros</a></li>
+                                        <li><a href="/history-payments"> Historial Pagos</a></li>
+                                        <li><a href="/permisos"> Imprimir Permisos Establecimientos</a></li>
                                         <li><a href="/especies"> Especies</a></li>
 
-                                            <li><a href="/permisos"> Imprimir Permisos Establecimientos</a></li>
 
                                         </ul>
                                     </li>
@@ -269,12 +269,12 @@
                                             <li><a href="/cobro-ordenanza">Formulario Ordenanzas</a></li>
                                             <li><a href="/payments-ordenanzas"> Pagos Ordenanzas</a></li>
                                             <li><a href="/permisos-ordenanza"> Imprimir Permisos Ordenanzas</a></li>
+                                            <li><a href="/history-ordenanzas"> Historial Ordenanzas</a></li>
 
                                         </ul>
                                     </li>
-                                    <li><a href="/history-payments"><i class="fa fa-credit-card"></i> Historial Pagos</a></li>
 
-
+    
                                 <li>
                                     <a href="/client"><i class="fa fa-group"></i>Clientes</a>
                                 </li>

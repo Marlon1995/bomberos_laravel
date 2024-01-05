@@ -102,6 +102,7 @@
                                               <!--  <th class="column-title">CATEGOR&Iacute;A</th> 
                                                  <th class="column-title">DENOMINACI&Oacute;N</th>  -->
                                                 <th class="column-title">AÑO PAGO</th>
+
                                                 <th class="column-title no-link last"></th>
                                                 <th class="column-title no-link last"></th>
                                             </tr>
@@ -627,7 +628,7 @@
                                     </div>
                                     </div>
                                     <div class="form-group row">
-                                <label class="control-label col-md-2 col-sm-2">CATEGORIA</label>
+                                <label class="control-label col-md-2 col-sm-2">AÑO</label>
                                     <div class="col-md-4 col-sm-4">
                                         <select class="form-control" name="categoria" id="categoria_md">
                                             @forelse ($categoria as $item)
@@ -638,7 +639,7 @@
                                     </div>
                                     </div>
                                <div class="form-group row">
-                                    <label class="control-label col-md-2 col-sm-2 ">DENOMINACI&Oacute;N</label>
+                                    <label class="control-label col-md-2 col-sm-2 "></label>
                                     <div class="col-md-6 col-sm-6 ">
                                         <select class="form-control" name="actividad" id="actividad_md"></select>
                                     </div>
@@ -799,6 +800,7 @@
             tbClientes = $('#tbClientes').DataTable({
                 dom: '<"top">rt<"bottom"><"clear">',
                 pageLength: 10,
+                lengthMenu: [5, 10, 20, 25, -1], // Customize the number of records per page
                 order: [
                 [0, "desc"]
             ],
@@ -840,9 +842,12 @@
             });
 
         }
-        $("#tbClientes_InpBuscar").on('keyup', function(event) {
-            tbClientes.search(this.value).draw();
-        });
+        $("#tbClientes_InpBuscar").on('input', function() {
+    tbClientes.search(this.value).draw();
+}).on('clear', function() {
+    // Handle the case when the input field is cleared
+    tbClientes.search('').draw();
+});
 
    
 

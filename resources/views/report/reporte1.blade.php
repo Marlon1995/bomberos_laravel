@@ -152,7 +152,7 @@
                     <td>${{ $item->recargo }}</td>
                     <td>${{ 2 }}</td>
                     <td>${{ 1 }}</td>
-                    <td>${{ round($item->valor + $item->recargo+1, 2) }}</td>
+                    <td>${{ round($item->valor + $item->recargo+$total_admin, 2) }}</td>
 
                 </tr>
             @empty
@@ -173,7 +173,7 @@
                 <td><strong>${{ round($total_recargo, 4) }}</strong></td>
                 <td><strong>${{ round($total_especie, 2) }}</strong></td>
                 <td><strong>${{ round($total_admin, 2) }}</strong></td>
-                <td><strong>${{ round($total_pago + $total_recargo+1, 2) }}</strong></td>
+                <td><strong>${{ round($total_pago + $total_recargo+$total_admin, 2) }}</strong></td>
 
             </tr>
         </table>
