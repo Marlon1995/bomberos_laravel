@@ -397,12 +397,19 @@
                                             class="form-control col-md-11" required>
                                     </div>
                                 </div>
-                              
+                                <div class="form-group row">
+                                    <label class="control-label col-md-4 col-sm-4 ">PROPIETARIO</label>
+                                    <div class="col-md-8 col-sm-8 ">
+                                        <input type="text" name="representanteLegal" id="representanteLegal"
+                                            onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-11"
+                                            required>
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
-                                <label class="control-label col-md-2 col-sm-2">PROPIETARIO</label>
+                                <label class="control-label col-md-2 col-sm-2">TIPO PROPIETARIO</label>
                                     <div class="col-md-4 col-sm-4">
-                                        <select class="form-control" name="representanteLegal" id="representanteLegal">
+                                        <select class="form-control" name="tipoPropietario" id="tipoPropietario">
                                           
                                                 <option value="REPRESENTANTE LEGAL">REPRESENTANTE LEGAL</option>
                                                 <option value="PERSONA NATURAL">PERSONA NATURAL</option>
@@ -553,29 +560,41 @@
 
                                 <!--INFORMACIÓN GENERAL-->
                                 <div class="x_title cb-subTitle">INFORMACI&Oacute;N GENERAL</div>
-                                <div class="form-group row">
+                                div class="form-group row">
                                     <label class="control-label col-md-4 col-sm-4 ">RUC</label>
                                     <div class="col-md-6 col-sm-6 ">
-                                        <input type="text" name="ruc" id="ruc_md"
-                                            onKeyPress="return fn_aceptaNum(event)" value=""
-                                            class="form-control col-md-5" value="" required disabled="">
+                                        <input type="text" name="ruc_md" id="ruc_md"
+                                            onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-5"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-4 col-sm-4 ">RAZ&Oacute;N SOCIAL <small>(NOMBRE
                                             COMERCIAL)</small> </label>
                                     <div class="col-md-8 col-sm-8 ">
-                                        <input type="text" name="razonSocial" id="razonSocial_md" value=""
+                                        <input type="text" name="razonSocial_md" id="razonSocial_md"
                                             class="form-control col-md-11" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-md-4 col-sm-4 ">REPRESENTANTE LEGAL
-                                        <small>(PROPIETARIO)</small> </label>
+                                    <label class="control-label col-md-4 col-sm-4 ">PROPIETARIO</label>
                                     <div class="col-md-8 col-sm-8 ">
-                                        <input type="text" name="representanteLegal"
-                                            onKeyPress="return fn_aceptaLETRAS(event)" id="representanteLegal_md"
-                                            value="" class="form-control col-md-11" required>
+                                        <input type="text" name="representanteLegal" id="representanteLegal"
+                                            onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-11"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                <label class="control-label col-md-2 col-sm-2">TIPO PROPIETARIO</label>
+                                    <div class="col-md-4 col-sm-4">
+                                        <select class="form-control" name="tipoPropietario" id="tipoPropietario">
+                                          
+                                                <option value="REPRESENTANTE LEGAL">REPRESENTANTE LEGAL</option>
+                                                <option value="PERSONA NATURAL">PERSONA NATURAL</option>
+
+                                          
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
