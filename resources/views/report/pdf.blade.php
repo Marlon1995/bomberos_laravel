@@ -7,79 +7,118 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte Clientes</title>
     <style>
-        html, body{
+        body {
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
-        .rep_caja_roja__titulo_1{
-            margin-left: 255px;
-            font-size: 12px;
+
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 16px;
             font-weight: bold;
-        }
-        tr, th,td{
             margin: 10px 0;
+        }
+
+        hr {
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
             border: 1px solid black;
+            padding: 5px; /* Ajusta el padding según tus necesidades */
+            text-align: center;
+            font-size: 10px; /* Tamaño de fuente más pequeño */
         }
-        .border_table 
-        { 
-            border: 0; 
-            font-size: 11px
+
+        th {
+            background-color: #f2f2f2;
         }
-    
-        </style>
+
+        .empty-message {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container" align="center">
-        <img src="./assets/images/Logo1.png" width="100" height="100">
-        <h3 style="text-align: center">
+    <div class="container">
+        <img src="./assets/images/Logo1.png" alt="Logo" class="logo">
+        <h3>
             ACUERDO MINISTERIAL No. 1616 DEL 29 DE OCTUBRE DE 1997 <br>
             REGISTRO OFICIAL No. 741 DEL 29 DE ENERO DEL 2019 <br>
             RUC: {{ auth()->user()->cedula }}001
         </h3>
         <hr>
+        <h3>
+            CONTROL DE INSPECCIONES DIARIAS
+        </h3>
+        <hr>
         <table>
+          
             <tr>
-                <td> <span> <strong>Perfil:</strong> </span> </td>
-                <td><span>{{ auth()->user()->role->role }}</span> </td>
+                <td><strong>Inspector:</strong></td>
+                <td>{{ auth()->user()->nombre . ' ' . auth()->user()->apellido }}</td>
             </tr>
             <tr>
-                <td> <span><strong>Nombre:</strong></span> </td>
-                <td><span>{{ auth()->user()->nombre . ' ' . auth()->user()->apellido }}</span></td>
+                <td><strong>Fecha:</strong></td>
+                <td>{{ empty($reporte )? 'NO EXISTE INFORMACIÓN PARA LA FECHA' : date('d/m/Y') }}</td>
             </tr>
             <tr>
-                <td> <span><strong>Fecha:</strong></span></td>
-                <td><span>{{ empty($reporte[0]->created_at) ? 'NO EXISTE INFORMACIÓN PARA LA FECHA' : $reporte[0]->created_at }}</span></td>
-            </tr>
-            <tr>
-                <td> <span><strong>Tipo Reporte:</strong></span></td>
-                <td><span>INSPECCIONADOS</span></td>
+                <td><strong>Tipo Reporte:</strong></td>
+                <td>LOCALES INSPECCIONADOS</td>
             </tr>
         </table>
         <hr>
     </div>
 
-    <table class="table table-striped table-bordered" style="width:100%">
+    @if(count($reporte) > 0)
+    <table>
         <thead>
-           
             <tr>
-                <th>Razon Social</th>
-                <th>Representante Legal</th>
+                <th>Fecha</th>
+                <th>RUC</th>
+                <th>Nombre Local</th>
+                <th>Contribuyente</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
             </tr>
         </thead>
         <tbody>
             @forelse ($reporte as $item)
-                    <tr>
-                        <td>{{ $item->razonSocial }}</td>
-                        <td>{{ $item->representanteLegal }}</td>
-                    </tr>
+            <tr>
+                <td>{{ date('d/m/Y') }}</td>
+                <td>{{ $item->ruc }}</td>
+                <td>{{ $item->razonSocial }}</td>
+                <td>{{ $item->representanteLegal }}</td>
+                <td>{{ $item->parroquia . '-' . $item->barrio . '-' . $item->referencia }}</td>
+                <td>{{ $item->telefono }}</td>
+            </tr>
             @empty
-                <h1>No hay registros</h1>
             @endforelse
         </tbody>
     </table>
-
-      
-
+    @else
+    <div class="empty-message">
+        <h1>No hay registros</h1>
+    </div>
+    @endif
 </body>
 
 </html>

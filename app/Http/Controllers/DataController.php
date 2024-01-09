@@ -189,7 +189,7 @@ class DataController extends Controller
             /* ->join('categorias',  'categorias.id' , 'client.categoria_id') */
             ->join('parroquias',  'parroquias.id' , 'client.parroquia_id')
             ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
-            ->select( 'client.razonSocial','client.representanteLegal','client.ruc','client.barrio', 'client.telefono','parroquias.descripcion as parroquia','client.referencia'/* ,'categorias.descripcion as categoria' */)
+            ->select( 'client.razonSocial','client.representanteLegal','pagos_ordenanza.descripcion','client.ruc','client.barrio', 'client.telefono','parroquias.descripcion as parroquia','client.referencia'/* ,'categorias.descripcion as categoria' */)
             ->where('client.id','=',$id)
             ->get();
 
@@ -215,6 +215,7 @@ class DataController extends Controller
                     "representanteLegal"    => strtoupper ($cliente[0]->representanteLegal),
                     "ruc"                   => $cliente[0]->ruc,
                     "telefono"              => $cliente[0]->telefono,
+                    "descripcion"              => $cliente[0]->descripcion,
                     "direccion"             => strtoupper ($cliente[0]->parroquia.' '.$cliente[0]->barrio),
                    
                     "saldo"                 => $saldo
@@ -434,29 +435,32 @@ return $pdf->stream($doc . '.pdf');
                         ->where('tipos_pago.nombre','<>','PAGO TOTAL');
                 })
                 ->leftJoin('formaspago','formaspago.id','pagos_ordenanza.formaPago_id')
-                ->select('ruc'
-                    ,'razonSocial'
-                    ,'parroquias.descripcion as parroquia'
-                    ,'barrio'
-                    ,'telefono'
-                    /* ,'categorias.descripcion as categoria' */
-                    ,'referencia'
-                    ,'formaspago.nombre as formaspago'
-                    ,'tipos_pago.nombre as tipos_pago'
-                    ,'valor'
-                    ,'pagos_ordenanza.recargo'
-                    ,'year_now'
-                    ,'pagos_ordenanza.id' ,'representanteLegal'
-                    ,'pagos_ordenanza.created_at'
-                    ,'pagos_ordenanza.descripcion')
-                ->whereNotIn('tipos_pago.id', [5,6])
+                ->select(
+                    'client.ruc',
+                    'client.razonSocial',
+                    'parroquias.descripcion as parroquia',
+                    'client.barrio',
+                    'client.telefono',
+                    'client.referencia',
+                    'formaspago.nombre as formaspago',
+                    'tipos_pago.nombre as tipos_pago',
+                    'pagos_ordenanza.valor',
+                    'pagos_ordenanza.recargo',
+                    DB::raw('YEAR(pagos_ordenanza.created_at) as year_now'),
+                    'pagos_ordenanza.id',
+                    'client.representanteLegal',
+                    'pagos_ordenanza.created_at',
+                    DB::raw('TRIM(SUBSTRING_INDEX(pagos_ordenanza.descripcion, \'.\', 3)) as descripcion')
+
+                )
+                ->whereNotIn('tipos_pago.id', [5, 6])
                 ->where('pagos_ordenanza.id', '=', $id)
                
             ->get();
 
 
         $doc = "Comprobante de Pago";
-        $pdf = PDF::loadView('imprecion/billPayments', ['data' => $data, 'client'  => $client])
+        $pdf = PDF::loadView('imprecion/billPaymentsOrdenanzas', ['data' => $data, 'client'  => $client])
             ->setPaper('A5', 'landscape');
         return $pdf->stream($doc . '.pdf' );
     }

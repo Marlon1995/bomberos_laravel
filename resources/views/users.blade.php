@@ -381,7 +381,7 @@
         function fn_tbUsers_ini() {
             tbUsers = $('#tbUsers').DataTable({
                
-                pageLength: 30,
+                pageLength: 10,
                 order: [
                     [5, "desc"]
                 ],

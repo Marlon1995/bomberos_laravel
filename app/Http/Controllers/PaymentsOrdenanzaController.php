@@ -56,11 +56,23 @@ class PaymentsOrdenanzaController extends Controller
           
 
 
-        $impuestos = DB::table('client')
-            
+            $impuestos = DB::table('client')
             ->join('parroquias', 'parroquias.id', 'client.parroquia_id')
             ->join('pagos_ordenanza', 'pagos_ordenanza.client_id', 'client.id')
-            ->select('client.id', 'client.razonSocial', 'client.representanteLegal', 'client.ruc', 'client.barrio', 'client.telefono', 'parroquias.descripcion as parroquia', 'client.referencia','pagos_ordenanza.estado'/* , 'categorias.descripcion as categoria' *//* , 'denominaciones.descripcion as denominacion' */)
+            ->select(
+                'client.id',
+                'client.razonSocial',
+                'client.representanteLegal',
+                'client.ruc',
+                'client.barrio',
+                'client.telefono',
+                'parroquias.descripcion as parroquia',
+                'client.referencia',
+                'pagos_ordenanza.estado',
+                DB::raw('TRIM(SUBSTRING_INDEX(pagos_ordenanza.descripcion, \'.\', 3)) as descripcion')
+                /* , 'categorias.descripcion as categoria' */
+                /* , 'denominaciones.descripcion as denominacion' */
+            )
             //->whereIn('client.estado', [7])
             ->get();
            

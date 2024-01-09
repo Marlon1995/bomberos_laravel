@@ -167,7 +167,7 @@
 
         function fn_tbPermisos_ini() {
             tbPermisos = $("#tbPermisos").dataTable({
-                pageLength: 20,
+                pageLength: 10,
                 order: [[0, "desc"]],
                 "language": {
                     "lengthMenu": 'Mostrar'+

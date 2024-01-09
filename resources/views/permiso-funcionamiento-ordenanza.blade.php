@@ -1,25 +1,29 @@
 <!doctype html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+    <link href="/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
     <title>PERMISO DE FUNCIONAMIENTO</title>
 </head>
 <body>
 
-<!--
+
  <style>
     .pf__items_logo {
         position: absolute;
         left: -65px;
-        top: -75px;
-        width: 118%;
+        top: 75px;
+        width: 58%;
         background-image: url('./assets/images/Logo1.png')
     }
 </style>
-<img src="./assets/images/Logo1.png"  class="pf__items_logo2">-->
+<img src="./assets/images/Logo1.png"  class="pf__items_logo2">
 
 
 <style>
@@ -28,9 +32,9 @@
     }
     .pf__items_logo2 {
         position: absolute;
-        left: 125px;
-        top: 80px;
-        width: 20%;
+        left: 500px;
+        top: 850px;
+        width: 10%;
     }
     .pf__items_titulo {
         position: absolute;
@@ -170,7 +174,7 @@
         </div>
 
         <div class="pf__item_c">
-            <b>CLIENTE Y/O PROPIETARIO</b> &nbsp; &nbsp;
+            <b>CONTRIBUYENTE:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             {{substr($client[0]->representanteLegal, 0,50)}}
         </div>
 
@@ -230,12 +234,15 @@
 </style>
 
 <p class="pf__item_foter"> Abnegación y Disciplina</p>
-<p  class="pf__item_foter_" >
-    Dirección Av. Principal Atacames sector Cocobamba<br>
-    E-mail: administracion@bomberosatacames.gob.ec<br>
-    Teléfono: +593 62731007
+<p  class="pf__item_foter_" ><i class="fa fa-bar-chart"></i>
+    Dirección Av. Principal Atacames sector los Almendros<br>
+    E-mail: recaudacion@bomberosatacames.gob.ec<br>
+    Teléfono:+593 062760233
 </p>
 
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
 
 
 

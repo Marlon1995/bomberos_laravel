@@ -124,7 +124,7 @@
         });
             function fn_tb_historial_ini() {
                 tb_historial = $("#tb_historial").dataTable({
-                     pageLength: 20,
+                     pageLength: 10,
                      order: [
                 [0, "desc"]
             ],

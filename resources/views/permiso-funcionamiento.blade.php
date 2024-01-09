@@ -162,7 +162,7 @@
         </div>
 
         <div class="pf__item_c">
-            <b>CLIENTE Y/O PROPIETARIO</b> &nbsp; &nbsp;
+            <b>CONTRIBUYENTE:</b> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             {{substr($client[0]->representanteLegal, 0,50)}}
         </div>
 
@@ -217,13 +217,14 @@
         font-size: 10.5px;
     }
 </style>
-
+<!--
 <p class="pf__item_foter"> Abnegación y Disciplina</p>
 <p  class="pf__item_foter_" >
-    Dirección Av. Principal Atacames sector Cocobamba<br>
-    E-mail: administracion@bomberosatacames.gob.ec<br>
-    Teléfono: +593 62731007
+    Dirección Av. Principal Atacames sector los Almendros<br>
+    E-mail: recaudacion@bomberosatacames.gob.ec<br>
+    Teléfono:+593 062760233
 </p>
+-->
 
 
 

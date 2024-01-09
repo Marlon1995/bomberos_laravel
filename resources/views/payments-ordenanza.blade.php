@@ -148,7 +148,7 @@
                             <div class="tab-pane fade show active" id="clients" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="page-title">
                                     <div class="title_left">
-                                        <h2><i class="fa fa-usd"></i> Pago de impuesto de Tasa Anual. </h2>
+                                        <h2><i class="fa fa-usd"></i> Pago de impuesto de Tasa Anualdffsd. </h2>
                                     </div>
                                     
                                 </div>
@@ -164,6 +164,8 @@
                                                         <th class="column-title ruc__pagos">ID</th>
                                                             <th class="column-title ruc__pagos">CI - RUC</th>
                                                             <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL</th>
+                                                            <th class="column-title ranSocial__pagos">ART. ORDENANZA</th>
+
                                                             <th class="column-title repesLegar__pagos">REP. LEGAL</th>
 <!--                                                             <th class="column-title saldo__pagos">CATEGORIA</th>
                                                             <th class="column-title saldo__pagos">DENOMINACION</th> -->
@@ -182,6 +184,9 @@
                                                                 </td>
                                                                 <td><label
                                                                         class="razonSocial__tbpagos">{{ $item->razonSocial }}</label>
+                                                                </td>
+                                                                <td><label
+                                                                        class="razonSocial__tbpagos">{{ $item->descripcion }}</label>
                                                                 </td>
                                                                 <td><label
                                                                         class="repLegar___tbPagos">{{ $item->representanteLegal }}</label>
@@ -364,7 +369,7 @@
             <div class="modal-dialog" style="max-width:80%;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title"><i class="fa fa-money"></i> Pago impuesto de Tasa Anual </h4>
+                        <h4 class="modal-title"><i class="fa fa-money"></i> Pago de Ordenanza </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -413,6 +418,7 @@
                                                     <p class="margin_p"><b>RUC</b></p>
                                                     <p class="margin_p"><b>DIRECCI&Oacute;N</b></p>
                                                     <p class="margin_p"><b>TEL&Eacute;FONO</b></p>
+                                                    <p class="margin_p"><b>RAZÓN</b></p>
                                                     <!-- <p class="margin_p"><b>CATEGORIA</b></p> -->
 
                                                 </div>
@@ -422,6 +428,8 @@
                                                     <p class="margin_p" id="ruc__mdPAgos"></p>
                                                     <p class="margin_p" id="direccion__MdPagos"></p>
                                                     <p class="margin_p" id="telefono__MdPagos"></p>
+                                                    <p class="margin_p" id="ordenanza__MdPagos"></p>
+
                                                     <!-- <p class="margin_p" id="catgoria__MdPagos"></p> -->
                                                 </div>
                                                 <div class="col-sm-1"></div>
@@ -932,7 +940,7 @@
         function fn_tbClienteSecretario_ini() {
             tbClienteSecretario = $("#tbClienteSecretario").dataTable({
             
-                pageLength: 20,
+                pageLength: 10,
                 order: [
                     [0, "desc"]
                 ],
@@ -1024,7 +1032,7 @@
         function fn_tbPagosSolicitudes_ini() {
             tbPagosSolicitudes = $("#tbPagosSolicitudes").dataTable({
            
-                pageLength: 20,
+                pageLength: 10,
                 order: [
                     [1, "desc"]
                 ],
@@ -1082,6 +1090,7 @@
                     $("#ruc__mdPAgos").text(datos['cliente']['ruc']);
                     $("#direccion__MdPagos").text(datos['cliente']['direccion']);
                     $("#telefono__MdPagos").text(datos['cliente']['telefono']);
+                    $("#ordenanza__MdPagos").text(datos['cliente']['descripcion']);
                     /* $("#catgoria__MdPagos").text(datos['cliente']['categoria']); */
                     var $valor = datos['cliente']['saldo'] + 2;
                     if ($valor == 2) {

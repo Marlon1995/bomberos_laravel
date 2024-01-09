@@ -299,7 +299,7 @@
     <script>
         var tbEspecies = $('#tbEspecies').dataTable({
 
-            pageLength: 30,
+            pageLength: 10,
             order: [
                 [0, "asc"]
             ],

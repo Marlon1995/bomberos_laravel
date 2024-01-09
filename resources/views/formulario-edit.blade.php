@@ -119,8 +119,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-md-4 col-sm-4 ">REPRESENTANTE LEGAL
-                                        <small>(PROPIETARIO)</small> </label>
+                                    <label class="control-label col-md-4 col-sm-4 ">CONTRIBUYENTE </label>
                                     <div class="col-md-8 col-sm-8 ">
                                         {{ $client[0]->representanteLegal }}
                                     </div>

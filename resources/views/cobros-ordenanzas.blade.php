@@ -59,7 +59,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-3"></div>
                                                     <div class="col-sm-6" style="text-align: center">
-                                                        <h2 style="text-align: center; font-weight: bold">ORDEN DE PAGO DE PERMISO DE FUNCIONAMIENTO CUERPO DE BOMBEROS</h2>
+                                                        <h2 style="text-align: center; font-weight: bold">ORDEN DE PAGO DE PERMISO DE ORDENANZAS</h2>
                                                         <p style="text-align: right;">Atacames, {{ now()->toDateTimeString()  }}</p>
                                                         <p style="text-align: right;">Permiso año {{date('Y')}} </p>
                                                         <style>
@@ -293,7 +293,7 @@
         fn_tbClienteSecretario_ini();
         function fn_tbClienteSecretario_ini() {
             tbClientesSecretario = $("#tbClientesSecretario").dataTable({
-                pageLength: 20,
+                pageLength: 10,
                 order: [[1, "asc"]],
                 "language": {
                     "lengthMenu": 'Mostrar'+

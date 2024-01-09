@@ -181,9 +181,9 @@
 
     <p class="pf__item_foter"> Abnegación y Disciplina</p>
     <p class="pf__item_foter_">
-        Dirección Av. Principal Atacames sector Cocobamba<br>
-        E-mail: administracion@bomberosatacames.gob.ec<br>
-        Teléfono: +593 62731007
+        Dirección Av. Principal Atacames sector los Almendros<br>
+        E-mail: recaudacion@bomberosatacames.gob.ec<br>
+        Teléfono:+593 062760233
     </p>
 
 

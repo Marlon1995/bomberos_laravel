@@ -532,29 +532,28 @@ class ClientsController extends Controller {
 
     public function pdfcliente($id){
 
-        $reporte = DB::table('client', 'cli')
-             ->join('inspecciones', 'cli.id', 'inspecciones.client_id') 
-             ->join('categorias', 'cli.categoria_id','=', 'categorias.id') 
-             ->select('categorias.descripcion') 
-            ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
-            ->select('cli.id'
-                , 'cli.ruc'
-                , 'cli.razonSocial'
-                , 'cli.representanteLegal'
-                , 'parroquias.descripcion as parroquia'
-                , 'cli.telefono'
-                , 'cli.barrio'
-                , 'cli.referencia'
-                , 'cli.inspector_id'
-                , 'cli.categoria_id'
-                ,'inspecciones.created_at'
-                 , 'categorias.descripcion' 
+        $reporte = DB::table('client as cli')
+        ->join('inspecciones', 'cli.id', 'inspecciones.client_id')
+        ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
+        ->select('cli.id',
+                 'cli.ruc',
+                 'cli.razonSocial',
+                 'cli.representanteLegal',
+                 'parroquias.descripcion as parroquia',
+                 'cli.telefono',
+                 'cli.barrio',
+                 'cli.telefono',
+                 'cli.referencia',
+                 'cli.inspector_id',
+                 'cli.categoria_id'
             )
-            ->whereIn('cli.estado', [4])
-            ->where('cli.inspector_id','=',$id)
-            ->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
-            ->orderBy('parroquias.descripcion', 'ASC')
-            ->get();
+        ->whereIn('cli.estado', [4])
+        ->where('cli.inspector_id', '=', $id)
+        ->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
+        ->groupBy('cli.id')
+        ->get();
+    
+     
         $doc = "";
         $pdf = PDF::loadView('report/pdf' , ["reporte" => $reporte]);
         return $pdf->stream($doc . '.pdf');

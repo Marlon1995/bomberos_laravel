@@ -78,7 +78,7 @@
         function fn_tbClientes_ini() {
             tbClientes = $('#tbClientes').dataTable({
              
-                pageLength: 20,
+                pageLength: 10,
                 order: [
                     [3, "asc"]
                 ],

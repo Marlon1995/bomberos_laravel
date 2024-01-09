@@ -270,6 +270,7 @@
                 <th>FORMA PAGO</th>
                 <th>TIPO DE PAGO</th>
                 <th>VALOR</th>
+                <th>T. ADMIN</th>
                 <th>RECARGO</th>
                 <th>TOTAL</th>
 
@@ -278,11 +279,13 @@
             {{ $total = 0 }}
             {{ $total_votros = 0 }}
             {{ $total_procentaje = 0 }}
+            {{ $total_adminotros = 0 }}
             {{ $y = 1 }}
             @forelse($cobros as $item)
-                {{ $total = $total + round($item->valor + $item->valor * ($item->porcenjatetasa / 100), 2) }}
                 {{ $total_votros = $total_votros + round($item->valor, 2) }}
+                {{ $total_adminotros = $total_adminotros + 1 }}
                 {{ $total_procentaje = $total_procentaje + round($item->valor * ($item->porcenjatetasa / 100), 2) }}
+                {{ $total = $total+1 + round($item->valor + $item->valor * ($item->porcenjatetasa / 100), 2) }}
 
                 <tr>
                     <td>{{ $y++ }}</td>
@@ -292,9 +295,10 @@
                     <td>{{ $item->razonSocial }}</td>
                     <td>{{ $item->tipos_pago }}</td>
                     <td>OTROS COBROS</td>
-                    <td>${{ $item->valor }}</td>
+                    <td>${{ round($item->valor,2) }}</td>
+                    <td>$1.00</td>
                     <td>${{ round($item->valor * ($item->porcenjatetasa / 100), 2) }}</td>
-                    <td>$ {{ round($item->valor + $item->valor * ($item->porcenjatetasa / 100), 2) }}</td>
+                    <td>$ {{ round($item->valor + $item->valor * ($item->porcenjatetasa / 100), 2)+1 }}</td>
 
 
                 </tr>
@@ -309,6 +313,8 @@
                 <td></td>
                 <td><strong>TOTALES</strong></td>
                 <td><strong>${{ round($total_votros, 2) }}</strong></td>
+                <td><strong>${{ round($total_adminotros, 2) }}</strong></td>
+
                 <td><strong>${{ round($total_procentaje, 2) }}</strong></td>
                 <td><strong>${{ $total }}</strong></td>
 
@@ -451,9 +457,9 @@
     <div id="footer">
         <p class="page pf__item_foter_"> Abnegación y Disciplina</p>
         <p class="page pf__item_foter_">
-            Dirección Av. Principal Atacames sector Cocobamba<br>
-            E-mail: administracion@bomberosatacames.gob.ec<br>
-            Teléfono: +593 62731007
+            Dirección Av. Principal Atacames sector los Almendros<br>
+            E-mail: recaudacion@bomberosatacames.gob.ec<br>
+            Teléfono:+593 062760233
         </p>
     </div>
 

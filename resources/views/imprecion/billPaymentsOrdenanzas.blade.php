@@ -270,8 +270,7 @@
                     <tr><td>TELÉFONO:</td></tr>
                     <tr><td>AÑO A CANCELAR:</td></tr>
                     <tr><td>N° EMISIÓN:</td></tr>
-
-
+                    <tr><td>ORDENANZA:</td></tr>
                     
 
 
@@ -288,6 +287,7 @@
                     <tr><td>{{$client[0]->telefono}}</td></tr>
                     <tr><td>{{ $client[0]->year_now }}</td></tr>
                     <tr><td >00000{{$client[0]->id}}</td></tr>
+                    <tr><td>{{$client[0]->descripcion}}</td></tr>
 
                 </table>
             </td>
@@ -295,6 +295,7 @@
       
     <table class="tbFactura" >
         <td style="width: 300px">
+            <br></br>
             <br></br>
             <p ><h3 style="text-align: center;">PERMISO DE FUNCIONAMIENTO</h3></p>    
                 <table border="1">

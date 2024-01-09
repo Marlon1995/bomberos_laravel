@@ -60,7 +60,7 @@
                                                         <td><label>{{$item->ruc}}</label></td>
                                                         <td><label>{{$item->razonSocial}}</label></td>
 
-                                                    @if( !empty( $item->formaspago ) ) <td><label>{{$item->formaspago}}</label></td> @else <td><label> DESCUENTO </label> </td> @endif
+                                                    @if( !empty( $item->formaspago ) ) <td><label>{{$item->formaspago}}</label></td> @else <td><label> EFECTIVO </label> </td> @endif
 
                                                         <td><label>{{$item->tipos_pago}}</label> </td>
                                                         <td><label>{{$item->descripcion}}</label> </td>
@@ -119,7 +119,7 @@
         });
             function fn_tb_historial_ini() {
                 tb_historial = $("#tb_historial").dataTable({
-                     pageLength: 20,
+                     pageLength: 10,
 
                     "language": {
                         "lengthMenu": 'Mostrar'+

@@ -93,7 +93,7 @@
 
         $(document).ready( function () {
             $("#datatable_moras").dataTable({
-                pageLength: 20,
+                pageLength: 10,
                 "language": {
                     "lengthMenu": 'Mostrar' +
                     '<select style="width:60px" >' +

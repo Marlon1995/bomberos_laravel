@@ -107,8 +107,8 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-4 col-sm-4 ">REPRESENTANTE LEGAL
-                                    <small>(PROPIETARIO)</small> </label>
+                                <label class="control-label col-md-4 col-sm-4 ">CONTRIBUYENTE
+                                   </label>
                                 <div class="col-md-8 col-sm-8 ">
                                     {{ $client[0]->representanteLegal }}
                                 </div>
@@ -575,7 +575,7 @@
 
                                         <tbody>
                                             <tr class="even pointer" style="text-align:center;">
-                                                <td><textarea name="observacion_formulario" id="observacion_formulario" value="" class="form-control col-md-12" ></textarea></td>
+                                                <td><textarea name="observacion_formulario" id="observacion_formulario" value="" class="form-control col-md-12" required ></textarea></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -659,23 +659,8 @@
                                                         required="required">
                                                 </div>
                                             </div>
-                                            <div class="item form-group">
-                                                <label for="password" class="col-form-label col-md-3 label-align">Foto
-                                                    5</label>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <input type="file" name="foto5" class="form-control"
-                                                        required="required">
-                                                </div>
-                                            </div>
-                                            <div class="item form-group">
-                                                <label for="password" class="col-form-label col-md-3 label-align">Foto
-                                                    6</label>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <input type="file" name="foto6" class="form-control"
-                                                        required="required">
-                                                </div>
-                                            </div>
-
+                                            
+                              
 
 
                                             <!--botones-->

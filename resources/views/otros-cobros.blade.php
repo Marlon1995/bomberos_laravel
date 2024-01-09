@@ -236,6 +236,13 @@
                                                                                 </select>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="anioPago">SERVICIO ADMINISTRATIVO(TITULO DE CRÉDITO):</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="">$1.00</label>
+
+                                                                            </div>
+                                                                        </div>
 
                                                                     </div>
                                                                     <div class="col-sm-1"></div>
@@ -332,7 +339,7 @@ $("#porcentajedescuento").hide();
         fn_tbClienteSecretario_ini();
         function fn_tbClienteSecretario_ini() {
             tbClientesSecretario = $("#tbClientesSecretario").dataTable({
-                pageLength: 20,
+                pageLength: 10,
                 order: [[0, "desc"]],
                 "language": {
                     "lengthMenu": 'Mostrar'+
@@ -436,7 +443,7 @@ $("#porcentajedescuento").hide();
                 $("#valorCalculado").text(parseFloat(valdes));
             }
             else{
-                $("#valorCalculado").text(resultado);
+                $("#valorCalculado").text(resultado+1);
             }
 
             
