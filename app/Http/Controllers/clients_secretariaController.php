@@ -39,7 +39,7 @@ class clients_secretariaController extends Controller
                         ,'cli.estado'       ,'parroquias.descripcion as parroquia'
                         
             )
-           ->whereNotIn( 'cli.estado'  , [1])
+          // ->whereNotIn( 'cli.estado'  , [1])
 
             ->orderBy('cli.id' ,'desc')->get();
 

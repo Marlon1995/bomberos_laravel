@@ -65,7 +65,7 @@
 
                                  
 
-                                    <select class="form-control tbClientes_selectBuscar">
+                                    <select class="form-control tbClientes_selectBuscar_Parroquia">
                                         @forelse ($sector as $item)
                                             <option value="{{ $item->descripcion }}">{{ $item->descripcion }}</option>
                                         @empty
@@ -73,10 +73,10 @@
                                     </select>
 
 
-                                    <select class="form-control tbClientes_selectBuscar">
-                                        <option value="" selected>TODOS</option>
-                                        <option value="DESACTIVAR" selected>ACTIVADOS</option>
-                                        <option value="DESACTIVADOS">DESACTIVADOS</option>
+                                    <select class="form-control" id="tbClientes_selectBuscar">
+                                        <option value="1" selected>TODOS</option>
+                                        <option value="2" selected>ACTIVADOS</option>
+                                        <option value="3">DESACTIVADOS</option>
                                     </select>
 
 
@@ -417,7 +417,7 @@
 
         function fn_tbClientes_ini() {
             tbClientes = $('#tbClientes').dataTable({
-             
+            
                 pageLength: 10,
                 order: [
                     [0, "desc"]
@@ -461,10 +461,12 @@
             });
 
         }
+
+        
       
 
 
-
+       
 
         $(".mdlModificaEmpleado").click(function() {
             var id = $(this).attr("data-idCli_1");
@@ -549,5 +551,7 @@
                 }
             });
         });
+
+      
     </script>
 @endsection
