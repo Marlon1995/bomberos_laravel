@@ -16,7 +16,20 @@
             position: absolute;
             left: 10px;
         }
+        .pf__item_f_ {
+        position: absolute;
+        left: 180px;
+        top: 420px;
+        font-size: 11.5px;
+    }
 
+    .pf__item_f_DETALLE_ {
+        position: absolute;
+        left: 175px;
+        top: 430px;
+        font-weight: bold;
+        font-size: 11.5px;
+    }
         .rep__logo {
             position: absolute;
             left: 46px;
@@ -759,75 +772,76 @@
                 <td class="border_table">
                     <table class="border_table">
                         <tr>
-                            <td class="border_table">
+                            <td class="">
                                 @if (!empty($fotosLocal[0]->path))
                                     <img src="./imgFormularios/{{ $fotosLocal[0]->path }}" class="imgFotoLocal">
                                 @endif
                             </td>
-                            <td class="border_table">
+                            <td class="">
                                 @if (!empty($fotosLocal[1]->path))
                                     <img src="./imgFormularios/{{ $fotosLocal[1]->path }}" class="imgFotoLocal">
                                 @endif
                             </td>
                         </tr>
                         <tr>
-                            <td class="border_table">
+                            <td class="">
                                 @if (!empty($fotosLocal[2]->path))
                                     <img src="./imgFormularios/{{ $fotosLocal[2]->path }}" class="imgFotoLocal">
                                 @endif
                             </td>
-                            <td class="border_table">
+                            <td class="">
                                 @if (!empty($fotosLocal[3]->path))
                                     <img src="./imgFormularios/{{ $fotosLocal[3]->path }}" class="imgFotoLocal">
                                 @endif
                             </td>
                         </tr>
                         <tr>
-                            <td class="border_table">
+                            <td class="">
                                 @if (!empty($fotosLocal[4]->path))
                                     <img src="./imgFormularios/{{ $fotosLocal[4]->path }}" class="imgFotoLocal">
                                 @endif
                             </td>
-                            <td class="border_table">
-                                @if (!empty($fotosLocal[5]->path))
-                                    <img src="./imgFormularios/{{ $fotosLocal[5]->path }}" class="imgFotoLocal">
-                                @endif
-                            </td>
+                          
                         </tr>
                     </table>
                 </td>
             </tr>
         </table>
     @endif
+    <table class="" style="border: 0;">
+    <thead class="">
+        <tr>
+            <th colspan="6">Inspector(a): ________________________</th>
+            <th colspan="6">Sr(a): ________________________</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="6">
+                @php echo 'Inspector(a): '.strtoupper( $inspector[0]->nombre.' '.$inspector[0]->apellido ) @endphp
+            </td>
+            <td colspan="6">
+                @php echo 'Sr(a): '.strtoupper($client[0]->representanteLegal); @endphp
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">Inspector Responsable</td>
+            <td colspan="6">Contribuyente</td>
+        </tr>
+    </tbody>
+</table>
 
-    <table class="table table-striped|sm|bordered|hover|inverse table-inverse table-responsive">
-        <thead class="thead-inverse|thead-default">
-            <tr>
-                <th class="border_table" colspan="2">________________________</th>
-                <th></th>
-                <th class="border_table" colspan="2">________________________</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="border_table" colspan="2">
-                    @php echo 'Inspector(a). '.strtoupper( auth()->user()->nombre.' '.auth()->user()->apellido ) @endphp
-                </td>
-                <td></td>
-                <td class="border_table" colspan="2">
-                    @php echo 'Sr(a). '.strtoupper($client[0]->representanteLegal); @endphp
-                </td>
-            </tr>
-            <tr>
-                <td class="border_table" colspan="2">INSPECTOR-RESPONSABLE</td>
-                <td></td>
-                <td class="border_table" colspan="2">PROPIETARIO /ADMINISTRADOR</td>
-            </tr>
-        </tbody>
-    </table>
+
+
+
+   
 
     <div class="rep_footer">
         <img class="rep_footer__logo" src="./assets/img/icons/{{ $data[0]->logo }}">
+        <p class="pf__item_foter"> Abnegación y Disciplina</p>
+    <p  class="pf__item_foter_"> Dirección Av. Principal Atacames sector los Almendros <br> E-mail: recaudacion@bomberosatacames.gob.ec </p>
+
+
     </div>
 
 </body>

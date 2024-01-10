@@ -547,7 +547,7 @@ class ClientsController extends Controller {
                  'cli.inspector_id',
                  'cli.categoria_id'
             )
-        ->whereIn('cli.estado', [4])
+        ->whereIn('cli.estado', [4,8])
         ->where('cli.inspector_id', '=', $id)
         ->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
         ->groupBy('cli.id')
