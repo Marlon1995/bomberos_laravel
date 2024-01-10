@@ -233,8 +233,8 @@
 
                                         <li><a href="{{ url('/report/pdf/'.auth()->user()->id) }} " {{auth()->user()->id}} target="_blank"> <i class="fa fa-file-pdf-o"></i>
                                                 PDF</a></li>
-                                        <li><a href="export/" target="_blank"><i class="fa fa-file-excel-o"></i>
-                                                EXCEL</a></li>
+                                     <!--   <li><a href="export/" target="_blank"><i class="fa fa-file-excel-o"></i>
+                                                EXCEL</a></li> -->
 
                                     </ul>
                                 </li>
@@ -297,31 +297,22 @@
 
                                
 
-                                <li><a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                 <li><a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li>
-                                            <a>Cierre Caja Diario <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li><a href="/reporte1" target="_blank"> <i class="fa fa-file-pdf-o"></i> PDF</a></li>
-                                                <li><a href="/cierre-caja-excel" target="_blank"><i class="fa fa-file-excel-o"></i> EXCEL</a></li>
-
-                                            </ul>
-                                        </li>
+                                    <li><a href="/reporte1" target="_blank"> <i class="fa fa-file-pdf-o"></i> CIERRE DE CAJA DIARIO</a></li>
 
 
 
-                                        <li><a href="/report-date">Rango de Fechas</a></li>
-                                        <li>
-                                            <a>Registros no emitidos <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li><a href="/reporte4" target="_blank"> <i class="fa fa-file-pdf-o"></i> PDF</a></li>
-                                                <li><a href="/noemitidos" target="_blank"><i class="fa fa-file-excel-o"></i> EXCEL</a></li>
 
-                                            </ul>
-                                        </li>
-                                        <li><a href="/reporte5" target="_blank">Reporte Diario</a></li>
-                                        <li><a href="/reporteParroquias" target="_blank">Clientes Por Parroquias
-                                            </a></li>
+                                    <li><a href="/report-date" > <i class="fa fa-file-pdf-o"></i> CIERRA CAJA POR FECHA</a></li>
+                                    
+                                    <li><a href="/reporte4" target="_blank"> <i class="fa fa-file-pdf-o"></i> REGISTROS NO EMITIDOS</a></li>
+                                    <li><a href="/reporte5" target="_blank"> <i class="fa fa-file-pdf-o"></i> REPORTE DIARIO</a></li>
+
+
+                                     
+                                   <!--     <li><a href="/reporteParroquias" target="_blank">Clientes Por Parroquias 
+                                            </a></li> -->
                                     </ul>
                                 </li>
                                 @endif
