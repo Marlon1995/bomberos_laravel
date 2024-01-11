@@ -554,7 +554,7 @@ class ClientsController extends Controller {
         ->get();
     
      
-        $doc = "";
+        $doc = "Reporte inspecciones";
         $pdf = PDF::loadView('report/pdf' , ["reporte" => $reporte]);
         return $pdf->stream($doc . '.pdf');
     }

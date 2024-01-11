@@ -17,8 +17,8 @@
         }
 
         .logo {
-            width: 100px;
-            height: 100px;
+            width: 50px;
+            height: 50px;
         }
 
         h3 {
@@ -59,7 +59,7 @@
 
 <body>
     <div class="container">
-        <img src="./assets/images/Logo1.png" alt="Logo" class="logo">
+      <!--  <img src="./assets/images/Logo1.png" alt="Logo" class="logo"> -->
         <h3>
             ACUERDO MINISTERIAL No. 1616 DEL 29 DE OCTUBRE DE 1997 <br>
             REGISTRO OFICIAL No. 741 DEL 29 DE ENERO DEL 2019 <br>

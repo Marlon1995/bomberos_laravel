@@ -1076,6 +1076,8 @@
             var endpoint = 'resumenPagoOrdenanzas/' + cli_id;
             $("#cliend_idmp_1").val(cli_id);
 
+           
+
             console.log(endpoint);
 
             $.ajax({

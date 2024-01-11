@@ -23,7 +23,7 @@
         background-image: url('./assets/images/Logo1.png')
     }
 </style>
-<img src="./assets/images/Logo1.png"  class="pf__items_logo2">
+
 
 
 <style>
@@ -233,12 +233,6 @@
     }
 </style>
 
-<p class="pf__item_foter"> Abnegación y Disciplina</p>
-<p  class="pf__item_foter_" ><i class="fa fa-bar-chart"></i>
-    Dirección Av. Principal Atacames sector los Almendros<br>
-    E-mail: recaudacion@bomberosatacames.gob.ec<br>
-    Teléfono:+593 062760233
-</p>
 
 
 

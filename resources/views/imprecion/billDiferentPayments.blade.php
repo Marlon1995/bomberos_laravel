@@ -296,10 +296,7 @@
                                 $ 1.00
                             </td>
                         </tr>
-                        <tr>
-                            <td>VALOR ESPECIE</td>
-                            <td> $ 2.00</td>
-                        </tr>
+                       
                         <tr>
                             <td><label class="tbFactura_trtdlabel">Recargo de Interés por Mora de conformidad al art. 21 del Código Tributario </label> </td>
                             <td style="padding-top:4px !important;padding-bottom:4px !important">
@@ -314,7 +311,7 @@
                             <td>VALOR TOTAL A PAGAR</td>
                             <td>$ @php
                                     $resultado =  ((($client[0]->valor) * $client[0]->porcenjatetasa)/100);
-                                    $total     =   ($client[0]->valor+2+1 + round($resultado , 3));
+                                    $total     =   ($client[0]->valor+1 + round($resultado , 3));
                                     echo $total;
                                 @endphp
 
