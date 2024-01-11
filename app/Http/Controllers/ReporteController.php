@@ -258,7 +258,7 @@ class ReporteController extends Controller
            'valor','otros_pagos.recargo',
             'otros_pagos.created_at')
         ->whereNotIn('tipos_pago.id', [2])
-        //->where('otros_pagos.estado','=', 8)
+        ->where('otros_pagos.estado','=', 8)
         ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
 
        // ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
