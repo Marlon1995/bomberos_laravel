@@ -143,7 +143,7 @@ class DataController extends Controller
         $anticipos = DB::table('client')
             ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
             ->select( DB::raw('sum(pagos_ordenanza.valor) as anticipos' ))
-            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.id','=',$id)
             ->where('pagos_ordenanza.estado','=',8)
             ->where('pagos_ordenanza.tipoPago','=',1)
             ->get();
@@ -151,7 +151,7 @@ class DataController extends Controller
         $descuentos = DB::table('client')
             ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
             ->select( DB::raw('sum(pagos_ordenanza.valor) as descuentos' ))
-            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.id','=',$id)
             ->where('pagos_ordenanza.estado','=',8)
             ->where('pagos_ordenanza.tipoPago','=',2)
             ->get();
@@ -159,7 +159,7 @@ class DataController extends Controller
         $RecargoTrimestral = DB::table('client')
             ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
             ->select( DB::raw('sum(pagos_ordenanza.valor) as RecargoTrimestral' ))
-            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.id','=',$id)
             ->where('pagos_ordenanza.estado','=',7)
             ->where('pagos_ordenanza.tipoPago','=',4)
             ->get();
@@ -168,7 +168,7 @@ class DataController extends Controller
         $TasaAnual = DB::table('client')
             ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
             ->select( DB::raw('sum(pagos_ordenanza.valor) as TasaAnual' ))
-            ->where('client.id','=',$id)
+            ->where('pagos_ordenanza.id','=',$id)
             ->where('pagos_ordenanza.estado','=',7)
             //->where('pagos_ordenanza.tipoPago','=',6)
             ->get();
@@ -189,8 +189,10 @@ class DataController extends Controller
             /* ->join('categorias',  'categorias.id' , 'client.categoria_id') */
             ->join('parroquias',  'parroquias.id' , 'client.parroquia_id')
             ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
-            ->select( 'client.razonSocial','client.representanteLegal','pagos_ordenanza.descripcion','client.ruc','client.barrio', 'client.telefono','parroquias.descripcion as parroquia','client.referencia'/* ,'categorias.descripcion as categoria' */)
-            ->where('client.id','=',$id)
+            ->select( 'client.razonSocial','client.representanteLegal',
+            DB::raw('TRIM(SUBSTRING_INDEX(pagos_ordenanza.descripcion, \'.\', 3)) as descripcion')
+            ,'client.ruc','client.barrio', 'client.telefono','parroquias.descripcion as parroquia','client.referencia'/* ,'categorias.descripcion as categoria' */)
+            ->where('pagos_ordenanza.id','=',$id)
             ->get();
 
         

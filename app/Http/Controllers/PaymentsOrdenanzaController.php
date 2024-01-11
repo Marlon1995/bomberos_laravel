@@ -60,7 +60,7 @@ class PaymentsOrdenanzaController extends Controller
             ->join('parroquias', 'parroquias.id', 'client.parroquia_id')
             ->join('pagos_ordenanza', 'pagos_ordenanza.client_id', 'client.id')
             ->select(
-                'client.id',
+                'pagos_ordenanza.id',
                 'client.razonSocial',
                 'client.representanteLegal',
                 'client.ruc',
@@ -102,6 +102,7 @@ class PaymentsOrdenanzaController extends Controller
             $decripcion_mp = $request->input('decripcion_mp');
             $numTransaccion = $request->input('numTransaccion');
             $formaPago_id = $request->input('formaPago');
+            $numTituloAdmin = $request->input('numTituloAdmin');
 
             if ($valor__tbPagos == 0 || $numTransaccion == 0) {
                 return back()->with('Respuesta_erro', 'Verifique la información ingresada y reintente!!');
@@ -117,6 +118,8 @@ class PaymentsOrdenanzaController extends Controller
             $send->descripcion = $decripcion_mp;
             $send->formaPago_id = $formaPago_id;
             $send->numTransaccion = $numTransaccion;
+            $send->numTituloAdmin = $numTituloAdmin;
+
             $send->estado = 8;
             $send->save();
 
@@ -256,6 +259,8 @@ class PaymentsOrdenanzaController extends Controller
                     $recargo = $request->input('recargo_valor');
              
                     $numPermisoFuncionamiento = $request->input('numPermisoFuncionamiento');
+                    $numTituloAdmin = $request->input('numTituloAdmin');
+
 
                     if($formaPago_id != 1 && $numTransaccion == 0 ){
                         return back()->with('Respuesta_wn', 'El número de transaccion es requerida');
@@ -266,10 +271,11 @@ class PaymentsOrdenanzaController extends Controller
 
 
                     DB::table('pagos_ordenanza')
-                        ->where('client_id', $id)
+                        ->where('id', $id)
                         ->where('estado', '=', 7)
                         ->update([
                             'estado' => 8, // pago total
+                            'numTituloAdmin'=>$numTituloAdmin,
                             'updated_at' => Carbon::now()
                         ]);
 

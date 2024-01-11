@@ -228,17 +228,10 @@
                                     <a href="/clients"><i class="fa fa-file-text"></i> Emitir Formulario</a>
                                 <li>
 
-                                    <a>REPORTES <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-
-                                        <li><a href="{{ url('/report/pdf/'.auth()->user()->id) }} " {{auth()->user()->id}} target="_blank"> <i class="fa fa-file-pdf-o"></i>
-                                                PDF</a></li>
-                                     <!--   <li><a href="export/" target="_blank"><i class="fa fa-file-excel-o"></i>
-                                                EXCEL</a></li> -->
-
-                                    </ul>
-                                </li>
-                                </li>
+                                <li><a href="{{ url('/report/pdf/'.auth()->user()->id) }} " {{auth()->user()->id}} target="_blank"> <i class="fa fa-file-pdf-o"></i>
+                                                REPORTE INSPECCIONES POR FECHA </a></li>
+                               
+                               
                                 @endif
 
                                 @if (auth()->user()->hasRoles([7, 8]))

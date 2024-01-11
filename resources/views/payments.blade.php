@@ -532,6 +532,24 @@
                                                             </div>
                                                         </div>
 
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-4 col-sm-4 label-align"
+                                                                for="cedula">N.T. CRÉDITO #</label>
+                                                            <div class="col-md-10 col-sm-10">
+                                                                <input type="hidden" class="form-control"
+                                                                    name="valor__tbTitulo" id="valor__tbTitulo" value=""
+                                                                    onKeyPress="return fn_aceptaNum(event)"
+                                                                    placeholder="Valor ej. 10.50"
+                                                                    style="text-align: center">
+                                                                <input type="text" class="form-control"
+                                                                    name="numTituloAdmin"
+                                                                    id="numTituloAdmin" value=""
+                                                                    onKeyPress="return fn_aceptaNum(event)" required
+                                                                    placeholder=""
+                                                                    style="text-align: center">
+                                                            </div>
+                                                        </div>
+
                                                     </div>
 
 

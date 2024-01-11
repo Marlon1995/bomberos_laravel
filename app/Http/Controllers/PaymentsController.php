@@ -241,10 +241,12 @@ class PaymentsController extends Controller
                     $id = $request->input('cliend_ida');
                     $decripcion_mp = $request->input('decripcion_mp_1');
                     $numTransaccion = $request->input('numTransaccion');
+                    $numTransaccion = $request->input('numTransaccion');
                     $formaPago_id = $request->input('formaPago');
                     $recargo = $request->input('recargo_valor');
              
                     $numPermisoFuncionamiento = $request->input('numPermisoFuncionamiento');
+                    $numTituloAdmin = $request->input('numTituloAdmin');
 
                     if($formaPago_id != 1 && $numTransaccion == 0 ){
                         return back()->with('Respuesta_wn', 'El número de transaccion es requerida');
@@ -259,11 +261,16 @@ class PaymentsController extends Controller
                     $send->recargo= $recargo;
                     $send->valor = ($valor__tbPagos + 2);
                     $send->numPermisoFuncionamiento = $numPermisoFuncionamiento;
+                    $send->numTituloAdmin = $numTituloAdmin;
+                
 
                     if($numTransaccion != 0 ){
                         $send->numTransaccion = $numTransaccion;
                     }
 
+                    if($numTituloAdmin != 0 ){
+                        $send->numTituloAdmin = $numTituloAdmin;
+                    }
                     $send->descripcion = $decripcion_mp;
                     $send->formaPago_id = $formaPago_id;
                     $send->estado = 8;

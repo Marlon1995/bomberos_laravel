@@ -113,7 +113,7 @@
                 <th>CI - RUC</th>
                 <th>RAZÓN SOCIAL</th>
                 <th>FORMA PAGO</th>
-                <th>N° DOCUMENTO</th>
+                <th>N° T. CRED</th>
                 <th>TIPO DE PAGO</th>
                 <th>VALOR</th>
                 <th>RECARGO</th>
@@ -146,7 +146,7 @@
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
                     <td>{{ $item->formaspago }}</td>
-                    <td>{{ $item->numTransaccion }}</td>
+                    <td>{{ $item->numTituloAdmin }}</td>
                     <td>{{ $item->tipos_pago }}</td>
                     <td>${{ round($item->valor - 2, 2) }}</td>
                     <td>${{ $item->recargo }}</td>
@@ -186,12 +186,11 @@
             <tr>
                 <th>N°</th>
                 <th>FECHA</th>
-                <th>AÑO PERMISO</th>
-                <th>N° ESPECIE</th>
+                
                 <th>CI - RUC</th>
                 <th>RAZÓN SOCIAL</th>
                 <th>FORMA PAGO</th>
-                <th>N° DOCUMENTO</th>
+                <th>N° T. CRED.</th>
                 <th>TIPO DE PAGO</th>
                 <th>VALOR</th>
                 <th>RECARGO</th>
@@ -218,12 +217,11 @@
                 <tr>
                     <td>{{ $x++ }}</td>
                     <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
-                    <td>{{ $item->year_now }}</td>
-                    <td>{{ $item->numPermisoFuncionamiento }}</td>
+                  
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
                     <td>{{ $item->formaspago }}</td>
-                    <td>{{ $item->numTransaccion }}</td>
+                    <td>{{ $item->numTituloAdmin }}</td>
                     <td>{{ $item->tipos_pago }}</td>
                     <td>${{ round($item->valor , 2) }}</td>
                     <td>${{ $item->recargo }}</td>
@@ -237,8 +235,7 @@
             @endforelse
 
             <tr>
-                <td></td>
-                <td></td>
+                
                 <td></td>
                 <td></td>
                 <td></td>

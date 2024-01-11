@@ -148,7 +148,7 @@
                             <div class="tab-pane fade show active" id="clients" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="page-title">
                                     <div class="title_left">
-                                        <h2><i class="fa fa-usd"></i> Pago de impuesto de Tasa Anualdffsd. </h2>
+                                        <h2><i class="fa fa-usd"></i> Pago Valor de Ordenanza. </h2>
                                     </div>
                                     
                                 </div>
@@ -226,60 +226,7 @@
                             </div>
 
 
-                            <div class="tab-pane fade show" id="solicitudes" role="tabpanel">
-                                <div class="page-title">
-                                    <div class="title_left">
-                                        <h2><i class="fa fa-usd"></i> Pago de Anticipos</h2>
-                                    </div>
-                                
-                                </div>
-                                <div class="">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="x_panel">
-                                            <p class="text-muted font-13 m-b-30"></p>
-                                            <div class="table-responsive">
-                                                <table id="tbPagosSolicitudes"
-                                                    class="table table-striped jambo_table bulk_action" style="width:100%">
-                                                    <thead>
-                                                        <tr class="headings">
-                                                            <th class="column-title ruc__pagos">CI - RUC</th>
-                                                            <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL
-                                                            </th>
-                                                            <th class="column-title repesLegar__pagos">REP. LEGAL</th>
-<!--                                                             <th class="column-title saldo__pagos">CATEGORIA</th>
-                                                            <th class="column-title saldo__pagos">DENOMINACION</th> -->
-                                                            <th class="column-title accion__pagos" align="center"></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @forelse($impuestos  as $item)
-                                                            <tr class="even pointer">
-                                                                <td><label
-                                                                        class="ruc__tbpagos">{{ $item->ruc }}</label>
-                                                                </td>
-                                                                <td><label
-                                                                        class="razonSocial__tbpagos">{{ $item->razonSocial }}</label>
-                                                                </td>
-                                                                <td><label
-                                                                        class="repLegar___tbPagos">{{ $item->representanteLegal }}</label>
-                                                                </td>
-                                                                <td>
-                                                                    <div data-toggle="modal"
-                                                                        data-idCli="{{ $item->id }}"
-                                                                        data-target="#mdlPagoSolicitud__pagos"
-                                                                        class="btn btn-info mdlPagarSolicitud"> FACTURAR
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        @empty
-                                                        @endforelse
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+              
                         @endif
 
 
@@ -287,69 +234,6 @@
 
 
 
-                        <!---3 es secretaria--->
-                        @if (auth()->user()->hasRoles([5]))
-                            <div class="tab-pane fade show active" id="solicitudes" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="page-title">
-                                            <div class="title_left">
-                                                <h2><i class="fa fa-file-text-o"></i> Solicitud de Descuentos</h2>
-                                            </div>
-                                            <div class="title_right">
-                                               
-                                            </div>
-                                        </div>
-
-                                        <div class="x_content">
-                                            <p class="text-muted font-13 m-b-30">Listado de pago de Impuestos de Tasa Anual
-                                                Pendientes</p>
-                                            <div class="table-responsive">
-                                                <table id="tbClienteSecretario"
-                                                    class="table table-striped jambo_table bulk_action" style="width:100%">
-                                                    <thead>
-                                                        <tr class="headings">
-                                                            <th class="column-title ruc__pagos">CI - RUC</th>
-                                                            <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL
-                                                            </th>
-                                                            <th class="column-title repesLegar__pagos">REP. LEGAL</th>
-                                                            <!-- <th class="column-title saldo__pagos">CATEGORIA</th> -->
-                                                            <!-- <th class="column-title saldo__pagos">DENOMINACION</th> -->
-                                                            <th class="column-title accion__pagos" align="center"></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @forelse ($impuestos as $item)
-                                                            <tr class="evenpointer">
-                                                                <td><label
-                                                                        class="ruc__tbpagos">{{ $item->ruc }}</label>
-                                                                </td>
-                                                                <td><label
-                                                                        class="razonSocial__tbpagos">{{ $item->razonSocial }}</label>
-                                                                </td>
-                                                                <td><label
-                                                                        class="repLegar___tbPagos">{{ $item->representanteLegal }}</label>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="btn btn-info btnmdlSolicitud__pagos"
-                                                                        data-toggle="modal"
-                                                                        data-ruc_patototal="{{ $item->id }}"
-                                                                        data-idCli="{{ $item->id }}"
-                                                                        data-target="#mdlSolicitud__pagos"> DESCUENTO </div>
-                                                                </td>
-
-                                                            </tr>
-                                                        @empty
-                                                        @endforelse
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
 
                     </div>
 
@@ -533,6 +417,23 @@
                                                                     id="numPermisoFuncionamiento_1" value=""
                                                                     onKeyPress="return fn_aceptaNum(event)" required
                                                                     placeholder="Número de Permiso de Funcionamiento"
+                                                                    style="text-align: center">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-4 col-sm-4 label-align"
+                                                                for="cedula">N.T. CRÉDITO #</label>
+                                                            <div class="col-md-10 col-sm-10">
+                                                                <input type="hidden" class="form-control"
+                                                                    name="valor__tbTitulo" id="valor__tbTitulo" value=""
+                                                                    onKeyPress="return fn_aceptaNum(event)"
+                                                                    placeholder="Valor ej. 10.50"
+                                                                    style="text-align: center">
+                                                                <input type="text" class="form-control"
+                                                                    name="numTituloAdmin"
+                                                                    id="numTituloAdmin" value=""
+                                                                    onKeyPress="return fn_aceptaNum(event)" required
+                                                                    placeholder=""
                                                                     style="text-align: center">
                                                             </div>
                                                         </div>
@@ -1071,8 +972,10 @@
 
         /// pago total de tasa anual
         $(".pagar__pagos").on('click', function() {
-
+console.log(this);
             var cli_id = $(this).attr("data-idCli");
+
+            alert(cli_id);
             var endpoint = 'resumenPagoOrdenanzas/' + cli_id;
             $("#cliend_idmp_1").val(cli_id);
 
@@ -1294,41 +1197,8 @@
 
 
 
-        ///aticipo
-        $(".mdlPagarSolicitud").on('click', function() {
-            //anticipo
-            var cli_id = $(this).attr("data-idCli");
-            $("#cliend_ida").val(cli_id);
-            var endpoint = 'resumenPagoOrdenanzas/' + cli_id;
-            $.ajax({
-                async: false,
-                type: "GET",
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded",
-                url: endpoint,
-                success: function(datos) {
-                    console.log("MArlon:"+datos);
-                    $("#razonSocial__MdPagos_a").text(datos['cliente']['razonSocial']);
-                    $("#repLegar__MdPagos_a").text(datos['cliente']['representanteLegal']);
-                    $("#ruc__mdPAgos_a").text(datos['cliente']['ruc']);
-                    $("#direccion__MdPagos_a").text(datos['cliente']['direccion']);
-                    $("#telefono__MdPagos_a").text(datos['cliente']['telefono']);
-                    /* $("#catgoria__MdPagos_a").text(datos['cliente']['categoria']); */
-                    $("#saldo__mdpagos_a").text(datos['cliente']['saldo']);
-                    $(".TasaAnual__mdpagos_m").val(datos['cliente']['saldo']);
-                    $("#anticipos__mdpagos_a").text(datos['Pagos']['anticipos']);
-                    $("#descuentos__mdpagos_a").text('$ ' + datos['Pagos']['descuentos']);
-                    $("#RecargoTrimestral__mdpagos_a").text('$ ' + datos['Pagos']['RecargoTrimestral']);
-                    $("#TasaAnual__mdpagos_a").text('$ ' + datos['Pagos']['TasaAnual']);
-                    /* $("#TotalTasaAnual__mdpagos_a").text('$ ' + datos['Pagos']['TasaAnualR']); */
-
-                },
-                error: function(d) {
-                    toastr.error('Algo  salió mal, Reintente');
-                }
-            });
-
-        })
+       
+       
         $("#valor__tbPagos_a").keyup(function() {
             var total = $("#valor__tbPagos_a").val();
             var saldoPendiente = $("#saldo__mdpagos_a").text();

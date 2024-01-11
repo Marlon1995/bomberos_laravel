@@ -46,6 +46,8 @@ class ReporteController extends Controller
                'otros_pagos.year_now',
                'otros_pagos.numPermisoFuncionamiento',
                'otros_pagos.numTransaccion',
+               'otros_pagos.numTituloAdmin',
+               
                'valor','otros_pagos.recargo',
                 'otros_pagos.created_at')
             ->whereNotIn('tipos_pago.id', [2])
@@ -69,6 +71,7 @@ class ReporteController extends Controller
                'pagos_ordenanza.year_now',
                'pagos_ordenanza.numPermisoFuncionamiento',
                'pagos_ordenanza.numTransaccion',
+               'pagos_ordenanza.numTituloAdmin',
                'valor','pagos_ordenanza.recargo',
                 'pagos_ordenanza.created_at')
             ->whereNotIn('tipos_pago.id', [2])
