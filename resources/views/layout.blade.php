@@ -307,7 +307,7 @@
                                     <li><a href="/report-date" > <i class="fa fa-file-pdf-o"></i> CIERRA CAJA POR FECHA</a></li>
                                     
                                     <li><a href="/reporte4" target="_blank"> <i class="fa fa-file-pdf-o"></i> REGISTROS NO EMITIDOS</a></li>
-                                    <li><a href="/reporte5" target="_blank"> <i class="fa fa-file-pdf-o"></i> REPORTE DIARIO</a></li>
+                                 <!--   <li><a href="/reporte5" target="_blank"> <i class="fa fa-file-pdf-o"></i> REPORTE DIARIO</a></li> -->
 
 
                                      
