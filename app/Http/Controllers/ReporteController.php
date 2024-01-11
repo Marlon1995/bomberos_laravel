@@ -174,14 +174,7 @@ class ReporteController extends Controller
         return $pdf->stream($doc . '.pdf');
     }
 
-   public function reporte5(){
-        $fechas = Client::whereDate('created_at',Carbon::today())->get();
-        /* return $fechas; */
-        $doc = "";
-        $pdf = PDF::loadView('report/reporte5' , ["fechas" => $fechas])->setPaper('A4', 'landscape');
-        return $pdf->stream($doc . '.pdf');
 
-    }
 
     public function reporteParroquias()
     {
@@ -221,9 +214,132 @@ class ReporteController extends Controller
         return view('report/reporte6'  ,compact('data') );
 
     }
+
+    public function reporte5(){
+        $data = System::all();
+        return view('report/reporteporfechaEspecie'  ,compact('data') );
+
+    }
+    public function reporte8(){
+        $data = System::all();
+        return view('report/reporteporfechaTitulo'  ,compact('data') );
+
+    }
     public function reporte7(){
         $data = System::all();
         return view('report'  ,compact('data') );
+
+    }
+
+
+    public function reportePorFechasEspecies( Request $request ){
+
+        $fechas = $request->input('reservation');
+        $fecha1 = substr($fechas, 0, -13);
+        $fecha2 = substr($fechas, 13);
+
+        $fecha1_c = date('Y-m-d', strtotime($fecha1));
+        $fecha2_c = date('Y-m-d', strtotime($fecha2));
+        $rangos = array(
+            "r1" => $fecha1_c,
+            "r2" => $fecha2_c
+        );
+
+
+
+
+    $especie = Especies::where('estado','=','1')
+        //->where('created_at','like', date("Y-m-d").'%' )
+        ->whereBetween(DB::raw('DATE(created_at)'),[ $fecha1_c, $fecha2_c])
+
+        ->get();
+
+    $doc = "";
+    $pdf = PDF::loadView('report/reporte5' , [
+                                                "fechas" => $rangos,
+                                               
+                                                "especie" => $especie
+                                            ])->setPaper('A4');
+    return $pdf->stream($doc . '.pdf');
+
+    }
+
+    public function reportePorFechasTitulos( Request $request ){
+
+        $fechas = $request->input('reservation');
+        $fecha1 = substr($fechas, 0, -13);
+        $fecha2 = substr($fechas, 13);
+
+        $fecha1_c = date('Y-m-d', strtotime($fecha1));
+        $fecha2_c = date('Y-m-d', strtotime($fecha2));
+        $rangos = array(
+            "r1" => $fecha1_c,
+            "r2" => $fecha2_c
+        );
+
+        $reporte = DB::table('otros_pagos')
+        ->join('client', 'client.id', 'otros_pagos.client_id')
+        ->join('tipos_pago', function ($join) {
+            $join->on('tipos_pago.id', 'otros_pagos.tipoPago')
+                ->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+        })
+        ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
+        ->select(   'ruc',
+            'razonSocial',
+            'formaspago.nombre as formaspago',
+            'tipos_pago.nombre as tipos_pago',
+            'valor',
+           'otros_pagos.year_now',
+           'otros_pagos.numPermisoFuncionamiento',
+           'otros_pagos.numTransaccion',
+           'valor','otros_pagos.recargo',
+            'otros_pagos.created_at')
+        ->whereNotIn('tipos_pago.id', [2])
+        ->where('otros_pagos.estado','=', 8)
+        ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
+
+       // ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
+        ->orderBy('otros_pagos.created_at', 'desc')
+        ->get();
+      
+
+        $reporte_ordenanzas = DB::table('pagos_ordenanza')
+        ->join('client', 'client.id', 'pagos_ordenanza.client_id')
+        ->join('tipos_pago', function ($join) {
+            $join->on('tipos_pago.id', 'pagos_ordenanza.tipoPago')
+                ->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+        })
+        ->leftJoin('formaspago', 'formaspago.id', 'pagos_ordenanza.formaPago_id')
+        ->select(   'ruc',
+            'razonSocial',
+            'formaspago.nombre as formaspago',
+            'tipos_pago.nombre as tipos_pago',
+            'valor',
+           'pagos_ordenanza.year_now',
+           'pagos_ordenanza.numPermisoFuncionamiento',
+           'pagos_ordenanza.numTransaccion',
+           'valor','pagos_ordenanza.recargo',
+            'pagos_ordenanza.created_at')
+        ->whereNotIn('tipos_pago.id', [2])
+        ->where('pagos_ordenanza.estado','=', 8)
+        //->where('pagos_ordenanza.created_at','like', date("Y-m-d").'%' )
+        ->whereBetween(DB::raw('DATE(pagos_ordenanza.created_at)'),[ $fecha1_c, $fecha2_c])
+
+        ->orderBy('pagos_ordenanza.created_at', 'desc')
+        ->get();
+
+
+   
+
+    $doc = "";
+    $pdf = PDF::loadView('report/reporteTitulos' , [
+                                                "fechas" => $rangos,
+                                           
+                                                "reporte" => $reporte,
+                                                "reporte_ordenanzas" => $reporte_ordenanzas
+                                                
+                                            ])->setPaper('A4');
+    return $pdf->stream($doc . '.pdf');
 
     }
 

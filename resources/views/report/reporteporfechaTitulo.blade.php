@@ -30,7 +30,7 @@
                             <div class="well" style="overflow: auto">
                                 <div class="col-md-4">
                                     Rango de Fechas
-                                    <form class="" method="GET"  action="/reportePorFechas" target="_blank">
+                                    <form class="" method="GET" action="/reportePorFechasTitulos" target="_blank" >
                                         <fieldset>
                                             <div class="control-group ">
                                                 <div class="controls">
