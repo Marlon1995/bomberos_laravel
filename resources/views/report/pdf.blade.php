@@ -78,7 +78,7 @@
             </tr>
             <tr>
                 <td><strong>Fecha:</strong></td>
-                <td>{{ empty($reporte )? 'NO EXISTE INFORMACIÓN PARA LA FECHA' : date('d/m/Y') }}</td>
+                <td>{{ empty($reporte )? 'NO EXISTE INFORMACIÓN PARA LA FECHA' : $rangos['r1'] .' al '.  $rangos['r2']        }}</td>
             </tr>
             <tr>
                 <td><strong>Tipo Reporte:</strong></td>
@@ -92,7 +92,7 @@
     <table>
         <thead>
             <tr>
-                <th>Fecha</th>
+                <th>Fecha Inspección</th>
                 <th>RUC</th>
                 <th>Nombre Local</th>
                 <th>Contribuyente</th>
@@ -103,11 +103,11 @@
         <tbody>
             @forelse ($reporte as $item)
             <tr>
-                <td>{{ date('d/m/Y') }}</td>
+                <td>{{$item->fecha_inspeccion }}</td>
                 <td>{{ $item->ruc }}</td>
                 <td>{{ $item->razonSocial }}</td>
                 <td>{{ $item->representanteLegal }}</td>
-                <td>{{ $item->parroquia . '-' . $item->barrio . '-' . $item->referencia }}</td>
+                <td>{{ $item->parroquia . '/ ' . $item->barrio . '/ ' . $item->referencia }}</td>
                 <td>{{ $item->telefono }}</td>
             </tr>
             @empty

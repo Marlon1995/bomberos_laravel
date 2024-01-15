@@ -530,8 +530,20 @@ class ClientsController extends Controller {
 
     }
 
-    public function pdfcliente($id){
+    public function pdfcliente($id,Request $request ){
 
+        $fechas = $request->input('reservation');
+       
+        $fecha1 = substr($fechas, 0, -13);
+        $fecha2 = substr($fechas, 13);
+
+        $fecha1_c = date('Y-m-d', strtotime($fecha1));
+        $fecha2_c = date('Y-m-d', strtotime($fecha2));
+        $rangos = array(
+            "r1" => $fecha1_c,
+            "r2" => $fecha2_c
+        );
+       
         $reporte = DB::table('client as cli')
         ->join('inspecciones', 'cli.id', 'inspecciones.client_id')
         ->join('parroquias', 'cli.parroquia_id', 'parroquias.id')
@@ -545,17 +557,22 @@ class ClientsController extends Controller {
                  'cli.telefono',
                  'cli.referencia',
                  'cli.inspector_id',
-                 'cli.categoria_id'
+                 'cli.categoria_id',
+                 DB::raw('DATE(inspecciones.created_at) as fecha_inspeccion')
+
+                //DB::raw('DATE(inspecciones.created_at)') 
             )
         ->whereIn('cli.estado', [4,8])
         ->where('cli.inspector_id', '=', $id)
-        ->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
-        ->groupBy('cli.id')
+        ->whereBetween(DB::raw('DATE(inspecciones.created_at)'),[ $fecha1_c, $fecha2_c])
+
+        //->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
+        ->groupBy('cli.id','inspecciones.created_at')
         ->get();
     
-     
+    
         $doc = "Reporte inspecciones";
-        $pdf = PDF::loadView('report/pdf' , ["reporte" => $reporte]);
+        $pdf = PDF::loadView('report/pdf' , ["reporte" => $reporte, "rangos"=>$rangos]);
         return $pdf->stream($doc . '.pdf');
     }
 

@@ -121,6 +121,8 @@
         <table>
             <tr>
                 <th>N°</th>
+                <th>N° T. CRED.</th>
+                
                 <th>FECHA</th>
                
                 <th>CI - RUC</th>
@@ -149,6 +151,7 @@
                 {{ $total_recargo = $total_recargo + $item->recargo  }}
                 <tr>
                     <td>{{ $x++ }}</td>
+                    <td>{{ $item->numTituloAdmin }}</td>
                     <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
@@ -161,6 +164,7 @@
 
             <tr>
               
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -179,6 +183,7 @@
         <table>
             <tr>
                 <th>N°</th>
+                <th>N° T. CRED.</th>
                 <th>FECHA</th>
               
                 <th>CI - RUC</th>
@@ -201,6 +206,7 @@
             
                 <tr>
                     <td>{{ $x++ }}</td>
+                    <td>{{ $item->numTituloAdmin }}</td>
                     <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
                    
                    
@@ -216,6 +222,7 @@
 
             <tr>
                 
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

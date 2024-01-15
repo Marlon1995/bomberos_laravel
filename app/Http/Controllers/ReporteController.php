@@ -21,7 +21,7 @@ class ReporteController extends Controller
 {
     function __construct()
     {
-        $this->middleware(['authUser','roles:3,5,7,8']);
+        $this->middleware(['authUser','roles:3,5,7,8,4']);
     }
 
     public function index(){
@@ -227,6 +227,14 @@ class ReporteController extends Controller
         $data = System::all();
         return view('report/reporteporfechaTitulo'  ,compact('data') );
 
+      
+    }
+    public function reporte9(){
+       
+        $data = System::all();
+
+        return view('report/reporteporfechaInspecciones'  ,compact('data') );
+
     }
     public function reporte7(){
         $data = System::all();
@@ -295,6 +303,7 @@ class ReporteController extends Controller
            'otros_pagos.year_now',
            'otros_pagos.numPermisoFuncionamiento',
            'otros_pagos.numTransaccion',
+           'otros_pagos.numTituloAdmin',
            'valor','otros_pagos.recargo',
             'otros_pagos.created_at')
         ->whereNotIn('tipos_pago.id', [2])
@@ -321,6 +330,7 @@ class ReporteController extends Controller
            'pagos_ordenanza.year_now',
            'pagos_ordenanza.numPermisoFuncionamiento',
            'pagos_ordenanza.numTransaccion',
+           'pagos_ordenanza.numTituloAdmin',
            'valor','pagos_ordenanza.recargo',
             'pagos_ordenanza.created_at')
         ->whereNotIn('tipos_pago.id', [2])

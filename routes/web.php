@@ -94,6 +94,7 @@ Route::get('report-date-especies', 'ReporteController@reporte5'); // permisos
 Route::get('report-date-titulos', 'ReporteController@reporte8'); // permisos
 
 
+Route::get('report-date-inspecciones', 'ReporteController@reporte9'); // permisos
 
 Route::get('/report/pdf/{id}', 'ClientsController@pdfcliente');
 Route::get('export/', 'ClientsController@export');
