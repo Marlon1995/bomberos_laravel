@@ -62,16 +62,16 @@ class FormularioController extends Controller{
         //valores de la tabla para el calculo
         if ($valor_p < 3) {
             $valor_descripcion = 'Alto 15% - SBU';
-            $valor_riesgo = (float) 67.50;
+            $valor_riesgo = (float) 69;
         } else if ($valor_p > 3 && $valor_p < 5) {
             $valor_descripcion = 'Alto 15% - SBU';
-            $valor_riesgo = (float) 67.50;
+            $valor_riesgo = (float) 69;
         } else if ($valor_p > 5 && $valor_p < 8) {
             $valor_descripcion = 'Medio 10% - SBU';
-            $valor_riesgo = (float) 45;
+            $valor_riesgo = (float) 46;
         } else {
             $valor_descripcion = 'Leve 5% - SBU';
-            $valor_riesgo = (float) 22.50;
+            $valor_riesgo = (float) 23;
         }
 
         $tipoInstalacion_id = $request->input('tipoInstalacion');
