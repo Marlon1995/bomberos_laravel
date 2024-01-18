@@ -236,13 +236,24 @@
                                                                                 </select>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="item form-group ">
-                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="anioPago">SERVICIO ADMINISTRATIVO(TITULO DE CRÉDITO):</label>
-                                                                            <div class="col-md-9 col-sm-9">
-                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="">$1.00</label>
-
-                                                                            </div>
-                                                                        </div>
+                                        
+                                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-4 col-sm-4 label-align"
+                                                                for="cedula">N.T. CRÉDITO #</label>
+                                                            <div class="col-md-10 col-sm-10">
+                                                                <input type="hidden" class="form-control"
+                                                                    name="valor__tbTitulo" id="valor__tbTitulo" value=""
+                                                                    onKeyPress="return fn_aceptaNum(event)"
+                                                                    placeholder="Valor ej. 10.50"
+                                                                    style="text-align: center">
+                                                                <input type="text" class="form-control"
+                                                                    name="numTituloAdmin"
+                                                                    id="numTituloAdmin" value=""
+                                                                    onKeyPress="return fn_aceptaNum(event)" required
+                                                                    placeholder=""
+                                                                    style="text-align: center">
+                                                            </div>
+                                                        </div>
 
                                                                     </div>
                                                                     <div class="col-sm-1"></div>
@@ -261,6 +272,13 @@
                                                                              <label class="col-form-label col-md-3 col-sm-3 label-align" for="porcenjatetasa">Porcentaje Tazas </label>
                                                                             <div class="col-md-4 col-sm-4">
                                                                                 <input type="text" class="form-control" name="porcenjatetasa" id="porcenjatetasa" required onKeyPress="return fn_aceptaNum(event)"  value="" placeholder="Ej. 2.842" style="text-align: center">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="anioPago">SERVICIO ADMINISTRATIVO(TITULO DE CRÉDITO):</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="">$1.00</label>
+
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-1"></div>
@@ -289,6 +307,7 @@
                                                                      </div>
                                                                     <div class="col-sm-1"></div>
                                                                 </div>
+                           
 
                                                                     <div class="col-sm-1"></div>
                                                                     <div class="col-sm-10" style="text-align: left;padding: 10px">

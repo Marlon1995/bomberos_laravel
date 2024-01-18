@@ -111,6 +111,7 @@ class OtrosPagosController extends Controller
         $data->direccion            = $request->input('direccion');
         $data->telefono             = $request->input('telefono');
         $data->formaPago_id         = 1; // efectivo
+        $data->numTituloAdmin = $request->input('numTituloAdmin');
         $data->descripcion          = $request->input('decripcion_mp_1');
         $data->valor                = $pago_valor; //pago valor
         $data->porcenjatetasa       = $request->input('porcenjatetasa'); //porcenta en porcentaje

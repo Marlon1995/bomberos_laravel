@@ -109,7 +109,7 @@
    
    
         <center>
-            <h5>ESPECIES PARA SOLICITUD</h5>
+            <h5>REPORTE DE ESPECIES EMITIDAS</h5>
         </center>
         <p><label for="fechaDesde"> Desde:{{$fechas['r1']}}</label></p>
        <p> <label for="fechaDesde"> Hasta:{{$fechas['r2']}}</label></p>

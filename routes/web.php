@@ -85,6 +85,7 @@ Route::get('reporte4', 'ReporteController@reporte4');
 Route::get('reporteParroquias', 'ReporteController@reporteParroquias'); // permisos
 Route::get('reportePorFechas', 'ReporteController@reportePorFechas'); // permisos
 Route::get('reportePorFechasEspecies', 'ReporteController@reportePorFechasEspecies'); // permisos
+
 Route::get('reportePorFechasTitulos', 'ReporteController@reportePorFechasTitulos'); // permisos
 
 

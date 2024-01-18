@@ -29,6 +29,7 @@ class FormularioController extends Controller{
         $longitud =  $request->input('count');
         $client_id = $request->input('client_id');
         $valorBCI = $request->input('respuesta_bci');
+        $valorSIE = $request->input('respuesta_electrico');
 
         $client = DB::table('client')->select('ruc', 'razonSocial','representanteLegal','email')->where('id', $client_id)->get();
 
@@ -56,7 +57,7 @@ class FormularioController extends Controller{
 
         $sumInspection_x = DB::table('inspecciones')->select('respuesta')->where(['client_id' => $client_id,'tipo' => 'X'])->get()->sum('respuesta');
         $sumInspection_y = DB::table('inspecciones')->select('respuesta')->where(['client_id' => $client_id,'tipo' => 'Y'])->get()->sum('respuesta');
-        $valor_p = ((5 * $sumInspection_x)/129) + ((5*$sumInspection_y)/26) + $valorBCI;
+        $valor_p = ((5 * $sumInspection_x)/129) + ((5*$sumInspection_y)/26) + $valorBCI + $valorSIE ;
 
         //valores de la tabla para el calculo
         if ($valor_p < 3) {

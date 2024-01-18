@@ -102,7 +102,7 @@
         <p class="cabeza__title"><b>Tipo Reporte: </b> &nbsp;CIERRE DE CAJA DIARIO</p>
 
         <center>
-            <h5>PAGOS TOTALES</h5>
+            <h5>PAGOS PERMISOS</h5>
         </center>
         <table>
             <tr>
@@ -146,7 +146,7 @@
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
                     <td>{{ $item->formaspago }}</td>
-                    <td>{{ $item->numTituloAdmin }}</td>
+                    <td></td>
                     <td>{{ $item->tipos_pago }}</td>
                     <td>${{ round($item->valor - 2, 2) }}</td>
                     <td>${{ $item->recargo }}</td>
@@ -265,6 +265,7 @@
                 <th>CI - RUC</th>
                 <th>RAZÓN SOCIAL</th>
                 <th>FORMA PAGO</th>
+                <th>N° T. CRED.</th>
                 <th>TIPO DE PAGO</th>
                 <th>VALOR</th>
                 <th>T. ADMIN</th>
@@ -291,6 +292,7 @@
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
                     <td>{{ $item->tipos_pago }}</td>
+                    <td>{{ $item->numTituloAdmin }}</td>
                     <td>OTROS COBROS</td>
                     <td>${{ round($item->valor,2) }}</td>
                     <td>$1.00</td>
@@ -302,6 +304,7 @@
             @empty
             @endforelse
             <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -323,7 +326,7 @@
 
 
         <center>
-            <h5>ESPECIES PARA SOLICITUD</h5>
+            <h5>ESPECIES EMITIDAS</h5>
         </center>
         <table>
             <tr>

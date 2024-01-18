@@ -30,21 +30,28 @@
                             <div class="well" style="overflow: auto">
                                 <div class="col-md-4">
                                     Rango de Fechas
-                                    <form class="" method="GET" action="/reportePorFechasEspecies" target="_blank" >
-                                        <fieldset>
-                                            <div class="control-group ">
-                                                <div class="controls">
-                                                    <div class="input-prepend input-group">
-                                                        <span class="add-on input-group-addon"><i
-                                                                class="fa fa-calendar"></i></span>
-                                                        <input type="text" style="width: 200px" name="reservation"
-                                                            id="reservation" class="form-control" value="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-info">GENERAR</button>
-                                        </fieldset>
-                                    </form>
+                                    <form class="" method="GET" action="/reportePorFechasEspecies" target="_blank">
+    <fieldset>
+        <div class="control-group">
+            <div class="controls">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="" />
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="tipoTransaccion">Tipo de Transacción:</label>
+            <select name="tipoTransaccion" id="tipoTransaccion" class="form-control">
+                <option value="1">Pagadas</option>
+                <option value="0">Anuladas</option>
+            </select>
+        </div>
+        <br><br>
+        <button class="btn btn-info">GENERAR</button>
+    </fieldset>
+</form>
+
                                 </div>
                             </div>
                         </div>

@@ -109,7 +109,7 @@
    
    
         <center>
-            <h5>TITULOS ADMINISTRATIVOS</h5>
+            <h5>REPORTE TÍTULOS DE CRÉDITO EMITIDOS  (SERVICIOS ADMINISTRATIVOS) </h5>
         </center>
         <p><label for="fechaDesde"> Desde:{{$fechas['r1']}}</label></p>
        <p> <label for="fechaDesde"> Hasta:{{$fechas['r2']}}</label></p>
@@ -233,7 +233,60 @@
         </table>
 
         <br><br>
+        <center>
+            <h5>T. ADMIN. OTROS COBROS</h5>
+        </center>
+        <table>
+            <tr>
+                <th>N°</th>
+                <th>N° T. CRED.</th>
+                <th>FECHA</th>
+              
+                <th>CI - RUC</th>
+                <th>RAZÓN SOCIAL</th>
+             
+            
+               
+                <th>T. ADMIN</th>
 
+
+            </tr>
+
+          
+            {{ $total_cobros = 0 }}
+            {{ $x = 1 }}
+
+            @forelse($cobros as $item)
+           
+                {{ $total_cobros = $total_cobros + 1 }}
+            
+                <tr>
+                    <td>{{ $x++ }}</td>
+                    <td>{{ $item->numTituloAdmin }}</td>
+                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
+                   
+                   
+                    <td>{{ $item->ruc }}</td>
+                    <td>{{ $item->razonSocial }}</td>
+                    
+                   
+                    <td>${{ 1 }}</td>
+
+                </tr>
+            @empty
+            @endforelse
+
+            <tr>
+                
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td> <strong>TOTALES</strong></td>
+          
+                <td><strong>${{ round($total_cobros, 2) }}</strong></td>
+            </tr>
+        </table>
 
 
     <br>
@@ -245,7 +298,7 @@
             style="color: #ffffff">______________________________________________________________________________________________
             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         </span></th>
-        <b>TOTAL RECAUDADO</b>: $ {{ $total_admin_or+$total_admin }}
+        <b>TOTAL RECAUDADO</b>: $ {{ $total_admin_or+$total_admin +$total_cobros}}
     </div>
 
 

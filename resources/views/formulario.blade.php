@@ -582,7 +582,7 @@
                                 </div>
 
                                 <div class="table-responsive">
-                                    <h2 style="color: #ca1404">BCI</h2>
+                                    <h2 style="color: #ca1404">BRIGADA CONTRA INCENDIOS</h2>
                                     
                                     <div class="form-group row">
                                         <label class="control-label col-md-2 col-sm-2 ">SELECCIONAR VALOR</label>
@@ -592,6 +592,20 @@
         </label>
         <label> &nbsp;&nbsp;NO &nbsp;&nbsp;&nbsp;&nbsp;
             <input type="radio" class="radio-input" name="respuesta_bci" value="0" required/>   
+        </label>
+                                        </div>
+                                    </div>
+
+                                    <h2 style="color: #ca1404">SISTEMAS ELECTRICOS EN BUEN ESTADO</h2>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2 col-sm-2 ">SELECCIONAR VALOR</label>
+                                        <div class="col-md-6 col-sm-6">
+                                        <label> SI &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" class="radio-input" name="respuesta_electrico" value="1" required/>   
+        </label>
+        <label> &nbsp;&nbsp;NO &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" class="radio-input" name="respuesta_electrico" value="0" required/>   
         </label>
                                         </div>
                                     </div>

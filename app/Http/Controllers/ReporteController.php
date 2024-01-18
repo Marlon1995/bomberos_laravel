@@ -93,6 +93,7 @@ class ReporteController extends Controller
                 'year_now',
                 'porcenjatetasa',
                 'representanteLegal',
+                'numTituloAdmin',
                 'descripcion',
                 'otros_cobros.created_at')
            ->where('otros_cobros.created_at','like', date("Y-m-d").'%' )
@@ -246,6 +247,7 @@ class ReporteController extends Controller
     public function reportePorFechasEspecies( Request $request ){
 
         $fechas = $request->input('reservation');
+        $estado = $request->input('tipoTransaccion');
         $fecha1 = substr($fechas, 0, -13);
         $fecha2 = substr($fechas, 13);
 
@@ -259,7 +261,7 @@ class ReporteController extends Controller
 
 
 
-    $especie = Especies::where('estado','=','1')
+    $especie = Especies::where('estado','=',$estado)
         //->where('created_at','like', date("Y-m-d").'%' )
         ->whereBetween(DB::raw('DATE(created_at)'),[ $fecha1_c, $fecha2_c])
 
@@ -341,13 +343,32 @@ class ReporteController extends Controller
         ->orderBy('pagos_ordenanza.created_at', 'desc')
         ->get();
 
+        $cobros= DB::table('otros_cobros')
+        ->leftJoin('formaspago','formaspago.id','otros_cobros.formaPago_id')
+        ->select('ruc',
+            'razonSocial',
+            'direccion',
+            'telefono',
+            
+            'formaspago.nombre as tipos_pago',
+            'valor',
+            'otros_cobros.id' ,
+            'year_now',
+            'porcenjatetasa',
+            'representanteLegal',
+            'numTituloAdmin',
+            'descripcion',
+            'otros_cobros.created_at')
+       ->where('otros_cobros.created_at','like', date("Y-m-d").'%' )
+        ->where('otros_cobros.estado','=',8)
 
+        ->get();
    
 
     $doc = "";
     $pdf = PDF::loadView('report/reporteTitulos' , [
                                                 "fechas" => $rangos,
-                                           
+                                                "cobros"=>$cobros,
                                                 "reporte" => $reporte,
                                                 "reporte_ordenanzas" => $reporte_ordenanzas
                                                 
@@ -384,6 +405,7 @@ class ReporteController extends Controller
            'otros_pagos.year_now',
            'otros_pagos.numPermisoFuncionamiento',
            'otros_pagos.numTransaccion',
+           'otros_pagos.numTituloAdmin',
            'valor','otros_pagos.recargo',
             'otros_pagos.created_at')
         ->whereNotIn('tipos_pago.id', [2])
@@ -411,6 +433,7 @@ class ReporteController extends Controller
            'pagos_ordenanza.numPermisoFuncionamiento',
            'pagos_ordenanza.numTransaccion',
            'valor','pagos_ordenanza.recargo',
+           'pagos_ordenanza.numTituloAdmin',
             'pagos_ordenanza.created_at')
         ->whereNotIn('tipos_pago.id', [2])
         ->where('pagos_ordenanza.estado','=', 8)
@@ -432,6 +455,7 @@ class ReporteController extends Controller
             'otros_cobros.id' ,
             'year_now',
             'porcenjatetasa',
+            'numTituloAdmin',
             'representanteLegal',
             'descripcion',
             'otros_cobros.created_at')
