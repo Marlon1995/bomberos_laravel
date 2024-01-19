@@ -213,6 +213,7 @@ class FormularioController extends Controller{
             ->select('requerimientos.*','inspecciones.*' )
             ->where('inspecciones.client_id',$id)
             ->get();
+            
 
         $inspecciones_sec = DB::table('inspecciones_sec')
             ->select('inspecciones_sec.*')
@@ -269,6 +270,8 @@ class FormularioController extends Controller{
     public function update(Request $request, $id) {
         $longitud =  $request->input('count');
         $valorBCI = $request->input('respuesta_bci');
+        $valorBCI = $request->input('respuesta_bci');
+        $valorSIE = $request->input('respuesta_electrico');
 
         for ($i=1; $i <= 18; $i++){
              DB::table('inspecciones')->where(['client_id' => $id,'requerimiento_id' => $i])->update([
@@ -284,22 +287,22 @@ class FormularioController extends Controller{
 
        $sumInspection_x = DB::table('inspecciones')->select('respuesta')->where(['client_id' => $id,'tipo' => 'X'])->get()->sum('respuesta');
        $sumInspection_y = DB::table('inspecciones')->select('respuesta')->where(['client_id' => $id,'tipo' => 'Y'])->get()->sum('respuesta');
-       $valor_p = ((5 * $sumInspection_x)/129) + ((5*$sumInspection_y)/26) + $valorBCI;
+       $valor_p = ((5 * $sumInspection_x)/129) + ((5*$sumInspection_y)/26) + $valorBCI+  $valorSIE;
 
        //valores de la tabla para el calculo
        if ($valor_p < 3) {
-           $valor_descripcion = 'Alto 30% - SBU';
-           $valor_riesgo = (float) 127.50;
-       } else if ($valor_p > 3 && $valor_p < 5) {
-           $valor_descripcion = 'Alto 30% - SBU';
-           $valor_riesgo = (float) 127.50;
-       } else if ($valor_p > 5 && $valor_p < 8) {
-           $valor_descripcion = 'Medio 20% - SBU';
-           $valor_riesgo = (float) 85;
-       } else {
-           $valor_descripcion = 'Leve 10% - SBU';
-           $valor_riesgo = (float) 42.50;
-       }
+        $valor_descripcion = 'Alto 15% - SBU';
+        $valor_riesgo = (float) 69;
+    } else if ($valor_p > 3 && $valor_p < 5) {
+        $valor_descripcion = 'Alto 15% - SBU';
+        $valor_riesgo = (float) 69;
+    } else if ($valor_p > 5 && $valor_p < 8) {
+        $valor_descripcion = 'Medio 10% - SBU';
+        $valor_riesgo = (float) 46;
+    } else {
+        $valor_descripcion = 'Leve 5% - SBU';
+        $valor_riesgo = (float) 23;
+    }
 
        $tipoInstalacion_id = $request->input('tipoInstalacion');
        $cantidad_m2 = (float) $request->input('cantidad_m2');

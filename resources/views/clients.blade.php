@@ -401,7 +401,7 @@
                                     <label class="control-label col-md-4 col-sm-4 ">NOMBRE PROPIETARIO</label>
                                     <div class="col-md-8 col-sm-8 ">
                                         <input type="text" name="representanteLegal" id="representanteLegal"
-                                             class="form-control col-md-11"
+                                             class="fotipoPropietarioactividadrm-control col-md-11"
                                             required>
                                     </div>
                                 </div>
@@ -510,7 +510,7 @@
         <div class="modal-dialog" style="max-width: 90%!important;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> <i class="fa fa-pencil"></i> MODIFICAR INFORMACI&Oacute;N DE USUARIOS
+                    <h5 class="modal-title"> <i class="fa fa-pencil"></i> MODIFICAR INFORMACIÓN DE USUARIOS
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -560,7 +560,7 @@
 
                                 <!--INFORMACIÓN GENERAL-->
                                 <div class="x_title cb-subTitle">INFORMACI&Oacute;N GENERAL</div>
-                                div class="form-group row">
+                               <div class="form-group row">
                                     <label class="control-label col-md-4 col-sm-4 ">RUC</label>
                                     <div class="col-md-6 col-sm-6 ">
                                         <input type="text" name="ruc_md" id="ruc_md"
@@ -579,7 +579,7 @@
                                 <div class="form-group row">
                                     <label class="control-label col-md-4 col-sm-4 ">NOMBRE PROPIETARIO</label>
                                     <div class="col-md-8 col-sm-8 ">
-                                        <input type="text" name="representanteLegal" id="representanteLegal"
+                                        <input type="text" name="representanteLegal_md" id="representanteLegal_md"
                                              class="form-control col-md-11"
                                             required>
                                     </div>
@@ -630,9 +630,9 @@
                                     </div>
                                     </div>
                                     <div class="form-group row">
-                                <label class="control-label col-md-2 col-sm-2">AÑO</label>
+                                <label class="control-label col-md-2 col-sm-2">CATEGORÍA</label>
                                     <div class="col-md-4 col-sm-4">
-                                        <select class="form-control" name="categoria" id="categoria_md">
+                                        <select class="form-control" name="categoria" id="categoria">
                                             @forelse ($categoria as $item)
                                                 <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
                                             @empty
@@ -641,9 +641,12 @@
                                     </div>
                                     </div>
                                <div class="form-group row">
-                                    <label class="control-label col-md-2 col-sm-2 "></label>
+                                    <label class="control-label col-md-2 col-sm-2 ">DENOMINACIÓN</label>
                                     <div class="col-md-6 col-sm-6 ">
-                                        <select class="form-control" name="actividad" id="actividad_md"></select>
+                                        <select class="form-control" name="actividad" id="actividad">
+                                        <option value=""></option>
+                                        </select>
+
                                     </div>
                                 </div> 
                               
@@ -853,27 +856,6 @@
    
 
 
-
-            var combo_actividad = $("select[id=categoria]").val();
-            var endpoint = 'denomincacniones/' + combo_actividad;
-            $.ajax({
-                async: false,
-                type: "GET",
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded",
-                url: endpoint,
-                success: function(datos) {
-                    $("#actividad").empty();
-                    for (var i = 0; i < datos.length; i++) {
-                        $("#actividad").append('<option value="' + datos[i]['id'] + '">' + datos[i][
-                            'descripcion'
-                        ] + ' </option>');
-                        $("_#actividadmd").append('<option value="' + datos[i]['id'] + '" >' + datos[i][
-                            'descripcion'
-                        ] + ' </option>');
-                    }
-                }
-            });
       
         
 
@@ -882,6 +864,7 @@
 
         $("#categoria_md").change(function() {
             var combo_actividad = $("select[id=categoria_md]").val();
+
             var endpoint = 'denomincacniones/' + combo_actividad;
             $.ajax({
                 async: false,
@@ -900,6 +883,7 @@
         });
         $("#categoria").change(function() {
             var combo_actividad = $("select[id=categoria]").val();
+            
             var endpoint = 'denomincacniones/' + combo_actividad;
             $.ajax({
                 async: false,
@@ -997,6 +981,7 @@
     
 
         $(".mdlModificaEmpleado").click(function() {
+          
             var valorID = $(this).attr("data-idmodCli");
             var endpoint = 'resumenInfoCliente/' + valorID;
             $("#clietn_id").val(valorID);
@@ -1016,29 +1001,18 @@
                     $("#barrio_mod").val(datos[0].barrio);
                     $("#referencia_md").val(datos[0].referencia);
                     $("#telefono_md").val(datos[0].telefono);
+                   
+
+                    $('#categoria option[value="' + datos[0].categoria_id + '"]').text(datos[0].nombre_categoria).attr('selected',true)
+                
+
+                    $('#actividad option[value="' + datos[0].denominacion_id + '"]').text(datos[0].nombre_denominacion).attr('selected',true)
 
 
-                    var endpoint = 'denomincacniones/' + datos[0].categoria_id;
-                    $.ajax({
-                        async: false,
-                        type: "GET",
-                        dataType: "json",
-                        contentType: "application/x-www-form-urlencoded",
-                        url: endpoint,
-                        success: function(datos) {
-                            $("#actividad").empty();
-                            for (var i = 0; i < datos.length; i++) {
-                                $("#actividad_md").append('<option value="' + datos[i][
-                                        'id'
-                                    ] + '">' + datos[i]['descripcion'] +
-                                    ' </option>');
-                            }
-                        }
-                    });
-                    $('#categoria_md option[value="' + datos[0].categoria_id + '"]').attr('selected',
-                        true)
-                    $('#actividad_md option[value="' + datos[0].denominacion_id + '"]').attr('selected',
-                        true)
+                  //  $('#actividad option[value="' + datos[0].denominacion_id + '"]').attr('selected',true)
+                    //alert($("#categoria").val());
+                
+                   
 
                 }
             });

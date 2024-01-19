@@ -36,10 +36,14 @@ class DataController extends Controller
     }
 
     public function resumenInfoCliente($id){
-        $cliente  = DB::table('client')
-            ->select('*')
-            ->where('id','=',$id)
-            ->get();
+        $cliente  =   DB::table('client')
+    ->select('client.*', 'categorias.descripcion as nombre_categoria', 'denominaciones.descripcion as nombre_denominacion')
+    ->join('categorias', 'client.categoria_id', '=', 'categorias.id')
+    ->join('denominaciones', 'client.denominacion_id', '=', 'denominaciones.id')
+    ->where('client.id', '=', $id)
+    ->get();
+
+        
 
         return json_encode($cliente);
     }

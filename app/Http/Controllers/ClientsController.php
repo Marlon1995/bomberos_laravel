@@ -286,12 +286,13 @@ class ClientsController extends Controller {
         }else
 
         if( $caso =='update_info'){
+          
             DB::table('client')
                 ->where('id', (int) $request->input('clietn_id'))
                 ->update([
                     'tipoFormulario'    => $request->input('tipoInspecion'),
-                    'razonSocial'       => $request->input('razonSocial'),
-                    'representanteLegal'=> $request->input('representanteLegal'),
+                    'razonSocial'       => $request->input('razonSocial_md'),
+                    'representanteLegal'=> $request->input('representanteLegal_md'),
                     'parroquia_id'      => $request->input('parroquia'),
                     'barrio'            => $request->input('barrio'),
                     'telefono'          => $request->input('telefono'),
@@ -300,6 +301,7 @@ class ClientsController extends Controller {
                     'denominacion_id'   => (int) $request->input('actividad'),
                     'updated_at'        => Carbon::now()
                 ]);
+               
 
                     $auditoria = new AuditoriaModel();
                     $auditoria->user_id = auth()->user()->id;

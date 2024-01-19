@@ -640,9 +640,10 @@
                                                style="width:100%">
                                             <thead>
                                                 <tr class="headings" style="text-align:center;">
-                                                    <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
+                                                    <th class="column-title cb-header-register__tbConcepto" style="width:40%;">CONCEPTO</th>
                                                     <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">SV</th>
                                                     <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">CV</th>
+                                                    <th class="column-title cb-header-register__tbCoeficiente" style="width:25%;">NC</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -663,6 +664,13 @@
                                                             @else
                                                             <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos_01}}" 
                                                                        value="{{$item->puntos_01}}" class="flat" required/>&nbsp;&nbsp;<label for="{{$item->puntos_01}}">{{$item->puntos_01}}</label></td>
+                                                            @endif
+                                                            @if ($item->respuesta == 0 )
+                                                            <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}"
+                                                                       value="0" class="flat" required checked/>&nbsp;&nbsp;<label for="0">{{$item->respuesta}}</label></td>
+                                                            @else
+                                                            <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
+                                                                       value="0" class="flat" required/>&nbsp;&nbsp;<label for="0">0</label></td>
                                                             @endif
                                                         </tr>
                                                     @endif
@@ -783,15 +791,6 @@
                                                     class="imgFotoLocal">
                                             @endif
 
-                                            @if (!empty($fotosLocal[4]->path))
-                                                Foto 5 <img src="/imgFormularios/{{ $fotosLocal[4]->path }}"
-                                                    class="imgFotoLocal">
-                                            @endif
-
-                                            @if (!empty($fotosLocal[5]->path))
-                                                Foto 6 <img src="/imgFormularios/{{ $fotosLocal[5]->path }}"
-                                                    class="imgFotoLocal">
-                                            @endif
 
                                         </div>
 
@@ -826,20 +825,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="item form-group">
-                                        <label for="password" class="col-form-label col-md-3 label-align">Foto 5</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input type="file" name="foto5" class="form-control">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="item form-group">
-                                        <label for="password" class="col-form-label col-md-3 label-align">Foto 6</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input type="file" name="foto6" class="form-control">
-                                        </div>
-                                    </div>
+                                 
 
 
 
