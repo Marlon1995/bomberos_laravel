@@ -148,11 +148,11 @@
                     <td>{{ $item->formaspago }}</td>
                     <td></td>
                     <td>{{ $item->tipos_pago }}</td>
-                    <td>${{ round($item->valor+1, 2) }}</td>
+                    <td>${{ round($item->valor, 2) }}</td>
                     <td>${{ $item->recargo }}</td>
                     <td>${{ 2 }}</td>
                     <td>${{ 1 }}</td>
-                    <td>${{ round($item->valor + $item->recargo+$total_admin, 2) }}</td>
+                    <td>${{ round($item->valor + $item->recargo+2+1, 2) }}</td>
 
                 </tr>
             @empty
