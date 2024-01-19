@@ -300,8 +300,8 @@
                                     <li><a href="/report-date" > <i class="fa fa-file-pdf-o"></i> REPORTE POR FECHAS</a></li>
                                     
                                     <li><a href="/reporte4" target="_blank"> <i class="fa fa-file-pdf-o"></i>  NO EMITIDOS</a></li>
-                                    <li><a href="/report-date-especies" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE ESPECIES</a></li>
-
+                                    <li><a href="/report-date-especies" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE ESPECIES EXONERACIÓN</a></li>
+                                    <li><a href="/report-date-emitidas" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE ESPECIES EMITIDAS</a></li>
                                     <li><a href="/report-date-titulos" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE TITULOS</a></li>
 
                                      

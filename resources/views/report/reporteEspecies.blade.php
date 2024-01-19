@@ -109,58 +109,182 @@
    
    
         <center>
-            <h5>REPORTE DE ESPECIES EXONERACIÓN</h5>
+            <h5>REPORTE DE ESPECIES </h5>
         </center>
         <p><label for="fechaDesde"> Desde:{{$fechas['r1']}}</label></p>
        <p> <label for="fechaDesde"> Hasta:{{$fechas['r2']}}</label></p>
+       
+       
+       <center>
+            <h5>T. ESPECIE PAGOS TOTALES</h5>
+        </center>
         <table>
             <tr>
                 <th>N°</th>
+                <th>N° ESPECIE</th>
+                
                 <th>FECHA</th>
+               
                 <th>CI - RUC</th>
                 <th>RAZÓN SOCIAL</th>
-                <tH>PROPIETARIO O REPRESENTANTE</tH>
-                <th>#ESPECIE</th>
-                <th>CANTIDAD</th>
-                <th>VALOR</th>
-                <th>TOTAL</th>
+               
+               
+               
+                <th>T. ESPECIE</th>
+
+
 
             </tr>
 
-            {{ $totalEspecies = 0 }}
-            {{ $total_cantidad = 0 }}
-            {{ $total_vespecie = 0 }}
-            {{ $z = 1 }}
-            @forelse($especie as $item)
+            {{ $total_pago = 0 }}
+            {{ $total_vpagos = 0 }}
+            {{ $total_especie = 0 }}
+            {{ $total_recargo = 0 }}
+            {{ $total_admin = 0 }}
+            {{ $x = 1 }}
+
+            @forelse($reporte as $item)
+                {{ $total_pago = $total_pago + $item->valor }}
+                {{ $total_vpagos = $total_vpagos + $item->valor  }}
+                {{ $total_especie = $total_especie + 2 }}
+                {{ $total_admin = $total_admin + 2 }}
+                {{ $total_recargo = $total_recargo + $item->recargo  }}
                 <tr>
-                    {{ $totalEspecies = $totalEspecies + $item->cantidad * $item->valor }}
-                    {{ $total_cantidad = $total_cantidad + $item->cantidad }}
-                    {{ $total_vespecie = $total_vespecie + $item->valor }}
-                    <td>{{ $z++ }}</td>
+                    <td>{{ $x++ }}</td>
+                    <td>{{ $item->numTransaccion }}</td>
                     <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
-                    <td>{{ $item->representanteLegal }}</td>
-                    <td>{{ $item->especie }}</td>
-                    <td>{{ $item->cantidad }}</td>
-                    <td>${{ $item->valor }}</td>
-                    <td>${{ round($item->cantidad * $item->valor, 2) }}</td>
-
+                   
+                    <td>${{ 2 }}</td>
 
                 </tr>
             @empty
             @endforelse
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><strong>TOTALES</strong></td>
-                <td><strong>${{ round($total_cantidad, 2) }}</strong></td>
-                <td><strong>${{ round($total_vespecie, 2) }}</strong></td>
-                <td><strong>${{ $totalEspecies }}</strong></td>
 
+            <tr>
+              
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+                <td> <strong>TOTALES</strong></td>
+              
+                <td><strong>${{ round($total_admin, 2) }}</strong></td>
+
+            </tr>
+        </table>
+
+        <br><br>
+        <center>
+            <h5>T. ESPECIE ORDENANZAS</h5>
+        </center>
+        <table>
+            <tr>
+                <th>N°</th>
+                <th>N° ESPECIE</th>
+                <th>FECHA</th>
+              
+                <th>CI - RUC</th>
+                <th>RAZÓN SOCIAL</th>
+             
+            
+               
+                <th>T. ESPECIE</th>
+
+
+            </tr>
+
+          
+            {{ $total_admin_or = 0 }}
+            {{ $x = 1 }}
+
+            @forelse($reporte_ordenanzas as $item)
+           
+                {{ $total_admin_or = $total_admin_or + 2 }}
+            
+                <tr>
+                    <td>{{ $x++ }}</td>
+                    <td>{{ $item->numTransaccion }}</td>
+                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
+                   
+                   
+                    <td>{{ $item->ruc }}</td>
+                    <td>{{ $item->razonSocial }}</td>
+                    
+                   
+                    <td>${{ 2 }}</td>
+
+                </tr>
+            @empty
+            @endforelse
+
+            <tr>
+                
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td> <strong>TOTALES</strong></td>
+          
+                <td><strong>${{ round($total_admin_or, 2) }}</strong></td>
+            </tr>
+        </table>
+
+        <br><br>
+        <center>
+            <h5>T. ESPECIE OTROS COBROS EXONERACIÓN</h5>
+        </center>
+        <table>
+            <tr>
+                <th>N°</th>
+                <th>N° ESPECIE</th>
+                <th>FECHA</th>
+              
+                <th>CI - RUC</th>
+                <th>RAZÓN SOCIAL</th>
+             
+            
+               
+                <th>T. ESPECIE</th>
+
+
+            </tr>
+
+          
+            {{ $total_cobros = 0 }}
+            {{ $x = 1 }}
+
+            @forelse($cobros as $item)
+           
+                {{ $total_cobros = $total_cobros + 2 }}
+            
+                <tr>
+                    <td>{{ $x++ }}</td>
+                    <td>{{ $item->especie }}</td>
+                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
+                   
+                   
+                    <td>{{ $item->ruc }}</td>
+                    <td>{{ $item->razonSocial }}</td>
+                    
+                   
+                    <td>${{ 2 }}</td>
+
+                </tr>
+            @empty
+            @endforelse
+
+            <tr>
+                
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td> <strong>TOTALES</strong></td>
+          
+                <td><strong>${{ round($total_cobros, 2) }}</strong></td>
             </tr>
         </table>
 
@@ -174,7 +298,7 @@
             style="color: #ffffff">______________________________________________________________________________________________
             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         </span></th>
-        <b>TOTAL RECAUDADO</b>: $ {{ $totalEspecies }}
+        <b>TOTAL RECAUDADO</b>: $ {{ $total_admin_or+$total_admin +$total_cobros}}
     </div>
 
 

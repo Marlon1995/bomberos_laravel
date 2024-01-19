@@ -243,6 +243,12 @@ class ReporteController extends Controller
 
     }
 
+    public function reporte10(){
+        $data = System::all();
+        return view('report/reporteporfechaEspecies'  ,compact('data') );
+
+    }
+
 
     public function reportePorFechasEspecies( Request $request ){
 
@@ -272,6 +278,93 @@ class ReporteController extends Controller
                                                 "fechas" => $rangos,
                                                
                                                 "especie" => $especie
+                                            ])->setPaper('A4');
+    return $pdf->stream($doc . '.pdf');
+
+    }
+
+    public function reportePorFechasEspeciesEmitidas( Request $request ){
+
+        $fechas = $request->input('reservation');
+        $fecha1 = substr($fechas, 0, -13);
+        $fecha2 = substr($fechas, 13);
+
+        $fecha1_c = date('Y-m-d', strtotime($fecha1));
+        $fecha2_c = date('Y-m-d', strtotime($fecha2));
+        $rangos = array(
+            "r1" => $fecha1_c,
+            "r2" => $fecha2_c
+        );
+
+        $reporte = DB::table('otros_pagos')
+        ->join('client', 'client.id', 'otros_pagos.client_id')
+        ->join('tipos_pago', function ($join) {
+            $join->on('tipos_pago.id', 'otros_pagos.tipoPago')
+                ->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+        })
+        ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
+        ->select(   'ruc',
+            'razonSocial',
+            'formaspago.nombre as formaspago',
+            'tipos_pago.nombre as tipos_pago',
+            'valor',
+           'otros_pagos.year_now',
+           'otros_pagos.numPermisoFuncionamiento',
+           'otros_pagos.numTransaccion',
+           'otros_pagos.numTituloAdmin',
+           'valor','otros_pagos.recargo',
+            'otros_pagos.created_at')
+        ->whereNotIn('tipos_pago.id', [2])
+        ->where('otros_pagos.estado','=', 8)
+        ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
+
+       // ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
+        ->orderBy('otros_pagos.created_at', 'desc')
+        ->get();
+      
+
+        $reporte_ordenanzas = DB::table('pagos_ordenanza')
+        ->join('client', 'client.id', 'pagos_ordenanza.client_id')
+        ->join('tipos_pago', function ($join) {
+            $join->on('tipos_pago.id', 'pagos_ordenanza.tipoPago')
+                ->where('tipos_pago.nombre', '<>', 'PAGO TOTAL');
+        })
+        ->leftJoin('formaspago', 'formaspago.id', 'pagos_ordenanza.formaPago_id')
+        ->select(   'ruc',
+            'razonSocial',
+            'formaspago.nombre as formaspago',
+            'tipos_pago.nombre as tipos_pago',
+            'valor',
+           'pagos_ordenanza.year_now',
+           'pagos_ordenanza.numPermisoFuncionamiento',
+           'pagos_ordenanza.numTransaccion',
+           'pagos_ordenanza.numTituloAdmin',
+           'valor','pagos_ordenanza.recargo',
+            'pagos_ordenanza.created_at')
+        ->whereNotIn('tipos_pago.id', [2])
+        ->where('pagos_ordenanza.estado','=', 8)
+        //->where('pagos_ordenanza.created_at','like', date("Y-m-d").'%' )
+        ->whereBetween(DB::raw('DATE(pagos_ordenanza.created_at)'),[ $fecha1_c, $fecha2_c])
+
+        ->orderBy('pagos_ordenanza.created_at', 'desc')
+        ->get();
+
+        $cobros=  Especies::where('estado','=','1')
+        //->where('created_at','like', date("Y-m-d").'%' )
+        ->whereBetween(DB::raw('DATE(created_at)'),[ $fecha1_c, $fecha2_c])
+
+        ->get();
+
+      
+   
+
+    $doc = "";
+    $pdf = PDF::loadView('report/reporteEspecies' , [
+                                                "fechas" => $rangos,
+                                                "cobros"=>$cobros,
+                                                "reporte" => $reporte,
+                                                "reporte_ordenanzas" => $reporte_ordenanzas
+                                                
                                             ])->setPaper('A4');
     return $pdf->stream($doc . '.pdf');
 
