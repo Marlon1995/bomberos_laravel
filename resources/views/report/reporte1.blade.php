@@ -173,7 +173,7 @@
                 <td><strong>${{ round($total_recargo, 4) }}</strong></td>
                 <td><strong>${{ round($total_especie, 2) }}</strong></td>
                 <td><strong>${{ round($total_admin, 2) }}</strong></td>
-                <td><strong>${{ round($total_pago + $total_recargo+$total_admin, 2) }}</strong></td>
+                <td><strong>${{ round($total_pago + $total_recargo+$total_admin+$total_especie, 2) }}</strong></td>
 
             </tr>
         </table>
