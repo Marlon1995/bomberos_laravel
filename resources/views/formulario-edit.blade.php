@@ -697,8 +697,9 @@
                                         </table>
                                     </div>
 
+
                                     <div class="table-responsive">
-                                        <h2 style="color: #ca1404">BCI</h2>
+                                        <h2 style="color: #ca1404">BRIGADA CONTRA INCENDIOS</h2>
                                         
                                         <div class="form-group row">
                                             <label class="control-label col-md-2 col-sm-2 ">SELECCIONAR VALOR</label>
@@ -713,6 +714,25 @@
                                                 <label>NO</label><input type="radio" class="flat" name="respuesta_bci" value="0" required checked/>
                                                 @else
                                                 <label>NO</label><input type="radio" class="flat" name="respuesta_bci" value="0" required/>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <h2 style="color: #ca1404">SISTEMAS ELECTRICOS EN BUEN ESTADO</h2>
+                                        
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-2 col-sm-2 ">SELECCIONAR VALOR</label>
+                                            <div class="col-md-3 col-sm-3">
+                                                @if($inspecciones_sec[0]->valor_sis == 1)
+                                                <label>SI</label><input type="radio" class="flat" name="respuesta_electrico" value="1" required checked/>
+                                                @else
+                                                <label>SI</label><input type="radio" class="flat" name="respuesta_electrico" value="1" required/>
+                                                @endif
+
+                                                @if($inspecciones_sec[0]->valor_sis == 0)
+                                                <label>NO</label><input type="radio" class="flat" name="respuesta_electrico" value="0" required checked/>
+                                                @else
+                                                <label>NO</label><input type="radio" class="flat" name="respuesta_electrico" value="0" required/>
                                                 @endif
                                             </div>
                                         </div>

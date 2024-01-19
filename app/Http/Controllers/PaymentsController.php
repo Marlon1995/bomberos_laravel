@@ -259,7 +259,7 @@ class PaymentsController extends Controller
                     $send->tipoPago = 3;
                     $send->year_now = $anio;
                     $send->recargo= $recargo;
-                    $send->valor = ($valor__tbPagos + 2);
+                    $send->valor = ($valor__tbPagos );
                     $send->numPermisoFuncionamiento = $numPermisoFuncionamiento;
                     $send->numTituloAdmin = $numTituloAdmin;
                 

@@ -210,7 +210,8 @@
         </p>
         <p class="rep_perfil_input">RIESGO: <span> {{ $inspecciones_sec[0]->riesgo }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             OBSERVACIÓN: <span>{{ empty($inspecciones_sec[0]->observacion) ? ' --' : $inspecciones_sec[0]->observacion }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            BCI: <span>{{ $inspecciones_sec[0]->valor_bci == 1 ? 'SI' : 'NO' }}</span></p>
+            BCI: <span>{{ $inspecciones_sec[0]->valor_bci == 1 ? 'SI' : 'NO' }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            SISTEMAS ELETRICOS: <span>{{ $inspecciones_sec[0]->valor_bci == 1 ? 'SI' : 'NO' }}</span></p>
     </div>
 
     <div class="rep_caja_roja">

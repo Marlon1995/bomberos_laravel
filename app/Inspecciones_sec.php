@@ -8,6 +8,6 @@ class Inspecciones_sec extends Model
 {
     protected $table = 'inspecciones_sec';
     protected $fillable = [
-        'client_id', 'valor_bci', 'observacion', 'riesgo'
+        'client_id', 'valor_bci', 'observacion', 'riesgo','valor_sis'
     ];
 }

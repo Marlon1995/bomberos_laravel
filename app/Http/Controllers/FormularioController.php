@@ -62,6 +62,7 @@ class FormularioController extends Controller{
         //valores de la tabla para el calculo
         if ($valor_p < 3) {
             $valor_descripcion = 'Alto 15% - SBU';
+            
             $valor_riesgo = (float) 69;
         } else if ($valor_p > 3 && $valor_p < 5) {
             $valor_descripcion = 'Alto 15% - SBU';
@@ -90,6 +91,7 @@ class FormularioController extends Controller{
         $valorInspeccionesSec = new Inspecciones_sec();
         $valorInspeccionesSec->client_id = $client_id;
         $valorInspeccionesSec->valor_bci = $valorBCI;
+        $valorInspeccionesSec->valor_sis = $valorSIE;
         $valorInspeccionesSec->observacion = $request->input('observacion_formulario');
         $valorInspeccionesSec->riesgo = $valor_descripcion;
         $valorInspeccionesSec->tipoInstalacion_id = $tipoInstalacion_id;

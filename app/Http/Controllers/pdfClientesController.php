@@ -62,7 +62,7 @@ class pdfClientesController extends Controller
             ->get();
 
         $inspecciones_sec = DB::table('inspecciones_sec')
-            ->select('inspecciones_sec.riesgo','inspecciones_sec.observacion','inspecciones_sec.valor_bci')
+            ->select('inspecciones_sec.riesgo','inspecciones_sec.observacion','inspecciones_sec.valor_bci','inspecciones_sec.valor_sis')
             ->where('client_id',$id)
             ->get();
             
