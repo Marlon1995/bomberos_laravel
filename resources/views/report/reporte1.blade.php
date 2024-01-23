@@ -133,7 +133,7 @@
             {{ $x = 1 }}
 
             @forelse($reporte as $item)
-                {{ $total_pago = $total_pago + $item->valor }}
+                {{ $total_pago = 0}}
                 {{ $total_vpagos = $total_vpagos + $item->valor  }}
                 {{ $total_especie = $total_especie + 2 }}
                 {{ $total_admin = $total_admin + 1 }}
@@ -173,8 +173,8 @@
                 <td><strong>${{ round($total_recargo, 4) }}</strong></td>
                 <td><strong>${{ round($total_especie, 2) }}</strong></td>
                 <td><strong>${{ round($total_admin, 2) }}</strong></td>
-                <td><strong>${{ round($total_pago + $total_recargo+$total_admin+$total_especie, 2) }}</strong></td>
-
+                <td><strong>${{ round($total_vpagos + $total_recargo+$total_admin+$total_especie, 2) }}</strong></td>
+                {{ $total_pago=round($total_vpagos + $total_recargo+$total_admin+$total_especie, 2) }}
             </tr>
         </table>
 
@@ -283,7 +283,7 @@
                 {{ $total_votros = $total_votros + round($item->valor, 2) }}
                 {{ $total_adminotros = $total_adminotros + 1 }}
                 {{ $total_procentaje = $total_procentaje + round($item->valor * ($item->porcenjatetasa / 100), 2) }}
-                {{ $total = $total+1 + round($item->valor + $item->valor * ($item->porcenjatetasa / 100), 2) }}
+                {{ $total = $total+1 + round($item->valor +( $item->valor * ($item->porcenjatetasa / 100), 2)) }}
 
                 <tr>
                     <td>{{ $y++ }}</td>
@@ -389,7 +389,7 @@
                 style="color: #ffffff">______________________________________________________________________________________________
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             </span></th>
-            <b>TOTAL RECAUDADO</b>: $ {{ round($total_votros + $total_pago+$total_admin+$total_ordenanzas+ $totalEspecies + $total_recargo, 2) }}
+            <b>TOTAL RECAUDADO</b>: $ {{ round($total + $total_pago++$total_admin+$total_ordenanzas+ $totalEspecies + $total_recargo, 2) }}
         </div>
 
 
