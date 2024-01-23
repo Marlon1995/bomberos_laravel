@@ -146,7 +146,7 @@
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
                     <td>{{ $item->formaspago }}</td>
-                    <td></td>
+                    <td>{{ $item->numTituloAdmin }}</td>
                     <td>{{ $item->tipos_pago }}</td>
                     <td>${{ round($item->valor, 2) }}</td>
                     <td>${{ $item->recargo }}</td>

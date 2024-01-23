@@ -122,8 +122,7 @@
             <tr>
                 <th>N°</th>
                 <th>N° ESPECIE</th>
-                
-                <th>FECHA</th>
+             
                
                 <th>CI - RUC</th>
                 <th>RAZÓN SOCIAL</th>
@@ -151,8 +150,8 @@
                 {{ $total_recargo = $total_recargo + $item->recargo  }}
                 <tr>
                     <td>{{ $x++ }}</td>
-                    <td>{{ $item->numTransaccion }}</td>
-                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
+                    <td>{{ $item->numPermisoFuncionamiento }}</td>
+      
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
                    
@@ -184,7 +183,7 @@
             <tr>
                 <th>N°</th>
                 <th>N° ESPECIE</th>
-                <th>FECHA</th>
+             
               
                 <th>CI - RUC</th>
                 <th>RAZÓN SOCIAL</th>
@@ -207,7 +206,7 @@
                 <tr>
                     <td>{{ $x++ }}</td>
                     <td>{{ $item->numTransaccion }}</td>
-                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
+                
                    
                    
                     <td>{{ $item->ruc }}</td>
@@ -240,7 +239,7 @@
             <tr>
                 <th>N°</th>
                 <th>N° ESPECIE</th>
-                <th>FECHA</th>
+             
               
                 <th>CI - RUC</th>
                 <th>RAZÓN SOCIAL</th>
@@ -263,7 +262,7 @@
                 <tr>
                     <td>{{ $x++ }}</td>
                     <td>{{ $item->especie }}</td>
-                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
+                
                    
                    
                     <td>{{ $item->ruc }}</td>
@@ -278,7 +277,7 @@
 
             <tr>
                 
-                <td></td>
+                
                 <td></td>
                 <td></td>
                 <td></td>
