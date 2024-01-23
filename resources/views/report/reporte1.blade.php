@@ -389,7 +389,7 @@
                 style="color: #ffffff">______________________________________________________________________________________________
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             </span></th>
-            <b>TOTAL RECAUDADO</b>: $ {{ round($total + $total_pago++$total_admin+$total_ordenanzas+ $totalEspecies + $total_recargo, 2) }}
+            <b>TOTAL RECAUDADO</b>: $ {{ round($total + $total_pago+$total_admin+$total_ordenanzas+ $totalEspecies + $total_recargo, 2) }}
         </div>
 
 
