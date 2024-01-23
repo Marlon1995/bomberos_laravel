@@ -283,7 +283,7 @@
                 {{ $total_votros = $total_votros + round($item->valor, 2) }}
                 {{ $total_adminotros = $total_adminotros + 1 }}
                 {{ $total_procentaje = $total_procentaje + round($item->valor * ($item->porcenjatetasa / 100), 2) }}
-                {{ $total = $total+1 + round($item->valor +( $item->valor * ($item->porcenjatetasa / 100), 2)) }}
+                {{ $total = $total+1 + round($item->valor + $item->valor * ($item->porcenjatetasa / 100), 2) }}
 
                 <tr>
                     <td>{{ $y++ }}</td>
