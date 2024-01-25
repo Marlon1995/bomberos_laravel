@@ -570,7 +570,7 @@ class ClientsController extends Controller {
         ->whereBetween(DB::raw('DATE(inspecciones.created_at)'),[ $fecha1_c, $fecha2_c])
 
         //->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
-        ->groupBy('cli.id')
+        ->groupBy('cli.id','inspecciones.created_at','cli.ruc')
         ->get();
         
         }
@@ -602,7 +602,7 @@ class ClientsController extends Controller {
         ->whereBetween(DB::raw('DATE(inspecciones.created_at)'),[ $fecha1_c, $fecha2_c])
 
         //->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
-        ->groupBy('cli.id')
+        ->groupBy('cli.id','inspecciones.created_at','cli.ruc')
         ->get();
     
         }
