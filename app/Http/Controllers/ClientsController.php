@@ -572,7 +572,7 @@ class ClientsController extends Controller {
         //->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
         ->groupBy('cli.id','inspecciones.created_at','cli.ruc','cli.razonSocial',
         'cli.representanteLegal',
-        'parroquias.descripcion as parroquia',
+        'parroquias.descripcion',
         'cli.telefono',
         'cli.barrio',
         'cli.telefono',
@@ -612,7 +612,7 @@ class ClientsController extends Controller {
         //->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
         ->groupBy('cli.id','inspecciones.created_at','cli.ruc','cli.razonSocial',
         'cli.representanteLegal',
-        'parroquias.descripcion as parroquia',
+        'parroquias.descripcion',
         'cli.telefono',
         'cli.barrio',
         'cli.telefono',
