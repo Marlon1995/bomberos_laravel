@@ -570,7 +570,15 @@ class ClientsController extends Controller {
         ->whereBetween(DB::raw('DATE(inspecciones.created_at)'),[ $fecha1_c, $fecha2_c])
 
         //->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
-        ->groupBy('cli.id','inspecciones.created_at','cli.ruc')
+        ->groupBy('cli.id','inspecciones.created_at','cli.ruc','cli.razonSocial',
+        'cli.representanteLegal',
+        'parroquias.descripcion as parroquia',
+        'cli.telefono',
+        'cli.barrio',
+        'cli.telefono',
+        'cli.referencia',
+        'cli.inspector_id',
+        'cli.categoria_id')
         ->get();
         
         }
@@ -602,7 +610,15 @@ class ClientsController extends Controller {
         ->whereBetween(DB::raw('DATE(inspecciones.created_at)'),[ $fecha1_c, $fecha2_c])
 
         //->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
-        ->groupBy('cli.id','inspecciones.created_at','cli.ruc')
+        ->groupBy('cli.id','inspecciones.created_at','cli.ruc','cli.razonSocial',
+        'cli.representanteLegal',
+        'parroquias.descripcion as parroquia',
+        'cli.telefono',
+        'cli.barrio',
+        'cli.telefono',
+        'cli.referencia',
+        'cli.inspector_id',
+        'cli.categoria_id')
         ->get();
     
         }
