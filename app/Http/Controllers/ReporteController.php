@@ -21,7 +21,7 @@ class ReporteController extends Controller
 {
     function __construct()
     {
-        $this->middleware(['authUser','roles:3,5,7,8,4']);
+        $this->middleware(['authUser','roles:3,5,7,8,4,1']);
     }
 
     public function index(){

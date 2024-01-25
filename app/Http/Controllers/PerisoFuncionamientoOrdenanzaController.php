@@ -17,7 +17,7 @@ class PerisoFuncionamientoOrdenanzaController extends Controller
 
 
     function __construct() {
-        $this->middleware(['authUser','roles:3']);
+        $this->middleware(['authUser','roles:3,1']);
     }
 
 

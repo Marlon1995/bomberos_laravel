@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     function __construct() {
-        $this->middleware(['authUser','roles:6']);
+        $this->middleware(['authUser','roles:6,1']);
     }
 
     public function index() {

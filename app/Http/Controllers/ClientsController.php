@@ -18,7 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class ClientsController extends Controller {
 
     function __construct() {
-        $this->middleware(['authUser','roles:3,4']);
+        $this->middleware(['authUser','roles:3,4,1']);
     }
 
     public function index(){

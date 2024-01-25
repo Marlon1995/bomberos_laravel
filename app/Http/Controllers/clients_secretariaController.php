@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class clients_secretariaController extends Controller
 {
     function __construct() {
-        $this->middleware(['authUser','roles:3']);
+        $this->middleware(['authUser','roles:3,1']);
     }
 
     /**

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Mail;
 
 class FormularioController extends Controller{
     function __construct() {
-        $this->middleware(['authUser','roles:4']);
+        $this->middleware(['authUser','roles:4,1']);
     }
 
     public function index() {
