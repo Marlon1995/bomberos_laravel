@@ -570,7 +570,7 @@ class ClientsController extends Controller {
         ->whereBetween(DB::raw('DATE(inspecciones.created_at)'),[ $fecha1_c, $fecha2_c])
 
         //->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
-        ->groupBy('cli.id','inspecciones.created_at')
+        ->groupBy('cli.id')
         ->get();
         
         }
@@ -602,13 +602,13 @@ class ClientsController extends Controller {
         ->whereBetween(DB::raw('DATE(inspecciones.created_at)'),[ $fecha1_c, $fecha2_c])
 
         //->where(DB::raw("DATE(inspecciones.created_at)"), '=', now()->format('Y-m-d'))
-        ->groupBy('cli.id','inspecciones.created_at')
+        ->groupBy('cli.id')
         ->get();
     
         }
         $doc = "Reporte inspecciones";
         $pdf = PDF::loadView('report/pdf' , ["reporte" => $reporte, "rangos"=>$rangos]);
-       ;
+       
         return $pdf->stream($doc . '.pdf');
     }
 
