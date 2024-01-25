@@ -128,7 +128,7 @@
             <div class="x_panel">
                 <div class="x_content">
                     <!--navegacion-->
-                    @if (auth()->user()->hasRoles([3]))
+                    @if (auth()->user()->hasRoles([3,1]))
                         <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#clients" role="tab"
@@ -144,7 +144,7 @@
 
 
                         <!---- 5 es contador acceso a pagar los impuestos y las solicitudes-->
-                        @if (auth()->user()->hasRoles([3]))
+                        @if (auth()->user()->hasRoles([3,1]))
                             <div class="tab-pane fade show active" id="clients" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="page-title">
                                     <div class="title_left">

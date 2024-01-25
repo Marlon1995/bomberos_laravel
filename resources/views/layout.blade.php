@@ -214,7 +214,7 @@
                         <div class="menu_section">
                             <h3>Men&uacute;</h3>
                             <ul class="nav side-menu">
-                                @if (auth()->user()->hasRoles([1]))
+                                @if (auth()->user()->hasRoles([1,1]))
                                 <li>
                                     <a href="/"><i class="fa fa-home"></i> Inicio </a>
                                 </li>
@@ -234,20 +234,20 @@
                                
                                 @endif
 
-                                @if (auth()->user()->hasRoles([7, 8]))
+                                @if (auth()->user()->hasRoles([7, 8,1]))
                                 <li>
                                     <a href="/inspecciones"><i class="fa fa-fire-extinguisher"></i> Inspecciones</a>
                                 </li>
                                 @endif
 
-                                @if (auth()->user()->hasRoles([3]))
+                                @if (auth()->user()->hasRoles([3,1]))
                                 <li>
                                     <a href="/clients"><i class="fa fa-file-text"></i>Formularios</a>
                                 </li>
                                 @endif
 
 
-                                @if (auth()->user()->hasRoles([5]))
+                                @if (auth()->user()->hasRoles([5,1]))
                                 <li><a><i class="fa fa-usd"></i> Descuentos <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="/payments"> Descuentos</a></li>
@@ -256,7 +256,7 @@
                                 </li>
                                 @endif
 
-                                @if (auth()->user()->hasRoles([3]))
+                                @if (auth()->user()->hasRoles([3,1]))
 
 
                                 <li><a><i class="fa fa-building"></i> Permisos <span
@@ -312,7 +312,7 @@
                                 @endif
 
 
-                                @if (auth()->user()->hasRoles([5]))
+                                @if (auth()->user()->hasRoles([5,1]))
                                 <li>
                                     <a href="/reporte-general"><i class="fa fa-file"></i> Reportes </a>
                                 </li>
@@ -339,7 +339,7 @@
                                 </li>
                                 @endif
 
-                                @if (auth()->user()->hasRoles([6]))
+                                @if (auth()->user()->hasRoles([6,1]))
                                 <li>
                                     <a href="/home"><i class="fa fa-bar-chart"></i> Dashboard </a>
                                 </li>

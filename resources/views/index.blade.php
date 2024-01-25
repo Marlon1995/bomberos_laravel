@@ -42,7 +42,7 @@
                 <div class="x_panel">
 
 
-                    @if( auth()->user()->hasRoles([6]))
+                    @if( auth()->user()->hasRoles([6,1]))
 
 
 

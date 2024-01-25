@@ -66,7 +66,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
-                                @if (auth()->user()->hasRoles([4,3]))
+                                @if (auth()->user()->hasRoles([4,3,1]))
                                     <a href="#" class="btn btn-outline-primary" data-toggle="modal"
                                         data-target="#mdlNuevEmpleado"> <i class="fa fa-user"></i> Agregar</a>
                                 @endif
@@ -93,7 +93,7 @@
                                         <tbody>
                                             @forelse ($clients as $item)
                                                 <!---INPECTOR ROL 4--->
-                                                @if (auth()->user()->hasRoles([4,3]))
+                                                @if (auth()->user()->hasRoles([4,3,1]))
                                                     <tr class="even pointer">
                                                     <td><label class="a-center id">{{ $item->id }}</label></td>
 
@@ -187,7 +187,7 @@
 
 
                                                 <!---SECRETARIA  ROL 3-->
-                                                @if (auth()->user()->hasRoles([3]))
+                                                @if (auth()->user()->hasRoles([3,1]))
                                                     @if ($item->estado == 4 || $item->estado == 6 || $item->estado == 7 || $item->estado == 8)
                                                         <tr class="even pointer">
                                                         <td class="a-center">{{ $item->id }}</td>
