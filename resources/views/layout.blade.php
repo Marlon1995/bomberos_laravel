@@ -214,7 +214,7 @@
                         <div class="menu_section">
                             <h3>Men&uacute;</h3>
                             <ul class="nav side-menu">
-                                @if (auth()->user()->hasRoles([1,1]))
+                                @if (auth()->user()->hasRoles([1,4]))
                                 <li>
                                     <a href="/"><i class="fa fa-home"></i> Inicio </a>
                                 </li>
@@ -230,7 +230,7 @@
                                 </li>
                                 @endif
 
-                                @if (auth()->user()->hasRoles([3,1]))
+                                @if (auth()->user()->hasRoles([3,1,4]))
                                 <li>
                                     <a href="/clients"><i class="fa fa-file-text"></i>Formularios</a>
                                 </li>
@@ -293,22 +293,25 @@
                                     <li><a href="/report-date-especies" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE ESPECIES EXONERACIÓN</a></li>
                                     <li><a href="/report-date-emitidas" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE ESPECIES EMITIDAS</a></li>
                                     <li><a href="/report-date-titulos" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE TITULOS</a></li>
-
-                                   
-                                    @if (auth()->user()->hasRoles([1,4]))
-
-                                <li><a href="/report-date-inspecciones" > <i class="fa fa-file-pdf-o"></i>
-                                                REPORTE INSPECCIONES POR FECHA </a></li>
-                               
-                                                @endif
-                            
-                                     
+     
                                    <!--     <li><a href="/reporteParroquias" target="_blank">Clientes Por Parroquias 
                                             </a></li> -->
-                                    </ul>
+                                            </ul>
                                 </li>
                                
                                 @endif
+                                   
+                                    @if (auth()->user()->hasRoles([1,4]))
+                                    <li><a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                <li><a href="/report-date-inspecciones" > <i class="fa fa-file-pdf-o"></i>
+                                                REPORTE INSPECCIONES POR FECHA </a></li>
+                                                </ul>
+                                </li>
+                               
+                                                @endif
+                            
+                                
 
 
                                 @if (auth()->user()->hasRoles([5,1]))
