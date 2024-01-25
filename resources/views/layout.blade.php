@@ -247,7 +247,7 @@
                                 @endif
 
 
-                                @if (auth()->user()->hasRoles([5,1]))
+                                @if (auth()->user()->hasRoles([5]))
                                 <li><a><i class="fa fa-usd"></i> Descuentos <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="/payments"> Descuentos</a></li>
@@ -256,7 +256,7 @@
                                 </li>
                                 @endif
 
-                                @if (auth()->user()->hasRoles([3,1]))
+                                @if (auth()->user()->hasRoles([3]))
 
 
                                 <li><a><i class="fa fa-building"></i> Permisos <span
