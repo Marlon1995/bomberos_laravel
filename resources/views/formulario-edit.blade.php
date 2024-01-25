@@ -753,9 +753,10 @@
 
                                         <div class="form-group row">
                                             <label class="control-label col-md-2 col-sm-2 ">INGRESAR # (m2)</label>
-                                            <div class="col-md-1 col-sm-1">
+                                            <div class="col-md-6 col-sm-6">
                                                 <input name="cantidad_m2" id="cantidad_m2" value="{{$inspecciones_sec[0]->cantidad_m2}}" onKeyPress="return fn_aceptaNum(event)" class="form-control col-md-10" required>
                                             </div>
+
                                         </div>
                                     </div>
 
