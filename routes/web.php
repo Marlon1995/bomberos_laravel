@@ -44,6 +44,8 @@ Route::get('cobro-ordenanza', 'OtrosPagosController@mostrar_pago_ordenanza');
 Route::post('/agregar-cobro-ordenanza', 'OtrosPagosController@agregar_pago_ordenanza');
 
 Route::get('history-payments', 'DataController@historialPagos');
+Route::get('history-payments-old', 'DataController@historialPagosOld');
+
 Route::get('history-ordenanzas', 'DataController@historialOrdenanzas');
 
 Route::get('bill-payments/{id}', 'DataController@facturaPago');

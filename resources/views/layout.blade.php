@@ -254,7 +254,8 @@
                                         <ul class="nav child_menu">
                                         <li><a href="/payments"> Pagos Permisos</a></li>
                                         <li><a href="/different-payments"> Otros Cobros</a></li>
-                                        <li><a href="/history-payments"> Historial Pagos</a></li>
+                                        <li><a href="/history-payments"> Imprimir Pagos </a></li>
+                                        <li><a href="/history-payments-old"> Historial Pagos Anteriores</a></li>
                                         <li><a href="/permisos"> Imprimir Permisos Establecimientos</a></li>
                                         <li><a href="/especies"> Especies</a></li>
 
@@ -279,7 +280,7 @@
                                 </li>
                                 @endif
                              
-                                @if (auth()->user()->hasRoles([1,3]))
+                                @if (auth()->user()->hasRoles([1,3,5]))
                                  <li><a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                     <li><a href="/reporte1" target="_blank"> <i class="fa fa-file-pdf-o"></i> REPORTE DIARIO</a></li>
@@ -314,9 +315,9 @@
                                 
 
 
-                                @if (auth()->user()->hasRoles([5,1]))
+                                @if (auth()->user()->hasRoles([1]))
                                 <li>
-                                    <a href="/reporte-general"><i class="fa fa-folder"></i> Reportes Generales</a>
+                                    <a href="/reporte-general"><i class="fa fa-bar-chart"></i> Reportes Generales</a>
                                 </li>
                                 @endif
 

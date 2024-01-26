@@ -58,14 +58,15 @@
                                     style="width:100%">
                                     <thead>
                                         <tr class="headings">
-                                            <th class="column-title">Local</th>
-                                            <th class="column-title">Representante Legal</th>
-                                            <th class="column-title">Ruc</th>
-                                            <th class="column-title">Dirección</th>
-                                            <th class="column-title">Teléfono</th>
-                                            <th class="column-title">Especie</th>
-                                            <th class="column-title">Descripcion</th>
-                                            <th class="column-title">Valor</th>
+                                            <th class="column-title">LOCAL</th>
+                                            <th class="column-title">CONTRIBUYENTE</th>
+                                            <th class="column-title">RUC</th>
+                                            <th class="column-title">DIRECCIÓN</th>
+                                            <th class="column-title">TELÉFONO</th>
+                                            <th class="column-title">N° ESPECIE</th>
+                                            <th class="column-title">DESCRIPCIÓN</th>
+                                            <th class="column-title">VALOR</th>
+                                            <th class="column-title">ESTADO</th>
                                             <th class="column-title"></th>
                                             <th class="column-title">EXONERACIONES</th>
                                             <th class="column-title"></th>
@@ -85,6 +86,18 @@
                                                 <td>{{ $item->descripcion }}</td>
                                                 <td>{{ $item->cantidad * $item->valor }}</td>
                                                 <td>
+                                                 @if ($item->estado == 0)
+                                                 <span style="color: red;">ANULADA</span>
+
+                                                @elseif ($item->estado == 1)
+                                                <strong>ACTIVA</strong>
+
+                                                         @else
+       
+                                                     @endif
+                                                    </td>
+                                                    @if ($item->estado == 1)
+                                                <td>
                                                     <div class="btn-group">
                                                         <a href="especiesPayments/{{ $item->id }}"
                                                             class="btn btn-info" target="_blank"> IMPRIMIR </a>
@@ -92,9 +105,11 @@
                                                         <form method="POST"
                                                             action="{{ route('especies.destroy', $item->id) }}">
                                                             @csrf
+                                                            
                                                             {!! method_field('DELETE') !!}
                                                             <button type="submit" class="btn btn-danger btn-xs btn-block"><i
                                                                     class="fa fa-times"></i> </button>
+                                                                        
                                                         </form>
                                                     </div>
                                                 </td>
@@ -105,7 +120,17 @@
                                                         class="btn btn-warning">TERCERA</a> </td>
                                                 <td><a href="exoneraciones_discapacidad/{{ $item->id }}"
                                                         target="_blank" class="btn btn-success">DISCAPACIDAD</a> </td>
+                                                            
+
+
+                                                           @elseif ($item->estado == 0)
+                                                           <td></td>
+                                                           <td></td>
+                                                           <td></td>
+                                                           <td></td>
+                                                           @endif  
                                             </tr>
+                                         
                                         @empty
                                         @endforelse
                                     </tbody>
@@ -243,7 +268,7 @@
 
                                                     <div class="item form-group ">
                                                         <label class="col-form-label col-md-4 col-sm-4 label-align"
-                                                            for="anioPago">DESCRIPCION</label>
+                                                            for="anioPago">DESCRIPCIÓN</label>
                                                         <div class="col-md-9 col-sm-9">
                                                             <input type="text" class="form-control " name="descripcion"
                                                                 placeholder="DESCRIPCION" required>

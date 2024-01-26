@@ -24,7 +24,7 @@ class EspeciesController extends Controller
     public function index()
     {
        $data = System::all();
-       $especie = Especies::where('estado','=','1')->get();
+       $especie = Especies::get();
 
         return view( 'Especies' ,compact('data','especie'));
     }

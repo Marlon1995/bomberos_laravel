@@ -295,6 +295,31 @@ class DataController extends Controller
     }
 
 
+    public function historialPagosOld(){
+        $data = System::all();
+
+   
+            $historial = DB::table('otros_pagos_history')
+                ->join('client_history', 'client_history.id', 'otros_pagos_history.client_id')
+                ->join('tipos_pago_history', function ($join) {
+                    $join->on('tipos_pago_history.id', 'otros_pagos_history.tipoPago')
+                        ->where('tipos_pago_history.nombre', '<>', 'PAGO TOTAL');
+                 })
+                ->leftJoin('formaspago_history', 'formaspago_history.id', 'otros_pagos_history.formaPago_id')
+                ->select('ruc', 'razonSocial', 'formaspago_history.nombre as formaspago', 'tipos_pago_history.nombre as tipos_pago', 
+                'valor', 'otros_pagos_history.id'
+                ,DB::raw('YEAR(otros_pagos_history.created_at) as created_at') // Extraer el año
+
+                    , 'otros_pagos_history.descripcion')
+                //->whereNotIn('tipos_pago.id', [5,6])
+                ->where('otros_pagos_history.estado','=', 8)
+                ->orderBy('otros_pagos_history.created_at', 'desc')
+                ->get();
+            return view('imprecion/historyPaymentsOld', compact('data', 'historial'));
+        
+    }
+
+
 /* historial cobros*/
 public function historialOrdenanzas(){
     $data = System::all();
