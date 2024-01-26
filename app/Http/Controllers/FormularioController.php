@@ -118,6 +118,7 @@ class FormularioController extends Controller{
         DB::table('client')->where('id', $client_id)->update([
             'riesgo_id'  => $request->input('tipoNegocio'),
             'decripcion' => $request->input('decripcion_riego'),
+            'inspector_id'=> auth()->user()->id,
             'estado' => 4,
             'updated_at'  => Carbon::now()
         ]);
