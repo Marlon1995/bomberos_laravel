@@ -579,6 +579,7 @@ class ClientsController extends Controller {
         'cli.referencia',
         'cli.inspector_id',
         'cli.categoria_id')
+        ->distinct() // Add distinct here
         ->get();
         
         }
@@ -619,6 +620,7 @@ class ClientsController extends Controller {
         'cli.referencia',
         'cli.inspector_id',
         'cli.categoria_id')
+        ->distinct() // Add distinct here
         ->get();
     
         }
