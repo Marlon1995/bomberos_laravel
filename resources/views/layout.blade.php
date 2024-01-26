@@ -252,8 +252,8 @@
                                 <li><a><i class="fa fa-building"></i> Permisos <span
                                                 class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                        <li><a href="/payments"> Pagos Permisos</a></li>
-                                        <li><a href="/history-payments"> Imprimir Pagos </a></li>
+                                        <li><a href="/payments"> Facturar Permisos</a></li>
+                                        <li><a href="/history-payments"> Imprimir Pagos Factura </a></li>
                                         <li><a href="/permisos"> Imprimir Permisos Funcionamiento</a></li>
                                         <li><a href="/different-payments"> Otros Cobros</a></li>
                                         <li><a href="/history-payments-old"> Historial Pagos Anteriores</a></li>
