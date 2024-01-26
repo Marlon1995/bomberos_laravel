@@ -418,7 +418,7 @@
 
             .firmas {
                 text-align: center;
-                font-size: 10px;
+                font-size: 12px;
             }
 
             @page {
@@ -443,14 +443,11 @@
         <br>
         <br>
 
-        <div class="firmas">_________
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-        <div class="firmas">Recaudador(a) Tnlga. Patricia Pincay 
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-
+        <div class="firmas" style="text-align: center;">___________________________________
+ </div>
+<div class="firmas" style="text-align: center;">
+    <span style="font-weight: bold;">Recaudador(a) Tnlga. Patricia Pincay</span>
+</div>
 
         <br>
     </div>
