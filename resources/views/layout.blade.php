@@ -253,11 +253,11 @@
                                                 class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                         <li><a href="/payments"> Pagos Permisos</a></li>
-                                        <li><a href="/different-payments"> Otros Cobros</a></li>
                                         <li><a href="/history-payments"> Imprimir Pagos </a></li>
+                                        <li><a href="/permisos"> Imprimir Permisos Funcionamiento</a></li>
+                                        <li><a href="/different-payments"> Otros Cobros</a></li>
                                         <li><a href="/history-payments-old"> Historial Pagos Anteriores</a></li>
-                                        <li><a href="/permisos"> Imprimir Permisos Establecimientos</a></li>
-                                        <li><a href="/especies"> Especies</a></li>
+                                        <li><a href="/especies"> Especies Exoneración</a></li>
 
 
                                         </ul>
