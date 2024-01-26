@@ -302,7 +302,7 @@
                                
                                 @endif
                                    
-                                    @if (auth()->user()->hasRoles([1,4]))
+                                    @if (auth()->user()->hasRoles([4]))
                                     <li><a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                 <li><a href="/report-date-inspecciones" > <i class="fa fa-file-pdf-o"></i>
