@@ -225,6 +225,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td> <strong>TOTALES</strong></td>
           
                 <td><strong>${{ round($total_admin_or, 2) }}</strong></td>
