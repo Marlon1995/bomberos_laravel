@@ -65,14 +65,14 @@
 
         .lll {
             position: absolute;
-            left: 300px;
+            left: 350px;
             top: -150px;
         }
 
         .pf__items_nose {
             font-size: 9px;
             position: absolute;
-            left: 200px;
+            left: 150px;
             top: -50px;
         }
     </style>
@@ -112,7 +112,7 @@
                 <th>RAZÓN SOCIAL</th>
                 <th>DIRECCIÓN</th>
                 <th>TELÉFONO</th>
-                <th>EMAIL</th>
+               
                 <th>VALOR</th>
                
 
@@ -139,7 +139,7 @@
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
                     <td>{{ $item->referencia }}</td>
-                    <td>{{ $item->telefono }}</td>
+                    
                     <td>{{ $item->email }}</td>
 
                     <td>${{ round($item->valor+ $item->recargo, 2) }}</td>
@@ -151,7 +151,7 @@
             @endforelse
 
             <tr>
-                <td></td>
+                
                 <td></td>
                 <td></td>
                 <td></td>

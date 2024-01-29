@@ -706,7 +706,7 @@ class ReporteController extends Controller
     $pdf = PDF::loadView('report/reportefechaPorParroquia' , [
                                                 "reporte" => $reporte,
                                                 "rangos" => $rangos
-                                            ])->setPaper('A4');
+                                            ])->setPaper('B5');
     return $pdf->stream($doc . '.pdf');
     
     
