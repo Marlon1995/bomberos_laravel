@@ -665,13 +665,10 @@
                                                             <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos_01}}" 
                                                                        value="{{$item->puntos_01}}" class="flat" required/>&nbsp;&nbsp;<label for="{{$item->puntos_01}}">{{$item->puntos_01}}</label></td>
                                                             @endif
-                                                            @if ($item->respuesta == 0 )
-                                                            <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}"
-                                                                       value="0" class="flat" required checked/>&nbsp;&nbsp;<label for="0">{{$item->respuesta}}</label></td>
-                                                            @else
+                                                          
                                                             <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
                                                                        value="0" class="flat" required/>&nbsp;&nbsp;<label for="0">0</label></td>
-                                                            @endif
+                                                          
                                                         </tr>
                                                     @endif
                                                 @empty
