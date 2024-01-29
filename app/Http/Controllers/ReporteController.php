@@ -237,6 +237,22 @@ class ReporteController extends Controller
         return view('report/reporteporfechaInspecciones'  ,compact('data') );
 
     }
+
+    public function reporte11(){
+       
+        $data = System::all();
+
+        return view('report/reporteporfechaNoEmitidos'  ,compact('data') );
+
+    }
+
+    public function reporte12(){
+       
+        $data = System::all();
+
+        return view('report/reporteporfechaParroquias'  ,compact('data') );
+
+    }
     public function reporte7(){
         $data = System::all();
         return view('report'  ,compact('data') );
@@ -587,6 +603,114 @@ class ReporteController extends Controller
 
 
 
+    public function ReporteNoEmitidos(Request $request ){
+       
+        $fechas = $request->input('reservation');
+        $fecha1 = substr($fechas, 0, -13);
+        $fecha2 = substr($fechas, 13);
+
+        $fecha1_c = date('Y-m-d', strtotime($fecha1));
+        $fecha2_c = date('Y-m-d', strtotime($fecha2));
+        $rangos = array(
+            "r1" => $fecha1_c,
+            "r2" => $fecha2_c
+        );
+
+        $reporte = DB::table('otros_pagos')
+        ->join('client', 'client.id', 'otros_pagos.client_id')
+        ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
+        ->select(   'ruc',
+            'razonSocial',
+            'formaspago.nombre as formaspago',
+            'valor',
+            'referencia',
+            'telefono',
+            'email',
+           'otros_pagos.year_now',
+           'otros_pagos.numPermisoFuncionamiento',
+           'otros_pagos.numTransaccion',
+           'otros_pagos.numTituloAdmin',
+           'valor','otros_pagos.recargo',
+            'otros_pagos.created_at')
+       // ->whereNotIn('tipos_pago.id', [2])
+        ->where('otros_pagos.estado','=', 4)
+        ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
+        ->orderBy('client.created_at', 'desc')
+        ->get();
+      
+
+   
+
+
+
+
+    $doc = "NO EMITIDOS";
+    $pdf = PDF::loadView('report/reporteNoEmitidos' , [
+                                                "reporte" => $reporte,
+                                                "rangos" => $rangos
+                                            ])->setPaper('A4');
+    return $pdf->stream($doc . '.pdf');
+    
+    
+    }
+
+
+
+    
+    public function ReporteFechaPorParroquias(Request $request ){
+       
+        $fechas = $request->input('reservation');
+        $fecha1 = substr($fechas, 0, -13);
+        $fecha2 = substr($fechas, 13);
+
+        $fecha1_c = date('Y-m-d', strtotime($fecha1));
+        $fecha2_c = date('Y-m-d', strtotime($fecha2));
+        $rangos = array(
+            "r1" => $fecha1_c,
+            "r2" => $fecha2_c
+        );
+
+        $reporte = DB::table('otros_pagos')
+        ->join('client', 'client.id', 'otros_pagos.client_id')
+       
+        ->join('parroquias', 'parroquias.id', 'client.parroquia_id')
+        ->select(   'ruc',
+            'razonSocial',
+           
+            'valor',
+            'referencia',
+            'telefono',
+            'email',
+            'barrio',
+            'parroquias.descripcion as parroquia',
+           'otros_pagos.year_now',
+           'otros_pagos.numPermisoFuncionamiento',
+           'otros_pagos.numTransaccion',
+           'otros_pagos.numTituloAdmin',
+           'valor','otros_pagos.recargo',
+            'otros_pagos.created_at')
+       // ->whereNotIn('tipos_pago.id', [2])
+        ->where('otros_pagos.estado','=', 8)
+        ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
+        ->orderBy('client.created_at', 'desc')
+        ->orderBy('parroquias.descripcion', 'desc')
+        ->get();
+      
+
+   
+
+
+
+
+    $doc = "POR PARROQUIAS";
+    $pdf = PDF::loadView('report/reportefechaPorParroquia' , [
+                                                "reporte" => $reporte,
+                                                "rangos" => $rangos
+                                            ])->setPaper('A4');
+    return $pdf->stream($doc . '.pdf');
+    
+    
+    }
    
 
     public function reporteContadorSemanal( $tipe , $fechaInicial , $fechaFinal) {
@@ -604,7 +728,34 @@ class ReporteController extends Controller
         }elseif( $tipe== 'permisos' ) {
             $this->reporte5();
         }elseif( $tipe == 'parroquias' ) {
-            $this->reporteParroquias();
+            $reporte = DB::table('client', 'cli')
+            ->join('denominaciones', 'cli.denominacion_id', "=", 'denominaciones.id')
+            ->join("parroquias", "parroquias.id", "=", "cli.parroquia_id")
+            ->join('otros_pagos', 'cli.id', 'otros_pagos.client_id')
+            ->select(
+                'cli.id',
+                'cli.ruc',
+                'cli.razonSocial',
+                'cli.representanteLegal',
+                'parroquias.descripcion  as parroquia',
+                'cli.barrio',
+                'cli.telefono',
+                'cli.referencia',
+                'denominaciones.descripcion as denominacion',
+                'otros_pagos.year_now as anio',
+                'otros_pagos.valor',
+                'otros_pagos.created_at'
+            )
+            ->where('otros_pagos.numPermisoFuncionamiento', '<>', null)
+            ->where('cli.estado', '=', 8)
+            ->where('otros_pagos.estado', '<>', 1)
+            ->orderBy('parroquias.descripcion', 'desc')
+            ->orderBy('otros_pagos.year_now', 'desc')
+            ->limit(100)
+            ->get();
+        $doc = "";
+        $pdf = PDF::loadView('report/reporteParroquias', ["reporte" => $reporte])->setPaper('A4', 'landscape');;
+        return $pdf->stream($doc . '.pdf');
         }
 
 

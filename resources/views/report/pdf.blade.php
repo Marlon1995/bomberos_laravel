@@ -92,6 +92,7 @@
     <table>
         <thead>
             <tr>
+            <th>Item</th>
                 <th>Fecha Inspección</th>
                 <th>RUC</th>
                 <th>Nombre Local</th>
@@ -101,8 +102,10 @@
             </tr>
         </thead>
         <tbody>
+        {{$i=1 }}
             @forelse ($reporte as $item)
             <tr>
+            <td>{{$i++ }}</td>
                 <td>{{$item->fecha_inspeccion }}</td>
                 <td>{{ $item->ruc }}</td>
                 <td>{{ $item->razonSocial }}</td>

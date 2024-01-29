@@ -97,12 +97,19 @@ Route::get('report-date-emitidas', 'ReporteController@reporte10'); // permisos
 Route::get('report-date', 'ReporteController@reporte6'); // permisos
 
 Route::get('report-date-especies', 'ReporteController@reporte5'); // permisos
+
+Route::get('reporte-date-noemitidos', 'ReporteController@reporte11'); // permisos
+Route::get('report-date-parroquias', 'ReporteController@reporte12'); // permisos
+
+
 Route::get('report-date-titulos', 'ReporteController@reporte8'); // permisos
 
 
 Route::get('report-date-inspecciones', 'ReporteController@reporte9'); // permisos
 
 Route::get('/report/pdf/{id}', 'ClientsController@pdfcliente');
+Route::get('/report/NoEmitidos', 'ReporteController@ReporteNoEmitidos');
+Route::get('/report/PorParroquia', 'ReporteController@ReporteFechaPorParroquias');
 Route::get('export/', 'ClientsController@export');
 
 Route::get('reporte-general', 'ReporteController@reporte7');
