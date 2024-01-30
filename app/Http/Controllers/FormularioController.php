@@ -45,11 +45,14 @@ class FormularioController extends Controller{
         }
 
         //añadido en el codigo
-        for ($i=19; $i <= 24; $i++){
+        for ($i=19; $i <= 25; $i++){
+
+            
+
             $data = new Inspecciones();
             $data->client_id        = $client_id;
             $data->requerimiento_id = $i;
-            $data->respuesta        = $request->input('respuesta_'.$i);
+            $data->respuesta        = $request->input('respuesta_'.$i)=='0'?0:$request->input('respuesta_'.$i);
             $data->tipo             = 'Y';
             $data->estado           = 2;
             $data->save();
@@ -162,7 +165,7 @@ class FormularioController extends Controller{
                  $body = array(
                     "asunto" => "ASUNTO",
                     "titulo" => "FORMULARIO DE INSPECCIÓN ",
-                    "para" => "Estimado(a) Secretario(a), ".strtoupper($item->nombre.' '.$item->apellido),
+                    "para" => "Estimado(a) Recaudador(a), ".strtoupper($item->nombre.' '.$item->apellido),
                     "mensaje" => "Sé notifica que realizo la respectiva inspección de la Razón Social " . strtoupper($client[0]->razonSocial)." con RUC: " . $client[0]->ruc.' para que continúe con el respectivo proceso que le compete',
                     "posdata" => "Saludos cordiales, Atentamente.",
                     "de" => auth()->user()->nombre . ' ' . auth()->user()->apellido,
@@ -171,7 +174,7 @@ class FormularioController extends Controller{
                     "telefono" => auth()->user()->telefono,
                     "sistema" => "CUERPO DE BOMBEROS ATACAMES. Todos los derechos reservados"
                 );
-            } else if ( $item->role_id == 7 ) {
+            } else if ( $item->role_id == 1  || $item->role_id == 7) {
                 //jefe de prevenció
                 $para="Jefe de Prevención";
                 $body = array(
@@ -217,6 +220,7 @@ class FormularioController extends Controller{
             ->where('inspecciones.client_id',$id)
             ->get();
             
+        
 
         $inspecciones_sec = DB::table('inspecciones_sec')
             ->select('inspecciones_sec.*')
@@ -282,7 +286,7 @@ class FormularioController extends Controller{
              ]);
         }
 
-        for ($i=19; $i <= 24; $i++){
+        for ($i=19; $i <= 25; $i++){
             DB::table('inspecciones')->where(['client_id' => $id,'requerimiento_id' => $i])->update([
                'respuesta'     => $request->input('respuesta_'.$i),
             ]);

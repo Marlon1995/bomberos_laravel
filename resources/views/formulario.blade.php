@@ -554,8 +554,9 @@
                                                                    value="{{$item->puntos}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">{{$item->puntos}}</label></td>
                                                         <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos_01}}" 
                                                                    value="{{$item->puntos_01}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos_01}}">{{$item->puntos_01}}</label></td>
-                                                                   <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
-                                                                   value=0 required/>&nbsp;&nbsp;<label for="{{$item->puntos}}">0</label></td>
+                                                                   
+                                                                   <td><input type="radio" class="radio-input"  name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos_02}}" 
+                                                                   value="{{$item->puntos_02}}" required/>&nbsp;&nbsp;<label for="{{$item->puntos_02}}">{{$item->puntos_02}}</label></td>
                                                     </tr>
                                                 @endif
                                             @empty

@@ -666,8 +666,13 @@
                                                                        value="{{$item->puntos_01}}" class="flat" required/>&nbsp;&nbsp;<label for="{{$item->puntos_01}}">{{$item->puntos_01}}</label></td>
                                                             @endif
                                                           
-                                                            <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos}}" 
-                                                                       value="0" class="flat" required/>&nbsp;&nbsp;<label for="0">0</label></td>
+                                                            @if ($item->respuesta == $item->puntos_02)
+                                                            <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos_02}}" 
+                                                                       value="{{$item->puntos_02}}" class="flat" required checked/>&nbsp;&nbsp;<label for="{{$item->puntos_02}}">{{$item->puntos_02}}</label></td>
+                                                            @else
+                                                            <td><input type="radio" name="respuesta_{{$item->check_id}}" id="value_{{$item->puntos_02}}" 
+                                                                       value="{{$item->puntos_02}}" class="flat" required/>&nbsp;&nbsp;<label for="{{$item->puntos_02}}">{{$item->puntos_02}}</label></td>
+                                                            @endif
                                                           
                                                         </tr>
                                                     @endif

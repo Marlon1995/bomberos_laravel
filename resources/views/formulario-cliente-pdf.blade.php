@@ -719,6 +719,7 @@
                 <th class="column-title cb-header-register__tbConcepto" style="width:50%;">CONCEPTO</th>
                 <th class="column-title cb-header-register__tbCoeficiente" style="width:12.5%;">SV</th>
                 <th class="column-title cb-header-register__tbPuntos" style="width:12.5%;">CV</th>
+                <th class="column-title cb-header-register__tbPuntos" style="width:12.5%;">NC</th>
                 <th class="column-title cb-header-register__tbPuntos" style="width:25%;">PUNTOS</th>
             </tr>
         </thead>
@@ -730,6 +731,7 @@
                         <td>{{ $item->descripcion }}</td>
                         <td>{{ $item->puntos }}</td>
                         <td>{{ $item->puntos_01 }}</td>
+                        <td>{{ $item->puntos_02 }}</td>
                         <td>{{ $item->respuesta }}</td>
                     </tr>
                 @endif
