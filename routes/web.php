@@ -73,7 +73,7 @@ Route::get('resumenPagoOrdenanzas/{id}', 'DataController@resumenPagoOrdenanzas')
 Route::get('resumenInfoCliente/{id}', 'DataController@resumenInfoCliente');
 Route::get('dashboard', 'DataController@dashboard');;
 
-
+Route::get('listarParroquias', 'DataController@listarParroquias'); // permisos
 
 Route::get('report', 'ReporteController@index');
 Route::get('reporte1', 'ReporteController@reporte1'); //ciere de caja diario

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Especies;
 use App\Requerimientos;
+use App\Parroquia;
 use App\System;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
@@ -293,7 +294,12 @@ class DataController extends Controller
             return view('imprecion/historyPayments', compact('data', 'historial'));
         }
     }
-
+    public function listarParroquias()
+    {
+        $parroquias = Parroquia::all(); // Asumiendo que tienes un modelo Parroquia
+    
+        return response()->json($parroquias);
+    }
 
     public function historialPagosOld(){
         $data = System::all();

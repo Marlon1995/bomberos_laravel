@@ -660,6 +660,9 @@ class ReporteController extends Controller
     public function ReporteFechaPorParroquias(Request $request ){
        
         $fechas = $request->input('reservation');
+        $parroquia_id = $request->input('parroquia');
+
+      
         $fecha1 = substr($fechas, 0, -13);
         $fecha2 = substr($fechas, 13);
 
@@ -691,6 +694,7 @@ class ReporteController extends Controller
             'otros_pagos.created_at')
        // ->whereNotIn('tipos_pago.id', [2])
         ->where('otros_pagos.estado','=', 8)
+        ->where('client.parroquia_id','=',$parroquia_id)
         ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
         ->orderBy('parroquias.descripcion', 'desc')
         ->orderBy('client.created_at', 'desc')

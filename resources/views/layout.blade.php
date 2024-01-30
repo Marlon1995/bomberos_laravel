@@ -283,19 +283,18 @@
                                 @if (auth()->user()->hasRoles([1,3,5]))
                                  <li><a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                    <li><a href="/reporte1" target="_blank"> <i class="fa fa-file-pdf-o"></i> REPORTE DIARIO</a></li>
+                                    <li><a href="/reporte1" target="_blank"> <i class="fa fa-file-text-o"></i> REPORTE DIARIO</a></li>
 
 
 
 
-                                    <li><a href="/report-date" > <i class="fa fa-file-pdf-o"></i> REPORTE POR FECHAS</a></li>
+                                    <li><a href="/report-date" > <i class="fa fa-calendar"></i> REPORTE POR FECHAS</a></li>
                                     
-                                    <li><a href="/reporte-date-noemitidos" target=""> <i class="fa fa-file-pdf-o"></i>  NO EMITIDOS</a></li>
-                                    <li><a href="/report-date-especies" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE ESPECIES EXONERACIÓN</a></li>
-                                    <li><a href="/report-date-emitidas" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE ESPECIES EMITIDAS</a></li>
-                                    <li><a href="/report-date-titulos" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE TITULOS</a></li>
+                                    <li><a href="/reporte-date-noemitidos" target=""> <i class="fa fa-times-circle-o"></i>  NO EMITIDOS</a></li>
+                                    <li><a href="/report-date-emitidas" target=""> <i class="fa fa-file-text-o"></i> REPORTE ESPECIES </a></li>
+                                    <li><a href="/report-date-titulos" target=""> <i class="fa fa-book"></i> REPORTE TITULOS</a></li>
 
-                                    <li><a href="/report-date-parroquias" target=""> <i class="fa fa-file-pdf-o"></i> REPORTE POR PARROQUIAS</a></li>
+                                    <li><a href="/report-date-parroquias" target=""> <i class="fa fa-globe"></i> REPORTE POR PARROQUIAS</a></li>
 
                                    <!--     <li><a href="/reporteParroquias" target="_blank">Clientes Por Parroquias 
                                             </a></li> -->
@@ -380,36 +379,7 @@
                                 </div>
                             </li>
 
-                            <!--
-                <li role="presentation" class="nav-item dropdown open">
-                  <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">1</span>
-                  </a>
-                  <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"><img src="/assets/img/users/{{ $icono }}" alt="Profile Image" /></span>
-                        <span>
-                          <span>Administrador</span>
-                          <span class="time">3 min</span>
-                        </span>
-                        <span class="message">
-                          Hola como estas...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <div class="text-center">
-                        <a class="dropdown-item">
-                          <strong>Ver todos los mensajes</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                  -->
+                          
                         </ul>
                     </nav>
                 </div>
@@ -420,7 +390,7 @@
 
             @yield('pagecontent')
 
-            <!-- footer content -->
+           
             <footer>
                 <div class="pull-right">
                     © {{ now()->year }} Todos los derechos reservados <a href="#">T&eacute;rminos y Condiciones</a>
