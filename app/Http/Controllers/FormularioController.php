@@ -45,7 +45,7 @@ class FormularioController extends Controller{
         }
 
         //añadido en el codigo
-        for ($i=19; $i <= 25; $i++){
+        for ($i=19; $i <= 24; $i++){
 
             
 
@@ -286,7 +286,7 @@ class FormularioController extends Controller{
              ]);
         }
 
-        for ($i=19; $i <= 25; $i++){
+        for ($i=19; $i <= 24; $i++){
             DB::table('inspecciones')->where(['client_id' => $id,'requerimiento_id' => $i])->update([
                'respuesta'     => $request->input('respuesta_'.$i),
             ]);
