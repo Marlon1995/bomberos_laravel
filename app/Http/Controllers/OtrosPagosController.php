@@ -7,6 +7,8 @@ use App\otrosCotrosModel;
 use App\OtrosPagosModel;
 use App\PagosOrdenanzaModel;
 use App\System;
+use App\Client;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -157,12 +159,46 @@ class OtrosPagosController extends Controller
 
     public function agregar_pago_ordenanza(Request $request)
     {
+        
+       
         $id_cliente = DB::table('client')
             ->select('id')
             ->where('ruc', '=', $request->ruc)
             ->orderBy('created_at', 'desc')
+            ->first();
+    
 
-            ->get();
+if($id_cliente==null)
+{
+
+    
+    $send = new Client();
+    $send->tipoFormulario       =  2;
+    $send->razonSocial          =  $request->nombreLocal;
+    $send->ruc                  =  $request->ruc;
+    $send->representanteLegal   =  $request->representanteLegal;
+    $send->parroquia_id         =  $request->input('parroquia');
+    $send->barrio               =  $request->input('barrio');
+    $send->parroquia_id         = 1;  
+    $send->telefono             =  $request->telefono;
+    $send->email             =  $request->input('email');
+    $send->referencia           =  $request->direccion;
+     
+    $send->inspector_id     = auth()->user()->id;
+    $send->estado               =  2; // ESTADO ACTIVADO
+    $send->save();
+
+    $id_cliente = DB::table('client')
+    ->select('id')
+    ->where('ruc', '=', $send->ruc  )
+    ->orderBy('created_at', 'desc')
+    ->first();
+}
+          
+
+        
+
+
             
         $descripcion='';
         switch ($request->tipoOrdenanza){
@@ -186,7 +222,7 @@ class OtrosPagosController extends Controller
         }
 
         $data = new PagosOrdenanzaModel();
-        $data->client_id                    = $id_cliente[0]->id;
+        $data->client_id                    = $id_cliente->id;
         $data->tipoPago                     = 3;
         $data->formaPago_id                 = $request->input('formaspago');
         $data->year_now                     = $request->input('anio');
