@@ -19,6 +19,7 @@ class pdfClientesController extends Controller
             ->join('det_requerimientos','requerimientos.id','det_requerimientos.requerimiento_id')
             ->select('requerimientos.*','det_requerimientos.*')
             ->where('det_requerimientos.client_id',$id)
+            ->distinct()
             ->get();
 
         /* CODIGO JACXIMIR INICIO*/
@@ -26,6 +27,7 @@ class pdfClientesController extends Controller
             ->join('requerimientos','inspecciones.requerimiento_id','requerimientos.check_id')
             ->select('inspecciones.*','requerimientos.*')
             ->where('inspecciones.client_id',$id)
+            ->distinct()
             ->get();
 
         /* CODIGO JACXIMIR FINAL */
