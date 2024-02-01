@@ -201,7 +201,7 @@
         </div>
 
         <div class="pf__item_e">
-            <b>NOTA: </b>Los establecimientos de atencion al publico deberán proveerse del Equipo contra incendios.
+            <b>NOTA: </b>Los establecimientos de atención al público deberán proveerse del equipo contra incendios.
         </div>
 
         <div class="pf__item_f">
