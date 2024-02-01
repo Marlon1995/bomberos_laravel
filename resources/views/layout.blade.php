@@ -266,19 +266,30 @@
                                     <li><a><i class="fa fa-calendar"></i> Ordenanzas <span
                                                 class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="/cobro-ordenanza">Formulario Ordenanzas</a></li>
+                                     
                                             <li><a href="/payments-ordenanzas"> Pagos Ordenanzas</a></li>
                                             <li><a href="/permisos-ordenanza"> Imprimir Permisos Ordenanzas</a></li>
                                             <li><a href="/history-ordenanzas"> Historial Ordenanzas</a></li>
 
                                         </ul>
                                     </li>
-
+                                
     
                                 <li>
                                     <a href="/client"><i class="fa fa-group"></i>Clientes</a>
                                 </li>
                                 @endif
+
+                                @if (auth()->user()->hasRoles([1]))
+                                    <li><a><i class="fa fa-calendar"></i> Ordenanzas <span
+                                                class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="/cobro-ordenanza">Formulario Ordenanzas</a></li>
+                                          
+
+                                        </ul>
+                                    </li>
+                                    @endif
                              
                                 @if (auth()->user()->hasRoles([1,3,5]))
                                  <li><a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
@@ -316,7 +327,7 @@
                                 
 
 
-                                @if (auth()->user()->hasRoles([1]))
+                                @if (auth()->user()->hasRoles([6]))
                                 <li>
                                     <a href="/reporte-general"><i class="fa fa-bar-chart"></i> Reportes Generales</a>
                                 </li>

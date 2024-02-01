@@ -231,20 +231,27 @@
                                                                     <div class="col-sm-1"></div>
                                                                     
                                                                     <div class="col-sm-12" >
-                                                                    <div class="col-sm-1"></div>
+                                                                    
                                                                    
                                                                     <input type="hidden" class="form-control" name="valor" id="valor" required onKeyPress="return fn_aceptaNum(event)"  value="" placeholder="Ej. 2.842" style="text-align: center">
 
-                                                                    
-                                                                        <div class="btn btn-success calcularValorPorcenjate"><i class="fa fa-check" style="font-size: 15px"></i></div>
-                                                                        $ <label id="valorCalculado">0</label>
-                                                                    
-                                                                    
-                                                                 
-                                                                    <input type="submit" value="FACTURAR" class="btn btn-info" style="font-size: 55px; text-align:center">
-
-                                                                    
                                                                     </div>
+                                                                    <div class="col-sm-12" >
+                                                                    <label id="" style="font-size: 42px;">$</label>
+                                                                     <label id="valorCalculado" style="font-size: 42px;">0</label>
+                                                                    </div>
+                                                                    <div class="col-sm-12" >
+                                                                  
+                                                                        <div class="btn btn-success calcularValorPorcenjate">CALCULAR <i class="fa fa-calculator" style="font-size: 15px"></i></div>
+                                                                      
+                                                                   
+                                                                    
+                                                                    <div class="col-sm-12" >
+                                                                 
+                                                                    <input type="submit" value="EMITIR" class="btn btn-info" style="font-size: 35px; text-align:center">
+
+                                                                    </div>
+                                                                    
                                                                     <div class="col-sm-1"></div>
                                 
                 

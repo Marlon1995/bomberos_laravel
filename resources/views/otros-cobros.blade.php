@@ -300,9 +300,21 @@
                                                                             </div>
                                                                         </div>
 
-                                                                             <center>
-                                                                                <div class="btn btn-success calcularValorPorcenjate"><i class="fa fa-check" style="font-size: 15px"></i></div>
-                                                                                 $ <label id="valorCalculado">0</label>
+                                                                        <center>
+                                                                        <div class="col-sm-12" >
+                                                                    <label id="" style="font-size: 42px;">$</label>
+                                                                     <label id="valorCalculado" style="font-size: 42px;">0</label>
+                                                                    </div>
+                                                                             
+                                            
+                                                                                <div class="col-sm-12" >
+                                                                  
+                                                                  <div class="btn btn-success calcularValorPorcenjate">CALCULAR <i class="fa fa-calculator" style="font-size: 15px"></i></div>
+                                                                
+                                                            
+          
+
+                                                          </div>
                                                                             </center>
                                                                      </div>
                                                                     <div class="col-sm-1"></div>
