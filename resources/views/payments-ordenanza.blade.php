@@ -972,10 +972,10 @@
 
         /// pago total de tasa anual
         $(".pagar__pagos").on('click', function() {
-console.log(this);
+
             var cli_id = $(this).attr("data-idCli");
 
-            alert(cli_id);
+          
             var endpoint = 'resumenPagoOrdenanzas/' + cli_id;
             $("#cliend_idmp_1").val(cli_id);
 
