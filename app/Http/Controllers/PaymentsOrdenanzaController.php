@@ -328,13 +328,13 @@ class PaymentsOrdenanzaController extends Controller
      */
     public function destroy($id)
     {
+       
 
-        $client = Client::where('id','=', $id)->select('id')->get();
-        
+     
 
-        PagosOrdenanzaModel::where('client_id','=', $client[0]->id)
+        PagosOrdenanzaModel::where('id','=', $id)
                      //  ->whereIn("tipoPago",[3,6])
-                       ->whereIn("estado",[8])
+                       ->whereIn("estado",[7])
                        ->delete();
 
 
