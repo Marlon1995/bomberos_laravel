@@ -246,6 +246,22 @@
                                 </li>
                                 @endif
 
+                                
+                                @if (auth()->user()->hasRoles([5,1]))
+
+
+                                <li><a><i class="fa fa-building"></i> Permisos <span
+                                                class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                  
+                                        <li><a href="/history-payments-old"> Historial Pagos Anteriores</a></li>
+                                    
+
+
+                                        </ul>
+                                
+                                @endif
+
                                 @if (auth()->user()->hasRoles([3]))
 
 
