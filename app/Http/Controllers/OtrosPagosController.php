@@ -126,9 +126,9 @@ class OtrosPagosController extends Controller
         $auditoria->user_id         = auth()->user()->id;
         $auditoria->role_id         = auth()->user()->role->id;
         $auditoria->modulo          = 'Otros Cobros';
-        $auditoria->descripcion     = 'Genera el pago de OTROS COBOS de la razonSocial ' . $request->input('nombreLocal') . ',valor: $ ' . round($pago_valor, 2) . ', descrpción ' . $request->input('descripcion');
+        $auditoria->descripcion     = 'Genera el pago de OTROS COBOS de la razonSocial ' . $request->input('nombreLocal')  . $request->input('descripcion');
         $auditoria->accion          = 'Pago de anticipo';
-        $auditoria->valor           = (int) $request->input('ruc');
+        $auditoria->valor           = $pago_valor;
         $auditoria->created_at      = Carbon::now();
         $auditoria->save();
 
