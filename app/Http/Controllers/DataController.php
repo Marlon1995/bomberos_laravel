@@ -29,8 +29,9 @@ class DataController extends Controller
         $cliente  = DB::table('client')
             ->select('ruc','razonSocial','representanteLegal','barrio', 'referencia', 'telefono', 'email')
             ->where('ruc','=',$ruc)
+            ->where('estado','<>',1)
             ->get();
-        $respues[] = array("ruc" => "El RUC ".$ruc." aun no se encuentra registrado..");
+        $respues[] = array("ruc" => "El RUC ".$ruc." no se encuentra registrado o fue inactivado");
         $cliente = (empty($cliente[0]->ruc)) ? $respues : $cliente;
 
         return json_encode($cliente);

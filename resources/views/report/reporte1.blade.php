@@ -104,8 +104,28 @@
         <center>
             <h5>PAGOS PERMISOS</h5>
         </center>
+
+       
+        
+
+        @if($reporte->isEmpty())
+       
+
+        @php
+        $total_pago = 0;
+    @endphp
+       <center>
+    <p>No existen valores de pago.</p>
+    </center>
+@else
         <table>
             <tr>
+            {{ $total_pago = 0 }}
+            {{ $total_vpagos = 0 }}
+            {{ $total_especie = 0 }}
+            {{ $total_recargo = 0 }}
+            {{ $total_admin = 0 }}
+            {{ $x = 1 }}
                 <th>N°</th>
                 <th>FECHA</th>
                 <th>AÑO PERMISO</th>
@@ -125,12 +145,6 @@
 
             </tr>
 
-            {{ $total_pago = 0 }}
-            {{ $total_vpagos = 0 }}
-            {{ $total_especie = 0 }}
-            {{ $total_recargo = 0 }}
-            {{ $total_admin = 0 }}
-            {{ $x = 1 }}
 
             @forelse($reporte as $item)
                 {{ $total_pago = 0}}
@@ -176,12 +190,26 @@
                 <td><strong>${{ round($total_vpagos + $total_recargo+$total_admin+$total_especie, 2) }}</strong></td>
                 {{ $total_pago=round($total_vpagos + $total_recargo+$total_admin+$total_especie, 2) }}
             </tr>
-        </table>
+        </table>    
+        @endif
 
-        <br><br>
+
+
         <center>
             <h5>PAGOS ORDENANZAS</h5>
         </center>
+
+       
+        @if($reporte_ordenanzas->isEmpty())
+
+        @php
+        $total_ordenanzas = 0;
+    @endphp
+      
+       <center>
+    <p>No existen valores de pago.</p>
+    </center>
+@else
         <table>
             <tr>
                 <th>N°</th>
@@ -251,12 +279,25 @@
 {{$total_ordenanzas=round($total_pago_or + $total_recargo_or+$total_admin_or+$total_especie_or, 2)}}
             </tr>
         </table>
-
-        <br><br>
+@endif
+ 
 
         <center>
             <h5>OTROS COBROS</h5>
         </center>
+
+        
+        @if($cobros->isEmpty())
+        
+        
+        @php
+        $total = 0;
+    @endphp
+        
+       <center>
+    <p>No existen valores de pago.</p>
+    </center>
+@else
         <table>
             <tr>
                 <th>N°</th>
@@ -321,13 +362,26 @@
             </tr>
         </table>
 
-
+@endif
 
 
 
         <center>
             <h5>ESPECIES EMITIDAS</h5>
         </center>
+          
+        @if($cobros->isEmpty())
+
+
+        @php
+        $totalEspecies = 0;
+    @endphp
+    <center>
+       
+    <p>No existen valores de pago.</p>
+  
+    </center>
+@else
         <table>
             <tr>
                 <th>N°</th>
@@ -378,12 +432,11 @@
 
             </tr>
         </table>
-
+@endif
 
         <br>
         <div>
-            <br>
-            <br>
+          
 
             <span
                 style="color: #ffffff">______________________________________________________________________________________________

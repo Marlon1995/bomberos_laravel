@@ -142,7 +142,7 @@
                     
                     <td>{{ $item->email }}</td>
 
-                    <td>${{ round($item->valor+ $item->recargo, 2) }}</td>
+          
               
                     <td>${{ round($item->valor + $item->recargo, 2) }}</td>
 
@@ -152,7 +152,9 @@
 
             <tr>
                 
+                
                 <td></td>
+                
                 <td></td>
                 <td></td>
                 <td></td>

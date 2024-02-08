@@ -48,8 +48,10 @@ class clients_secretariaController extends Controller
     }
 
     public function destroy( Request $request, $id) {
+       
      
         $id=$request->input('client_id');
+       
         
         $name="";
    
@@ -61,10 +63,10 @@ class clients_secretariaController extends Controller
           
 
         }
-    
+      
 
-        $client = DB::table('client')->select(   'id','razonSocial')->where('id', $id)->get();
-        
+    
+  
 
         DB::table('client')->where('id', $id)
             ->update([

@@ -632,8 +632,8 @@ class ReporteController extends Controller
            'otros_pagos.numTituloAdmin',
            'valor','otros_pagos.recargo',
             'otros_pagos.created_at')
-       // ->whereNotIn('tipos_pago.id', [2])
-        ->where('otros_pagos.estado','=', 4)
+        ->whereIn('otros_pagos.estado', [4,7])
+       // ->where('otros_pagos.estado','=', 4)
         ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
         ->orderBy('client.created_at', 'desc')
         ->get();

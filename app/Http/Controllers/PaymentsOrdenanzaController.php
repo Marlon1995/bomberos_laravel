@@ -334,7 +334,7 @@ class PaymentsOrdenanzaController extends Controller
 
         PagosOrdenanzaModel::where('id','=', $id)
                      //  ->whereIn("tipoPago",[3,6])
-                       ->whereIn("estado",[7])
+                       ->whereIn("estado",[7,8])
                        ->delete();
 
 

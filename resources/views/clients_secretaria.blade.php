@@ -128,9 +128,8 @@
                                                     </td>
                                                     <td style="text-align: center">
                                                         @if ($item->estado > 4)
-                                                            <button class="btn btn-danger btn-block mdlModificaEmpleado"
-                                                                data-toggle="modal" data-idCli_1="{{ $item->id }}"
-                                                                data-target="#mdlModificaEmpleado">DESACTIVAR </button>
+                                                     ACTIVO
+                                                            
                                                         @endif
                                                         @if ($item->estado == 1)
                                                             DESACTIVADO
@@ -141,16 +140,34 @@
                                                         @endif
 
                                                     </td>
+                                                    @if ($item->estado <= 4 && $item->estado != 1)
                                                     <td style="text-align: center">
-                                                        @if ($item->estado <= 4 && $item->estado != 1)
+                                                      
                                                             <div class="btn btn-warning btn-block mdlModificaInfoEmpleado"
                                                                 data-toggle="modal" data-idCli_1="{{ $item->id }}"
                                                                 data-target="#mdlModificaInfoEmpleado">
                                                                 <i class="fa fa-edit"></i>
                                                             </div>
+                                                       
+                                                    </td>
+                                                    @endif
+                                                    @if ($item->estado > 4)
+                                                <td style="text-align: center">
+                                                   
+                                                    <button class="btn btn-danger btn-block mdlModificaEmpleado"
+                                                                data-toggle="modal" data-idCli_1="{{ $item->id }}"
+                                                                data-target="#mdlModificaEmpleado" onclick="desactivarEmpleado()" >DESACTIVAR </button>
+                                                               
+                                                                </td>
+
+                                                                @endif
+                                                                
+                                                @if ($item->estado == 1)
+                                                <td style="text-align: center">
+                                             
+                                                               </td>
                                                         @endif
 
-                                                    </td>
                                                 </tr>
 
                                             @empty
@@ -195,9 +212,9 @@
 
 
                             <form class="form-horizontal form-label-left" method="POST"
-                                action="{{ route('client.destroy', 1) }}" enctype="multipart/form-data">
+                                action="{{ route('client.destroy',  $item->id) }}" enctype="multipart/form-data">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <input type="hidden" name="client_id" id="client_id_1" value="">
+                                <input type="hidden" name="client_id" id="client_id" value="">
                                 {!! method_field('DELETE') !!}
 
                                 <!--FORMULARIO DE INSPECCIÓN--->
@@ -466,17 +483,44 @@
       
 
 
-       
+       // Obtener el elemento select
+var select = document.getElementById('tbClientes_selectBuscar');
 
-        $(".mdlModificaEmpleado").click(function() {
-            var id = $(this).attr("data-idCli_1");
-            $("#client_id_1").val(id);
-        });
+// Agregar un evento change al select
+select.addEventListener('change', function() {
+    var filtro = '';
+
+    // Obtener el valor seleccionado en el select
+    var valorSeleccionado = this.value;
+
+    // Aplicar el filtro según el valor seleccionado
+    if (valorSeleccionado === '1') {
+        filtro = '';
+    } else if (valorSeleccionado === '2') {
+        filtro = 'ACTIVO';
+    } else if (valorSeleccionado === '3') {
+        filtro = 'DESACTIVADO';
+    }
+
+    // Aplicar el filtro al datatable
+    $('#tbClientes').DataTable().column(5).search(filtro).draw();
+});
+
+
+  
+
+        function desactivarEmpleado() {
+        // Aquí puedes escribir el código para desactivar al empleado
+        var idEmpleado = document.querySelector('.mdlModificaEmpleado').getAttribute('data-idCli_1');
+        $("#client_id").val(idEmpleado);
+        // Puedes hacer una llamada AJAX para desactivar al empleado aquí si es necesario
+    }
 
         $(".mdlModificaInfoEmpleado").click(function() {
             var valorID = $(this).attr("data-idCli_1");
             var endpoint = 'resumenInfoCliente/' + valorID;
-            $("#clietn_id").val(valorID);
+            $("#client_id").val(valorID);
+           
 
             $.ajax({
                 async: false,

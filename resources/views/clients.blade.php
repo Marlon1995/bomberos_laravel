@@ -984,7 +984,7 @@
           
             var valorID = $(this).attr("data-idmodCli");
             var endpoint = 'resumenInfoCliente/' + valorID;
-            $("#clietn_id").val(valorID);
+            $("#client_id").val(valorID);
 
             $.ajax({
                 async: false,
