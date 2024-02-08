@@ -65,7 +65,7 @@
 
                                  
 
-                                    <select class="form-control tbClientes_selectBuscar_Parroquia">
+                                    <select class="form-control " id="tbClientes_selectBuscar_Parroquia">
                                         @forelse ($sector as $item)
                                             <option value="{{ $item->descripcion }}">{{ $item->descripcion }}</option>
                                         @empty
@@ -506,6 +506,22 @@ select.addEventListener('change', function() {
     $('#tbClientes').DataTable().column(5).search(filtro).draw();
 });
 
+
+var select_parr = document.getElementById('tbClientes_selectBuscar_Parroquia');
+
+// Agregar un evento change al select
+select_parr.addEventListener('change', function() {
+
+
+    // Obtener el valor seleccionado en el select
+    var valorSeleccionado = this.value;
+  
+
+    
+
+    // Aplicar el filtro al datatable
+    $('#tbClientes').DataTable().column(4).search(valorSeleccionado).draw();
+});
 
   
 
