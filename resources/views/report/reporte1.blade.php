@@ -457,7 +457,7 @@
         <div class="firmas" style="text-align: center;">___________________________________
  </div>
 <div class="firmas" style="text-align: center;">
-    <span style="font-weight: bold;">Recaudador(a) Tnlga. Patricia Pincay</span>
+<span style="font-weight: bold;">Recaudador(a) {{ strtoupper(auth()->user()->nombre . ' ' . auth()->user()->apellido) }}</span>
 </div>
 
         <br>
