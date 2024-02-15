@@ -49,11 +49,11 @@ class ReporteController extends Controller
                'otros_pagos.numTituloAdmin',
                
                'valor','otros_pagos.recargo',
-                'otros_pagos.created_at')
+                'otros_pagos.updated_at')
             ->whereNotIn('tipos_pago.id', [2])
             ->where('otros_pagos.estado','=', 8)
-            ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
-            ->orderBy('otros_pagos.created_at', 'desc')
+            ->where('otros_pagos.updated_at','like', date("Y-m-d").'%' )
+            ->orderBy('otros_pagos.updated_at', 'desc')
             ->get();
 
             $reporte_ordenanzas = DB::table('pagos_ordenanza')
@@ -73,11 +73,11 @@ class ReporteController extends Controller
                'pagos_ordenanza.numTransaccion',
                'pagos_ordenanza.numTituloAdmin',
                'valor','pagos_ordenanza.recargo',
-                'pagos_ordenanza.created_at')
+                'pagos_ordenanza.updated_at')
             ->whereNotIn('tipos_pago.id', [2])
             ->where('pagos_ordenanza.estado','=', 8)
-            ->where('pagos_ordenanza.created_at','like', date("Y-m-d").'%' )
-            ->orderBy('pagos_ordenanza.created_at', 'desc')
+            ->where('pagos_ordenanza.updated_at','like', date("Y-m-d").'%' )
+            ->orderBy('pagos_ordenanza.updated_at', 'desc')
             ->get();
 
         $cobros= DB::table('otros_cobros')
@@ -95,8 +95,8 @@ class ReporteController extends Controller
                 'representanteLegal',
                 'numTituloAdmin',
                 'descripcion',
-                'otros_cobros.created_at')
-           ->where('otros_cobros.created_at','like', date("Y-m-d").'%' )
+                'otros_cobros.updated_at')
+           ->where('otros_cobros.updated_at','like', date("Y-m-d").'%' )
             ->where('otros_cobros.estado','=',8)
 
             ->get();
@@ -104,7 +104,7 @@ class ReporteController extends Controller
 
 
         $especie = Especies::where('estado','=','1')
-            ->where('created_at','like', date("Y-m-d").'%' )
+            ->where('updated_at','like', date("Y-m-d").'%' )
             ->get();
 
         $doc = "";
