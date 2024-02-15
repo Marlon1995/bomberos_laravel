@@ -108,16 +108,7 @@
        
         
 
-        @if($reporte->isEmpty())
        
-
-        @php
-        $total_pago = 0;
-    @endphp
-       <center>
-    <p>No existen valores de pago.</p>
-    </center>
-@else
         <table>
             <tr>
             {{ $total_pago = 0 }}
@@ -169,7 +160,7 @@
                     <td>${{ round($item->valor + $item->recargo+2+1, 2) }}</td>
 
                 </tr>
-            @empty
+           @empty
             @endforelse
 
             <tr>
@@ -191,7 +182,7 @@
                 {{ $total_pago=round($total_vpagos + $total_recargo+$total_admin+$total_especie, 2) }}
             </tr>
         </table>    
-        @endif
+     
 
 
 
@@ -200,16 +191,7 @@
         </center>
 
        
-        @if($reporte_ordenanzas->isEmpty())
-
-        @php
-        $total_ordenanzas = 0;
-    @endphp
-      
-       <center>
-    <p>No existen valores de pago.</p>
-    </center>
-@else
+     
         <table>
             <tr>
                 <th>N°</th>
@@ -259,7 +241,7 @@
                     <td>${{ round($item->valor + $item->recargo+1+2, 2) }}</td>
 
                 </tr>
-            @empty
+             @empty
             @endforelse
 
             <tr>
@@ -279,7 +261,7 @@
 {{$total_ordenanzas=round($total_pago_or + $total_recargo_or+$total_admin_or+$total_especie_or, 2)}}
             </tr>
         </table>
-@endif
+
  
 
         <center>
@@ -287,17 +269,7 @@
         </center>
 
         
-        @if($cobros->isEmpty())
-        
-        
-        @php
-        $total = 0;
-    @endphp
-        
-       <center>
-    <p>No existen valores de pago.</p>
-    </center>
-@else
+    
         <table>
             <tr>
                 <th>N°</th>
@@ -342,7 +314,7 @@
 
 
                 </tr>
-            @empty
+        @empty
             @endforelse
             <tr>
                 <td></td>
@@ -362,26 +334,13 @@
             </tr>
         </table>
 
-@endif
-
 
 
         <center>
             <h5>ESPECIES EMITIDAS</h5>
         </center>
           
-        @if($cobros->isEmpty())
-
-
-        @php
-        $totalEspecies = 0;
-    @endphp
-    <center>
-       
-    <p>No existen valores de pago.</p>
-  
-    </center>
-@else
+     
         <table>
             <tr>
                 <th>N°</th>
@@ -417,7 +376,7 @@
 
 
                 </tr>
-            @empty
+       @empty
             @endforelse
             <tr>
                 <td></td>
@@ -432,7 +391,6 @@
 
             </tr>
         </table>
-@endif
 
         <br>
         <div>
