@@ -340,7 +340,7 @@ public function historialOrdenanzas(){
                   
             })
             ->leftJoin('formaspago', 'formaspago.id', 'pagos_ordenanza.formaPago_id')
-            ->select('ruc', 'razonSocial', 'formaspago.nombre as formaspago', 'tipos_pago.nombre as tipos_pago', 'valor', 'pagos_ordenanza.id', 'pagos_ordenanza.created_at'
+            ->select('ruc', 'razonSocial', 'formaspago.nombre as formaspago', 'tipos_pago.nombre as tipos_pago', 'valor', 'pagos_ordenanza.id', 'pagos_ordenanza.updated_at as created_at'
                 ,'pagos_ordenanza.docRespaldo' , 'pagos_ordenanza.descripcion' )
             ->whereIn('tipos_pago.id', [2])
             ->orderBy('id', 'desc')
@@ -357,7 +357,7 @@ public function historialOrdenanzas(){
              })
             ->leftJoin('formaspago', 'formaspago.id', 'pagos_ordenanza.formaPago_id')
             ->select('ruc', 'razonSocial', 'formaspago.nombre as formaspago', 'tipos_pago.nombre as tipos_pago', 'valor', 'pagos_ordenanza.id'
-                , 'pagos_ordenanza.created_at', 'pagos_ordenanza.descripcion')
+                , 'pagos_ordenanza.updated_at as created_at', 'pagos_ordenanza.descripcion')
             ->whereNotIn('tipos_pago.id', [5,6])
             ->where('pagos_ordenanza.estado','=', 8)
             ->orderBy('id', 'desc')

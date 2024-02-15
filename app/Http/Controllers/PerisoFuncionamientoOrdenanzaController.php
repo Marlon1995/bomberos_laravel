@@ -43,7 +43,7 @@ class PerisoFuncionamientoOrdenanzaController extends Controller
             ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'cli.id')
             ->where('pagos_ordenanza.estado', '=', 8)
           //  ->where('cli.estado', '=', 8)
-            ->orderBy('pagos_ordenanza.created_at', 'ASC')
+            ->orderBy('pagos_ordenanza.updated_at', 'ASC')
             ->get();
 
 
@@ -68,7 +68,7 @@ class PerisoFuncionamientoOrdenanzaController extends Controller
                 , 'cli.riesgo_id'
                 , 'cli.denominacion_id'
                 , 'cli.tipoFormulario'
-                ,'pagos_ordenanza.created_at as anio'
+                ,'pagos_ordenanza.updated_at as anio'
                 ,'pagos_ordenanza.descripcion'
 /*                 , 'denominaciones.descripcion as denominacion'
                 , 'categorias.descripcion as categorias'
