@@ -49,11 +49,11 @@ class ReporteController extends Controller
                'otros_pagos.numTituloAdmin',
                
                'valor','otros_pagos.recargo',
-                'otros_pagos.created_at')
+                'otros_pagos.updated_at')
             ->whereNotIn('tipos_pago.id', [2])
             ->where('otros_pagos.estado','=', 8)
-            ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
-            ->orderBy('otros_pagos.created_at', 'desc')
+            ->where('otros_pagos.updated_at','like', date("Y-m-d").'%' )
+            ->orderBy('otros_pagos.updated_at', 'desc')
             ->get();
 
             $reporte_ordenanzas = DB::table('pagos_ordenanza')
@@ -73,11 +73,11 @@ class ReporteController extends Controller
                'pagos_ordenanza.numTransaccion',
                'pagos_ordenanza.numTituloAdmin',
                'valor','pagos_ordenanza.recargo',
-                'pagos_ordenanza.created_at')
+                'pagos_ordenanza.updated_at')
             ->whereNotIn('tipos_pago.id', [2])
             ->where('pagos_ordenanza.estado','=', 8)
-            ->where('pagos_ordenanza.created_at','like', date("Y-m-d").'%' )
-            ->orderBy('pagos_ordenanza.created_at', 'desc')
+            ->where('pagos_ordenanza.updated_at','like', date("Y-m-d").'%' )
+            ->orderBy('pagos_ordenanza.updated_at', 'desc')
             ->get();
 
         $cobros= DB::table('otros_cobros')
@@ -95,8 +95,8 @@ class ReporteController extends Controller
                 'representanteLegal',
                 'numTituloAdmin',
                 'descripcion',
-                'otros_cobros.created_at')
-           ->where('otros_cobros.created_at','like', date("Y-m-d").'%' )
+                'otros_cobros.updated_at')
+           ->where('otros_cobros.updated_at','like', date("Y-m-d").'%' )
             ->where('otros_cobros.estado','=',8)
 
             ->get();
@@ -104,7 +104,7 @@ class ReporteController extends Controller
 
 
         $especie = Especies::where('estado','=','1')
-            ->where('created_at','like', date("Y-m-d").'%' )
+            ->where('updated_at','like', date("Y-m-d").'%' )
             ->get();
 
         $doc = "";
@@ -137,12 +137,12 @@ class ReporteController extends Controller
                 'formaspago.nombre as formaspago',
                 'tipos_pago.nombre as tipos_pago',
                 'valor',
-                'otros_pagos.created_at')
+                'otros_pagos.updated_at')
             ->whereNotIn('tipos_pago.id', [2])
             ->where('otros_pagos.estado','=', 8)
-            ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
-            ->where('otros_pagos.created_at','<=', date("Y-m-d H:i:s") )
-            ->orderBy('otros_pagos.created_at', 'desc')
+            ->where('otros_pagos.updated_at','like', date("Y-m-d").'%' )
+            ->where('otros_pagos.updated_at','<=', date("Y-m-d H:i:s") )
+            ->orderBy('otros_pagos.updated_at', 'desc')
             ->get();
 
         $doc = "";
@@ -198,7 +198,7 @@ class ReporteController extends Controller
                 'denominaciones.descripcion as denominacion',
                 'otros_pagos.year_now as anio',
                 'otros_pagos.valor',
-                'otros_pagos.created_at'
+                'otros_pagos.updated_at'
             )
             ->where('otros_pagos.numPermisoFuncionamiento', '<>', null)
             ->where('cli.estado', '=', 8)
@@ -285,8 +285,8 @@ class ReporteController extends Controller
 
 
     $especie = Especies::where('estado','=',$estado)
-        //->where('created_at','like', date("Y-m-d").'%' )
-        ->whereBetween(DB::raw('DATE(created_at)'),[ $fecha1_c, $fecha2_c])
+        //->where('updated_at','like', date("Y-m-d").'%' )
+        ->whereBetween(DB::raw('DATE(updated_at)'),[ $fecha1_c, $fecha2_c])
 
         ->get();
 
@@ -332,13 +332,14 @@ class ReporteController extends Controller
            'otros_pagos.numTransaccion',
            'otros_pagos.numTituloAdmin',
            'valor','otros_pagos.recargo',
-            'otros_pagos.created_at')
+            'otros_pagos.updated_at')
         ->whereNotIn('tipos_pago.id', [2])
         ->where('otros_pagos.estado','=', 8)
-        ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
+        ->whereNotNull('otros_pagos.numTituloAdmin')
+        ->whereBetween(DB::raw('DATE(otros_pagos.updated_at)'),[ $fecha1_c, $fecha2_c])
 
-       // ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
-        ->orderBy('otros_pagos.created_at', 'desc')
+       // ->where('otros_pagos.updated_at','like', date("Y-m-d").'%' )
+        ->orderBy('otros_pagos.updated_at', 'desc')
         ->get();
       
 
@@ -359,18 +360,20 @@ class ReporteController extends Controller
            'pagos_ordenanza.numTransaccion',
            'pagos_ordenanza.numTituloAdmin',
            'valor','pagos_ordenanza.recargo',
-            'pagos_ordenanza.created_at')
+            'pagos_ordenanza.updated_at')
         ->whereNotIn('tipos_pago.id', [2])
         ->where('pagos_ordenanza.estado','=', 8)
-        //->where('pagos_ordenanza.created_at','like', date("Y-m-d").'%' )
-        ->whereBetween(DB::raw('DATE(pagos_ordenanza.created_at)'),[ $fecha1_c, $fecha2_c])
+        ->whereNotNull('pagos_ordenanza.numTituloAdmin')
 
-        ->orderBy('pagos_ordenanza.created_at', 'desc')
+        //->where('pagos_ordenanza.updated_at','like', date("Y-m-d").'%' )
+        ->whereBetween(DB::raw('DATE(pagos_ordenanza.updated_at)'),[ $fecha1_c, $fecha2_c])
+
+        ->orderBy('pagos_ordenanza.updated_at', 'desc')
         ->get();
 
         $cobros=  Especies::where('estado','=','1')
-        //->where('created_at','like', date("Y-m-d").'%' )
-        ->whereBetween(DB::raw('DATE(created_at)'),[ $fecha1_c, $fecha2_c])
+        //->where('updated_at','like', date("Y-m-d").'%' )
+        ->whereBetween(DB::raw('DATE(updated_at)'),[ $fecha1_c, $fecha2_c])
 
         ->get();
 
@@ -419,13 +422,13 @@ class ReporteController extends Controller
            'otros_pagos.numTransaccion',
            'otros_pagos.numTituloAdmin',
            'valor','otros_pagos.recargo',
-            'otros_pagos.created_at')
+            'otros_pagos.updated_at')
         ->whereNotIn('tipos_pago.id', [2])
         ->where('otros_pagos.estado','=', 8)
-        ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
+        ->whereBetween(DB::raw('DATE(otros_pagos.updated_at)'),[ $fecha1_c, $fecha2_c])
 
-       // ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
-        ->orderBy('otros_pagos.created_at', 'desc')
+       // ->where('otros_pagos.updated_at','like', date("Y-m-d").'%' )
+        ->orderBy('otros_pagos.updated_at', 'desc')
         ->get();
       
 
@@ -446,13 +449,13 @@ class ReporteController extends Controller
            'pagos_ordenanza.numTransaccion',
            'pagos_ordenanza.numTituloAdmin',
            'valor','pagos_ordenanza.recargo',
-            'pagos_ordenanza.created_at')
+            'pagos_ordenanza.updated_at')
         ->whereNotIn('tipos_pago.id', [2])
         ->where('pagos_ordenanza.estado','=', 8)
-        //->where('pagos_ordenanza.created_at','like', date("Y-m-d").'%' )
-        ->whereBetween(DB::raw('DATE(pagos_ordenanza.created_at)'),[ $fecha1_c, $fecha2_c])
+        //->where('pagos_ordenanza.updated_at','like', date("Y-m-d").'%' )
+        ->whereBetween(DB::raw('DATE(pagos_ordenanza.updated_at)'),[ $fecha1_c, $fecha2_c])
 
-        ->orderBy('pagos_ordenanza.created_at', 'desc')
+        ->orderBy('pagos_ordenanza.updated_at', 'desc')
         ->get();
 
         $cobros= DB::table('otros_cobros')
@@ -470,8 +473,8 @@ class ReporteController extends Controller
             'representanteLegal',
             'numTituloAdmin',
             'descripcion',
-            'otros_cobros.created_at')
-       ->where('otros_cobros.created_at','like', date("Y-m-d").'%' )
+            'otros_cobros.updated_at')
+       ->where('otros_cobros.updated_at','like', date("Y-m-d").'%' )
         ->where('otros_cobros.estado','=',8)
 
         ->get();
@@ -519,13 +522,13 @@ class ReporteController extends Controller
            'otros_pagos.numTransaccion',
            'otros_pagos.numTituloAdmin',
            'valor','otros_pagos.recargo',
-            'otros_pagos.created_at')
+            'otros_pagos.updated_at')
         ->whereNotIn('tipos_pago.id', [2])
         ->where('otros_pagos.estado','=', 8)
-        ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
+        ->whereBetween(DB::raw('DATE(otros_pagos.updated_at)'),[ $fecha1_c, $fecha2_c])
 
-       // ->where('otros_pagos.created_at','like', date("Y-m-d").'%' )
-        ->orderBy('otros_pagos.created_at', 'desc')
+       // ->where('otros_pagos.updated_at','like', date("Y-m-d").'%' )
+        ->orderBy('otros_pagos.updated_at', 'desc')
         ->get();
       
 
@@ -546,13 +549,13 @@ class ReporteController extends Controller
            'pagos_ordenanza.numTransaccion',
            'valor','pagos_ordenanza.recargo',
            'pagos_ordenanza.numTituloAdmin',
-            'pagos_ordenanza.created_at')
+            'pagos_ordenanza.updated_at')
         ->whereNotIn('tipos_pago.id', [2])
         ->where('pagos_ordenanza.estado','=', 8)
-        //->where('pagos_ordenanza.created_at','like', date("Y-m-d").'%' )
-        ->whereBetween(DB::raw('DATE(pagos_ordenanza.created_at)'),[ $fecha1_c, $fecha2_c])
+        //->where('pagos_ordenanza.updated_at','like', date("Y-m-d").'%' )
+        ->whereBetween(DB::raw('DATE(pagos_ordenanza.updated_at)'),[ $fecha1_c, $fecha2_c])
 
-        ->orderBy('pagos_ordenanza.created_at', 'desc')
+        ->orderBy('pagos_ordenanza.updated_at', 'desc')
         ->get();
 
     $cobros= DB::table('otros_cobros')
@@ -570,9 +573,9 @@ class ReporteController extends Controller
             'numTituloAdmin',
             'representanteLegal',
             'descripcion',
-            'otros_cobros.created_at')
-       //->where('otros_cobros.created_at','like', date("Y-m-d").'%' )
-       ->whereBetween(DB::raw('DATE(otros_cobros.created_at)'),[ $fecha1_c, $fecha2_c])
+            'otros_cobros.updated_at')
+       //->where('otros_cobros.updated_at','like', date("Y-m-d").'%' )
+       ->whereBetween(DB::raw('DATE(otros_cobros.updated_at)'),[ $fecha1_c, $fecha2_c])
 
        
         ->where('otros_cobros.estado','=',8)
@@ -582,8 +585,8 @@ class ReporteController extends Controller
 
 
     $especie = Especies::where('estado','=','1')
-        //->where('created_at','like', date("Y-m-d").'%' )
-        ->whereBetween(DB::raw('DATE(created_at)'),[ $fecha1_c, $fecha2_c])
+        //->where('updated_at','like', date("Y-m-d").'%' )
+        ->whereBetween(DB::raw('DATE(updated_at)'),[ $fecha1_c, $fecha2_c])
 
         ->get();
 
@@ -634,11 +637,11 @@ class ReporteController extends Controller
            'otros_pagos.numTransaccion',
            'otros_pagos.numTituloAdmin',
            'valor','otros_pagos.recargo',
-            'otros_pagos.created_at')
+            'otros_pagos.updated_at')
         ->whereIn('otros_pagos.estado', [4,7])
        // ->where('otros_pagos.estado','=', 4)
-        ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
-        ->orderBy('client.created_at', 'desc')
+        ->whereBetween(DB::raw('DATE(otros_pagos.updated_at)'),[ $fecha1_c, $fecha2_c])
+        ->orderBy('client.updated_at', 'desc')
         ->get();
       
 
@@ -694,13 +697,13 @@ class ReporteController extends Controller
            'otros_pagos.numTransaccion',
            'otros_pagos.numTituloAdmin',
            'valor','otros_pagos.recargo',
-            'otros_pagos.created_at')
+            'otros_pagos.updated_at')
        // ->whereNotIn('tipos_pago.id', [2])
         ->where('otros_pagos.estado','=', 8)
         ->where('client.parroquia_id','=',$parroquia_id)
-        ->whereBetween(DB::raw('DATE(otros_pagos.created_at)'),[ $fecha1_c, $fecha2_c])
+        ->whereBetween(DB::raw('DATE(otros_pagos.updated_at)'),[ $fecha1_c, $fecha2_c])
         ->orderBy('parroquias.descripcion', 'desc')
-        ->orderBy('client.created_at', 'desc')
+        ->orderBy('client.updated_at', 'desc')
        
         ->get();
       
@@ -752,7 +755,7 @@ class ReporteController extends Controller
                 'denominaciones.descripcion as denominacion',
                 'otros_pagos.year_now as anio',
                 'otros_pagos.valor',
-                'otros_pagos.created_at'
+                'otros_pagos.updated_at'
             )
             ->where('otros_pagos.numPermisoFuncionamiento', '<>', null)
             ->where('cli.estado', '=', 8)
