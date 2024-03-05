@@ -110,8 +110,9 @@
                 
                 <th>CI - RUC</th>
                 <th>RAZÓN SOCIAL</th>
+                <th>PROPIETARIO</th>
                 <th>DIRECCIÓN</th>
-                <th>TELÉFONO</th>
+                
                
                 <th>VALOR</th>
                
@@ -138,9 +139,10 @@
                     <td>{{ $item->created_at }}</td>
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
+                    <td>{{ $item->representanteLegal }}</td>
                     <td>{{ $item->referencia }}</td>
                     
-                    <td>{{ $item->email }}</td>
+             
 
           
               

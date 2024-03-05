@@ -630,6 +630,7 @@ class ReporteController extends Controller
         ->leftJoin('formaspago', 'formaspago.id', 'otros_pagos.formaPago_id')
         ->select(   'ruc',
             'razonSocial',
+            'representanteLegal',
             'formaspago.nombre as formaspago',
             'valor',
             'referencia',
