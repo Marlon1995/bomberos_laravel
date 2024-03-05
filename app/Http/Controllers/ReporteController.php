@@ -425,6 +425,7 @@ class ReporteController extends Controller
             'otros_pagos.updated_at as created_at')
         ->whereNotIn('tipos_pago.id', [2])
         ->where('otros_pagos.estado','=', 8)
+        ->whereNotNull('otros_pagos.numTituloAdmin')
         ->whereBetween(DB::raw('DATE(otros_pagos.updated_at)'),[ $fecha1_c, $fecha2_c])
 
        // ->where('otros_pagos.updated_at','like', date("Y-m-d").'%' )
@@ -451,6 +452,7 @@ class ReporteController extends Controller
            'valor','pagos_ordenanza.recargo',
             'pagos_ordenanza.updated_at as created_at')
         ->whereNotIn('tipos_pago.id', [2])
+        ->whereNotNull('otros_pagos.numTituloAdmin')
         ->where('pagos_ordenanza.estado','=', 8)
         //->where('pagos_ordenanza.updated_at','like', date("Y-m-d").'%' )
         ->whereBetween(DB::raw('DATE(pagos_ordenanza.updated_at)'),[ $fecha1_c, $fecha2_c])
@@ -474,6 +476,7 @@ class ReporteController extends Controller
             'numTituloAdmin',
             'descripcion',
             'otros_cobros.updated_at as created_at')
+            ->whereNotNull('otros_pagos.numTituloAdmin')
        ->where('otros_cobros.updated_at','like', date("Y-m-d").'%' )
         ->where('otros_cobros.estado','=',8)
 
