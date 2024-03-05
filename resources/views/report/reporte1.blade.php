@@ -97,7 +97,7 @@
         <p class="cabeza__title"><b>Nombre: </b> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
             {{ auth()->user()->nombre . ' ' . auth()->user()->apellido }}</p>
         <p class="cabeza__title"><b>Fecha: </b> &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            {{ empty($reporte[0]->updated_at) ? 'NO EXISTE INFORMACIÓN PARA LA FECHA' : $reporte[0]->updated_at }}
+            {{ empty($reporte[0]->created_at) ? 'NO EXISTE INFORMACIÓN PARA LA FECHA' : $reporte[0]->created_at }}
         </p>
         <p class="cabeza__title"><b>Tipo Reporte: </b> &nbsp;CIERRE DE CAJA DIARIO</p>
 
@@ -145,7 +145,7 @@
                 {{ $total_recargo = $total_recargo + $item->recargo  }}
                 <tr>
                     <td>{{ $x++ }}</td>
-                    <td>{{ date('Y-m-d', strtotime($item->updated_at)) }}</td>
+                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
                     <td>{{ $item->year_now }}</td>
                     <td>{{ $item->numPermisoFuncionamiento }}</td>
                     <td>{{ $item->ruc }}</td>
@@ -226,7 +226,7 @@
                 {{ $total_recargo_or = $total_recargo_or + $item->recargo }}
                 <tr>
                     <td>{{ $x++ }}</td>
-                    <td>{{ date('Y-m-d', strtotime($item->updated_at)) }}</td>
+                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
                   
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
@@ -300,7 +300,7 @@
 
                 <tr>
                     <td>{{ $y++ }}</td>
-                    <td>{{ date('Y-m-d', strtotime($item->updated_at)) }}</td>
+                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
                     <td>{{ $item->year_now }}</td>
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
@@ -365,7 +365,7 @@
                     {{ $total_cantidad = $total_cantidad + $item->cantidad }}
                     {{ $total_vespecie = $total_vespecie + $item->valor }}
                     <td>{{ $z++ }}</td>
-                    <td>{{ date('Y-m-d', strtotime($item->updated_at)) }}</td>
+                    <td>{{ date('Y-m-d', strtotime($item->created_at)) }}</td>
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
                     <td>{{ $item->representanteLegal }}</td>
