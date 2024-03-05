@@ -270,6 +270,7 @@ class ReporteController extends Controller
 
         $fechas = $request->input('reservation');
         $estado = $request->input('tipoTransaccion');
+       
         $fecha1 = substr($fechas, 0, -13);
         $fecha2 = substr($fechas, 13);
 
@@ -288,6 +289,8 @@ class ReporteController extends Controller
         ->whereBetween(DB::raw('DATE(created_at)'),[ $fecha1_c, $fecha2_c])
 
         ->get();
+
+   
 
     $doc = "";
     $pdf = PDF::loadView('report/reporte5' , [
