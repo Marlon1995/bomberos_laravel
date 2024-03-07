@@ -16,6 +16,24 @@
             margin: 12px 0;
             font-size: 13px;
         }
+        #btnGenerarReporte {
+    background-color: #0d6350;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+        }
+
+#btnGenerarReporte:hover {
+    background-color: #0056b3;
+}
+
+#btnGenerarReporte i {
+    margin-right: 5px;
+}
 
         .modal-dialog {
             max-width: 70% !important;
@@ -95,6 +113,10 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <p>Listado de Clients registrados</p>
+                                <button id="btnGenerarReporte">
+                                         <i class="fa fa-file"></i> Generar Reporte
+                                </button>
+
 
                                 <div class="table-responsive">
                                     <table id="tbClientes" class="table table-striped jambo_table bulk_action"
@@ -428,6 +450,61 @@
 @endsection
 @section('scrpts-jqrey')
     <script>
+
+
+$('#btnGenerarReporte').on('click', function() {
+    // Aplicar los filtros seleccionados
+    $('#tbClientes').DataTable().draw();
+
+    // Esperar un momento para asegurarse de que los datos se han actualizado después de aplicar los filtros
+    setTimeout(function() {
+        // Generar el reporte con los datos actualizados
+        imprimirDatos();
+    }, 500); // Puedes ajustar este tiempo según sea necesario
+});
+
+
+
+
+function imprimirDatos() {
+    // Obtener los encabezados de la tabla
+    var headers = $('#tbClientes thead th').map(function() {
+        return $(this).text();
+    }).get();
+
+    // Obtener los datos de la tabla
+    var data = $('#tbClientes').DataTable().rows().data().toArray();
+
+    // Crear una tabla para mostrar los datos
+    var table = '<table border="1"><thead><tr>';
+
+    // Agregar los encabezados a la tabla
+    headers.forEach(function(header) {
+        table += '<th>' + header + '</th>';
+    });
+
+    table += '</tr></thead><tbody>';
+
+    // Agregar los datos a la tabla
+    data.forEach(function(row) {
+        table += '<tr>';
+        row.forEach(function(cell) {
+            table += '<td>' + cell + '</td>';
+        });
+        table += '</tr>';
+    });
+
+    table += '</tbody></table>';
+
+    // Mostrar la tabla en una nueva ventana para imprimir
+    var win = window.open('', '_blank');
+    win.document.write('<html><head><title>Datos de la tabla</title></head><body>');
+    win.document.write('<h1>Datos de la tabla</h1>');
+    win.document.write(table);
+    win.document.write('</body></html>');
+    win.document.close();
+}
+
         var tbClientes;
         fn_tbClientes_ini();
         $("#tbClientes_InpBuscar").val("");

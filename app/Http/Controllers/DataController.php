@@ -327,6 +327,26 @@ class DataController extends Controller
     }
 
 
+    public function historialOtrosCobrosOld(){
+        $data = System::all();
+
+   
+            $historial = DB::table('otros_cobros_history')
+            ->join('formaspago_history', 'formaspago_history.id', 'otros_cobros_history.formaPago_id')
+            ->select('otros_cobros_history.ruc', 'otros_cobros_history.razonSocial', 'formaspago_history.nombre as formaspago', 
+                'valor', 'otros_cobros_history.id', 'otros_cobros_history.representanteLegal',
+                DB::raw('YEAR(otros_cobros_history.created_at) as created_at'), // Extraer el año
+                'otros_cobros_history.descripcion')
+            ->where('otros_cobros_history.estado','=', 8)
+            ->orderBy('otros_cobros_history.created_at', 'desc')
+            ->groupBy('otros_cobros_history.ruc', 'otros_cobros_history.razonSocial', 'formaspago_history.nombre',
+                'valor', 'otros_cobros_history.id', 'otros_cobros_history.representanteLegal', 'created_at', 'otros_cobros_history.descripcion')
+            ->get();
+        
+            return view('imprecion/historyOtrosCobrosOld', compact('data', 'historial'));
+        
+    }
+
 /* historial cobros*/
 public function historialOrdenanzas(){
     $data = System::all();

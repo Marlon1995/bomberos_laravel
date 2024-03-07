@@ -289,6 +289,19 @@
 
                                         </ul>
                                     </li>
+
+
+
+                                    <li><a><i class="fa fa-building"></i> Historial <span
+                                                class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                  
+                                        <li><a href="/history-payments-old"> Pagos Años Anteriores</a></li>
+                                        <li><a href="/history-otrosCobros-old"> Otros Cobros Anteriores</a></li>
+
+
+                                        </ul>
+                                    </li>
                                 
     
                                 <li>

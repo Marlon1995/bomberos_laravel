@@ -41,8 +41,11 @@ class clients_secretariaController extends Controller
             )
           // ->whereNotIn( 'cli.estado'  , [1])
 
+      
+
             ->orderBy('cli.id' ,'desc')->get();
 
+       
 
         return view( 'clients_secretaria' , compact('data','sector','categoria','clients') );
     }
