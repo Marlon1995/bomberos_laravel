@@ -157,10 +157,13 @@
                     <td>{{ $item->tipos_pago }}</td>
                     <td>${{ round($item->valor, 2) }}</td>
                     <td>${{ $item->recargo }}</td>
-                    @if($item->tipos_pago=='ANTICIPO')
+                    @if($item->tipos_pago==='ANTICIPO')
                     $costo_admin=0;
-                    @endif
                     <td>${{ $costo_admin }}</td>
+                    @elseif
+                    <td>${{ $costo_admin }}</td>
+                    @endif
+                  
                    
                     <td>${{ $costo_titulo }}</td>
                     <td>${{ round($item->valor + $item->recargo+$costo_admin+$costo_titulo, 2) }}</td>
