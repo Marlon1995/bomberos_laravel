@@ -139,11 +139,11 @@
 
             @forelse($reporte as $item)
                 {{ $total_pago = 0}}
-                {{ $costo_admin = 2}}
+                {{ $costo_especie = 2}}
+                
                 {{ $costo_titulo = 1}}
                 {{ $total_vpagos = $total_vpagos + $item->valor  }}
-                {{ $total_especie = $total_especie + 2 }}
-                {{ $total_admin = $total_admin + 1 }}
+             
                 {{ $total_recargo = $total_recargo + $item->recargo  }}
                 <tr>
                     <td>{{ $x++ }}</td>
@@ -157,11 +157,13 @@
                     <td>{{ $item->tipos_pago }}</td>
                     <td>${{ round($item->valor, 2) }}</td>
                     <td>${{ $item->recargo }}</td>
-                    @if($item->tipos_pago==='ANTICIPO')
-                    $costo_admin=0
-                    <td>${{ $costo_admin }}</td>
+                    {{print($item->tipos_pago)}}
+                    @if($item->tipos_pago=='ANTICIPO')
+                    {{$costo_especie=0}}
+                    
+                    <td>${{ $costo_especie }}</td>
                     @else
-                    <td>${{ $costo_admin }}</td>
+                    <td>${{ $costo_especie }}</td>
                     @endif
                   
                    
@@ -169,6 +171,9 @@
                     <td>${{ round($item->valor + $item->recargo+$costo_admin+$costo_titulo, 2) }}</td>
 
                 </tr>
+
+                {{ $total_especie = $total_especie + $costo_especie }}
+                {{ $total_admin = $total_admin + 1 }}
            @empty
             @endforelse
 
