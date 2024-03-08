@@ -168,7 +168,7 @@
                   
                    
                     <td>${{ $costo_titulo }}</td>
-                    <td>${{ round($item->valor + $item->recargo+$costo_admin+$costo_titulo, 2) }}</td>
+                    <td>${{ round($item->valor + $item->recargo+$costo_especie+$costo_titulo, 2) }}</td>
 
                 </tr>
 
