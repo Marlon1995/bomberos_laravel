@@ -158,9 +158,9 @@
                     <td>${{ round($item->valor, 2) }}</td>
                     <td>${{ $item->recargo }}</td>
                     @if($item->tipos_pago==='ANTICIPO')
-                    $costo_admin=0;
+                    $costo_admin=0
                     <td>${{ $costo_admin }}</td>
-                    @elseif
+                    @else
                     <td>${{ $costo_admin }}</td>
                     @endif
                   
