@@ -38,6 +38,12 @@ Route::get('permiso-ordenanzas/{id}', 'PerisoFuncionamientoOrdenanzaController@p
 
 Route::resource('payments', 'PaymentsController');
 Route::resource('payments-ordenanzas', 'PaymentsOrdenanzaController');
+
+Route::post('facturar-ordenanza/{id}', 'PaymentsOrdenanzaController@facturar')->name('facturar-ordenanza');
+
+Route::post('emitir-ordenanza/{id}', 'PaymentsOrdenanzaController@emitir')->name('emitir-ordenanza');
+
+
 Route::resource('different-payments', 'OtrosPagosController');
 
 Route::get('cobro-ordenanza', 'OtrosPagosController@mostrar_pago_ordenanza');

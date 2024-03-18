@@ -28,11 +28,15 @@ class PaymentsOrdenanzaController extends Controller
     public function index()
     {
         $pagos = DB::table('client')
+        
           
             ->join('pagos_ordenanza', 'pagos_ordenanza.client_id', 'client.id')
+            ->where ('pagos_ordenanza.estado',7)
             ->select('client.id', 'client.ruc', 'client.razonSocial', 'client.representanteLegal',
                 'pagos_ordenanza.valor','pagos_ordenanza.estado',
+            
                 'pagos_ordenanza.tipoPago')
+               
                 
             ->get();
           
@@ -69,12 +73,14 @@ class PaymentsOrdenanzaController extends Controller
                 'parroquias.descripcion as parroquia',
                 'client.referencia',
                 'pagos_ordenanza.estado',
+                'pagos_ordenanza.valor',
                 DB::raw('TRIM(SUBSTRING_INDEX(pagos_ordenanza.descripcion, \'.\', 3)) as descripcion')
                 /* , 'categorias.descripcion as categoria' */
                 /* , 'denominaciones.descripcion as denominacion' */
             )
-            //->whereIn('client.estado', [7])
+            ->whereIn('pagos_ordenanza.estado', [7,4])
             ->get();
+           
            
         $formasPago = DB::table('formaspago')
             ->select('id', 'nombre')
@@ -332,17 +338,17 @@ class PaymentsOrdenanzaController extends Controller
 
      
 
-        PagosOrdenanzaModel::where('id','=', $id)
+      /*  PagosOrdenanzaModel::where('id','=', $id)
                      //  ->whereIn("tipoPago",[3,6])
                        ->whereIn("estado",[7,8])
                        ->delete();
+*/
 
-
-    /*    DB::table('client')->where('id', $id)->update([
+       PagosOrdenanzaModel::where('id','=', $id)->update([
             'estado' => 4,
             'updated_at'  => Carbon::now()
         ]);
- */
+
 
 
 
@@ -359,6 +365,51 @@ class PaymentsOrdenanzaController extends Controller
 
         return back()->with('Respuesta','EL PAGO FUE ANULADO!!.');
     
+    }
+
+    public function facturar($id)
+    {
+      
+    
+        PagosOrdenanzaModel::where('id', '=', $id)->update([
+            'estado' => 8,
+            'updated_at'  => Carbon::now()
+        ]);
+    
+        $auditoria = new AuditoriaModel();
+        $auditoria->user_id = auth()->user()->id;
+        $auditoria->role_id = auth()->user()->role->id;
+        $auditoria->modulo  = 'Pago Facturado...';
+        $auditoria->descripcion = 'Facturado cliente_id: ' . $id;
+        $auditoria->accion      = 'FACTURAR PAGO';
+        $auditoria->valor       = $id;
+        $auditoria->created_at  = Carbon::now();
+        $auditoria->save();
+    
+        return back()->with('Respuesta','EL PAGO FUE FACTURADO!!.');
+    }
+
+
+    public function emitir($id)
+    {
+      
+    
+        PagosOrdenanzaModel::where('id', '=', $id)->update([
+            'estado' => 7,
+            'updated_at'  => Carbon::now()
+        ]);
+    
+        $auditoria = new AuditoriaModel();
+        $auditoria->user_id = auth()->user()->id;
+        $auditoria->role_id = auth()->user()->role->id;
+        $auditoria->modulo  = 'Pago Emitido...';
+        $auditoria->descripcion = 'Emitir cliente_id: ' . $id;
+        $auditoria->accion      = 'EMITIR PAGO';
+        $auditoria->valor       = $id;
+        $auditoria->created_at  = Carbon::now();
+        $auditoria->save();
+    
+        return back()->with('Respuesta','EL PAGO FUE EMITIDO!!.');
     }
 }
 

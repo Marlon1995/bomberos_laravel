@@ -181,9 +181,11 @@ margin-left: -100px;
                                                             <th class="column-title ranSocial__pagos">ART. ORDENANZA</th>
 
                                                             <th class="column-title repesLegar__pagos">REP. LEGAL</th>
+                                                            <th class="column-title repesLegar__pagos">VALOR</th>
 <!--                                                             <th class="column-title saldo__pagos">CATEGORIA</th>
                                                             <th class="column-title saldo__pagos">DENOMINACION</th> -->
                                                             <th class="column-title accion__pagos" align="center"></th>
+                                                         
 
                                                         </tr>
                                                     </thead>
@@ -203,9 +205,43 @@ margin-left: -100px;
                                                                         class="razonSocial__tbpagos">{{ $item->descripcion }}</label>
                                                                 </td>
                                                                 <td><label
-                                                                        class="repLegar___tbPagos">{{ $item->representanteLegal }}</label>
+                                                                        class="ruc__tbpagos">{{ $item->representanteLegal }}</label>
                                                                        
                                                                 </td>
+                                                                <td><label
+                                                                        class="ruc__tbpagos">{{ $item->valor+3 }}</label>
+                                                                       
+                                                                </td>
+
+                                                               
+                                                                       
+                                                                @if (auth()->user()->hasRoles([3]))   
+
+                                                                <td>
+                                                                 
+                                                                </td>
+                                                                <td>
+    <form method="POST" action="{{ route('facturar-ordenanza', ['id' => $item->id]) }}">
+        @csrf
+        <button class="btn btn-success btn-xs btn-block">
+            FACTURAR <i class="fa fa-money"></i>
+        </button>
+    </form>
+</td>
+@endif
+@if (auth()->user()->hasRoles([1]))   
+                                                    @if ($item->estado==4)     
+                                                    <td>
+    <form method="POST" action="{{ route('emitir-ordenanza', ['id' => $item->id]) }}">
+        @csrf
+        <button class="btn btn-primary btn-xs btn-block">
+            EMITIR <i class="fa fa-check"></i>
+        </button>
+    </form>
+</td>
+                                                    
+
+                                                    @elseif($item->estado==7)
 
                                                                 <td>
                                                                     <form method="POST"
@@ -216,11 +252,12 @@ margin-left: -100px;
                                                                             value="{{ csrf_token() }}">
                                                                         {!! method_field('DELETE') !!}
                                                                         <button type="submit" class="btn btn-danger btn-xs btn-block">
-                                                                              Anular <i class="fa fa-trash"></i>
+                                                                              ANULAR <i class="fa fa-trash"></i>
                                                                                                 </button>
                                                                     </form>
                                                                 </td>
-
+                                                                @endif
+@endif
                                                             </tr>
                                                         @empty
                                                         @endforelse
@@ -470,7 +507,7 @@ margin-left: -100px;
                                                                     
                                                                     <div class="col-sm-12" >
                                                                  
-                                                                    <input type="submit" value="EMITIR" class="btn btn-info" style="font-size: 35px; text-align:center">
+                                                                    <input type="submit" value="REGISTRAR" class="btn btn-info" style="font-size: 35px; text-align:center">
 
                                                                     </div>
                                                                     

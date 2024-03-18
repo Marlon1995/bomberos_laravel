@@ -231,7 +231,7 @@ if($id_cliente==null)
         $data->numPermisoFuncionamiento     = $request->input('num_permiso');
         $data->docRespaldo                  = Null; //pago valor
         $data->valor                        = $request->input('valor'); //porcenta en porcentaje
-        $data->estado                       = 7;
+        $data->estado                       = 4;
         $data->recargo                      = Null;
         $data->timestamps                   = Carbon::now();
         $data->save();
