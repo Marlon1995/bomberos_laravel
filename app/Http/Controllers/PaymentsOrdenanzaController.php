@@ -123,7 +123,7 @@ class PaymentsOrdenanzaController extends Controller
                             'numTituloAdmin'=>$numTituloAdmin,
                             'numPermisoFuncionamiento'=>$numPermisoFuncionamiento,
                             'numTransaccion'=>$numTransaccion,
-                            'formaPago_id'=>6,
+                            'formaPago_id'=>$formaPago_id,
                             'recargo'=> 0,
                             'updated_at' => Carbon::now()
                         ]);
