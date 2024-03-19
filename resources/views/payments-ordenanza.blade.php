@@ -184,7 +184,7 @@ margin-left: -100px;
                                                             <th class="column-title repesLegar__pagos">VALOR</th>
 <!--                                                             <th class="column-title saldo__pagos">CATEGORIA</th>
                                                             <th class="column-title saldo__pagos">DENOMINACION</th> -->
-                                                            <th class="column-title accion__pagos" align="center"></th>
+                                                            <th class="column-title repesLegar__pagos" > OBSERVACION</th>
                                                          
 
                                                         </tr>
@@ -209,25 +209,29 @@ margin-left: -100px;
                                                                        
                                                                 </td>
                                                                 <td><label
-                                                                        class="ruc__tbpagos">{{ $item->valor+3 }}</label>
+                                                                        class="ruc__tbpagos">$ {{ $item->valor+3 }}</label>
                                                                        
                                                                 </td>
-
+                                                             
                                                                
                                                                        
                                                                 @if (auth()->user()->hasRoles([3]))   
 
+                                                            <td></td>
+
+                                                                @if($item->estado==7)
+
                                                                 <td>
-                                                                 
-                                                                </td>
-                                                                <td>
-    <form method="POST" action="{{ route('facturar-ordenanza', ['id' => $item->id]) }}">
         @csrf
-        <button class="btn btn-success btn-xs btn-block">
-            FACTURAR <i class="fa fa-money"></i>
-        </button>
-    </form>
+        <div data-toggle="modal"
+                                                                            data-ruc_patototal="{{ $item->id }}"
+                                                                            data-idCli="{{ $item->id }}"
+                                                                            data-target="#mdlPagos"
+                                                                            class="btn btn-info btn-xs btn-block pagar__pagos">
+                                                                            Facturar </div>
+       
 </td>
+@endif
 @endif
 @if (auth()->user()->hasRoles([1]))   
                                                     @if ($item->estado==4)     
@@ -285,7 +289,221 @@ margin-left: -100px;
             </div>
         </div>
 
+        <div class="modal fade" id="mdlPagos" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="max-width:80%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><i class="fa fa-money"></i> PAGO PERMISO DE FUNCIONAMIENTO </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
+
+                    <div class="modal-body">
+                        <div class="form-group row" style="margin-left: 10px">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3" style="text-align: right">
+                                        <img src="/assets/img/icons/logo.png" width="100px">
+                                    </div>
+                                    <div class="col-sm-6" style="text-align: center">
+                                        <h2 style="margin: 2px; font-weight: bold;">ACUERDO MINISTERIAL N° 1616 DEL 29 DE
+                                            OCTUBRE DE 1997</h2>
+                                        <p style="margin: 2px; font-weight: bold;">REGISTRO OFICIAL N° 741 DEL 29 DE ENERO
+                                            DEL 2019</p>
+                                        <p style="margin: 2px; font-weight: bold;">RUC: 08600506900001</p>
+                                        <p style="margin: 2px; font-weight: bold;">TELÉFONO: 0602760-223</p>
+                                        <p style="margin: 2px; font-weight: bold;">DIRECCIÓN: AV. PRINCIPAL/ATACAMES/LOS ALMENDROS</p>
+
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-6" style="text-align: center">
+                                       
+                                        <p style="text-align: right;">Atacames, {{ now()->toDateTimeString() }}</p>
+                                       
+                                        <style>
+                                            .margin_p {
+                                                margin: -6px;
+                                            }
+                                        </style>
+
+
+
+                                        <div class="container">
+                                            <div class="row" style="border: 0px solid;">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-5" style="text-align: left;">
+                                                    <p class="margin_p"><b>NOMBRE DEL ESTABLECIMIENTO: </b></p>
+                                                    <p class="margin_p"><b>CONTRIBUYENTE:</b></p>
+                                                    <p class="margin_p"><b>RUC: </b></p>
+                                                    <p class="margin_p"><b>DIRECCI&Oacute;N:</b></p>
+                                                    <p class="margin_p"><b>TEL&Eacute;FONO:</b></p><br>
+                                                    <p class="margin_p"><h2><b>AÑO:</b> {{ date('Y') }}</b></h2></p>
+
+                                                    <!-- <p class="margin_p"><b>CATEGORIA</b></p> -->
+
+                                                </div>
+                                                <div class="col-sm-5" style="text-align: left;padding: 5px">
+                                                    <p class="margin_p" id="razonSocial__MdPagos"></p>
+                                                    <p class="margin_p" id="repLegar__MdPagos"></p>
+                                                    <p class="margin_p" id="ruc__mdPAgos"></p>
+                                                    <p class="margin_p" id="direccion__MdPagos"></p>
+                                                    <p class="margin_p" id="telefono__MdPagos"></p><br>
+                                                  
+                                                    
+                                                    <!-- <p class="margin_p" id="catgoria__MdPagos"></p> -->
+                                                </div>
+                                                <div class="col-sm-1"></div>
+                                            </div>
+                                            <h2 style="text-align: center; font-weight: bold">PERMISO DE FUNCIONAMIENTO</h2>
+                                            <div class="row" style="border: 1px solid;">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-6" style="text-align: left;padding: 10px">
+
+                                                <p class="margin_p"><label><b>TASA DE PERMISO DE FUNCIONAMIENTO: </b></label></p>
+                                                    <p class="margin_p"><label><b>RECARGO:</b></label></p>
+                                                    <p class="margin_p"><label><b>DESCUENTO: </b></label></p>
+                                                    <p class="margin_p"><label><b>ANTICIPO:</b></label></p>
+                                                    <p class="margin_p"><label><b>ESPECIE:</b></label></p>
+                                                    <p class="margin_p"><label><b>SERVICIO ADMINISTRATIVO(TITULO DE CRÉDITO):</b></label></p>
+                                                    <p class="margin_p"  style="font-size: 20px; font-weight: bold"><label><b><h2>TOTAL:</h2></b></label></p>
+
+                                                </div>
+
+                                                <div class="col-sm-5" style="text-align: right;padding: 10px">
+                                                <p class="margin_p" ><label id="TasaAnual__mdpagos"></label></p>
+                                                <p class="margin_p" ><label id="RecargoTrimestral__mdpagos"></label></p>
+                                                <p class="margin_p" ><label id="descuentos__mdpagos"></label></p>
+                                                <p class="margin_p" ><label id="anticipos__mdpagos"></label></p>
+                                                <p class="margin_p" ><label>$ 2.00</label></p>
+                                                <p class="margin_p" ><label>$ 1.00</label></p><br>
+                                                <p style="font-size: 20px; font-weight: bold">$ <label id="saldo__mdpagos"></label></p>                                 
+                                                </div>
+                                              
+                                            </div>
+                                       
+
+
+                                            <form method="POST" action="{{ route('payments-ordenanzas.update', 2) }}">
+                                                <input type="hidden" name="tipoPago" value="3">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="cliend_ida" id="cliend_idmp_1" value="">
+
+                                                {!! method_field('PUT') !!}
+                                                <div class="row" style="border: 1px solid;">
+                                                    <div class="col-sm-1"></div>
+                                                    <div class="col-sm-19" style="text-align: left;padding: 10px">
+
+
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-4 col-sm-4 label-align"
+                                                                for="cedula">F.Pago</label>
+                                                            <div class="col-md-10 col-sm-10">
+                                                                <select class="form-control" name="formaPago"
+                                                                    id="formaPago_1">
+                                                                    @forelse ($formasPago as $fp)
+                                                                        <option value="{{ $fp->id }}">
+                                                                            {{ $fp->nombre }}</option>
+                                                                    @empty
+                                                                    @endforelse
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="item form-group numTransaccion_1CAJA">
+                                                            <label class="col-form-label col-md-4 col-sm-4 label-align"
+                                                                for="cedula">N. Trans #</label>
+                                                            <div class="col-md-10 col-sm-10">
+                                                                <input type="text" class="form-control numTransaccion_1"
+                                                                    name="numTransaccion" id="numTransaccion_1"
+                                                                    onKeyPress="return fn_aceptaNum(event)" value=""
+                                                                    placeholder="N&uacute;mero de Transacci&oacute;n">
+                                                            </div>
+                                                        </div>
+
+                                                     
+
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-4 col-sm-4 label-align"
+                                                                for="cedula">N. P. F #</label>
+                                                            <div class="col-md-10 col-sm-10">
+                                                                <input type="hidden" class="form-control"
+                                                                    name="valor__tbPagos" id="valor__tbPagos_a_1" value=""
+                                                                    onKeyPress="return fn_aceptaNum(event)"
+                                                                    placeholder="Valor ej. 10.50"
+                                                                    style="text-align: center">
+                                                                <input type="text" class="form-control"
+                                                                    name="numPermisoFuncionamiento"
+                                                                    id="numPermisoFuncionamiento_1" value=""
+                                                                    onKeyPress="return fn_aceptaNum(event)" required
+                                                                    placeholder="Número de Permiso de Funcionamiento"
+                                                                    style="text-align: center">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-4 col-sm-4 label-align"
+                                                                for="cedula">N.T. CRÉDITO #</label>
+                                                            <div class="col-md-10 col-sm-10">
+                                                                <input type="hidden" class="form-control"
+                                                                    name="valor__tbTitulo" id="valor__tbTitulo" value=""
+                                                                    onKeyPress="return fn_aceptaNum(event)"
+                                                                    placeholder="Valor ej. 10.50"
+                                                                    style="text-align: center">
+                                                                <input type="text" class="form-control"
+                                                                    name="numTituloAdmin"
+                                                                    id="numTituloAdmin" value=""
+                                                                    onKeyPress="return fn_aceptaNum(event)" required
+                                                                    placeholder=""
+                                                                    style="text-align: center">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="col-sm-1"></div>
+                                                </div>
+
+                                                <div class="row" style="border: 1px solid;">
+                                                    <div class="col-sm-1"></div>
+                                                    <div class="col-sm-10" style="text-align: left;padding: 10px">
+                                                        <textarea class="form-control" name="decripcion_mp_1" placeholder="Descripción" style="width: 99%"></textarea>
+                                                    </div>
+                                                    <div class="col-sm-1"></div>
+                                                    <div class="d-grid gap-4 col-8 mx-auto">
+                                                        <input class="btn btn-info" type="submit" value="FACTURAR" style="font-size: 30px">
+                                                    </div>
+                                                </div>
+                                                <!--<input type="submit" value="FACTURAR" class="btn btn-info" style="font-size: 50px">-->
+
+                                            </form>
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+        <!-- fin tasa anual -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal"
+                            aria-label="Close">Salir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="modal fade" id="mdlOrdenanza__new" tabindex="-1" role="dialog" aria-hidden="true" >
 
@@ -702,6 +920,7 @@ margin-left: -100px;
 
         /// pago total de tasa anual
         $(".pagar__pagos").on('click', function() {
+      
 
             var cli_id = $(this).attr("data-idCli");
 
@@ -711,8 +930,6 @@ margin-left: -100px;
 
            
 
-            console.log(endpoint);
-
             $.ajax({
                 async: false,
                 type: "GET",
@@ -720,6 +937,10 @@ margin-left: -100px;
                 contentType: "application/x-www-form-urlencoded",
                 url: endpoint,
                 success: function(datos) {
+
+                
+
+                    console.log(datos);
                     $("#razonSocial__MdPagos").text(datos['cliente']['razonSocial']);
                     $("#repLegar__MdPagos").text(datos['cliente']['representanteLegal']);
                     $("#ruc__mdPAgos").text(datos['cliente']['ruc']);
@@ -727,19 +948,13 @@ margin-left: -100px;
                     $("#telefono__MdPagos").text(datos['cliente']['telefono']);
                     $("#ordenanza__MdPagos").text(datos['cliente']['descripcion']);
                     /* $("#catgoria__MdPagos").text(datos['cliente']['categoria']); */
-                    var $valor = datos['cliente']['saldo'] + 2;
-                    if ($valor == 2) {
-                        $("#permiso").text('$ ' + 2.00);
-                        $valor = datos['cliente']['saldo'] + 2 + 2;
-
-                    }
-
-                    //hola
-                    else {
+                 
+                
+                  
                         $("#permiso").text('$ ' + 0.00);
 
-                        $valor = datos['cliente']['saldo'] + 2+1;
-                    }
+                        $valor = datos['Pagos']['TasaAnual'] + 2+1;
+                  
 
                     var $total_tasa = datos['Pagos']['TasaAnual'];
 

@@ -167,7 +167,7 @@ class DataController extends Controller
             ->select( DB::raw('sum(pagos_ordenanza.valor) as RecargoTrimestral' ))
             ->where('pagos_ordenanza.id','=',$id)
             ->where('pagos_ordenanza.estado','=',7)
-            ->where('pagos_ordenanza.tipoPago','=',4)
+            ->where('pagos_ordenanza.tipoPago','=',3)
             ->get();
 
 
