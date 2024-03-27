@@ -240,7 +240,7 @@ margin-left: -100px;
 @endif
 @if($item->estado==8)
 
-<td>
+<td style="color: green;">
 PAGADO
 
 </td>
@@ -249,7 +249,7 @@ PAGADO
 
 @if($item->estado==4)
 
-<td>
+<td style="color: red;">
 NO EMITIDO
 
 </td>
