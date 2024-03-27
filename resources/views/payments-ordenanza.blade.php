@@ -246,6 +246,15 @@ PAGADO
 </td>
 <td></td>
 @endif
+
+@if($item->estado==4)
+
+<td>
+NO EMITIDO
+
+</td>
+<td></td>
+@endif
 @endif
 @if (auth()->user()->hasRoles([1]))   
                                                     @if ($item->estado==4)     
