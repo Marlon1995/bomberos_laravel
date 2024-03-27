@@ -549,6 +549,7 @@ class ReporteController extends Controller
             'valor',
            'pagos_ordenanza.year_now',
            'pagos_ordenanza.numPermisoFuncionamiento',
+           'pagos_ordenanza.observacion',
            'pagos_ordenanza.numTransaccion',
            'valor','pagos_ordenanza.recargo',
            'pagos_ordenanza.numTituloAdmin',

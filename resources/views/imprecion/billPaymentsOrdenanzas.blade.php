@@ -183,13 +183,13 @@
     .pf__item_foter_fecha{
         position: absolute;
         left: 70px;
-        top:400px;
+        top:410px;
         font-size: 10px;
     }
     .pf__item_foter_fecha2{
         position: absolute;
         left: 450px;
-        top: 400px;
+        top: 410px;
         font-size: 10px;
     }
 
@@ -265,10 +265,11 @@
                 <table border="0">
                     <tr><td>NOMBRE DEL ESTABLECIMIENTO:</td></tr>
                     <tr><td>CONTRIBUYENTE:</td></tr>
+                    <tr><td>OBSERVACIÓN:</td></tr>
                     <tr><td>RUC:</td></tr>
                     <tr><td>DIRECCIÓN:</td></tr>
                     <tr><td>TELÉFONO:</td></tr>
-                    <tr><td>AÑO A CANCELAR:</td></tr>
+                    <tr><td>AÑO A CANCELAR:</td> </tr>
                     <tr><td>N° EMISIÓN:</td></tr>
                     <tr><td>ORDENANZA:</td></tr>
                     
@@ -282,6 +283,8 @@
                    
                     <tr><td>{{$client[0]->razonSocial}}</td></tr>
                     <tr><td>{{$client[0]->representanteLegal}}</td></tr>
+                    <tr><td>{{$client[0]->observacion}}</td></tr>
+
                     <tr><td>{{$client[0]->ruc}}</td></tr>
                     <tr><td>{{ substr( strtoupper($client[0]->parroquia.'/'.$client[0]->barrio.'/'.$client[0]->referencia),0,70) }}</td></tr>
                     <tr><td>{{$client[0]->telefono}}</td></tr>
@@ -295,6 +298,7 @@
       
     <table class="tbFactura" >
         <td style="width: 300px">
+            <br></br>
             <br></br>
             <br></br>
             <p ><h3 style="text-align: center;">PERMISO DE FUNCIONAMIENTO</h3></p>    

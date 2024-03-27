@@ -182,6 +182,7 @@ if($id_cliente==null)
     $send->parroquia_id         = 1;  
     $send->telefono             =  $request->telefono;
     $send->email             =  $request->input('email');
+   
     $send->referencia           =  $request->direccion;
      
     $send->inspector_id     = auth()->user()->id;
@@ -234,6 +235,7 @@ if($id_cliente==null)
         $data->estado                       = 4;
         $data->recargo                      = Null;
         $data->timestamps                   = Carbon::now();
+        $data->observacion             =  $request->input('observacion');
         $data->save();
 
         // $data = new OtrosPagosModel();

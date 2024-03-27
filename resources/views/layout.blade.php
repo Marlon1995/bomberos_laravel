@@ -283,7 +283,7 @@
                                                 class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                      
-                                            <li><a href="/payments-ordenanzas"> Pagos Ordenanzas</a></li>
+                                            <li><a href="/payments-ordenanzas"> Facturar Ordenanzas</a></li>
                                             <li><a href="/permisos-ordenanza"> Imprimir Permisos Ordenanzas</a></li>
                                             <li><a href="/history-ordenanzas"> Comprobantes Ordenanzas</a></li>
 
@@ -314,7 +314,7 @@
                                                 class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
 <!--                                            <li><a href="/cobro-ordenanza">Formulario Ordenanzas</a></li> -->
-                                            <li><a href="/payments-ordenanzas"> Pagos Ordenanzas</a></li>
+                                            <li><a href="/payments-ordenanzas"> Registrar Ordenanzas</a></li>
                                           
 
                                         </ul>

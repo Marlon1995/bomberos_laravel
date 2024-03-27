@@ -128,7 +128,6 @@ margin-left: -100px;
 
 
 
-
     <div class="right_col" role="main">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -178,13 +177,16 @@ margin-left: -100px;
                                                         <th class="column-title ruc__pagos">ID</th>
                                                             <th class="column-title ruc__pagos">CI - RUC</th>
                                                             <th class="column-title ranSocial__pagos">RAZ&Oacute;N SOCIAL</th>
+                                                            <th class="column-title ranSocial__pagos">OBSERVACION</th>
+
                                                             <th class="column-title ranSocial__pagos">ART. ORDENANZA</th>
 
                                                             <th class="column-title repesLegar__pagos">REP. LEGAL</th>
                                                             <th class="column-title repesLegar__pagos">VALOR</th>
 <!--                                                             <th class="column-title saldo__pagos">CATEGORIA</th>
                                                             <th class="column-title saldo__pagos">DENOMINACION</th> -->
-                                                            <th class="column-title repesLegar__pagos" > OBSERVACION</th>
+                                                            <th class="column-title repesLegar__pagos" > ESTADO</th>
+                                                            <th class="column-title repesLegar__pagos" > </th>
                                                          
 
                                                         </tr>
@@ -202,6 +204,9 @@ margin-left: -100px;
                                                                         class="razonSocial__tbpagos">{{ $item->razonSocial }}</label>
                                                                 </td>
                                                                 <td><label
+                                                                        class="razonSocial__tbpagos">{{ $item->observacion }}</label>
+                                                                </td>
+                                                                <td><label
                                                                         class="razonSocial__tbpagos">{{ $item->descripcion }}</label>
                                                                 </td>
                                                                 <td><label
@@ -217,7 +222,7 @@ margin-left: -100px;
                                                                        
                                                                 @if (auth()->user()->hasRoles([3]))   
 
-                                                            <td></td>
+                                                          
 
                                                                 @if($item->estado==7)
 
@@ -231,6 +236,15 @@ margin-left: -100px;
                                                                             Facturar </div>
        
 </td>
+<td></td>
+@endif
+@if($item->estado==8)
+
+<td>
+PAGADO
+
+</td>
+<td></td>
 @endif
 @endif
 @if (auth()->user()->hasRoles([1]))   
@@ -243,9 +257,19 @@ margin-left: -100px;
         </button>
     </form>
 </td>
-                                                    
 
-                                                    @elseif($item->estado==7)
+<td>
+<div data-toggle="modal"
+                                                                            data-ruc_patototal="{{ $item->id }}"
+                                                                            data-idCli="{{ $item->id }}"
+                                                                            data-target="#mdlPagos_editar"
+                                                                            class="btn btn-warning btn-xs btn-block editar_ordenanza">
+                                                                            Editar </div>
+       
+</td>
+                                        @endif            
+
+                                                    @if($item->estado==7)
 
                                                                 <td>
                                                                     <form method="POST"
@@ -260,7 +284,16 @@ margin-left: -100px;
                                                                                                 </button>
                                                                     </form>
                                                                 </td>
+                                                                <td></td>
                                                                 @endif
+
+                                                                @if($item->estado==8)
+
+<td>
+   PAGADO
+</td>
+<td></td>
+@endif
 @endif
                                                             </tr>
                                                         @empty
@@ -285,6 +318,166 @@ margin-left: -100px;
 
                     </div>
 
+                </div>
+            </div>
+        </ddiv>
+        <div class="modal fade" id="mdlPagos_editar" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="max-width:80%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><i class="fa fa-money"></i> PAGO PERMISO DE FUNCIONAMIENTO </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
+                    <div class="modal-body">
+                        <div class="form-group row" style="margin-left: 10px">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3" style="text-align: right">
+                                        <img src="/assets/img/icons/logo.png" width="100px">
+                                    </div>
+                                    <div class="col-sm-6" style="text-align: center">
+                                        <h2 style="margin: 2px; font-weight: bold;">ACUERDO MINISTERIAL N° 1616 DEL 29 DE
+                                            OCTUBRE DE 1997</h2>
+                                        <p style="margin: 2px; font-weight: bold;">REGISTRO OFICIAL N° 741 DEL 29 DE ENERO
+                                            DEL 2019</p>
+                                        <p style="margin: 2px; font-weight: bold;">RUC: 08600506900001</p>
+                                        <p style="margin: 2px; font-weight: bold;">TELÉFONO: 0602760-223</p>
+                                        <p style="margin: 2px; font-weight: bold;">DIRECCIÓN: AV. PRINCIPAL/ATACAMES/LOS ALMENDROS</p>
+
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-6" style="text-align: center">
+                                       
+                                        <p style="text-align: right;">Atacames, {{ now()->toDateTimeString() }}</p>
+                                       
+                                        <style>
+                                            .margin_p {
+                                                margin: -6px;
+                                            }
+                                        </style>
+
+
+
+                                        <div class="container">
+                                           
+                                       
+                                        <form method="POST" action="{{ route('actualizar-ordenanza', ['id' => $item->id]) }}">
+
+
+                                          
+                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                            <div class="container">
+                                                                <div class="row" style="border: 1px solid;">
+                                                                    <div class="col-sm-1"></div>
+                                                                    <div class="col-sm-10" style="text-align: left;padding: 10px">
+
+                                                                        <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">RUC</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                                <input type="text" class="form-control" name="ruc_edit" id="ruc_edit"  onKeyPress="return fn_aceptaNum(event)"  placeholder="RUC" required>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">NOMBRE DEL LOCAL</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                                <input type="text" class="form-control" name="nombreLocal_edit" id="nombreLocal_edit"  placeholder="NOMBRE DEL LOCAL" required>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">REPRESENTANTE LEGAL- PROPIETARIO</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                                <input type="text" class="form-control" name="representanteLegal_edit" id="representanteLegal_edit"  onKeyPress="return fn_aceptaLETRAS(event)"   placeholder="PROPIETARIO" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+
+                                                                   
+
+                                                                     
+
+                                                                        <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">TELÉFONO</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                                <input type="text" class="form-control" name="telefono_edit" id="telefono_edit"  placeholder="TELEFONO" required>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">DIRECCIÓN</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                                <!-- <input type="text" class="form-control " name="num_permiso_funcionamiento"   placeholder="NÚMERO PERMISO FUNCIONAMIENTO" required> -->
+                                                                                <input type="text" class="form-control" name="direccion_edit" id="direccion_edit"   placeholder="DIRECCIÓN" required>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">OBSERVACIÓN</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                                <!-- <input type="text" class="form-control " name="num_permiso_funcionamiento"   placeholder="NÚMERO PERMISO FUNCIONAMIENTO" required> -->
+                                                                                <input type="text" class="form-control" name="observacion_edit" id="observacion_edit"   placeholder="VEHICULO PLACA PDO675" required>
+   
+                                                                             
+                                                                            </div>
+                                                                        </div>
+
+                                                                        
+                                                                    </div>
+                                                                  
+                                                                </div>
+
+
+                                                            </div>
+                                                               
+                                                                    
+                                                                  
+                                                                <div class="col-sm-1"></div>
+                                                                    <div class="col-sm-12" >
+                                                                  
+                                                                      
+                                                                   
+                                                                    
+                                                                    <div class="col-sm-12" >
+                                                                 
+                                                                    <input type="submit" value="ACTUALIZAR" class="btn btn-info" style="font-size: 35px; text-align:center">
+
+                                                                    </div>
+                                                                    
+                                                                    <div class="col-sm-1"></div>
+                                
+                
+
+                                                                </div>
+                                                          
+                                                        </form>
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+        <!-- fin tasa anual -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal"
+                            aria-label="Close">Salir</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -574,6 +767,7 @@ margin-left: -100px;
                                                                                 <input type="text" class="form-control" name="representanteLegal" id="representanteLegal"  onKeyPress="return fn_aceptaLETRAS(event)"   placeholder="PROPIETARIO" required>
                                                                             </div>
                                                                         </div>
+                                                                        
 
                                                                    
 
@@ -592,6 +786,15 @@ margin-left: -100px;
                                                                                 <!-- <input type="text" class="form-control " name="num_permiso_funcionamiento"   placeholder="NÚMERO PERMISO FUNCIONAMIENTO" required> -->
                                                                                 <input type="text" class="form-control" name="direccion" id="direccion"   placeholder="DIRECCIÓN" required>
 
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">OBSERVACIÓN</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                                <!-- <input type="text" class="form-control " name="num_permiso_funcionamiento"   placeholder="NÚMERO PERMISO FUNCIONAMIENTO" required> -->
+                                                                                <input type="text" class="form-control" name="observacion" id="observacion"   placeholder="VEHICULO PLACA PDO675" required>
+   
+                                                                             
                                                                             </div>
                                                                         </div>
 
@@ -764,6 +967,137 @@ margin-left: -100px;
                     
        
               
+
+
+        <div class="modal fade" id="mdlOrdenanza__edit" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="max-width:80%;">
+
+
+
+
+        <div class="modal-content">
+       
+                            
+                            <div class="modal-body">
+                                <div class="form-group row" style="margin-left: 10px">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-3" style="text-align: right">
+                                                <img src="/assets/img/icons/logo.png" width="100px">
+                                            </div>
+                                            <div class="col-sm-6" style="text-align: center">
+                                                <h2 style="margin: 2px; font-weight: bold;">ACUERDO MINISTERIAL N° 1616 DEL 29 DE OCTUBRE DE 1997</h2>
+                                                <p style="margin: 2px; font-weight: bold;">REGISTRO OFICIAL N° 741 DEL 29 DE ENERO DEL 2019</p>
+                                                <p style="margin: 2px; font-weight: bold;">RUC 08600506900001</p>
+                                                <p style="margin: 2px; font-weight: bold;">TELEFONO: 0602731-001</p>
+                                            </div>
+                                            <div class="col-sm-3"></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-6" style="text-align: center">
+                                                <h2 style="text-align: center; font-weight: bold">ORDEN DE PAGO DE PERMISO DE ORDENANZAS</h2>
+                                                <p style="text-align: right;">Atacames, {{ now()->toDateTimeString()  }}</p>
+                                                <p style="text-align: right;">Permiso año {{date('Y')}} </p>
+                                                <style>
+                                                    .margin_p{
+                                                        margin: -6px;
+                                                    }
+                                                </style>
+
+
+                                                <form method="POST" action="agregar-cobro-ordenanza">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <div class="container">
+                                                        <div class="row" style="border: 1px solid;">
+                                                            <div class="col-sm-1"></div>
+                                                            <div class="col-sm-10" style="text-align: left;padding: 10px">
+
+                                                                <div class="item form-group ">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">RUC</label>
+                                                                    <div class="col-md-9 col-sm-9">
+                                                                        <input type="text" class="form-control" name="ruc_edit" id="ruc_edit"  onKeyPress="return fn_aceptaNum(event)"  placeholder="RUC" required>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="item form-group ">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">NOMBRE DEL LOCAL</label>
+                                                                    <div class="col-md-9 col-sm-9">
+                                                                        <input type="text" class="form-control" name="nombreLocal_edit" id="nombreLocal_edit"  placeholder="NOMBRE DEL LOCAL" required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="item form-group ">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">REPRESENTANTE LEGAL- PROPIETARIO</label>
+                                                                    <div class="col-md-9 col-sm-9">
+                                                                        <input type="text" class="form-control" name="representanteLegal_edit" id="representanteLegal_edit"  onKeyPress="return fn_aceptaLETRAS(event)"   placeholder="PROPIETARIO" required>
+                                                                    </div>
+                                                                </div>
+                                                                
+
+                                                           
+
+                                                             
+
+                                                                <div class="item form-group ">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">TELÉFONO</label>
+                                                                    <div class="col-md-9 col-sm-9">
+                                                                        <input type="text" class="form-control" name="telefono_edit" id="telefono_edit"  placeholder="TELEFONO" required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="item form-group ">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">DIRECCIÓN</label>
+                                                                    <div class="col-md-9 col-sm-9">
+                                                                        <!-- <input type="text" class="form-control " name="num_permiso_funcionamiento"   placeholder="NÚMERO PERMISO FUNCIONAMIENTO" required> -->
+                                                                        <input type="text" class="form-control" name="direccion_edit" id="direccion_edit"   placeholder="DIRECCIÓN" required>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="item form-group ">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">OBSERVACIÓN</label>
+                                                                    <div class="col-md-9 col-sm-9">
+                                                                        <!-- <input type="text" class="form-control " name="num_permiso_funcionamiento"   placeholder="NÚMERO PERMISO FUNCIONAMIENTO" required> -->
+                                                                        <input type="text" class="form-control" name="observacion_edit" id="observacion_edit"   placeholder="VEHICULO PLACA PDO675" required>
+
+                                                                     
+                                                                    </div>
+                                                                </div>
+
+                                                                
+                                                            </div>
+                                                       
+                                                        </div>
+
+
+                                                        
+                                                </form>
+
+
+                                            </div>
+                                            <div class="col-sm-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+          
+        </div>
+
+             
+  
+
+
+<div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal" aria-label="Close">Salir</button>
+    </div>
+  
+</div>
+</div>
      
     
 
@@ -998,6 +1332,59 @@ margin-left: -100px;
                 }
             });
         });
+
+
+        $(".editar_ordenanza").on('click', function() {
+      
+
+      var cli_id = $(this).attr("data-idCli");
+
+    
+      var endpoint = 'resumenPagoOrdenanzas/' + cli_id;
+      $("#cliend_idmp_1").val(cli_id);
+
+     
+
+      $.ajax({
+          async: false,
+          type: "GET",
+          dataType: "json",
+          contentType: "application/x-www-form-urlencoded",
+          url: endpoint,
+          success: function(datos) {
+
+          
+
+              console.log(datos);
+              $("#nombreLocal_edit").val(datos['cliente']['razonSocial']);
+              $("#representanteLegal_edit").val(datos['cliente']['representanteLegal']);
+              $("#ruc_edit").val(datos['cliente']['ruc']);
+              $("#direccion_edit").val(datos['cliente']['direccion']);
+              $("#telefono_edit").val(datos['cliente']['telefono']);
+              $("#observacion_edit").val(datos['cliente']['observacion']);
+            //  $("#ordenanza_edit").val(datos['cliente']['descripcion']);
+              /* $("#catgoria__MdPagos").text(datos['cliente']['categoria']); */
+           
+          
+            
+               
+
+
+
+
+
+
+
+           
+
+
+
+          },
+          error: function(d) {
+              toastr.error('Algo  salió mal, Reintente');
+          }
+      });
+  });
 
         $("#formaPago_1").change(function() {
             var $select = $("select[id=formaPago_1]").val(); // 1 es efectivo

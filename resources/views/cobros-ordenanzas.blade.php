@@ -119,6 +119,16 @@
                                                                         </div>
 
                                                                         
+                                                                        <div class="item form-group ">
+                                                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="cedula">OBERVACIÓN</label>
+                                                                            <div class="col-md-9 col-sm-9">
+                                                                                <!-- <input type="text" class="form-control " name="num_permiso_funcionamiento"   placeholder="NÚMERO PERMISO FUNCIONAMIENTO" required> -->
+                                                                                <input type="text-area" class="form-control" name="direccion" id="direccion"   placeholder="DIRECCIÓN" required>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        
                                                                     </div>
                                                                     <div class="col-sm-1"></div>
                                                                 </div>

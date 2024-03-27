@@ -44,6 +44,8 @@ Route::post('facturar-ordenanza/{id}', 'PaymentsOrdenanzaController@facturar')->
 Route::post('emitir-ordenanza/{id}', 'PaymentsOrdenanzaController@emitir')->name('emitir-ordenanza');
 
 
+Route::post('actualizar-ordenanza/{id}', 'PaymentsOrdenanzaController@actualizar')->name('actualizar-ordenanza');
+
 Route::resource('different-payments', 'OtrosPagosController');
 
 Route::get('cobro-ordenanza', 'OtrosPagosController@mostrar_pago_ordenanza');

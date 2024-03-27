@@ -213,11 +213,11 @@
                 
                 <th>CI - RUC</th>
                 <th>RAZÓN SOCIAL</th>
+                <th>OBSERVACIÓN</th>
                 <th>FORMA PAGO</th>
                 <th>N° T. CRED.</th>
                 <th>TIPO DE PAGO</th>
                 <th>VALOR</th>
-                <th>RECARGO</th>
                 <th>ESPECIE</th>
                 <th>T. ADMIN</th>
                 <th>TOTAL</th>
@@ -244,11 +244,11 @@
                   
                     <td>{{ $item->ruc }}</td>
                     <td>{{ $item->razonSocial }}</td>
+                    <td>{{ $item->observacion }}</td>
                     <td>{{ $item->formaspago }}</td>
                     <td>{{ $item->numTituloAdmin }}</td>
                     <td>{{ $item->tipos_pago }}</td>
                     <td>${{ round($item->valor , 2) }}</td>
-                    <td>${{ $item->recargo }}</td>
                     
                     <td>${{ 2 }}</td>
                     <td>${{ 1 }}</td>

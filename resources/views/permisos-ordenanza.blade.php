@@ -103,6 +103,7 @@
                                             <th class="column-title">ID</th>
                                                 <th class="column-title">RUC</th>
                                                 <th class="column-title">RAZ&Oacute;N SOCIAL</th>
+                                                <th class="column-title">OBSERVACIÓN</th>
                                                 <th class="column-title">REP. LEGAL</th>
                                                 <th class="column-title">AÑO</th>
                                                 <th class="column-title no-link last"> &nbsp;ACCI&Oacute;N&nbsp;&nbsp;</th>
@@ -115,6 +116,9 @@
                                                     <td><label class="a-center ruc">{{ $item->ruc }}</label></td>
                                                     <td><label
                                                             class="a-center razonSocial">{{ $item->razonSocial }}</label>
+                                                    </td>
+                                                    <td><label
+                                                            class="a-center razonSocial">{{ $item->observacion }}</label>
                                                     </td>
                                                     <td>
                                                         <label

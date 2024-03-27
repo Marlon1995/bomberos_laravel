@@ -195,7 +195,7 @@ class DataController extends Controller
             /* ->join('categorias',  'categorias.id' , 'client.categoria_id') */
             ->join('parroquias',  'parroquias.id' , 'client.parroquia_id')
             ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'client.id')
-            ->select( 'client.razonSocial','client.representanteLegal',
+            ->select( 'client.razonSocial','client.representanteLegal','pagos_ordenanza.observacion',
             DB::raw('TRIM(SUBSTRING_INDEX(pagos_ordenanza.descripcion, \'.\', 3)) as descripcion')
             ,'client.ruc','client.barrio', 'client.telefono','parroquias.descripcion as parroquia','client.referencia'/* ,'categorias.descripcion as categoria' */)
             ->where('pagos_ordenanza.id','=',$id)
@@ -224,6 +224,7 @@ class DataController extends Controller
                     "ruc"                   => $cliente[0]->ruc,
                     "telefono"              => $cliente[0]->telefono,
                     "descripcion"              => $cliente[0]->descripcion,
+                    "observacion"              => $cliente[0]->observacion,
                     "direccion"             => strtoupper ($cliente[0]->parroquia.' '.$cliente[0]->barrio),
                    
                     "saldo"                 => $saldo
@@ -361,7 +362,7 @@ public function historialOrdenanzas(){
             })
             ->leftJoin('formaspago', 'formaspago.id', 'pagos_ordenanza.formaPago_id')
             ->select('ruc', 'razonSocial', 'formaspago.nombre as formaspago', 'tipos_pago.nombre as tipos_pago', 'valor', 'pagos_ordenanza.id', 'pagos_ordenanza.updated_at as created_at'
-                ,'pagos_ordenanza.docRespaldo' , 'pagos_ordenanza.descripcion' )
+                ,'pagos_ordenanza.docRespaldo' , 'pagos_ordenanza.descripcion','pagos_ordenanza.observacion' )
             ->whereIn('tipos_pago.id', [2])
             ->orderBy('id', 'desc')
             ->get();
@@ -377,10 +378,10 @@ public function historialOrdenanzas(){
              })
             ->leftJoin('formaspago', 'formaspago.id', 'pagos_ordenanza.formaPago_id')
             ->select('ruc', 'razonSocial', 'formaspago.nombre as formaspago', 'tipos_pago.nombre as tipos_pago', 'valor', 'pagos_ordenanza.id'
-                , 'pagos_ordenanza.updated_at as created_at', 'pagos_ordenanza.descripcion')
+                , 'pagos_ordenanza.updated_at as created_at', 'pagos_ordenanza.descripcion','pagos_ordenanza.observacion')
             ->whereNotIn('tipos_pago.id', [5,6])
             ->where('pagos_ordenanza.estado','=', 8)
-            ->orderBy('id', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
             
         return view('imprecion/historyOrdenanzas', compact('data', 'historial'));
@@ -496,6 +497,7 @@ return $pdf->stream($doc . '.pdf');
                 ->select(
                     'client.ruc',
                     'client.razonSocial',
+                    'pagos_ordenanza.observacion',
                     'parroquias.descripcion as parroquia',
                     'client.barrio',
                     'client.telefono',

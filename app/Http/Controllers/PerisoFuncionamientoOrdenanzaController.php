@@ -39,6 +39,7 @@ class PerisoFuncionamientoOrdenanzaController extends Controller
                 , 'cli.denominacion_id'
                 , 'cli.tipoFormulario'
                 , 'cli.estado'
+                , 'pagos_ordenanza.observacion'
             )
             ->join('pagos_ordenanza',  'pagos_ordenanza.client_id' , 'cli.id')
             ->where('pagos_ordenanza.estado', '=', 8)
@@ -70,6 +71,7 @@ class PerisoFuncionamientoOrdenanzaController extends Controller
                 , 'cli.tipoFormulario'
                 ,'pagos_ordenanza.updated_at as anio'
                 ,'pagos_ordenanza.descripcion'
+                ,'pagos_ordenanza.observacion'
 /*                 , 'denominaciones.descripcion as denominacion'
                 , 'categorias.descripcion as categorias'
                 , 'riesgos.descripcion as riesgo' */

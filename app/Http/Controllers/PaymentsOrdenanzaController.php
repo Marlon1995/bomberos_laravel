@@ -34,6 +34,7 @@ class PaymentsOrdenanzaController extends Controller
             ->where ('pagos_ordenanza.estado',7)
             ->select('client.id', 'client.ruc', 'client.razonSocial', 'client.representanteLegal',
                 'pagos_ordenanza.valor','pagos_ordenanza.estado',
+                'pagos_ordenanza.observacion',
             
                 'pagos_ordenanza.tipoPago')
                
@@ -65,6 +66,7 @@ class PaymentsOrdenanzaController extends Controller
             ->join('pagos_ordenanza', 'pagos_ordenanza.client_id', 'client.id')
             ->select(
                 'pagos_ordenanza.id',
+                'pagos_ordenanza.observacion',
                 'client.razonSocial',
                 'client.representanteLegal',
                 'client.ruc',
@@ -78,7 +80,7 @@ class PaymentsOrdenanzaController extends Controller
                 /* , 'categorias.descripcion as categoria' */
                 /* , 'denominaciones.descripcion as denominacion' */
             )
-            ->whereIn('pagos_ordenanza.estado', [7,4])
+            ->whereIn('pagos_ordenanza.estado', [7,4,8])
             ->get();
            
            
@@ -281,6 +283,21 @@ class PaymentsOrdenanzaController extends Controller
         $auditoria->save();
     
         return back()->with('Respuesta','EL PAGO FUE EMITIDO!!.');
+    }
+
+    public function actualizar(Request $request,$id)
+    {
+        $observacion = $request->input('observacion_edit');
+
+    
+        PagosOrdenanzaModel::where('id', '=', $id)->update([
+            'observacion' => $observacion,
+            'updated_at'  => Carbon::now()
+        ]);
+    
+    
+    
+        return back()->with('Respuesta','Data Actualizada!');
     }
 }
 

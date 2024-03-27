@@ -72,17 +72,23 @@
     .pf__item_a {
         position: relative;
         left: 130px;
-        top: 340px;
+        top: 320px;
         font-size: 12px;
     }
 
     .pf__item_b {
         position: absolute;
         left: 130px;
-        top: 360px;
+        top: 340px;
         font-size: 12px;
     }
     .pf__item_c {
+        position: absolute;
+        left: 130px;
+        top: 360px;
+        font-size: 12px;
+    }
+    .pf__item_ob {
         position: absolute;
         left: 130px;
         top: 380px;
@@ -176,6 +182,11 @@
         <div class="pf__item_c">
             <b>CONTRIBUYENTE:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             {{substr($client[0]->representanteLegal, 0,50)}}
+        </div>
+
+        <div class="pf__item_ob">
+            <b>OBSERVACION:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{$client[0]->observacion}}
         </div>
 
         <div class="pf__item_di">

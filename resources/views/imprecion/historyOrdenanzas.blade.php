@@ -21,7 +21,7 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="page-title">
                                     <div class="title_left">
-                                        <h2><i class="fa fa-file-text-o"></i> Historial de Pagos Ordenanza</h2>
+                                        <h2><i class="fa fa-file-text-o"></i> Comprobantes de Pagos Ordenanza</h2>
                                     </div>
                                     <div class="title_right">
 
@@ -35,6 +35,7 @@
                                             <tr class="headings">
                                                 <th class="column-title ">CI - RUC</th>
                                                 <th class="column-title ">RAZ&Oacute;N SOCIAL</th>
+                                                <th class="column-title ">OBSERVACIÓN</th>
                                                 <th class="column-title ">FORMA PAGO</th>
                                                 <th class="column-title ">TIPO PAGO</th>
                                                 <th class="column-title ">DESCRIPCI&Oacute;N</th>
@@ -59,6 +60,8 @@
                                                     <tr class="evenpointer">
                                                         <td><label>{{$item->ruc}}</label></td>
                                                         <td><label>{{$item->razonSocial}}</label></td>
+                                                        <td><label>{{$item->observacion}}</label></td>
+
 
                                                     @if( !empty( $item->formaspago ) ) <td><label>{{$item->formaspago}}</label></td> @else <td><label> EFECTIVO </label> </td> @endif
 
@@ -120,6 +123,9 @@
             function fn_tb_historial_ini() {
                 tb_historial = $("#tb_historial").dataTable({
                      pageLength: 10,
+                     order: [
+                [0, "desc"]
+            ],
 
                     "language": {
                         "lengthMenu": 'Mostrar'+
