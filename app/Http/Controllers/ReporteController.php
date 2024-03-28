@@ -72,6 +72,7 @@ class ReporteController extends Controller
                'pagos_ordenanza.numPermisoFuncionamiento',
                'pagos_ordenanza.numTransaccion',
                'pagos_ordenanza.numTituloAdmin',
+               'pagos_ordenanza.observacion',
                'valor','pagos_ordenanza.recargo',
                 'pagos_ordenanza.updated_at as created_at')
             ->whereNotIn('tipos_pago.id', [2])
